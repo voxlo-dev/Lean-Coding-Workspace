@@ -1,0 +1,29 @@
+# OS cruft
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Editor / IDE
+.idea/
+.vscode/*
+!.vscode/extensions.json
+*.swp
+*~
+
+# Environment / secrets
+.env
+.env.local
+*.local
+
+# Logs
+*.log
+
+# Build output / dependencies (uncomment / extend per stack)
+# node_modules/
+# dist/
+# build/
+# target/
+# bin/
+# obj/
+
+# Domain-specific entries are added by project-initialiser.
