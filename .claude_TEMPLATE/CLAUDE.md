@@ -92,6 +92,8 @@ Options:
 
 - **minimal-workflow** — a single, small, well-scoped change or bugfix
 - **spec-workflow** — feature work needing a spec / multiple work packages
+- **orchestrator-workflow** — large, parallelisable work that warrants the full autonomous pipeline (pair-plan → spec → auto-scaled impl → E2E loop); heavier than spec-workflow
+- **localagent-workflow** — full feature build that must stay robust on a weak/local (~30B) model: sequential, context-frugal per-unit TDD loop; also runnable by an external local-model runner
 - **superpowers** — invoke `superpowers/using-superpowers` for the full brainstorm → plan → implement framework
 - **no workflow** — use no workflow skill; relax these rules and let the agent work freely
 
