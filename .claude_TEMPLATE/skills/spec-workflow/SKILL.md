@@ -5,25 +5,21 @@ description: "Use for feature work on an existing project that needs a spec and 
 
 # Spec Workflow
 
-Main thread runs the orchestration model (start on Opus/Fable or use `opusplan`); implementation is delegated to **Sonnet subagents**.
+Main thread runs the orchestration model (start on Opus/Fable or use `opusplan`); each work package is delegated to a **Sonnet subagent**.
+
+Work packages are **phases**, not vertical slices: write the tests once, implement until green, optionally run e2e, then docs. Commit after every package.
 
 1. **Brainstorm** with the user — invoke superpowers' brainstorming skill; do not reinvent it.
-2. **Spec** — copy `docs/specs/SPEC_TEMPLATE.md` to a new spec file under `docs/specs/`, then fill it. Break the work into work packages (WPs), each independently implementable and testable. A simple, small plan can be a **single WP** — don't force a split.
-3. **Set the autonomy mode** — ask the user up front: fully autonomous, or pause for review after each WP. Follow that for the whole run.
-4. **Per work package** — dispatch a Sonnet subagent per WP. For a single, simple WP, skip the subagent and implement directly. Each subagent:
-   1. Writes tests first — sensible **core** coverage only; skip trivial tests (aim for fewer lines of test code than production code).
-   2. Implements.
-   3. Runs unit + UI tests until green.
-   4. Invokes `maintain-docs`.
-   5. Commits.
-   - If not autonomous, pause for user review after the WP.
+2. **Spec** — copy `docs/specs/SPEC_TEMPLATE.md` to a new spec file under `docs/specs/`, then fill it. The packages are the fixed phases below; the only thing you size is how many **implement** packages the spec needs (≥1).
+3. **Set the autonomy mode** — ask the user up front, with a recommendation: (a) fully autonomous or pause for review after each package, and (b) dispatch a Sonnet subagent per package or run the packages directly in the main thread (recommend direct for a small spec, subagents for a large one). Follow both for the whole run.
+4. **Run the packages in order**, each as a Sonnet subagent (or directly, per step 3), and commit after each:
+   1. **Test package** — write all tests for the spec in one pass (unit/integration + e2e). Sensible test flows across components, no redundancy; merge with existing tests rather than duplicating; **core** coverage only (aim for fewer lines of test than production). e2e tests are written here but not run yet.
+   2. **Implement package(s)** — at least one. Write the production code and run unit tests until green. Split into several implement packages when the spec is large; otherwise one.
+   3. **e2e package (optional)** — only if the project has a UI and an e2e framework in place. Run the e2e tests from the test package and fix until green. If there's no e2e available, hand off to the user to verify; on their OK, continue to docs.
+   4. **Docs package** — invoke `maintain-docs` for all sensible doc changes in one pass.
+   - If not autonomous, pause for user review after each package.
 
-   **Handoff:** brainstorming already loaded the relevant files into context — write the handoff from that, not from scratch. Detailed enough that the subagent need not re-read everything, but not so detailed that writing it costs more than just implementing. Tell it which files to re-read and which it can safely skip.
+   **Handoff:** brainstorming already loaded the relevant files into context — write each subagent's handoff from that, not from scratch. Detailed enough that the subagent need not re-read everything, but not so detailed that writing it costs more than just implementing. Tell it which files to re-read and which it can safely skip.
 5. **Stuck? Escalate.** On a technical problem, pause and ask the user after ~5 solution attempts (an attempt = a new approach via a tool call) — don't grind.
-6. **Persist memory** — invoke `maintain-memory` to save decisions, rationale, and gotchas to the right scope (and prune stale entries). If a reusable procedure emerged, create a skill with superpowers' **skill-creator** — decide its scope and place it accordingly:
-   - global → `~/.claude/skills/{skill-name}/` (must be a **direct** child of `skills/`; grouping subfolders aren't discovered)
-   - domain → the domain master under `~/.claude/domains/{x}-domain/`
-   - project → the repo's `.claude/skills/`
-
-   A brand-new skill *folder* is usually discovered only on the next session — flag this to the user.
+6. **Persist memory** — invoke `maintain-memory` to save decisions, rationale, and gotchas to the right scope, prune stale entries, and spin off a reusable skill if one emerged.
 7. **Open a pull request.**
