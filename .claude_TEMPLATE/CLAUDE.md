@@ -23,6 +23,8 @@ Assume the user is capable, but lazy with words, because he can't type as fast a
 **Language rules:** Keep all Markdown files English only.
 {e.g. answer in german in chats}
 
+**Tool call rules:**: Default to the most capable shell of the operating system (e.g powershell for windowes / bash for Linux), if one shell does not work use another.
+
 **Version Control rules:** {e.g. Conventional Commits — `<type>(<scope>): <subject>`
   Types: `feat` `fix` `docs` `refactor` `test` `chore`
   e.g. `feat(auth): add token refresh` · `fix(api): handle empty payload`
@@ -44,8 +46,7 @@ Assume the user is capable, but lazy with words, because he can't type as fast a
 | --- | --- | --- |
 | superpowers | Brainstorming, planning, skill-creation framework | Brainstorm/spec phases; whenever a new reusable skill is needed |
 | codegraph | Pre-indexed code knowledge graph (MCP) | Any structural / "how does X work" / impact question in an **indexed** project. Self-describes via its MCP server — do not duplicate its guidance here |
-| claude-mem | Long-term memory across sessions | Persisted to claude-mem at each workflow's memory step |
-| headroom | In-session context-budget management **only** | Automatic. Does NOT own long-term memory — that is claude-mem |
+| headroom | In-session context-budget management **only** | Automatic. Handles in-session budget only — long-term memory is the native `MEMORY.md` system below, not headroom |
 
 Policy: codegraph replaces file-reading exploration. In an indexed project, answer
 structural questions by querying codegraph directly — do **not** spawn Explore
@@ -64,13 +65,27 @@ MCP runs only in Unity repos.
 
 Available masters: {}. Create one with the `domain-initialiser` skill.
 
+## Memory
+
+Long-term memory is **native Markdown** — no plugin. The `maintain-memory` skill curates
+it; `headroom` covers in-session budget only. Three scopes, pick the narrowest:
+
+- **Project** — `~/.claude/projects/<repo>/memory/`, auto-loaded every session (native).
+- **Domain** — `~/.claude/domains/{x}-domain/DOMAIN-MEMORY.md`, imported by domain projects.
+- **Global** — `~/.claude/memory/MEMORY.md`, imported here so it loads in every project:
+
+@~/.claude/memory/MEMORY.md
+
+`maintain-memory` runs at each workflow's memory step: writes new facts to the right
+scope and **prunes stale ones**. Imported (domain/global) memory loads in full — keep lean.
+
 ## Workflows (skills — invoke, don't read files)
 
-Each is an explicit-invoke skill (`disable-model-invocation`).
+These load as skills — Claude may invoke one when you name it, and you can also run it with `/name`. (Only `workspace-install` is user-only via `disable-model-invocation`.)
 
 **If the user named a concrete workflow or skill, use it directly.** Otherwise, at the start of a new chat:
 
-1. Retrieve relevant context from claude-mem.
+1. Check memory for relevant context — the project `MEMORY.md` (and any imported domain/global memory) already loaded; consult it.
 2. Ask the user which workflow to use — with a recommendation inferred from their prompt and that context. Do not start work before they choose.
 
 Options:
@@ -82,4 +97,4 @@ Options:
 
 Onboarding a new/existing project → recommend `project-initialiser` first.
 
-Before starting the chosen workflow, make sure relevant claude-mem context is loaded.
+Before starting the chosen workflow, make sure relevant memory context is loaded.

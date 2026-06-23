@@ -17,7 +17,7 @@ For each doc, ask "does *this* change affect it?" from what you already know. Op
 
 | Doc | Update when | Action |
 | --- | --- | --- |
-| `AGENTS.md` → Living context | goals, open decisions, or gotchas changed | edit the relevant subsection; also fix code-style/conventions if they changed (single source — never copy into README) |
+| `AGENTS.md` → Living context | goals or open decisions changed | edit the relevant subsection; also fix code-style/conventions if they changed (single source — never copy into README). **Gotchas/learnings go to project memory via `maintain-memory`, not here.** |
 | `AGENTS.md` → Doc map | a doc was added or removed | keep the map listing only docs that exist |
 | `ASSETS.md` (if present) | assets were added, moved, or repurposed | add/adjust the row(s); keep `Used in` accurate |
 | `docs/architecture/` (if present) | core architecture changed or was extended | see Architecture below |

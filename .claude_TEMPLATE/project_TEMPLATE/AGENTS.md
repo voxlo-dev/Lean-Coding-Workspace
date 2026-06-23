@@ -36,7 +36,9 @@ Agent-agnostic project guide. Single source of truth for domain, structure, and 
 
 ## Living context
 
-Project level goals, open decisions, and gotchas. Keep factual and current — prune what's no longer relevant.
+Human-set, committed project state — goals and open decisions. Keep factual and current.
+Gotchas and learnings Claude discovers live in **project memory** (the `maintain-memory`
+skill), not here.
 
 ### Current goals
 
@@ -45,7 +47,3 @@ Project level goals, open decisions, and gotchas. Keep factual and current — p
 ### Open decisions
 
 {undecided questions and their options}
-
-### Gotchas
-
-{non-obvious constraints, traps, things that bit us}
