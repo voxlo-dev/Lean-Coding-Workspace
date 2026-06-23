@@ -44,6 +44,17 @@ broad. When scope becomes clearer later, **move** the entry (don't copy it).
   exists** — fix or drop it if not.
 - Merge duplicates; demote an over-broad entry to a narrower scope.
 
+## Spin off a skill — if a reusable procedure emerged
+
+When the work produced a reusable procedure worth keeping, create a skill with
+superpowers' **skill-creator** and place it by scope:
+
+- global → `~/.claude/skills/{skill-name}/` (must be a **direct** child of `skills/`; grouping subfolders aren't discovered)
+- domain → the domain master under `~/.claude/domains/{x}-domain/`
+- project → the repo's `.claude/skills/`
+
+A brand-new skill *folder* is usually discovered only on the next session — flag this to the user.
+
 ## Note
 
 A brand-new domain/global memory file only enters context once its `@import` is wired

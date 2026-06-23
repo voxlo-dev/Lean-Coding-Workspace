@@ -97,6 +97,8 @@ Options:
 - **superpowers** — invoke `superpowers/using-superpowers` for the full brainstorm → plan → implement framework
 - **no workflow** — use no workflow skill; relax these rules and let the agent work freely
 
+Designing a new project or a large architecture change → recommend `project-designer` (deep brainstorm + web research → architecture doc → optional spec-workflow handoff).
+
 Onboarding a new/existing project → recommend `project-initialiser` first.
 
 Before starting the chosen workflow, make sure relevant memory context is loaded.

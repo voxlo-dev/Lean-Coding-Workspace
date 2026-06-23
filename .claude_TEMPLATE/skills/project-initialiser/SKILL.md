@@ -43,7 +43,7 @@ Onboard a repo end-to-end. Owns the **initial** doc creation (it does the deep e
 
 8. **ASSETS.md** (only if the frontend condition in step 4 holds) — dispatch a subagent to explore the **asset tree only** (codegraph does not cover assets) and fill `ASSETS.md`.
 
-9. **Architecture** (only if chosen) — read the core source files and fill `docs/architecture/ARCHITECTURE.md` at the **macro level only** (big picture). Details accrue later via `maintain-docs`.
+9. **Architecture** (only if chosen) — for an existing codebase, read the core source files and fill `docs/architecture/ARCHITECTURE.md` at the **macro level only** (big picture). For a new project, or whenever the user wants a *designed* rather than reverse-engineered architecture, invoke `project-designer` to design it and write the doc, then continue. Details accrue later via `maintain-docs`.
 
 10. **Wiki** (only if chosen) — fill `docs/wiki/Home.md` and add the pages it lists, scaled to the project.
 

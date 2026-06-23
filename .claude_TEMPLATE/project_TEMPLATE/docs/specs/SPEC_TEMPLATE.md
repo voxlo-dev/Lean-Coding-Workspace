@@ -3,7 +3,7 @@
 Date: {YYYY-MM-DD} · Status: {draft | approved | done}
 
 Feature spec for the spec-workflow. Comes out of brainstorming; drives the
-per-WP subagent loop (tests → implement → test → docs → commit).
+phase packages — tests → implement → [e2e] → docs, committing after each.
 
 ## Goal / problem
 
@@ -28,19 +28,21 @@ per-WP subagent loop (tests → implement → test → docs → commit).
 
 ## Work packages
 
-Each WP is independently implementable and testable. A simple spec can be a single WP.
+Fixed phases, run in order, commit after each. Size only the implement packages.
 
-- **WP1 — {name}:** {what to build} · files: {paths to read/touch} · done when: {criterion}
-- **WP2 — {name}:** {…}
+- **Test:** all tests for this spec (unit + e2e) — {key flows to cover; existing tests to merge with}
+- **Implement:** {one or more; what each builds} · files: {paths to read/touch}
+- **e2e** (only if UI): run the e2e tests against the built UI
+- **Docs:** {which docs need updating}
 
 ## Acceptance criteria
 
 - [ ] {observable, testable outcome}
 - [ ] {…}
 
-## Test plan
+## Test strategy
 
-{unit + UI/integration tests that prove the criteria}
+{unit/integration + e2e tests that prove the criteria}
 
 ## Open questions
 
