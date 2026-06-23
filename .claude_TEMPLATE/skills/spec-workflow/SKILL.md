@@ -1,7 +1,6 @@
 ---
 name: spec-workflow
-description: "Use for feature work on an existing project that needs a spec and several work packages. Orchestrate on Opus/Fable, delegate implementation to Sonnet subagents. Invoke explicitly."
-disable-model-invocation: true
+description: "Use for feature work on an existing project that needs a spec and several work packages. Orchestrate on Opus/Fable, delegate implementation to Sonnet subagents."
 ---
 
 # Spec Workflow
@@ -21,8 +20,8 @@ Main thread runs the orchestration model (start on Opus/Fable or use `opusplan`)
 
    **Handoff:** brainstorming already loaded the relevant files into context — write the handoff from that, not from scratch. Detailed enough that the subagent need not re-read everything, but not so detailed that writing it costs more than just implementing. Tell it which files to re-read and which it can safely skip.
 5. **Stuck? Escalate.** On a technical problem, pause and ask the user after ~5 solution attempts (an attempt = a new approach via a tool call) — don't grind.
-6. **Persist memory** — save decisions, rationale, and gotchas to **claude-mem** (not headroom). If a reusable procedure emerged, create a skill with superpowers' **skill-creator** — decide its scope and place it accordingly:
-   - global → `~/.claude/skills/generated-skills/`
+6. **Persist memory** — invoke `maintain-memory` to save decisions, rationale, and gotchas to the right scope (and prune stale entries). If a reusable procedure emerged, create a skill with superpowers' **skill-creator** — decide its scope and place it accordingly:
+   - global → `~/.claude/skills/{skill-name}/` (must be a **direct** child of `skills/`; grouping subfolders aren't discovered)
    - domain → the domain master under `~/.claude/domains/{x}-domain/`
    - project → the repo's `.claude/skills/`
 
