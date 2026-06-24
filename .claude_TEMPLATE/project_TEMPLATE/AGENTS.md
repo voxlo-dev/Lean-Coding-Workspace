@@ -33,6 +33,7 @@ Agent-agnostic project guide. Single source of truth for domain, structure, and 
 - `docs/specs/` — feature specs (spec-workflow); one file per invocation
 {- `docs/architecture/` — the architecture document(s); big-picture, systems, subsystems}
 {- `docs/wiki/` — source for the GitHub wiki (user-faced tutorials/reference)}
+{- `docs/design/` — styleguide / design system (per-feature mockups live with their specs)}
 
 ## Living context
 

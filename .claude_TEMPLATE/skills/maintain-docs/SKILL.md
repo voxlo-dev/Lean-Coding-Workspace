@@ -13,7 +13,7 @@ Were there changes a reader would care about? Pure internal refactors, typo fixe
 
 ## Step 2 — Per-doc decision (decide before reading)
 
-For each doc, ask "does *this* change affect it?" from what you already know. Open a doc only if the answer is yes. **Optional docs (`ASSETS.md`, `docs/architecture/`, `docs/wiki/`) only exist if the project opted in at init — if a doc isn't there, skip it; never re-create what the project chose not to have.**
+For each doc, ask "does *this* change affect it?" from what you already know. Open a doc only if the answer is yes. **Optional docs (`ASSETS.md`, `docs/architecture/`, `docs/wiki/`, `docs/design/`) only exist if the project opted in at init — if a doc isn't there, skip it; never re-create what the project chose not to have.**
 
 | Doc | Update when | Action |
 | --- | --- | --- |
@@ -22,6 +22,7 @@ For each doc, ask "does *this* change affect it?" from what you already know. Op
 | `ASSETS.md` (if present) | assets were added, moved, or repurposed | add/adjust the row(s); keep `Used in` accurate |
 | `docs/architecture/` (if present) | core architecture changed or was extended | see Architecture below |
 | `docs/wiki/` (if present) | user-facing interaction changed | read the wiki Home page first, then make very targeted edits |
+| `docs/design/` (if present) | the design system changed (palette, type, components, tone) | update `styleguide.md`; per-feature mockups are not maintained here |
 
 **Never touched here:**
 
