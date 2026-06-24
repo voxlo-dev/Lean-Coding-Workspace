@@ -10,7 +10,7 @@ Main thread runs the orchestration model (start on Opus/Fable or use `opusplan`)
 Work packages are **phases**, not vertical slices: write the tests once, implement until green, optionally run e2e, then docs. Commit after every package.
 
 1. **Brainstorm** with the user — invoke superpowers' brainstorming skill; do not reinvent it.
-2. **Spec** — copy `docs/specs/SPEC_TEMPLATE.md` to a new spec file under `docs/specs/`, then fill it. The packages are the fixed phases below; the only thing you size is how many **implement** packages the spec needs (≥1).
+2. **Spec** — copy `docs/specs/SPEC_TEMPLATE.md` to a new spec file under `docs/specs/`, then fill it. The packages are the fixed phases below; the only thing you size is how many **implement** packages the spec needs (≥1). If the feature has a UI, invoke `ui-design` to lay out this feature's mockup against the styleguide and capture it in the spec's UI section.
 3. **Set the autonomy mode** — ask the user up front, with a recommendation: (a) fully autonomous or pause for review after each package, and (b) dispatch a Sonnet subagent per package or run the packages directly in the main thread (recommend direct for a small spec, subagents for a large one). Follow both for the whole run.
 4. **Run the packages in order**, each as a Sonnet subagent (or directly, per step 3), and commit after each:
    1. **Test package** — write all tests for the spec in one pass (unit/integration + e2e). Sensible test flows across components, no redundancy; merge with existing tests rather than duplicating; **core** coverage only (aim for fewer lines of test than production). e2e tests are written here but not run yet.

@@ -26,6 +26,12 @@ phase packages — tests → implement → [e2e] → docs, committing after each
 
 {how data moves for the main scenario; sequence or steps}
 
+## UI / mockups
+
+{only if this feature has a UI — invoke `ui-design`. Self-contained HTML mockup inline,
+or linked from `docs/design/mockups/`; design against `docs/design/styleguide.md`. Remove
+this section if there's no UI.}
+
 ## Work packages
 
 Fixed phases, run in order, commit after each. Size only the implement packages.

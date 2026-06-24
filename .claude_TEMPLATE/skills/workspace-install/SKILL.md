@@ -34,9 +34,10 @@ Detect OS + version, CPU/RAM/GPU, and the default dev environment (shells, prima
 
 Ask in plain chat — **not** the question tool — so the user can answer freely or skip. One short message covering:
 
+- preferred spoken language
 - role / job
 - experience level and strong areas
-- favourite languages, frameworks, tools
+- favourite programming languages, frameworks, tools
 
 **"No answer" is always fine.** Pause for their reply, then write what they gave into the **User Info** section. Skip anything they decline. (Repair: skip if already filled.)
 

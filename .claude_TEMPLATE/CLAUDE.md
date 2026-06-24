@@ -20,8 +20,7 @@ Assume the user is capable, but lazy with words, because he can't type as fast a
 **User defined rules:** User defined rules have priority over ANYTHING else including other rules from this file.
 {Add custom user defined rules}
 
-**Language rules:** Keep all Markdown files English only.
-{e.g. answer in german in chats}
+**Language rules:** Keep all Markdown files English only; Keep conversations with the user in its preferred language
 
 **Tool call rules:**: Default to the most capable shell of the operating system (e.g powershell for windowes / bash for Linux), if one shell does not work use another.
 
@@ -38,7 +37,7 @@ Assume the user is capable, but lazy with words, because he can't type as fast a
 **General codestyle rules**
 {e.g. keep code comments short and precise}
 
-**Syntax rules:** Always use `-` for normal list bullets in markdown files. For directory trees and annotated structure blocks. Use the pretty Unicode form: `├──`, `│`, `└──`, with aligned `←` comments. Markdown tables must use standard pipe-table syntax only: a header row, a separator row like this: `| --- | --- {...} |`, and unaligned columns separated with single whitespaces. Never use additional whitespaces for aligning. Example below.
+**MD Syntax rules:** Always use `-` for normal list bullets in markdown files. For directory trees and annotated structure blocks. Use the pretty Unicode form: `├──`, `│`, `└──`, with aligned `←` comments. Markdown tables must use standard pipe-table syntax only: a header row, a separator row like this: `| --- | --- {...} |`, and unaligned columns separated with single whitespaces. Never use additional whitespaces for aligning. Example below.
 
 ## Mandatory plugins (installed by the `workspace-install` skill)
 
@@ -83,6 +82,8 @@ scope and **prunes stale ones**. Imported (domain/global) memory loads in full �
 
 These load as skills — Claude may invoke one when you name it, and you can also run it with `/name`. (Only `workspace-install` is user-only via `disable-model-invocation`.)
 
+**The workflow gate applies only to software-development tasks** — building or changing code, features, bugfixes. For non-dev work (writing, research, general questions, one-off shell tasks), skip it: act directly, with these workspace rules relaxed to fit the task. For software development it is **mandatory**.
+
 **If the user named a concrete workflow or skill, use it directly.** Otherwise, at the start of a new chat:
 
 1. Check memory for relevant context — the project `MEMORY.md` (and any imported domain/global memory) already loaded; consult it.
@@ -92,8 +93,8 @@ Options:
 
 - **minimal-workflow** — a single, small, well-scoped change or bugfix
 - **spec-workflow** — feature work needing a spec / multiple work packages
-- **orchestrator-workflow** — large, parallelisable work that warrants the full autonomous pipeline (pair-plan → spec → auto-scaled impl → E2E loop); heavier than spec-workflow
-- **localagent-workflow** — full feature build that must stay robust on a weak/local (~30B) model: sequential, context-frugal per-unit TDD loop; also runnable by an external local-model runner
+- **orchestrator-workflow** — (experimental) large, parallelisable work that warrants the full autonomous pipeline (pair-plan → spec → auto-scaled impl → E2E loop); heavier than spec-workflow
+- **localagent-workflow** — (experimental) full feature build that must stay robust on a weak/local (~30B) model: sequential, context-frugal per-unit TDD loop; also runnable by an external local-model runner
 - **superpowers** — invoke `superpowers/using-superpowers` for the full brainstorm → plan → implement framework
 - **no workflow** — use no workflow skill; relax these rules and let the agent work freely
 
@@ -101,4 +102,4 @@ Designing a new project or a large architecture change → recommend `project-de
 
 Onboarding a new/existing project → recommend `project-initialiser` first.
 
-Before starting the chosen workflow, make sure relevant memory context is loaded.
+Before starting the chosen workflow: make sure relevant memory context is loaded, and check the git working tree — if it's dirty, surface it and recommend committing or reverting so the workflow starts from a clean state.

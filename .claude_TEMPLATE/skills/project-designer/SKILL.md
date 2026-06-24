@@ -33,13 +33,15 @@ architecture doc, then hands off.
 
 7. **Pick frameworks & modules** — concrete libraries/frameworks/modules, each grounded in step 3 and the domain recipe. Prefer the domain's standard stack; justify any deviation.
 
-8. **(Re)write the architecture doc** — fill or update `docs/architecture/ARCHITECTURE.md` at the **macro level** (use its template structure); update the wiki if the project keeps one. Existing project → edit in place and add changed choices to **Key decisions**, newest first. Detail accrues later via `maintain-docs`. Pause for user review.
+8. **Set the styleguide (UI projects only)** — if the project has a UI, invoke `ui-design` at the **styleguide level** to settle the design system (brand, palette, type, spacing, tone). No concrete screens yet — those come per feature in `spec-workflow`. Skip for non-UI projects.
 
-9. **Hand off** — ask the user:
+9. **(Re)write the architecture doc** — fill or update `docs/architecture/ARCHITECTURE.md` at the **macro level** (use its template structure); update the wiki if the project keeps one. Existing project → edit in place and add changed choices to **Key decisions**, newest first. Detail accrues later via `maintain-docs`. Pause for user review.
+
+10. **Hand off** — ask the user:
    - New & not scaffolded → `project-initialiser` to scaffold (tell it the architecture is already designed so it skips its own architecture step).
    - Ready to build → `spec-workflow`; write the first spec directly from this design.
    - Or stop here with the design captured.
 
-When **invoked from `project-initialiser`** (its architecture step), run steps 2–8 to design
-and write the architecture doc, then return — the initialiser owns scaffolding and any
-further handoff.
+When **invoked from `project-initialiser`** (its architecture step), run steps 2–9 to design
+the architecture (and the styleguide, for UI projects) and write the docs, then return —
+the initialiser owns scaffolding and any further handoff.

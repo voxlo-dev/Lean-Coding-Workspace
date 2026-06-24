@@ -19,6 +19,7 @@ Onboard a repo end-to-end. Owns the **initial** doc creation (it does the deep e
    - architecture document?
    - wiki?
    - changelog?
+   - styleguide / design system? (offer only for projects with a UI)
 
    Also: `ASSETS.md` is created **only if** the project has (or will have) a frontend that uses assets — decide this from the inventory, don't ask. Record all decisions; they gate scaffolding, the AGENTS.md doc map, and `maintain-docs` later. A "no" on architecture means `maintain-docs` ignores architecture too.
 
@@ -39,7 +40,7 @@ Onboard a repo end-to-end. Owns the **initial** doc creation (it does the deep e
      (or list servers in `enabledMcpjsonServers`). Loads as `{x}-domain@skills-dir` on the next session.
    - Install the unit + UI test framework named in `{x}-domain/Domain-Recipe.md`.
 
-7. **Scaffold docs** — copy the whole `~/.claude/project_TEMPLATE/*` in one pass (`cp -rn`, never clobber existing), then **delete the optional docs the user didn't choose** (`docs/architecture/`, `docs/wiki/`, `CHANGELOG.md`, and `ASSETS.md` if no frontend). Copy-then-prune is fewer tool calls than selective copying. Note: `ARCHITECTURE.md` and the wiki `Home.md` are filled in place (not templates); `SPEC_TEMPLATE.md` and `Domain-Recipe_TEMPLATE.md` stay templates, copied on demand by `spec-workflow` / `domain-initialiser` — leave them as-is. Fill `AGENTS.md` (domain, outline, code style — single source), then **trim its Doc map to list only the docs that remain.** If a domain was installed (step 6), add its memory import to the project `CLAUDE.md` so domain memory loads here: `@~/.claude/domains/{x}-domain/DOMAIN-MEMORY.md`. (Project memory is native — `~/.claude/projects/<repo>/memory/` — nothing to scaffold.)
+7. **Scaffold docs** — copy the whole `~/.claude/project_TEMPLATE/*` in one pass (`cp -rn`, never clobber existing), then **delete the optional docs the user didn't choose** (`docs/architecture/`, `docs/wiki/`, `docs/design/`, `CHANGELOG.md`, and `ASSETS.md` if no frontend). Copy-then-prune is fewer tool calls than selective copying. Note: `ARCHITECTURE.md`, the wiki `Home.md`, and `docs/design/styleguide.md` are filled in place (not templates); `SPEC_TEMPLATE.md` and `Domain-Recipe_TEMPLATE.md` stay templates, copied on demand by `spec-workflow` / `domain-initialiser` — leave them as-is. Fill `AGENTS.md` (domain, outline, code style — single source), then **trim its Doc map to list only the docs that remain.** If a domain was installed (step 6), add its memory import to the project `CLAUDE.md` so domain memory loads here: `@~/.claude/domains/{x}-domain/DOMAIN-MEMORY.md`. (Project memory is native — `~/.claude/projects/<repo>/memory/` — nothing to scaffold.)
 
 8. **ASSETS.md** (only if the frontend condition in step 4 holds) — dispatch a subagent to explore the **asset tree only** (codegraph does not cover assets) and fill `ASSETS.md`.
 
@@ -47,4 +48,6 @@ Onboard a repo end-to-end. Owns the **initial** doc creation (it does the deep e
 
 10. **Wiki** (only if chosen) — fill `docs/wiki/Home.md` and add the pages it lists, scaled to the project.
 
-11. **Commit** — if the directory isn't a git repo yet, `git init` first, then commit. (Open a PR if the repo uses that flow.)
+11. **Styleguide** (only if chosen) — invoke `ui-design` at the styleguide level to fill `docs/design/styleguide.md`. Skip if `project-designer` already set it during the architecture step (9).
+
+12. **Commit** — if the directory isn't a git repo yet, `git init` first, then commit. (Open a PR if the repo uses that flow.)
