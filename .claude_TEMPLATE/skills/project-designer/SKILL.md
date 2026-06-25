@@ -14,7 +14,7 @@ feature, use `spec-workflow`'s own brainstorming step instead.
 architecture doc, then hands off.
 
 1. **Frame the effort** — new project, or a big change to an existing one?
-   - Existing → load the current state first: codegraph (if indexed), `docs/architecture/ARCHITECTURE.md`, `AGENTS.md`, and project memory. Ground every option in what's already there and name the migration cost honestly.
+   - Existing → load the current state first: codegraph (if indexed), `docs/architecture/Architecture.md`, `AGENTS.md`, and project memory. Ground every option in what's already there and name the migration cost honestly.
    - New → note the target so scaffolding can follow later.
 
 2. **Brainstorm deeply** — invoke superpowers' **brainstorming** skill for the dialog; do not reinvent it. Go wide: purpose, users, constraints, success criteria, scope (in/out). Cut scope ruthlessly (YAGNI).
@@ -35,7 +35,7 @@ architecture doc, then hands off.
 
 8. **Set the styleguide (UI projects only)** — if the project has a UI, invoke `ui-design` at the **styleguide level** to settle the design system (brand, palette, type, spacing, tone). No concrete screens yet — those come per feature in `spec-workflow`. Skip for non-UI projects.
 
-9. **(Re)write the architecture doc** — fill or update `docs/architecture/ARCHITECTURE.md` at the **macro level** (use its template structure); update the wiki if the project keeps one. Existing project → edit in place and add changed choices to **Key decisions**, newest first. Detail accrues later via `maintain-docs`. Pause for user review.
+9. **(Re)write the architecture doc** — fill or update `docs/architecture/Architecture.md` at the **macro level** (use its template structure); update the wiki if the project keeps one. Existing project → edit in place and add changed choices to **Key decisions**, newest first. Detail accrues later via `maintain-docs`. Pause for user review.
 
 10. **Hand off** — ask the user:
    - New & not scaffolded → `project-initialiser` to scaffold (tell it the architecture is already designed so it skips its own architecture step).
