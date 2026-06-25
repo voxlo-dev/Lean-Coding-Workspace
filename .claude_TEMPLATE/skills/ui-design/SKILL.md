@@ -34,18 +34,20 @@ Claude Design (claude.ai/design) is a separate Anthropic Labs tool; the link is 
 
 - Write a **handoff brief**: design intent, brand/tone, the palette and type from step 2, hard constraints, and exactly which screens/components are needed (none at styleguide level — just the system).
 - Hand the brief to the user to run in Claude Design. They export the result (handoff bundle / standalone HTML / PDF) into the repo.
-- **Ingest** the export: distil the design system into `docs/design/styleguide.md`; place any screen mockups with the spec (step 4).
+- **Ingest** the export: distil the design system into `docs/design/Styleguide.md`; place any screen mockups with the spec (step 4).
 
 ## 3b. Everything else → build mockups directly
 
 - Produce **small, self-contained HTML mockups** (inline styles, no build step) — viewable in any browser regardless of the real tech stack.
 - Simple UI → embed the snippet directly in the spec's UI section. Sophisticated UI → put the snippets under `docs/design/mockups/` and link them from the spec.
-- Keep them faithful to `docs/design/styleguide.md`.
+- Keep them faithful to `docs/design/Styleguide.md`.
 
 ## 4. Persist & integrate
 
-- **Styleguide** — `docs/design/styleguide.md` is the durable, project-wide system (palette, type, spacing, components, tone). Always update it; it's the single source every feature designs against. Extended later via `maintain-docs`.
+- **Styleguide** — `docs/design/Styleguide.md` is the durable, project-wide system (palette, type, spacing, components, tone). Always update it; it's the single source every feature designs against. Extended later via `maintain-docs`.
 - **Mockups** are per-feature, not global: they live in the spec (or `docs/design/mockups/`) so the spec's implement package builds against them. Never pour concrete layouts into the styleguide.
+- **Pause for user review** before committing anything.
+- **Commit** the styleguide and any mockups.
 
 When **invoked from `project-designer`**, run steps 1–2 then set the styleguide only
 (stop before per-feature mockups) and return. When **invoked from `spec-workflow`**, the

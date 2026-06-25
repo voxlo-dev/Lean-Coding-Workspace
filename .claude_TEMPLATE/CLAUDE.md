@@ -102,4 +102,4 @@ Designing a new project or a large architecture change → recommend `project-de
 
 Onboarding a new/existing project → recommend `project-initialiser` first.
 
-Before starting the chosen workflow: make sure relevant memory context is loaded, and check the git working tree — if it's dirty, surface it and recommend committing or reverting so the workflow starts from a clean state.
+Before starting the chosen workflow: make sure relevant memory context is loaded, and check the git working tree — if it's dirty, surface it and recommend committing, gitignoring or reverting so the workflow starts from a clean state.

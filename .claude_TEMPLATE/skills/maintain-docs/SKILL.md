@@ -22,7 +22,7 @@ For each doc, ask "does *this* change affect it?" from what you already know. Op
 | `ASSETS.md` (if present) | assets were added, moved, or repurposed | add/adjust the row(s); keep `Used in` accurate |
 | `docs/architecture/` (if present) | core architecture changed or was extended | see Architecture below |
 | `docs/wiki/` (if present) | user-facing interaction changed | read the wiki Home page first, then make very targeted edits |
-| `docs/design/` (if present) | the design system changed (palette, type, components, tone) | update `styleguide.md`; per-feature mockups are not maintained here |
+| `docs/design/` (if present) | the design system changed (palette, type, components, tone) | update `Styleguide.md`; per-feature mockups are not maintained here |
 
 **Never touched here:**
 
@@ -32,7 +32,7 @@ For each doc, ask "does *this* change affect it?" from what you already know. Op
 ## Architecture
 
 - Record core changes/additions; keep edits factual, no speculation.
-- **Split when it grows past ~300–500 lines:** break the single document into one file per subsystem under `docs/architecture/`, and keep a short top-level overview (`ARCHITECTURE.md`) linking them.
+- **Split when it grows past ~300–500 lines:** break the single document into one file per subsystem under `docs/architecture/`, and keep a short top-level overview (`Architecture.md`) linking them.
 
 ## Principle
 
