@@ -1,6 +1,6 @@
 ---
 name: localagent-workflow
-description: "Use for a full feature build that must stay robust on a weak/local model: a sequential, context-frugal pipeline (brainstorm → plan gate → per-unit TDD loop → e2e/docs) where every step gets a tiny single-purpose context. Minimal hybrid of spec- and orchestrator-workflow. Also runnable by an external local-model runner."
+description: "Use for a full feature build that must stay robust on a weak/local model: a sequential, context-frugal pipeline (brainstorm → plan gate → per-unit TDD loop → e2e/docs) where every step gets a tiny single-purpose context. Minimal hybrid of dynamic- and orchestrator-workflow. Also runnable by an external local-model runner."
 ---
 
 # Localagent Workflow
@@ -41,4 +41,4 @@ localagent-workflow/
 
 ## When NOT to use
 
-Running on a capable cloud model with a normal feature → `spec-workflow`. Large parallelisable work → `orchestrator-workflow`. A one-line fix → `minimal-workflow`. This workflow trades throughput for tiny, predictable per-step context — only worth it when the model is weak or context discipline is the priority.
+Running on a capable cloud model with a normal feature → `dynamic-workflow`. Large parallelisable work → `orchestrator-workflow`. A one-line fix → `minimal-workflow`. This workflow trades throughput for tiny, predictable per-step context — only worth it when the model is weak or context discipline is the priority.

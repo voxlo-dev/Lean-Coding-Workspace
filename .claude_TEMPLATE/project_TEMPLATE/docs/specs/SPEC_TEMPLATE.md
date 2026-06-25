@@ -2,8 +2,8 @@
 
 Date: {YYYY-MM-DD} · Status: {draft | approved | done}
 
-Feature spec for the spec-workflow. Comes out of brainstorming; drives the
-phase packages — tests → implement → [e2e] → docs, committing after each.
+Feature spec for `dynamic-workflow`. Comes out of `spec-design`; it fixes the test and
+implementation strategy, then drives the implement packages.
 
 ## Goal / problem
 
@@ -29,26 +29,28 @@ phase packages — tests → implement → [e2e] → docs, committing after each
 ## UI / mockups
 
 {only if this feature has a UI — invoke `ui-design`. Self-contained HTML mockup inline,
-or linked from `docs/design/mockups/`; design against `docs/design/styleguide.md`. Remove
+or linked from `docs/design/mockups/`; design against `docs/design/Styleguide.md`. Remove
 this section if there's no UI.}
 
-## Work packages
+## Strategy
 
-Fixed phases, run in order, commit after each. Size only the implement packages.
+Decided by `spec-design`; the pipeline follows it without re-deciding.
 
-- **Test:** all tests for this spec (unit + e2e) — {key flows to cover; existing tests to merge with}
-- **Implement:** {one or more; what each builds} · files: {paths to read/touch}
-- **e2e** (only if UI): run the e2e tests against the built UI
-- **Docs:** {which docs need updating}
+- **Test:** {none | minimal | core | full-TDD} · **e2e:** {yes | no}
+- **Modules to test:** {which modules / components the tests must cover — not concrete tests}
+- **Implementation:** {direct | subagents | tdd | debugging}
+- **e2e test case:** {if e2e, link the handoff file `docs/specs/{spec}-e2e.md`}
+
+## Implement packages
+
+One or more, run in order, commit after each. This is the only work-package axis to size.
+
+- **{package name}** — {what it builds} · files: {paths to read/touch}
 
 ## Acceptance criteria
 
 - [ ] {observable, testable outcome}
 - [ ] {…}
-
-## Test strategy
-
-{unit/integration + e2e tests that prove the criteria}
 
 ## Open questions
 

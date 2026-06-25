@@ -1,6 +1,6 @@
 ---
 name: orchestrator-workflow
-description: "Use for larger feature work that warrants a full autonomous pipeline: pair-planning, a written spec with work packages, auto-scaled (parallel) implementation, and an E2E validation loop. Heavier than spec-workflow — reach for it when the work is big enough to justify the ceremony. Orchestrate on Opus/Fable, delegate to Sonnet subagents."
+description: "Use for larger feature work that warrants a full autonomous pipeline: pair-planning, a written spec with work packages, auto-scaled (parallel) implementation, and an E2E validation loop. Heavier than dynamic-workflow — reach for it when the work is big enough to justify the ceremony. Orchestrate on Opus/Fable, delegate to Sonnet subagents."
 ---
 
 # Orchestrator Workflow
@@ -13,7 +13,7 @@ A control-flow workflow that routes a task through four phases — pair planning
 
 **Models:** you orchestrate on Opus/Fable (or `opusplan`). Every worker subagent runs on **Sonnet**.
 
-**When NOT to use:** a single small change → `minimal-workflow`. A normal feature with a handful of WPs → `spec-workflow`. This workflow only earns its overhead when the work is large, parallelisable, and benefits from a dedicated E2E gate.
+**When NOT to use:** a single small change → `minimal-workflow`. A normal feature with a handful of WPs → `dynamic-workflow`. This workflow only earns its overhead when the work is large, parallelisable, and benefits from a dedicated E2E gate.
 
 ## Configuration
 
