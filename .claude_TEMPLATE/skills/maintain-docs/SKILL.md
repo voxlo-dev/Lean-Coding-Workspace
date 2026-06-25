@@ -1,6 +1,6 @@
 ---
 name: maintain-docs
-description: "Use at the commit step of the minimal and spec workflows. Triggers: code, assets, architecture, or user-facing behaviour changed and docs may have drifted."
+description: "Use at the docs step of the minimal and dynamic workflows. Triggers: code, assets, architecture, or user-facing behaviour changed and docs may have drifted."
 ---
 
 # Maintain Docs

@@ -1,6 +1,6 @@
 ---
 name: maintain-memory
-description: "Use at the memory step of the minimal and spec workflows, or whenever a durable learning, decision, or gotcha emerged that a future session should know. Curates the layered MEMORY.md memory and prunes stale entries."
+description: "Use at the memory step of the minimal and dynamic workflows, or whenever a durable learning, decision, or gotcha emerged that a future session should know. Curates the layered MEMORY.md memory and prunes stale entries."
 ---
 
 # Maintain Memory

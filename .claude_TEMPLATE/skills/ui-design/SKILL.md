@@ -1,13 +1,13 @@
 ---
 name: ui-design
-description: "Use when designing the look and feel of a UI — colors, themes, typography, layout, mockups, design system. Invokable from project-designer (styleguide level) and spec-workflow (concrete layouts for a feature). Routes web frontends to Claude Design; builds HTML mockups otherwise."
+description: "Use when designing the look and feel of a UI — colors, themes, typography, layout, mockups, design system. Invokable from project-designer (styleguide level) and spec-design (concrete layouts for a feature). Routes web frontends to Claude Design; builds HTML mockups otherwise."
 ---
 
 # UI Design
 
 Design a UI's look and feel, capture it as a durable **design system** (the styleguide)
 and — when a feature is being built — concrete **mockups**. Invoked from
-`project-designer` (set the styleguide only) or `spec-workflow` (lay out a specific
+`project-designer` (set the styleguide only) or `spec-design` (lay out a specific
 feature). For a one-off styling tweak, just do it — this skill is for designing.
 
 **Design only as precisely as the stage needs.** At project/design level, settle the
@@ -50,5 +50,5 @@ Claude Design (claude.ai/design) is a separate Anthropic Labs tool; the link is 
 - **Commit** the styleguide and any mockups.
 
 When **invoked from `project-designer`**, run steps 1–2 then set the styleguide only
-(stop before per-feature mockups) and return. When **invoked from `spec-workflow`**, the
+(stop before per-feature mockups) and return. When **invoked from `spec-design`**, the
 styleguide already exists — design this feature's layout against it.

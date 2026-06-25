@@ -1,14 +1,14 @@
 ---
 name: project-designer
-description: "Use to design a new project from scratch or prepare a large architecture change: deep brainstorming with web research, domain/tech-stack and framework decisions, software-architecture planning, and (re)writing the architecture doc. Hands off to spec-workflow. Invokable by Claude or via /project-designer."
+description: "Use to design a new project from scratch or prepare a large architecture change: deep brainstorming with web research, domain/tech-stack and framework decisions, software-architecture planning, and (re)writing the architecture doc. Hands off to dynamic-workflow. Invokable by Claude or via /project-designer."
 ---
 
 # Project Designer
 
 Macro-level design: stand up a **new project** or prepare a **large architecture change**.
-The thinking layer above the workflows — it ends by handing off to `spec-workflow` (or to
+The thinking layer above the workflows — it ends by handing off to `dynamic-workflow` (or to
 `project-initialiser` for a not-yet-scaffolded project). Heavy by design; for a single
-feature, use `spec-workflow`'s own brainstorming step instead.
+feature, use `dynamic-workflow` (its `spec-design` step brainstorms) instead.
 
 **Change nothing in the codebase here** — this skill produces decisions and the
 architecture doc, then hands off.
@@ -33,13 +33,13 @@ architecture doc, then hands off.
 
 7. **Pick frameworks & modules** — concrete libraries/frameworks/modules, each grounded in step 3 and the domain recipe. Prefer the domain's standard stack; justify any deviation.
 
-8. **Set the styleguide (UI projects only)** — if the project has a UI, invoke `ui-design` at the **styleguide level** to settle the design system (brand, palette, type, spacing, tone). No concrete screens yet — those come per feature in `spec-workflow`. Skip for non-UI projects.
+8. **Set the styleguide (UI projects only)** — if the project has a UI, invoke `ui-design` at the **styleguide level** to settle the design system (brand, palette, type, spacing, tone). No concrete screens yet — those come per feature in `dynamic-workflow`. Skip for non-UI projects.
 
 9. **(Re)write the architecture doc** — fill or update `docs/architecture/Architecture.md` at the **macro level** (use its template structure); update the wiki if the project keeps one. Existing project → edit in place and add changed choices to **Key decisions**, newest first. Detail accrues later via `maintain-docs`. Pause for user review.
 
 10. **Hand off** — ask the user:
    - New & not scaffolded → `project-initialiser` to scaffold (tell it the architecture is already designed so it skips its own architecture step).
-   - Ready to build → `spec-workflow`; write the first spec directly from this design.
+   - Ready to build → `dynamic-workflow`; write the first spec directly from this design.
    - Or stop here with the design captured.
 
 When **invoked from `project-initialiser`** (its architecture step), run steps 2–9 to design

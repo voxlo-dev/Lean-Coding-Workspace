@@ -92,14 +92,16 @@ These load as skills — Claude may invoke one when you name it, and you can als
 Options:
 
 - **minimal-workflow** — a single, small, well-scoped change or bugfix
-- **spec-workflow** — feature work needing a spec / multiple work packages
-- **orchestrator-workflow** — (experimental) large, parallelisable work that warrants the full autonomous pipeline (pair-plan → spec → auto-scaled impl → E2E loop); heavier than spec-workflow
+- **dynamic-workflow** — feature work needing a spec. `spec-design` decides the test and implementation strategy once; a fixed pipeline then implements (direct / tdd / subagents), optionally runs e2e, and finishes docs / memory / PR
+- **orchestrator-workflow** — (experimental) large, parallelisable work that warrants the full autonomous pipeline (pair-plan → spec → auto-scaled impl → E2E loop); heavier than dynamic-workflow
 - **localagent-workflow** — (experimental) full feature build that must stay robust on a weak/local (~30B) model: sequential, context-frugal per-unit TDD loop; also runnable by an external local-model runner
 - **superpowers** — invoke `superpowers/using-superpowers` for the full brainstorm → plan → implement framework
 - **no workflow** — use no workflow skill; relax these rules and let the agent work freely
 
-Designing a new project or a large architecture change → recommend `project-designer` (deep brainstorm + web research → architecture doc → optional spec-workflow handoff).
+Designing a new project or a large architecture change → recommend `project-designer` (deep brainstorm + web research → architecture doc → optional dynamic-workflow handoff).
 
-Onboarding a new/existing project → recommend `project-initialiser` first.
+**Preflight — before starting any workflow:**
 
-Before starting the chosen workflow: make sure relevant memory context is loaded, and check the git working tree — if it's dirty, surface it and recommend committing, gitignoring or reverting so the workflow starts from a clean state.
+- **Project initialised?** No `AGENTS.md` / template docs → recommend `project-initialiser` first.
+- **Clean git tree?** Dirty → surface it and recommend committing, gitignoring or reverting so the run starts clean.
+- **Autonomy mode?** Ask once — pause for review at each commit (default) or run autonomously. Applies to the whole run; pass it to the workflow.

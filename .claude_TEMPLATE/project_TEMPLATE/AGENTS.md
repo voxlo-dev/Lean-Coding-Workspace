@@ -30,7 +30,7 @@ Agent-agnostic project guide. Single source of truth for domain, structure, and 
 - `AGENTS.md` — this file: domain, structure, code style, conventions
 {- `ASSETS.md` — asset inventory (consult before searching the asset tree)}
 {- `CHANGELOG.md` — notable changes, major features only}
-- `docs/specs/` — feature specs (spec-workflow); one file per invocation
+- `docs/specs/` — feature specs (dynamic-workflow); one file per invocation
 {- `docs/architecture/` — the architecture document(s); big-picture, systems, subsystems}
 {- `docs/wiki/` — source for the GitHub wiki (user-faced tutorials/reference)}
 {- `docs/design/` — styleguide / design system (per-feature mockups live with their specs)}
