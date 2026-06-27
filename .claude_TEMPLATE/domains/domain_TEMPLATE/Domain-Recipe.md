@@ -1,8 +1,8 @@
 # {X} Domain — Recipe
 
 Spec-of-record for the `{x}-domain` plugin. `domain-initialiser` builds the plugin
-from this file — keep it the single source of truth. In a real domain folder this is
-named `Domain-Recipe.md` (drop the `_TEMPLATE` suffix).
+from this file — keep it the single source of truth. Part of the `domain_TEMPLATE`
+skeleton; fill it in place after the folder is copied to `domains/{x}-domain/`.
 
 ## Stack
 

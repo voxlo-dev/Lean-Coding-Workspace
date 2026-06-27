@@ -25,10 +25,10 @@ Research, then write the recipe:
 - For each marketplace item, record in the recipe **what kind it is** — a real skill
   (its folder has `SKILL.md`) vs. a config-only plugin (LSP/MCP, no `SKILL.md`; its
   capability lives in `marketplace.json`/`plugin.json`). Step 3 handles them differently.
-- Copy `domains/domain_TEMPLATE/` → `domains/{x}-domain/`, rename the recipe to
-  `Domain-Recipe.md`, and fill every section. The recipe is the single source of truth.
-  The copy also brings `DOMAIN-MEMORY.md` — just set its `{X}` heading; leave it
-  otherwise empty, `maintain-memory` fills it over time. project-initialiser imports it.
+- Copy `domains/domain_TEMPLATE/` → `domains/{x}-domain/` and fill `Domain-Recipe.md`
+  every section — it's the single source of truth. The copy also brings `DOMAIN-MEMORY.md`
+  — just set its `{X}` heading; leave it otherwise empty, `maintain-memory` fills it over
+  time. project-initialiser imports it.
 
 ## 2. Validate — pause
 

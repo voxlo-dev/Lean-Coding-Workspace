@@ -1,0 +1,132 @@
+<!doctype html>
+<!--
+  Styleguide template — the durable, project-wide design system.
+  Functional reference sheet, not a showroom: style only enough to SHOW each token.
+  Fill the {placeholders}, drop sections the project doesn't need, add what it does.
+  Copied to docs/design/Styleguide.html by the ui-design skill.
+
+  Light/dark switch is built in (top-right). Dark VALUES are optional: fill the
+  [data-theme="dark"] block, or delete it (and the toggle) for a single-theme project.
+-->
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<title>{project} — Styleguide</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+  /* ── Tokens ── the single source. Replace values. ── */
+  :root, [data-theme="light"] {
+    --primary:    #3b5bdb;
+    --on-primary: #ffffff;
+    --surface:    #ffffff;
+    --surface-2:  #f1f3f5;
+    --text:       #1a1d21;
+    --text-muted: #6b7280;
+    --border:     #d8dee4;
+    --danger:     #c92a2a;
+  }
+  /* optional — fill for a dark theme, or delete this block + the toggle */
+  [data-theme="dark"] {
+    --primary:    #748ffc;
+    --on-primary: #0b1021;
+    --surface:    #16181d;
+    --surface-2:  #21242b;
+    --text:       #e9ecef;
+    --text-muted: #9aa3af;
+    --border:     #343a40;
+    --danger:     #ff6b6b;
+  }
+  :root {
+    --font:  system-ui, sans-serif;
+    --radius: 8px;
+    --space: 8px;            /* base unit; multiples = 8/16/24/32 */
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: var(--font); color: var(--text); background: var(--surface); }
+  main { max-width: 860px; margin: 0 auto; padding: 32px 24px 80px; }
+  h1 { font-size: 28px; margin: 0 0 4px; }
+  h2 { font-size: 18px; margin: 40px 0 12px; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
+  h3 { font-size: 14px; margin: 20px 0 8px; color: var(--text-muted); text-transform: uppercase; letter-spacing: .04em; }
+  .muted { color: var(--text-muted); }
+  .row { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+  code { background: var(--surface-2); padding: 1px 5px; border-radius: 4px; font-size: 13px; }
+
+  /* theme toggle — the one bit of interactive chrome */
+  .theme-toggle { position: fixed; top: 16px; right: 16px; font: inherit; padding: 6px 12px;
+                  border: 1px solid var(--border); border-radius: var(--radius);
+                  background: var(--surface-2); color: var(--text); cursor: pointer; }
+
+  /* swatch = render a color so the token is visible */
+  .swatch { width: 64px; height: 64px; border-radius: var(--radius); border: 1px solid var(--border); }
+  .tok { display: flex; gap: 12px; align-items: center; margin-bottom: 8px; }
+  .tok > div { font-size: 13px; }
+
+  /* component samples — copy these patterns into mockups */
+  .btn { font: inherit; padding: 8px 16px; border-radius: var(--radius); border: 1px solid transparent; cursor: pointer; }
+  .btn-primary { background: var(--primary); color: var(--on-primary); }
+  .btn-ghost   { background: transparent; color: var(--primary); border-color: var(--border); }
+  .input { font: inherit; padding: 8px 12px; border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface); color: var(--text); }
+  .chip { display: inline-block; padding: 2px 10px; border: 1px solid var(--border); border-radius: 999px; font-size: 13px; }
+  .badge { display: inline-block; padding: 1px 8px; border-radius: 4px; font-size: 12px; background: var(--primary); color: var(--on-primary); }
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; max-width: 260px; }
+  .list-row { display: flex; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--border); max-width: 360px; }
+  .field { display: flex; flex-direction: column; gap: 4px; max-width: 260px; }
+  .field .lbl { font-size: 12px; color: var(--text-muted); }
+</style>
+</head>
+<body>
+<button class="theme-toggle" onclick="document.documentElement.dataset.theme = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark'">◐ theme</button>
+<main>
+  <h1>{project} — Styleguide</h1>
+
+  <h2>Brand &amp; tone</h2>
+  <p>{personality in a line or two — what it should feel like; reference products}</p>
+  <h3>Tone of voice</h3>
+  <p class="muted">{how copy reads — e.g. plain &amp; direct / warm / playful · do's and don'ts · person &amp; tense · example microcopy}</p>
+
+  <h2>Colors</h2>
+  <!-- one .tok per role; the swatch makes the token visible -->
+  <div class="tok"><span class="swatch" style="background:var(--primary)"></span><div><code>--primary</code><br>{role / usage}</div></div>
+  <div class="tok"><span class="swatch" style="background:var(--surface)"></span><div><code>--surface</code><br>{role / usage}</div></div>
+  <div class="tok"><span class="swatch" style="background:var(--text)"></span><div><code>--text</code><br>{role / usage}</div></div>
+  <div class="tok"><span class="swatch" style="background:var(--danger)"></span><div><code>--danger</code><br>{role / usage}</div></div>
+
+  <h2>Typography</h2>
+  <p style="font-size:28px;margin:0">Heading — 28 / {weight}</p>
+  <p style="font-size:18px;margin:8px 0 0">Subhead — 18 / {weight}</p>
+  <p style="font-size:15px;margin:8px 0 0">Body — 15 / regular · {font family / fallback}</p>
+  <p class="muted" style="font-size:13px;margin:8px 0 0">Caption — 13 / muted</p>
+
+  <h2>Spacing &amp; radius</h2>
+  <p class="muted">Base unit <code>8px</code> → 8 / 16 / 24 / 32 · radius <code>var(--radius)</code> · {grid / breakpoints if web}</p>
+
+  <h2>Theming</h2>
+  <p class="muted">Themes are token overrides on <code>[data-theme]</code> at the root; components read
+    <code>var(--*)</code> and never hard-code values. {which themes ship — light / dark / high-contrast;
+    default; how it's selected at runtime — OS preference / user toggle}. Use the toggle (top-right) to preview.</p>
+
+  <h2>Components</h2>
+  <h3>Atoms</h3>
+  <div class="row">
+    <button class="btn btn-primary">Primary</button>
+    <button class="btn btn-ghost">Ghost</button>
+    <input class="input" placeholder="Input">
+    <span class="chip">Chip</span>
+    <span class="badge">Badge</span>
+  </div>
+  <p class="muted" style="font-size:13px">{atom conventions — sizes, states (hover/disabled/error), variants}</p>
+
+  <h3>Patterns</h3>
+  <p class="muted" style="font-size:13px">Composed from atoms — reused layout blocks.</p>
+  <div class="card" style="margin-top:8px">
+    <strong>Card</strong>
+    <p class="muted" style="margin:4px 0 0">{when to use · slots}</p>
+  </div>
+  <div class="list-row"><span class="badge">A</span><div><strong>List row</strong><br><span class="muted" style="font-size:13px">{leading · title/subtitle · trailing}</span></div></div>
+  <div class="field" style="margin-top:12px"><span class="lbl">Form field</span><input class="input" placeholder="value"></div>
+
+  <h2>Assets</h2>
+  <p class="muted">{icon set · imagery style · cross-ref ASSETS.md if present}</p>
+</main>
+</body>
+</html>
