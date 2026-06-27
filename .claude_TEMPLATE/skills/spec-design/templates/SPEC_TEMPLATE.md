@@ -29,7 +29,7 @@ implementation strategy, then drives the implement packages.
 ## UI / mockups
 
 {only if this feature has a UI — invoke `ui-design`. Self-contained HTML mockup inline,
-or linked from `docs/design/mockups/`; design against `docs/design/Styleguide.md`. Remove
+or linked from `docs/design/mockups/`; design against `docs/design/Styleguide.html`. Remove
 this section if there's no UI.}
 
 ## Strategy

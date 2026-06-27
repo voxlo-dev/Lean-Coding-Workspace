@@ -1,0 +1,106 @@
+<!doctype html>
+<!--
+  Mockup / layout template — concrete screens for ONE feature, designed against the
+  styleguide. Per-feature, not global: lives with the spec (or docs/design/mockups/).
+  Copy the styleguide's tokens into :root below so frames match the design system.
+  Keep frames functional skeletons — show structure & flow, not pixel polish.
+  Use the .phone frame for mobile, the .desktop frame for web/desktop; delete the unused one.
+  Light/dark switch is built in (top-right); dark VALUES are optional — fill or delete the
+  [data-theme="dark"] block.
+-->
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<title>{feature} — Mockups</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+  :root, [data-theme="light"] {   /* paste tokens from docs/design/Styleguide.html */
+    --primary: #3b5bdb; --on-primary: #fff;
+    --surface: #fff; --surface-2: #f1f3f5;
+    --text: #1a1d21; --text-muted: #6b7280; --border: #d8dee4;
+  }
+  [data-theme="dark"] {           /* optional — paste the styleguide's dark tokens */
+    --primary: #748ffc; --on-primary: #0b1021;
+    --surface: #16181d; --surface-2: #21242b;
+    --text: #e9ecef; --text-muted: #9aa3af; --border: #343a40;
+  }
+  :root { --font: system-ui, sans-serif; --radius: 8px; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--surface-2); font-family: var(--font); color: var(--text); }
+  .page { padding: 32px 24px 80px; }
+  h1 { font-size: 22px; margin: 0 0 24px; }
+  .theme-toggle { position: fixed; top: 16px; right: 16px; font: inherit; padding: 6px 12px;
+                  border: 1px solid var(--border); border-radius: var(--radius);
+                  background: var(--surface); color: var(--text); cursor: pointer; }
+  .grid { display: flex; flex-wrap: wrap; gap: 32px; align-items: flex-start; }
+  .frame-label { font-size: 13px; font-weight: 600; margin-bottom: 8px; }
+  .note { font-size: 12px; color: var(--text-muted); margin-top: 8px; max-width: 360px; }
+
+  /* ── Phone frame (~360dp) ── */
+  .phone { width: 360px; height: 720px; background: var(--surface); border-radius: 28px;
+           border: 8px solid #12151a; overflow: hidden; display: flex; flex-direction: column; }
+  .phone .topbar { height: 52px; display: flex; align-items: center; padding: 0 16px;
+                   font-weight: 600; border-bottom: 1px solid var(--border); }
+  .phone .body { flex: 1; overflow: auto; padding: 16px; }
+  .phone .tabbar { height: 56px; display: flex; border-top: 1px solid var(--border); }
+  .phone .tabbar > div { flex: 1; display: flex; align-items: center; justify-content: center;
+                         font-size: 12px; color: var(--text-muted); }
+  .phone .tabbar .active { color: var(--primary); font-weight: 600; }
+
+  /* ── Desktop frame ── */
+  .desktop { width: 720px; height: 480px; background: var(--surface); border-radius: 10px;
+             border: 1px solid var(--border); overflow: hidden; display: flex; flex-direction: column;
+             box-shadow: 0 4px 16px rgba(0,0,0,.1); }
+  .desktop .titlebar { height: 36px; background: var(--surface-2); display: flex; align-items: center;
+                       gap: 6px; padding: 0 12px; border-bottom: 1px solid var(--border); }
+  .desktop .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--border); }
+  .desktop .main { flex: 1; display: flex; min-height: 0; }
+  .desktop .sidebar { width: 180px; border-right: 1px solid var(--border); padding: 12px; background: var(--surface-2); }
+  .desktop .content { flex: 1; padding: 16px; overflow: auto; }
+
+  /* shared content bits — mirror styleguide components */
+  .btn { font: inherit; padding: 8px 16px; border-radius: var(--radius); border: none;
+         background: var(--primary); color: var(--on-primary); }
+  .card { border: 1px solid var(--border); border-radius: var(--radius); padding: 12px; margin-bottom: 8px; }
+</style>
+</head>
+<body>
+<button class="theme-toggle" onclick="document.documentElement.dataset.theme = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark'">◐ theme</button>
+<div class="page">
+  <h1>{feature} — Mockups · against docs/design/Styleguide.html</h1>
+  <div class="grid">
+
+    <!-- ── Phone screen ── -->
+    <div>
+      <div class="frame-label">1 · {screen name}</div>
+      <div class="phone">
+        <div class="topbar">{screen title}</div>
+        <div class="body">
+          <div class="card">{content block}</div>
+          <button class="btn">{primary action}</button>
+        </div>
+        <div class="tabbar"><div class="active">{tab}</div><div>{tab}</div><div>{tab}</div></div>
+      </div>
+      <p class="note">{what happens here · which component/state from the spec}</p>
+    </div>
+
+    <!-- ── Desktop screen (delete if mobile-only) ── -->
+    <div>
+      <div class="frame-label">2 · {screen name}</div>
+      <div class="desktop">
+        <div class="titlebar"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+        <div class="main">
+          <div class="sidebar">{nav}</div>
+          <div class="content">
+            <div class="card">{content block}</div>
+            <button class="btn">{primary action}</button>
+          </div>
+        </div>
+      </div>
+      <p class="note">{what happens here · flow note}</p>
+    </div>
+
+  </div>
+</div>
+</body>
+</html>
