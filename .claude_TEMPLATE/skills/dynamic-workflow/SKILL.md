@@ -14,7 +14,6 @@ description: "Use for feature work or any change that warrants a spec. spec-desi
 3. **e2e** (optional) — only if the spec's test strategy includes e2e → invoke `e2e`. A red result sends you back to step 2.
 4. **Docs** — invoke `maintain-docs`, then commit.
 5. **Memory** — invoke `maintain-memory`.
-6. **Open a pull request.**
 
 **Stuck? Escalate.** On a technical problem, pause and ask the user after ~5 solution
 attempts (an attempt = a new approach via a tool call) — don't grind.

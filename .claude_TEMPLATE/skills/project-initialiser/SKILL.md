@@ -17,8 +17,8 @@ Onboard a repo end-to-end. Owns the **initial** doc creation (it does the deep e
 
 4. **Choose optional docs** — ask the user a single checkbox question (skip any that already exist):
    - architecture document?
+   - developer docs? (api reference, guides, key decisions, long-term todos, known bugs)
    - wiki?
-   - changelog?
    - styleguide / design system? (offer only for projects with a UI)
 
    Also: `ASSETS.md` is created **only if** the project has (or will have) a frontend that uses assets — decide this from the inventory, don't ask. Record all decisions; they gate scaffolding, the AGENTS.md doc map, and `maintain-docs` later. A "no" on architecture means `maintain-docs` ignores architecture too.
@@ -40,7 +40,7 @@ Onboard a repo end-to-end. Owns the **initial** doc creation (it does the deep e
      (or list servers in `enabledMcpjsonServers`). Loads as `{x}-domain@skills-dir` on the next session.
    - Install the unit + UI test framework named in `{x}-domain/Domain-Recipe.md`.
 
-7. **Scaffold docs** — copy the whole `~/.claude/project_TEMPLATE/*` in one pass (`cp -rn`, never clobber existing), then **delete the optional docs the user didn't choose** (`docs/architecture/`, `docs/wiki/`, `CHANGELOG.md`, and `ASSETS.md` if no frontend). Copy-then-prune is fewer tool calls than selective copying. Note: `Architecture.md` and the wiki `Home.md` are filled in place. **On-demand artifacts are not scaffolded** — they're seeded from their skill's own `templates/` when first produced: the styleguide (`docs/design/Styleguide.html`, step 11 via `ui-design`), feature specs and e2e files (`docs/specs/`, via `spec-design` / `e2e`). So `docs/design/` and `docs/specs/` start absent and appear only when used. Fill `AGENTS.md` (domain, outline, code style — single source), then **trim its Doc map to list only the docs that remain.** If a domain was installed (step 6), add its memory import to the project `CLAUDE.md` so domain memory loads here: `@~/.claude/domains/{x}-domain/DOMAIN-MEMORY.md`. (Project memory is native — `~/.claude/projects/<repo>/memory/` — nothing to scaffold.)
+7. **Scaffold docs** — copy the whole `~/.claude/project_TEMPLATE/*` in one pass (`cp -rn`, never clobber existing), then **delete the optional docs the user didn't choose** (`docs/architecture/`, `docs/developer/`, `docs/wiki/`, and `ASSETS.md` if no frontend). Copy-then-prune is fewer tool calls than selective copying. Note: `Architecture.md`, `Developer-Docs.md`, and the wiki `Home.md` are filled in place. **On-demand artifacts are not scaffolded** — they're seeded from their skill's own `templates/` when first produced: the styleguide (`docs/design/Styleguide.html`, step 11 via `ui-design`), feature specs and e2e files (`docs/specs/`, via `spec-design` / `e2e`). So `docs/design/` and `docs/specs/` start absent and appear only when used. Fill `AGENTS.md` (domain, outline, code style — single source), then **trim its Doc map to list only the docs that remain.** If a domain was installed (step 6), add its memory import to the project `CLAUDE.md` so domain memory loads here: `@~/.claude/domains/{x}-domain/DOMAIN-MEMORY.md`. (Project memory is native — `~/.claude/projects/<repo>/memory/` — nothing to scaffold.)
 
 8. **ASSETS.md** (only if the frontend condition in step 4 holds) — dispatch a subagent to explore the **asset tree only** (codegraph does not cover assets) and fill `ASSETS.md`.
 
