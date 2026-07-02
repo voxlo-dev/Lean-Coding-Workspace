@@ -16,6 +16,7 @@ architecture doc, then hands off.
 1. **Frame the effort** — new project, or a big change to an existing one?
    - Existing → load the current state first: codegraph (if indexed), `docs/architecture/Architecture.md`, `AGENTS.md`, and project memory. Ground every option in what's already there and name the migration cost honestly.
    - New → note the target so scaffolding can follow later.
+   - Either way, if a `plan` exists (`docs/plans/*-plan.md`, the *Lastenheft*), read it as the requirements basis — recommended, not required.
 
 2. **Brainstorm deeply** — invoke superpowers' **brainstorming** skill for the dialog; do not reinvent it. Go wide: purpose, users, constraints, success criteria, scope (in/out). Cut scope ruthlessly (YAGNI).
 

@@ -20,7 +20,7 @@ Assume the user is capable, but lazy with words, because he can't type as fast a
 **User defined rules:** User defined rules have priority over ANYTHING else including other rules from this file.
 {Add custom user defined rules}
 
-**Language rules:** Keep all Markdown files English only; Keep conversations with the user in its preferred language
+**Language rules:** Keep all Markdown files English only — relaxed only where a crisp, well-defined term has no exact English equivalent (e.g. *Lastenheft* / *Pflichtenheft*): keep the original term rather than spend tokens on a lossy paraphrase. Keep conversations with the user in its preferred language
 
 **Tool call rules:**: Default to the most capable shell of the operating system (e.g powershell for windowes / bash for Linux), if one shell does not work use another.
 
@@ -92,11 +92,13 @@ These load as skills — Claude may invoke one when you name it, and you can als
 Options:
 
 - **minimal-workflow** — a single, small, well-scoped change or bugfix
-- **dynamic-workflow** — feature work needing a spec. `spec-design` decides the test and implementation strategy once; a fixed pipeline then implements (direct / tdd / subagents), optionally runs e2e, and finishes docs / memory / PR
+- **dynamic-workflow** — feature work needing a spec. `spec-design` decides the test and implementation strategy once (technique: direct/tdd + execution: inline or subagent-driven); a fixed pipeline then implements, optionally runs e2e, and finishes docs / memory / PR
 - **orchestrator-workflow** — (experimental) large, parallelisable work that warrants the full autonomous pipeline (pair-plan → spec → auto-scaled impl → E2E loop); heavier than dynamic-workflow
 - **localagent-workflow** — (experimental) full feature build that must stay robust on a weak/local (~30B) model: sequential, context-frugal per-unit TDD loop; also runnable by an external local-model runner
 - **superpowers** — invoke `superpowers/using-superpowers` for the full brainstorm → plan → implement framework
 - **no workflow** — use no workflow skill; relax these rules and let the agent work freely
+
+Turning a fuzzy idea, a draft, or a brainstorming transcript into a clear requirements plan first (the *Lastenheft*, end-user level) → recommend `plan` (optional, non-technical, no code exploration). Its `docs/plans/*-plan.md` feeds `spec-design` or any workflow; it is not wired into one.
 
 Designing a new project or a large architecture change → recommend `project-designer` (deep brainstorm + web research → architecture doc → optional dynamic-workflow handoff).
 
