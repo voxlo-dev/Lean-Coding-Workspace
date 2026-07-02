@@ -28,11 +28,13 @@ pretty** — style only enough to communicate a token or a screen's structure.
 
 ## 2. Brainstorm UI/UX
 
-Invoke superpowers' **brainstorming** skill for the dialog; don't reinvent it. Cover only
-what the stage needs: brand/tone, color palette, theme(s) (light/dark), typography,
-spacing/density, key layout patterns, component style, references the user likes. Scale
-ruthlessly — at styleguide level don't design screens; at feature level don't re-litigate
-the brand.
+Dialogue the look and feel into shape — cover only what the stage needs and scale
+ruthlessly (at styleguide level don't design screens; at feature level don't re-litigate
+the brand):
+
+- Ask **one question at a time**, multiple-choice when you can: brand/tone, palette, theme(s) (light/dark), typography, spacing/density, key layout patterns, component style, references the user likes.
+- Apply **YAGNI** — only what the stage needs.
+- For genuinely **visual** questions — layout options, style directions, side-by-side comparisons — reach for the **Visual Companion** (below) so the user *sees* the choice instead of reading it. For conceptual/text questions ("what does *playful* mean here?", which features are in scope) stay in the terminal.
 
 ## 3a. Web frontend → Claude Design handoff
 
@@ -45,6 +47,10 @@ Claude Design (claude.ai/design) is a separate Anthropic Labs tool; the link is 
 
 ## 3b. Everything else → build mockups directly
 
+Explore layout directions in the **Visual Companion** first (below) if the choice is still
+open; once it's settled, build the durable mockup here — the companion is for exploring,
+`layout.html` is the artifact that lands in the spec.
+
 - Seed mockups from `templates/layout.html` — self-contained HTML (no build step), with phone and desktop frames; delete the frame you don't need. Viewable in any browser regardless of the real tech stack.
 - Simple UI → embed the snippet directly in the spec's UI section. Sophisticated UI → put the files under `docs/design/mockups/` and link them from the spec.
 - Keep them faithful to `docs/design/Styleguide.html` — paste its tokens into the mockup's `:root`.
@@ -55,6 +61,18 @@ Claude Design (claude.ai/design) is a separate Anthropic Labs tool; the link is 
 - **Mockups** are per-feature, not global: they live in the spec (or `docs/design/mockups/`) so the spec's implement package builds against them. Never pour concrete layouts into the styleguide.
 - **Pause for user review** before committing anything.
 - **Commit** the styleguide and any mockups.
+
+## Visual Companion
+
+An interactive browser tool for the **visual** parts of the brainstorm (step 2) and a live
+pre-step to the finished mockup (step 3b): you write HTML wireframes / option screens, the
+user sees them in a browser and clicks to choose, you read the selection and iterate. It
+reuses superpowers' companion server — no separate install:
+
+- **Scripts:** newest version dir under `~/.claude/plugins/cache/claude-plugins-official/superpowers/*/skills/brainstorming/scripts/`. Start with `start-server.sh --project-dir <repo>`; on Windows set `run_in_background: true` and read `$STATE_DIR/server-info` next turn for the URL.
+- **Full loop & CSS classes:** read `visual-companion.md` next to those scripts before driving it.
+- **Consent:** offer it once before first use (opens a local URL, token-intensive), then decide per question — browser for visual choices, terminal for text.
+- **Converge:** the companion is for exploring; the moment a direction is picked, build the durable mockup from `templates/layout.html` (step 3b). That mockup — not the companion screens — is what lands in the spec.
 
 When **invoked from `project-designer`**, run steps 1–2 then set the styleguide only
 (stop before per-feature mockups) and return. When **invoked from `spec-design`**, the
