@@ -5,11 +5,11 @@ description: "Stage 1 of dynamic-workflow: brainstorm a feature, design its UI i
 
 # Spec Design
 
-Turn an idea into a spec that **fixes every downstream decision**. `dynamic-workflow`
+Turn an idea or plan into a spec that **fixes every downstream decision** — the *Pflichtenheft*. `dynamic-workflow`
 executes whatever this skill records — it does not re-decide — so the judgement lives here.
 
 1. **Brainstorm** — dialogue the idea into shape before writing anything; scale the effort to its complexity and don't interrogate a clear ask:
-   - Check project context first — files, docs, recent commits.
+   - Check project context first — files, architecture docs, recent commits. If a plan exists (`docs/plans/*-plan.md` from `plan`), read it as the requirements basis — the recommended, though optional, starting point.
    - Ask only what you genuinely need, **one question at a time**, multiple-choice when you can — purpose, scope (in/out), constraints, success criteria.
    - Propose 2-3 approaches with trade-offs; lead with your recommendation.
    - Apply **YAGNI** — cut every feature that isn't needed.
