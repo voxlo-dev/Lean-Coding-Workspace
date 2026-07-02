@@ -38,7 +38,8 @@ Decided by `spec-design`; the pipeline follows it without re-deciding.
 
 - **Test:** {none | minimal | core | full-TDD} · **e2e:** {yes | no}
 - **Modules to test:** {which modules / components the tests must cover — not concrete tests}
-- **Implementation:** {direct | subagents | tdd | debugging}
+- **Implementation — technique:** {direct | tdd | debugging}
+- **Implementation — execution:** {inline | subagent-driven: dynamic | subagent-driven: full}
 - **e2e test case:** {if e2e, link the handoff file `docs/specs/{spec}-e2e.md`}
 
 ## Implement packages

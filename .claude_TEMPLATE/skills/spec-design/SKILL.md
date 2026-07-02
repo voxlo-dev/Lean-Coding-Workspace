@@ -20,11 +20,11 @@ executes whatever this skill records — it does not re-decide — so the judgem
    - **none** · **minimal** (smoke / happy path) · **core** (key flows, no redundancy) · **full-TDD** (red-green-refactor throughout)
    - **e2e? yes / no** — orthogonal; can pair with any level.
    - Record the level and **which modules / components must be tested** — not concrete test code (the implement step writes that). If e2e is in scope, write the **e2e test case as its own Markdown file** — seed `docs/specs/{spec}-e2e.md` from the `e2e` skill's `templates/e2e-testcase.md` (When → Then steps) for the `e2e` skill to consume.
-4. **Decide the implementation strategy** — record exactly one in the spec:
-   - **direct** — implement inline in the main thread.
-   - **subagents** — independent packages delegated (`superpowers:subagent-driven-development`).
-   - **tdd** — `superpowers:test-driven-development`; **only valid when the test strategy is full-TDD**.
-   - **debugging** — for bugfix-shaped work (`superpowers:systematic-debugging`).
-5. **Write the spec** — copy this skill's `templates/SPEC_TEMPLATE.md` to a new file under `docs/specs/`, fill it, and size the **implement packages** (≥1; large, independent work → more packages, which is also the signal for the `subagents` strategy).
+4. **Decide the implementation strategy** — two **orthogonal** choices, both recorded in the spec:
+   - **Technique** (how each package is built): **direct** (write it inline) · **tdd** (`superpowers:test-driven-development`, only when the test strategy is full-TDD) · **debugging** (`superpowers:systematic-debugging`, for bugfix-shaped work).
+   - **Execution** (who holds the context): **inline** — the main thread does the work · **subagent-driven** — each package is delegated to a fresh subagent so the orchestrator's context stays clean across many packages. Independent of the technique (subagent-driven can run `direct` *or* `tdd`). **Strongly recommended from ≥3 packages**, or whenever context pressure is likely. If subagent-driven, pick the flavour:
+     - **dynamic** — the compact sequential loop built into `dynamic-workflow` (handoff → report, no parallelism, no per-task review subagents; the default).
+     - **full** — `superpowers:subagent-driven-development` (adds per-task spec + code-quality review subagents; heavier, stricter).
+5. **Write the spec** — copy this skill's `templates/SPEC_TEMPLATE.md` to a new file under `docs/specs/`, fill it, and size the **implement packages** (≥1; large, independent work → more packages — and ≥3 packages is the signal to switch execution to **subagent-driven**).
 
 Return to `dynamic-workflow`, which owns the review pause and the spec commit.
