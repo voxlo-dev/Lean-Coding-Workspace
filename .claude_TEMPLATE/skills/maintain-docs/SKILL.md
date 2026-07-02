@@ -28,7 +28,6 @@ For each doc, ask "does *this* change affect it?" from what you already know. Op
 **Never touched here:**
 
 - `docs/specs/*` — specs are inputs, not maintained output.
-- The changelog — a future release/CI skill extracts it from commits into the PR; not a maintained doc.
 
 ## Architecture & developer docs
 

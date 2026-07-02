@@ -104,4 +104,4 @@ Designing a new project or a large architecture change → recommend `project-de
 
 - **Project initialised?** No `AGENTS.md` / template docs → recommend `project-initialiser` first.
 - **Clean git tree?** Dirty → surface it and recommend committing, gitignoring or reverting so the run starts clean.
-- **Autonomy mode?** Ask once — pause for review at each commit (default) or run autonomously. Applies to the whole run; pass it to the workflow.
+- **Autonomy mode?** Ask once — pause for review before each commit (default) or run autonomously. Applies to the whole run; pass it to the workflow.

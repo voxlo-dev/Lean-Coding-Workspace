@@ -8,7 +8,13 @@ description: "Stage 1 of dynamic-workflow: brainstorm a feature, design its UI i
 Turn an idea into a spec that **fixes every downstream decision**. `dynamic-workflow`
 executes whatever this skill records — it does not re-decide — so the judgement lives here.
 
-1. **Brainstorm** — invoke `superpowers:brainstorming`; don't reinvent it. Settle purpose, scope (in/out), approach, components, data flow.
+1. **Brainstorm** — dialogue the idea into shape before writing anything; scale the effort to its complexity and don't interrogate a clear ask:
+   - Check project context first — files, docs, recent commits.
+   - Ask only what you genuinely need, **one question at a time**, multiple-choice when you can — purpose, scope (in/out), constraints, success criteria.
+   - Propose 2-3 approaches with trade-offs; lead with your recommendation.
+   - Apply **YAGNI** — cut every feature that isn't needed.
+   - Shape the design into small units with one clear purpose and clean interfaces — that split drives the implement packages in step 5.
+   - Present the design in sections sized to their complexity and get the user's nod before writing the spec.
 2. **UI** — if the feature has a UI, invoke `ui-design` to lay out its mockup against the styleguide; capture it in the spec's UI section.
 3. **Decide the test strategy** — pick a coverage level, plus whether e2e is needed:
    - **none** · **minimal** (smoke / happy path) · **core** (key flows, no redundancy) · **full-TDD** (red-green-refactor throughout)
