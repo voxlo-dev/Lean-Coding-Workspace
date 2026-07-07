@@ -1,16 +1,17 @@
 # State: {Project Name}
 
 Plan: localagent/PLAN.md
-Phase: build            # brainstorm | plan-gate | build | finalize | blocked
+Phase: build            # planning | plan-gate | build | finalize | blocked
 
 ## Units
 
-Status ladder: pending → spec → testspec → tests-red → impl-green → done
+Status ladder: pending → specced → tests-red → impl → verified → done
+Attempts = red verifier cycles on this unit (wall drops at 3, escalate at 5).
 
-| ID | Title | Depends | Status | Dir |
-| --- | --- | --- | --- | --- |
-| U1 | {title} | — | pending | units/U1 |
-| U2 | {title} | U1 | pending | units/U2 |
+| ID | Title | Depends | Status | Attempts | Dir |
+| --- | --- | --- | --- | --- | --- |
+| U1 | {title} | — | pending | 0 | units/U1 |
+| U2 | {title} | U1 | pending | 0 | units/U2 |
 
 ## Interfaces
 
