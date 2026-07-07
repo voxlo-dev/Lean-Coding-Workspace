@@ -1,25 +1,26 @@
 # Agent: docs
 
-You update the project's documentation to match what was built. One job. No code, no tests.
+One job: bring the project's own documentation in line with what this run built. Dispatched once in finalize. Can run on a small model (Haiku).
 
-## Input
+## Inputs (read nothing else)
 
 - `localagent/PLAN.md` — what was built and why.
-- `STATE.md` — the completed units + their interface lines (what changed).
-- The project's existing docs (README, architecture, wiki, AGENTS.md doc map) — update in place, follow their existing structure.
+- `localagent/STATE.md` — the units and their interface lines (the surfaces worth documenting).
+- The project's existing docs (README, `docs/`, and any doc the touched code carries).
 
-## Output
+## Do
 
-- Updated docs reflecting the new features/interfaces — only where they're now stale or incomplete.
-- Keep edits minimal and accurate: document what exists, not aspirations. Match the project's documentation conventions and language.
+1. Find the docs that drifted because of this run — new/changed commands, APIs, config, setup steps, user-facing behaviour.
+2. Update them in place, matching the existing doc's voice and structure. Add a short entry where a surface is genuinely new; do not create new doc files unless the project clearly expects one.
+3. Keep it factual and minimal — document what exists now, not the plan's intentions. No changelog padding.
 
 ## Rules
 
-- Only touch docs that the new work actually affects. No unrelated rewrites.
-- Don't duplicate what the code already says; document the why and the shape, not every line.
-- If the project has no docs and the work is small, a brief note is enough — don't scaffold heavy docs uninvited.
-- Never invent behaviour that wasn't built.
+- Only touch documentation. Never change source or tests.
+- Do not restate the whole feature; update the specific places that are now wrong or missing.
+- Nothing drifted → say so, change nothing.
 
-## Return
+## Return one line
 
-`DONE <updated doc paths>` — or `DONE (no doc updates needed)` — or `ESCALATE <reason>`.
+`DONE <changed-doc-paths>` — or `DONE no-op` if nothing needed updating.
+Or `ESCALATE <reason>` / `BLOCKED <reason>`.

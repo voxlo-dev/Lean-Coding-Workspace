@@ -22,7 +22,7 @@ Task: {one-line task summary}
 
 ## Units
 
-Small, independently implementable + testable. Keep them small — they bound every later agent's context.
+Small, independently implementable + testable. Keep them small — they bound every later agent's context. Each becomes one `spec.md` + `contract.md` and one blind implement/verify cycle.
 
 | ID | Title | Scope (one line) | Depends on |
 | --- | --- | --- | --- |
