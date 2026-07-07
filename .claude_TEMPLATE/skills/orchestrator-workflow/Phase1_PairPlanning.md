@@ -1,59 +1,80 @@
 # Phase 1 — Pair Planning
 
-> Run **inline** by the dispatcher — NOT as a subagent. This phase is interactive; the dispatcher talks directly with the user.
+> Executed **inline** by the Dispatcher — NOT as a subagent. This phase is interactive; the Dispatcher talks directly with the user.
+
+---
 
 ## Goal
 
-Produce `<repo>/workflowArtifacts/PLAN.md` and get explicit user approval before Phase 2.
+Produce `[Project]/workflowArtifacts/PLAN.md` and receive explicit user approval before Phase 2 starts.
+
+---
 
 ## Step 1: Bootstrap
 
-The project memory (and any imported domain/global memory) is already loaded — consult it for relevant context.
+The project `MEMORY.md` (and any imported domain/global memory) is already loaded — consult it for prior decisions and gotchas relevant to this task. No gateway call.
 
-Check `<repo>/workflowArtifacts/` for an existing `PLAN.md`:
-- Found and the task implies continuation → summarise it inline, ask: "Continue from this plan, update it, or start fresh?"
-- Missing or the task implies a new project → go to Step 2.
+Check `[Project]/workflowArtifacts/` for an existing `PLAN.md`:
+- Found and task implies continuation → summarize the plan inline, ask: "Continue from this plan, update it, or start fresh?"
+- Missing or task implies new project → proceed to Step 2.
 
-## Step 2: Discovery Gate
+---
 
-Check whether `BUILD_SPEC_<name>.md` exists in `<repo>/workflowArtifacts/` AND passes the completeness check.
+## Step 2: Auto-Discovery Gate
+
+Check whether `BUILD_SPEC_<name>.md` exists in `[Project]/workflowArtifacts/` AND passes the completeness check below.
 
 **Completeness check — BUILD_SPEC must have all of:**
 - Section 1: Project Overview (non-empty)
 - Section 2: Scope and Deliverables
-- Section 5: Component Map (≥1 component)
-- Section 9: Work Package Breakdown (≥1 WP with scope and ACs)
-- An accompanying `USER_STORIES.md` with ≥1 story
+- Section 5: Component Map (at least one component)
+- Section 9: Work Package Breakdown (at least one WP with scope and ACs)
+- Accompanying `USER_STORIES.md` with at least one user story
 
-**If incomplete or missing → ground the plan via discovery:**
-- Repo is codegraph-indexed (`.codegraph/` exists) → query codegraph directly (`codegraph explore "<task topic>"`) to understand the relevant structure. Do not spawn an Explore subagent for what the graph knows.
-- Not indexed → do a brief targeted explore with built-in tools, scoped to the task. Don't index the repo yourself — that's the user's decision.
-- New / empty project → skip discovery.
+**Trigger condition (any of the following):**
+- BUILD_SPEC file missing
+- BUILD_SPEC missing one or more required sections
+- `USER_STORIES.md` missing
+- BUILD_SPEC clearly written for a different project (name mismatch)
 
-**If complete → not a greenfield run:** load the existing BUILD_SPEC + USER_STORIES.md for context; treat this as an update/extension.
+**If triggered — ground the planning conversation via codegraph:**
+- **Indexed repo** (`.codegraph/` exists) → query codegraph directly: `codegraph explore "<task-relevant symbols or question>"` (shell) or the `codegraph_explore` / `codegraph_node` MCP tools. This returns the relevant symbols' source plus the call paths between them — enough to locate the blast radius and reuse existing abstractions.
+- **Not indexed** → spawn a brief `Explore` subagent scoped to the task area; receive a short structural summary. Do not index the repo yourself — that is the user's decision.
+
+Use the structural findings to ground Step 3.
+
+**If not triggered:**
+Load existing BUILD_SPEC and USER_STORIES.md for context.
+Note internally: this is an update/extension run, not a greenfield project.
+
+---
 
 ## Step 3: Pair Planning Dialogue
 
-Ask the user targeted questions based on what you now know (from discovery or the existing spec). Keep it tight — 2–3 rounds max. Never ask for something you already have.
+Ask the user targeted questions based on what you now know (from codegraph discovery or the existing spec). Keep rounds tight — 2–3 rounds max. Do not ask for information you already have.
 
-**For new projects (ask only what's still unknown):**
-- Goal and who benefits? (target users, core problem)
-- Must-haves (P0) vs nice-to-haves (P2)?
-- Hard constraints? (tech stack, APIs, deadlines, access)
-- What does "done" look like? (observable success state)
-- Known risks or tricky areas?
+**Topics to cover (ask only what's still unknown):**
 
-**For updates/extensions:**
-- Which existing WPs / user stories are affected?
+For new projects:
+- What is the goal and who benefits? (target users, core problem)
+- What are the must-haves (P0) vs nice-to-haves (P2)?
+- Any hard constraints? (tech stack, APIs, deadlines, access/permissions)
+- What does "done" look like? Observable success state.
+- Any known risks or technically tricky areas?
+
+For updates/extensions:
+- Which existing WPs or user stories are affected?
 - Are any existing acceptance criteria changing?
 - New WPs or stories needed?
-- Any new constraints?
+- Any new constraints introduced?
 
-Do NOT ask about testing levels — those come from the dispatcher's Configuration.
+Do NOT ask about testing levels here — the Dispatcher already resolved them with the user at Bootstrap.
+
+---
 
 ## Step 4: Write PLAN.md
 
-Write `<repo>/workflowArtifacts/PLAN.md`:
+Write `[Project]/workflowArtifacts/PLAN.md`:
 
 ```markdown
 # Plan: [Project Name]
@@ -65,7 +86,7 @@ Task: [one-line task summary]
 1. As a [role], I want [action] so that [outcome].
 2. ...
 
-(W2 expands these into full USER_STORIES.md with acceptance criteria)
+(W2 will expand these into full USER_STORIES.md with acceptance criteria)
 
 ## Tech / Approach Decisions
 
@@ -77,15 +98,15 @@ Task: [one-line task summary]
 
 ## Discovery Grounding
 
-[Only if discovery ran — key structural findings that shape the plan:]
-- [finding from codegraph / explore relevant to this task]
+[Only include if codegraph/Explore discovery ran — key structural findings that shape the plan:]
+- [finding relevant to this task: existing module to extend, blast radius, reusable abstraction]
 
-[Omit this section if no discovery ran]
+[Omit this section if no discovery pass ran]
 
 ## Work Package Sketch
 
 | WP | Title | Scope summary | Depends on |
-| --- | --- | --- | --- |
+|---|---|---|---|
 | WP1 | | | — |
 | WP2 | | | WP1 |
 
@@ -95,22 +116,31 @@ Task: [one-line task summary]
 - [leave empty if none]
 ```
 
+---
+
 ## Step 5: User Approval Gate
 
 Show the user inline:
-- User story sketch (one line each)
+- User story sketch (bullet list, one line each)
 - WP sketch table
-- Path to PLAN.md
+- Path to PLAN.md for reference
 
 Ask explicitly:
 
 > **"Does this plan look right? Say 'approved' to proceed to spec writing, or tell me what to change."**
 
-Do NOT proceed to Phase 2 until explicit approval. Silence is not approval. If changes are requested: update PLAN.md and re-show the summary. Repeat until approved.
+Do NOT signal the Dispatcher to proceed to Phase 2 until explicit approval is received.
+Silence is not approval.
 
-## Completion Signal
+If changes are requested: update PLAN.md and re-show the summary. Repeat until approved.
 
-Once approved, the dispatcher proceeds to Phase 2 with:
+---
+
+## Phase 1 Completion Signal
+
+Once user approves: return to Dispatcher with:
 - `PLAN_APPROVED` + PLAN.md path
-- Whether this was a greenfield or update run
-- Whether codegraph is available for the spec architect
+- Whether codegraph discovery ran (so W2 knows the structural basis)
+- Note whether this was a greenfield or update run
+
+Dispatcher proceeds to Phase 2.
