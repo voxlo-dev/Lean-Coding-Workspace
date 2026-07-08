@@ -2,7 +2,7 @@
 
 ## Role
 
-Spec writer only. No implementation, no testing. Produces `BUILD_SPEC_<ProjectName>.md` and `USER_STORIES.md` from `PLAN.md`.
+Spec writer only. No implementation, no testing. Produces `spec_{feature}.md` and `user-stories_{feature}.md` from `plan_{feature}.md`.
 
 ---
 
@@ -10,7 +10,7 @@ Spec writer only. No implementation, no testing. Produces `BUILD_SPEC_<ProjectNa
 
 | Input | Source |
 |---|---|
-| PLAN.md path | Dispatcher |
+| plan_{feature}.md path | Dispatcher |
 | codegraph availability (indexed yes/no) | Dispatcher |
 | Active W4 test levels | Dispatcher |
 | Project key | Dispatcher |
@@ -21,8 +21,8 @@ Spec writer only. No implementation, no testing. Produces `BUILD_SPEC_<ProjectNa
 
 | File | Description |
 |---|---|
-| `[Project]/workflowArtifacts/BUILD_SPEC_<ProjectName>.md` | Architecture spec, WP breakdown, quality gates |
-| `[Project]/workflowArtifacts/USER_STORIES.md` | All user stories with full acceptance criteria |
+| `docs/artefacts/{sprint}/spec_{feature}.md` | Architecture spec, WP breakdown, quality gates |
+| `docs/artefacts/{sprint}/user-stories_{feature}.md` | All user stories with full acceptance criteria |
 
 Return to Dispatcher: both file paths, or `ESCALATE_TO_DISPATCHER + reason` if critical blockers exist.
 
@@ -30,7 +30,7 @@ Return to Dispatcher: both file paths, or `ESCALATE_TO_DISPATCHER + reason` if c
 
 ## Step 1: Load Context
 
-- Read PLAN.md fully (including its Discovery Grounding section if present).
+- Read plan_{feature}.md fully (including its Discovery Grounding section if present).
 - The project `MEMORY.md` (and any imported domain/global memory) is already loaded — consult it for prior decisions and constraints.
 - If the repo is codegraph-indexed, query codegraph for any structural detail the spec needs (`codegraph explore "<question>"` or the `codegraph_explore` / `codegraph_node` MCP tools). Do not dump the graph into the spec — pull only what a WP needs.
 
@@ -38,14 +38,14 @@ Return to Dispatcher: both file paths, or `ESCALATE_TO_DISPATCHER + reason` if c
 
 ## Step 2: Resolve Open Questions
 
-Read PLAN.md Section "Open Questions."
+Read plan_{feature}.md Section "Open Questions."
 
 - Blocking (critical for architecture or acceptance criteria) → `ESCALATE_TO_DISPATCHER` with the specific question before writing spec. Do not guess.
 - Non-blocking (minor, solvable with reasonable assumptions) → document the assumption in BUILD_SPEC Section 5 (Constraints and Risks).
 
 ---
 
-## Step 3: Write USER_STORIES.md
+## Step 3: Write user-stories_{feature}.md
 
 Use `USER_STORIES_Template.md` from this workflow directory as the format guide.
 
@@ -53,9 +53,9 @@ Rules:
 - One story per `## US<N>` block
 - Each story has: title, As a / I want / So that, full acceptance criteria (numbered, observable, testable), definition of done, linked WPs
 - ACs must be concrete and verifiable — no "the system should handle X gracefully" without specifying what "gracefully" means
-- Copy user story sketches from PLAN.md and expand them — do not invent stories not in the plan without noting it
+- Copy user story sketches from plan_{feature}.md and expand them — do not invent stories not in the plan without noting it
 
-Save as `[Project]/workflowArtifacts/USER_STORIES.md`.
+Save as `docs/artefacts/{sprint}/user-stories_{feature}.md`.
 
 ---
 
@@ -65,7 +65,7 @@ Use `BUILD_SPEC_Blueprint.md` from this workflow directory as the template.
 
 **Key rules:**
 - Keep all sections from the blueprint
-- Section 2 (Scope): reference `USER_STORIES.md` for story details; do not copy stories inline
+- Section 2 (Scope): reference `user-stories_{feature}.md` for story details; do not copy stories inline
 - Section 5 (Component Map): each component linked to relevant WPs and US references
 - Section 7 (Quality Gates): note the active W4 test levels passed by the Dispatcher (do not assume defaults)
 - Section 9 (Work Package Breakdown): **expanded format** — each WP has full detail sufficient for W3 to implement without asking W2 again (see format below). No separate TaskCharter files.
@@ -89,15 +89,15 @@ Use `BUILD_SPEC_Blueprint.md` from this workflow directory as the template.
 - **Handover summary:** *(filled by W3 on completion)*
 ```
 
-Save as `[Project]/workflowArtifacts/BUILD_SPEC_<ProjectName>.md`.
+Save as `docs/artefacts/{sprint}/spec_{feature}.md`.
 
 ---
 
 ## Step 5: Return
 
 Return both paths to Dispatcher:
-- BUILD_SPEC_<ProjectName>.md path
-- USER_STORIES.md path
+- spec_{feature}.md path
+- user-stories_{feature}.md path
 
 ---
 
@@ -107,18 +107,18 @@ Return both paths to Dispatcher:
 2. Every WP in Section 9 must be self-contained enough for W3 to implement without re-querying W2.
 3. Architecture decisions must include rationale (why, not just what).
 4. If the repo is codegraph-indexed: use codegraph for structural grounding; do not copy file inventories the graph already holds into the spec.
-5. BUILD_SPEC + USER_STORIES.md are the joint source of truth — W3 and W4 read both directly.
-6. Never invent file paths or module names — use only confirmed existing paths from codegraph or PLAN.md.
+5. BUILD_SPEC + user-stories_{feature}.md are the joint source of truth — W3 and W4 read both directly.
+6. Never invent file paths or module names — use only confirmed existing paths from codegraph or plan_{feature}.md.
 7. Escalate rather than guess on blocking ambiguities.
 
 ---
 
 ## Checklist
 
-- [ ] PLAN.md read fully?
+- [ ] plan_{feature}.md read fully?
 - [ ] Open questions resolved (or escalation triggered for blockers)?
 - [ ] Memory consulted; codegraph queried if the repo is indexed?
-- [ ] USER_STORIES.md written with all stories from PLAN.md expanded?
+- [ ] user-stories_{feature}.md written with all stories from plan_{feature}.md expanded?
 - [ ] Every story has numbered, observable ACs and a definition of done?
 - [ ] All blueprint sections filled in BUILD_SPEC?
 - [ ] Section 9: every WP has scope, out-of-scope, ACs, DoD, US references?

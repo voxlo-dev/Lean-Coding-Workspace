@@ -1,6 +1,6 @@
 # Spec — {feature name}
 
-Date: {YYYY-MM-DD} · Status: {draft | approved | done} · Plan: {link `docs/plans/{topic}-plan.md` if any, else —}
+Date: {YYYY-MM-DD} · Status: {draft | approved | done} · Plan: {link `docs/artefacts/{sprint}/plan_{feature}.md` if any, else —}
 
 Feature spec for `dynamic-workflow` — the *Pflichtenheft*. Comes out of `spec-design`
 (from the plan above when there is one); it fixes the test and implementation strategy,
@@ -41,7 +41,7 @@ Decided by `spec-design`; the pipeline follows it without re-deciding.
 - **Modules to test:** {which modules / components the tests must cover — not concrete tests}
 - **Implementation — technique:** {direct | tdd | debugging}
 - **Implementation — execution:** {inline | subagent-driven: dynamic | subagent-driven: full}
-- **e2e test case:** {if e2e, link the handoff file `docs/specs/{spec}-e2e.md`}
+- **e2e test case:** {if e2e, link the handoff file `docs/artefacts/{sprint}/e2e_{feature}.md`}
 
 ## Implement packages
 

@@ -1,7 +1,7 @@
 # User Stories — [Project Name]
 
 > Created by Worker 2. All user stories for this project with full acceptance criteria.
-> Naming: `[Project]/workflowArtifacts/USER_STORIES.md`
+> Naming: `docs/artefacts/{sprint}/user-stories_{feature}.md`
 
 ---
 

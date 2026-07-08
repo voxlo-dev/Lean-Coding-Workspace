@@ -19,14 +19,14 @@ For each doc, ask "does *this* change affect it?" from what you already know. Op
 | --- | --- | --- | --- |
 | `AGENTS.md` → Living context | high | goals, decisions, or direction moved | your first stop — keep it current every run; edit the relevant subsection, also fix code-style/conventions if they changed (single source — never copy into README). **Gotchas/learnings go to project memory via `maintain-memory`, not here.** |
 | `AGENTS.md` → Doc map | high | a doc was added or removed | keep the map listing only docs that exist |
-| `docs/specs/*` | when in context | a spec was implemented this run | update its **Status** (e.g. draft → done) and tick the **acceptance criteria** you met — only with that context in hand; otherwise leave it |
+| `docs/artefacts/{sprint}/spec_*` | when in context | a spec was implemented this run | update its **Status** (e.g. draft → done) and tick the **acceptance criteria** you met — only with that context in hand; otherwise leave it. Every other file in `docs/artefacts/` (plans, e2e cases, reports) is a frozen run record — never edited here |
 | `ASSETS.md` (if present) | medium | assets were added, moved, or repurposed | add/adjust the row(s); keep `Used in` accurate |
 | `docs/developer/` (if present) | medium | api reference, guides, key decisions, long-term todos, or known bugs changed | see Architecture & developer docs below |
 | `docs/architecture/` (if present) | low | core architecture changed or was extended | see Architecture & developer docs below |
 | `docs/wiki/` (if present) | low | user-facing interaction changed | read the wiki Home page first, then make very targeted edits |
 | `docs/design/` (if present) | — | design system changed | **don't touch here** — the styleguide and mockups are owned by `ui-design` |
 
-**Not maintained here:** `docs/plans/*` — the plan is pure input (the *Lastenheft*), never edited at the docs step. (Specs *are* touched — status + acceptance criteria only, per the table above.)
+**Not maintained here:** everything under `docs/artefacts/` is a frozen run record — the only exception is a `spec_*` file's Status + acceptance criteria (per the table above). Plans, e2e cases, and reports there are pure run history, never edited at the docs step. `localagent/` run records are likewise never touched here. Both are committed as-is by their own workflow.
 
 ## Architecture & developer docs
 

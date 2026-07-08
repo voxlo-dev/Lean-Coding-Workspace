@@ -6,7 +6,7 @@
 
 ## Goal
 
-Produce `[Project]/workflowArtifacts/PLAN.md` and receive explicit user approval before Phase 2 starts.
+Produce `docs/artefacts/{sprint}/plan_{feature}.md` and receive explicit user approval before Phase 2 starts.
 
 ---
 
@@ -14,27 +14,28 @@ Produce `[Project]/workflowArtifacts/PLAN.md` and receive explicit user approval
 
 The project `MEMORY.md` (and any imported domain/global memory) is already loaded — consult it for prior decisions and gotchas relevant to this task. No gateway call.
 
-Check `[Project]/workflowArtifacts/` for an existing `PLAN.md`:
+Check `docs/artefacts/{sprint}/` for an existing `plan_{feature}.md`:
 - Found and task implies continuation → summarize the plan inline, ask: "Continue from this plan, update it, or start fresh?"
+- **A `plan`-skill *Lastenheft* lands at the same path (`plan_{feature}.md`).** If one exists, treat it as the requirements basis: read it, and in Step 3 only *confirm* its points rather than re-asking them from scratch.
 - Missing or task implies new project → proceed to Step 2.
 
 ---
 
 ## Step 2: Auto-Discovery Gate
 
-Check whether `BUILD_SPEC_<name>.md` exists in `[Project]/workflowArtifacts/` AND passes the completeness check below.
+Check whether `spec_{feature}.md` exists in `docs/artefacts/{sprint}/` AND passes the completeness check below.
 
 **Completeness check — BUILD_SPEC must have all of:**
 - Section 1: Project Overview (non-empty)
 - Section 2: Scope and Deliverables
 - Section 5: Component Map (at least one component)
 - Section 9: Work Package Breakdown (at least one WP with scope and ACs)
-- Accompanying `USER_STORIES.md` with at least one user story
+- Accompanying `user-stories_{feature}.md` with at least one user story
 
 **Trigger condition (any of the following):**
 - BUILD_SPEC file missing
 - BUILD_SPEC missing one or more required sections
-- `USER_STORIES.md` missing
+- `user-stories_{feature}.md` missing
 - BUILD_SPEC clearly written for a different project (name mismatch)
 
 **If triggered — ground the planning conversation via codegraph:**
@@ -44,7 +45,7 @@ Check whether `BUILD_SPEC_<name>.md` exists in `[Project]/workflowArtifacts/` AN
 Use the structural findings to ground Step 3.
 
 **If not triggered:**
-Load existing BUILD_SPEC and USER_STORIES.md for context.
+Load existing BUILD_SPEC and user-stories_{feature}.md for context.
 Note internally: this is an update/extension run, not a greenfield project.
 
 ---
@@ -72,9 +73,9 @@ Do NOT ask about testing levels here — the Dispatcher already resolved them wi
 
 ---
 
-## Step 4: Write PLAN.md
+## Step 4: Write plan_{feature}.md
 
-Write `[Project]/workflowArtifacts/PLAN.md`:
+Write `docs/artefacts/{sprint}/plan_{feature}.md`:
 
 ```markdown
 # Plan: [Project Name]
@@ -86,7 +87,7 @@ Task: [one-line task summary]
 1. As a [role], I want [action] so that [outcome].
 2. ...
 
-(W2 will expand these into full USER_STORIES.md with acceptance criteria)
+(W2 will expand these into full user-stories_{feature}.md with acceptance criteria)
 
 ## Tech / Approach Decisions
 
@@ -123,7 +124,7 @@ Task: [one-line task summary]
 Show the user inline:
 - User story sketch (bullet list, one line each)
 - WP sketch table
-- Path to PLAN.md for reference
+- Path to plan_{feature}.md for reference
 
 Ask explicitly:
 
@@ -132,14 +133,14 @@ Ask explicitly:
 Do NOT signal the Dispatcher to proceed to Phase 2 until explicit approval is received.
 Silence is not approval.
 
-If changes are requested: update PLAN.md and re-show the summary. Repeat until approved.
+If changes are requested: update plan_{feature}.md and re-show the summary. Repeat until approved.
 
 ---
 
 ## Phase 1 Completion Signal
 
 Once user approves: return to Dispatcher with:
-- `PLAN_APPROVED` + PLAN.md path
+- `PLAN_APPROVED` + plan_{feature}.md path
 - Whether codegraph discovery ran (so W2 knows the structural basis)
 - Note whether this was a greenfield or update run
 

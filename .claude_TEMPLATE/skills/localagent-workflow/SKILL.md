@@ -18,6 +18,8 @@ A sequential, context-frugal multi-agent workflow built for a **weak (~30B) loca
 - **Models:** you orchestrate on Opus/Fable; dispatch agents on **Sonnet** (the `docs` agent can be Haiku). The agent prompts are written to also survive a fully-local 30B run — don't loosen them.
 - **Sequential only** — one agent at a time (a single local model serves one inference at a time; keep the same shape in CC for parity).
 
+> **Wall hardening (optional).** In Claude Code the visibility wall is only prompt discipline — nothing technically stops the `implementer` subagent from reading a test file. To enforce it, either (a) add a **PreToolUse hook** that denies `Read` on the test globs while the implementer runs, or (b) give the implementer a **restricted agent definition** whose tools exclude the test paths. On a real local runner the wall is enforced by simply never putting the tests in the implementer's context — the prompt-level rule already suffices there.
+
 ## Flow (see `PROTOCOL.md` for detail)
 
 1. **Planning** → plan inline *with* the user (grounded in codegraph if indexed) → writes `localagent/PLAN.md` (systems, features, test strategy, unit list).
