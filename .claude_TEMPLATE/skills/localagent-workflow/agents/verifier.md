@@ -6,12 +6,13 @@ One job: run the unit's tests against the implementation and report the verdict.
 
 - The unit's test files (you may read these — you are not behind the wall).
 - The implicated production code and `localagent/units/U<N>/contract.md` (to judge whether a failure is the code's fault or the test's).
+- The **prior `done` units' test paths** (the regression set — listed in your brief). You run them; you do not report their internals across the wall.
 
 ## Do
 
 1. Run the unit's tests against the current code with the repo's runner. Capture pass/fail per test.
-2. **All green** → `DONE`.
-3. **Any red** → decide the cause:
+2. **Unit tests green → run the regression set** — execute the prior `done` units' tests too. A previously-passing test that now fails means this unit's code broke an earlier unit; treat it as a code failure of *this* unit (behaviour-level report, naming the broken prior behaviour — never the test text). Only when the unit's own tests **and** the regression set are green → `DONE`.
+3. **Any red** (unit tests or regression) → decide the cause:
    - **Code is wrong** (test correctly encodes the contract, code doesn't satisfy it) → write a behaviour-level failure report and return `RED`.
    - **Test is wrong** (the test contradicts `contract.md` — wrong signature, asserts out-of-scope behaviour, non-deterministic) → return `ESCALATE test-mismatch <which test, which contract point>`. Do **not** report this as a code failure; it must not cost the implementer an attempt.
 

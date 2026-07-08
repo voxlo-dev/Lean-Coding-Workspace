@@ -8,7 +8,7 @@ description: "Use to turn an idea, a rough draft, or a brainstorming transcript 
 Turn a fuzzy idea into a crisp, **end-user-level** requirements plan — the *Lastenheft*
 (what the user wants and why). Stay at product/UX level: **no code exploration, no
 architecture, no implementation decisions**; `spec-design` later turns the plan into the
-technical *Pflichtenheft*. Output: `docs/plans/{topic}-plan.md`.
+technical *Pflichtenheft*. Output: `docs/artefacts/{sprint}/plan_{feature}.md`.
 
 **Sensible context — only what already exists, never the codebase:** existing UI mockups
 (`docs/design/`) and optionally the wiki (`docs/wiki/`). Pull these in when present; don't go hunting
@@ -43,11 +43,11 @@ Surface concerns to the user and resolve them before writing.
 
 ## 5. Write the plan
 
-Copy this skill's `templates/PLAN_TEMPLATE.md` to `docs/plans/{topic}-plan.md`, fill it,
-and get the user's approval. The plan is deliberately **unambiguous** — the opposite of the
+Copy this skill's `templates/PLAN_TEMPLATE.md` to `docs/artefacts/{sprint}/plan_{feature}.md`
+(ask the user for the current sprint if unclear), fill it, and get the user's approval. The plan is deliberately **unambiguous** — the opposite of the
 input it came from.
 
 ## Handoff
 
-The plan is an **input artifact**, not a workflow step. `plan` is **not** wired into any workflow — it runs standalone and produces the doc. Hand `docs/plans/{topic}-plan.md` to `spec-design` (recommended) or any workflow.
+The plan is an **input artifact**, not a workflow step. `plan` is **not** wired into any workflow — it runs standalone and produces the doc. Hand `docs/artefacts/{sprint}/plan_{feature}.md` to `spec-design` (recommended) or any workflow.
 

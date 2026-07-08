@@ -24,6 +24,8 @@ The whole workflow is designed for a **weak (~30B) local model**: every agent ge
 
 Test code and production code go into the repo's normal source/test trees — not under `localagent/`. e2e writes a short report (`localagent/E2E.md`); docs are updated in place.
 
+Everything under `localagent/` is a **run record**: committed with the run and frozen afterwards — the docs step never edits it (see the project `AGENTS.md` doc map).
+
 ## STATE.md — your entire working memory
 
 You do not rely on your context window to remember progress. After every step you **write** the new state to `STATE.md` and **re-read** it at the start of the next round. If your context is reset, `STATE.md` alone lets you continue.
@@ -77,7 +79,7 @@ Seed `STATE.md` from the approved unit list (all units `pending`, `Attempts` 0).
    | pending → specced | `spec-architect` | this unit's PLAN entry + prior units' interface lines from STATE | `units/U<N>/spec.md` + `units/U<N>/contract.md` |
    | specced → tests-red | `test-author` | `spec.md` + `contract.md` | test files (verified failing) |
    | tests-red → impl | `implementer` | `spec.md` + `contract.md` **(never the tests)** | production code |
-   | impl → verified | `verifier` | the unit's test files + the implicated src | verdict + behaviour-level failure report |
+   | impl → verified | `verifier` | the unit's test files + the implicated src + prior `done` units' test paths (regression set) | verdict + behaviour-level failure report |
 
 3. **Receive** the agent's 1-line status: `DONE <path>` | `RED <report-path>` | `ESCALATE <reason>` | `BLOCKED <reason>`.
 4. **Update** `STATE.md`: advance the unit's status (or handle rework, below). When a unit reaches `done`, append one interface line for cross-unit handoff and reset its `Attempts` to 0. Re-read `STATE.md`, continue the loop.

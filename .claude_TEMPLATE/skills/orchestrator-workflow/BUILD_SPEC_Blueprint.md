@@ -2,11 +2,11 @@
 
 ## Purpose
 
-Template for `BUILD_SPEC_<ProjectName>.md`. Worker 2 creates this at the start of Phase 2.
+Template for `spec_{feature}.md`. Worker 2 creates this at the start of Phase 2.
 
 The BUILD_SPEC is the **single authoritative architecture document**. It drives the WP breakdown, acceptance criteria, and the W4 validation gate. Update it whenever architecture, scope, or interfaces change.
 
-User stories and their acceptance criteria live in `USER_STORIES.md` (separate file). The BUILD_SPEC references them; it does not repeat them.
+User stories and their acceptance criteria live in `user-stories_{feature}.md` (separate file). The BUILD_SPEC references them; it does not repeat them.
 
 In a codegraph-indexed repo, use codegraph as the structural sidecar for discovery and compression. Record decisions, constraints, interfaces, and WP specs here — not file-level relationships the graph already holds.
 
@@ -24,7 +24,7 @@ In a codegraph-indexed repo, use codegraph as the structural sidecar for discove
 
 ## 2. Scope and Deliverables
 
-- **User stories:** see `USER_STORIES.md`
+- **User stories:** see `user-stories_{feature}.md`
 - **Must-have requirements:** (P0 — project fails without these)
 - **Should-have requirements:** (P1 — important but not blocking)
 - **Nice-to-have requirements:** (P2 — only if time allows)
@@ -145,8 +145,8 @@ Filled progressively as W3 runs.
 
 ## Worker 2 Checklist
 
-- [ ] Project overview and non-goals aligned with PLAN.md?
-- [ ] USER_STORIES.md written with all stories expanded from PLAN.md?
+- [ ] Project overview and non-goals aligned with plan_{feature}.md?
+- [ ] user-stories_{feature}.md written with all stories expanded from plan_{feature}.md?
 - [ ] All stories have numbered, observable ACs and a definition of done?
 - [ ] All components in scope defined with interfaces and US/WP references?
 - [ ] Every WP in Section 9 has scope, out-of-scope, ACs, DoD, and US references?
@@ -156,5 +156,5 @@ Filled progressively as W3 runs.
 - [ ] API surfaces fully specified?
 - [ ] Quality gates and active W4 levels documented in Section 7?
 - [ ] Structural basis noted (codegraph / greenfield)?
-- [ ] BUILD_SPEC saved as `[Project]/workflowArtifacts/BUILD_SPEC_<ProjectName>.md`?
-- [ ] Both BUILD_SPEC and USER_STORIES.md paths returned to Dispatcher?
+- [ ] BUILD_SPEC saved as `docs/artefacts/{sprint}/spec_{feature}.md`?
+- [ ] Both the spec and `user-stories_{feature}.md` paths returned to Dispatcher?

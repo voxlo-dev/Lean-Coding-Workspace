@@ -20,9 +20,9 @@ Assume the user is capable, but lazy with words, because he can't type as fast a
 **User defined rules:** User defined rules have priority over ANYTHING else including other rules from this file.
 {Add custom user defined rules}
 
-**Language rules:** Keep all Markdown files English only — relaxed only where a crisp, well-defined term has no exact English equivalent (e.g. *Lastenheft* / *Pflichtenheft*): keep the original term rather than spend tokens on a lossy paraphrase. Keep conversations with the user in its preferred language
+**Language rules:** Keep all Markdown files English only — relaxed only where a crisp, well-defined term has no exact English equivalent (e.g. *Lastenheft* / *Pflichtenheft*): keep the original term rather than spend tokens on a lossy paraphrase. Keep conversations with the user in the user's preferred language.
 
-**Tool call rules:**: Default to the most capable shell of the operating system (e.g powershell for windowes / bash for Linux), if one shell does not work use another.
+**Tool call rules:** Default to the most capable shell of the operating system (e.g. PowerShell for Windows / bash for Linux), if one shell does not work use another.
 
 **Version Control rules:** {e.g. Conventional Commits — `<type>(<scope>): <subject>`
   Types: `feat` `fix` `docs` `refactor` `test` `chore`
@@ -32,7 +32,7 @@ Assume the user is capable, but lazy with words, because he can't type as fast a
   e.g. `feature/token-refresh` · `fix/empty-payload` · `chore/bump-deps`
 - **Pull requests:** one topic per PR, small and reviewable; tests green before
   merge; link the spec/issue.
-  e.g. title `feat(auth): add token refresh`, body references `docs/specs/...`}
+  e.g. title `feat(auth): add token refresh`, body references `docs/artefacts/{sprint}/spec_...`}
 
 **General codestyle rules**
 {e.g. keep code comments short and precise}
@@ -98,7 +98,7 @@ Options:
 - **superpowers** — invoke `superpowers/using-superpowers` for the full brainstorm → plan → implement framework
 - **no workflow** — use no workflow skill; relax these rules and let the agent work freely
 
-Turning a fuzzy idea, a draft, or a brainstorming transcript into a clear requirements plan first (the *Lastenheft*, end-user level) → recommend `plan` (optional, non-technical, no code exploration). Its `docs/plans/*-plan.md` feeds `spec-design` or any workflow; it is not wired into one.
+Turning a fuzzy idea, a draft, or a brainstorming transcript into a clear requirements plan first (the *Lastenheft*, end-user level) → recommend `plan` (optional, non-technical, no code exploration). Its `docs/artefacts/{sprint}/plan_{feature}.md` feeds `spec-design` or any workflow; it is not wired into one.
 
 Designing a new project or a large architecture change → recommend `project-designer` (deep brainstorm + web research → architecture doc → optional dynamic-workflow handoff).
 

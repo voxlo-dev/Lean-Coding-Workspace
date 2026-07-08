@@ -1,6 +1,6 @@
 # {Project}
 
-{!-- badges: build · version · license · … --}
+<!-- {badges: build · version · license · …} -->
 
 {one-paragraph description: what it is and who it's for}
 

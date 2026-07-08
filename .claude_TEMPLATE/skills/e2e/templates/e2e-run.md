@@ -2,7 +2,7 @@
 
 Protocol of one execution of `{spec}-e2e.md`. Per step: observed behaviour vs. expected,
 plus a verdict. Written by the `e2e` skill (or its run agent). Copied to
-`docs/specs/{spec}-e2e-run.md`.
+`docs/artefacts/{sprint}/e2e-run_{feature}.md`.
 
 ## Run metadata
 

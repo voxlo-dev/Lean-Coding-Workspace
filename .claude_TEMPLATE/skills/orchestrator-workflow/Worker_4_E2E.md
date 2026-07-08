@@ -6,7 +6,7 @@
 
 ## Role
 
-E2E testing only. No implementation, no spec changes. Validates the implementation against `USER_STORIES.md` acceptance criteria and `BUILD_SPEC` quality gates.
+E2E testing only. No implementation, no spec changes. Validates the implementation against `user-stories_{feature}.md` acceptance criteria and `BUILD_SPEC` quality gates.
 
 ---
 
@@ -14,9 +14,9 @@ E2E testing only. No implementation, no spec changes. Validates the implementati
 
 | Input | Source |
 |---|---|
-| BUILD_SPEC_<name>.md path | Dispatcher |
-| USER_STORIES.md path | Dispatcher |
-| HANDOVER.md path | Dispatcher |
+| spec_{feature}.md path | Dispatcher |
+| user-stories_{feature}.md path | Dispatcher |
+| handover_{feature}.md path | Dispatcher |
 | Active test levels (smoke / integration / full E2E) | Dispatcher |
 | `fix_as_failing_test` (on/off) | Dispatcher |
 | Project key | Dispatcher |
@@ -27,10 +27,10 @@ E2E testing only. No implementation, no spec changes. Validates the implementati
 
 | File | Description |
 |---|---|
-| `[Project]/workflowArtifacts/E2ETestReport.md` | Test results per level, issues, fix requests |
+| `docs/artefacts/{sprint}/e2e-report_{feature}.md` | Test results per level, issues, fix requests |
 
 Returns to Dispatcher:
-- `VALIDATION_PASS` + E2ETestReport.md path
+- `VALIDATION_PASS` + e2e-report_{feature}.md path
 - `FIXES_REQUIRED` + fix list (actionable, per WP)
 - `FAILED/BLOCKED` + exact blocker
 
@@ -40,8 +40,8 @@ Returns to Dispatcher:
 
 Read:
 - BUILD_SPEC (all sections — especially Section 7 Quality Gates and Section 9 WP ACs)
-- USER_STORIES.md (all stories — ACs are the primary test targets)
-- HANDOVER.md (risk table — prioritize RISKY WPs for extra scrutiny)
+- user-stories_{feature}.md (all stories — ACs are the primary test targets)
+- handover_{feature}.md (risk table — prioritize RISKY WPs for extra scrutiny)
 
 The project `MEMORY.md` (and any imported domain/global memory) is already loaded — consult it for known flaky areas and prior test gotchas.
 
@@ -55,7 +55,7 @@ Run only the levels the Dispatcher marked active. Record a level the Dispatcher 
 
 ### Smoke Tests (if active)
 
-For each user story in `USER_STORIES.md`:
+For each user story in `user-stories_{feature}.md`:
 - Trigger the primary happy path and verify it executes without error
 - One smoke test per user story minimum
 - Verify expected output/state matches the story's Definition of Done
@@ -66,23 +66,23 @@ For each user story in `USER_STORIES.md`:
 For each WP in BUILD_SPEC Section 9, test component interactions:
 - Cover primary integration surfaces (API calls, data persistence, external services, cross-WP boundaries)
 - Include at least one error/edge case per integration surface
-- Prioritize RISKY WPs from HANDOVER.md — probe flagged behaviors harder
+- Prioritize RISKY WPs from handover_{feature}.md — probe flagged behaviors harder
 - Document: PASS | FAIL per integration surface, with AC reference
 
 ### Full E2E Tests (if active)
 
 Write and execute repeatable end-to-end tests covering complete user flows:
-- Cover each user story from `USER_STORIES.md` from start to finish
+- Cover each user story from `user-stories_{feature}.md` from start to finish
 - Include edge cases and failure scenarios per story
 - Tests must be automatable and repeatable — no ad-hoc manual checks
-- Reference AC numbers from USER_STORIES.md in test results
+- Reference AC numbers from user-stories_{feature}.md in test results
 - Document: PASS | FAIL per user story, with AC coverage summary
 
 **Browser surface → browser E2E is mandatory.** Decide deterministically from bounded signals (BUILD_SPEC Section 6 UX/UI declarations, a frontend manifest declaring a UI framework, a `frontend/`/`web/`/`client/` dir, or served HTML). If the project exposes a browser/UI surface, write and run deterministic Playwright (or equivalent) journeys — install and configure Playwright if absent. Do NOT downgrade a browser-capable project to weaker checks because it "looks small"; app type only changes the tools used, not whether E2E runs. If genuinely no browser surface exists, record "no browser surface — browser E2E not applicable" and cover the flows via API/integration E2E instead.
 
 ---
 
-## Step 3: Write E2ETestReport.md
+## Step 3: Write e2e-report_{feature}.md
 
 ```markdown
 # E2E Test Report — [Project Name]
@@ -134,8 +134,8 @@ Fix Requests format (each item carries its failing test when the rule is on):
 
 ## Rules
 
-1. Only test against USER_STORIES.md ACs and BUILD_SPEC Section 9 WP ACs — do not invent scope.
-2. RISKY WPs from HANDOVER.md get extra test scrutiny — probe the flagged behaviors harder.
+1. Only test against user-stories_{feature}.md ACs and BUILD_SPEC Section 9 WP ACs — do not invent scope.
+2. RISKY WPs from handover_{feature}.md get extra test scrutiny — probe the flagged behaviors harder.
 3. Run only the test levels the Dispatcher marked active for this pass.
 4. Fix requests must be specific and actionable: which WP, which AC, what failed, what should happen.
 5. Fix request format follows the Fix-as-failing-test rule block in Step 3 (on = confirmed-red `path::name` per fix; off = prose only).
@@ -146,12 +146,12 @@ Fix Requests format (each item carries its failing test when the rule is on):
 
 ## Checklist
 
-- [ ] BUILD_SPEC, USER_STORIES.md, and HANDOVER.md read fully?
-- [ ] RISKY WPs identified from HANDOVER.md for priority scrutiny?
+- [ ] BUILD_SPEC, user-stories_{feature}.md, and handover_{feature}.md read fully?
+- [ ] RISKY WPs identified from handover_{feature}.md for priority scrutiny?
 - [ ] Quality gates from BUILD_SPEC Section 7 run first?
 - [ ] Active test levels executed (inactive ones recorded as skipped)?
 - [ ] All US ACs verified against test results?
-- [ ] E2ETestReport.md written with per-level results and issue table?
+- [ ] e2e-report_{feature}.md written with per-level results and issue table?
 - [ ] Fix requests are specific and reference WP + AC?
 - [ ] Fix requests match the Fix-as-failing-test rule (failing test per fix when the rule is on)?
 - [ ] Correct status returned to Dispatcher?
