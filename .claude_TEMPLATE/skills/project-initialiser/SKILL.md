@@ -1,6 +1,6 @@
 ---
 name: project-initialiser
-description: "Use to onboard a new or existing project: explore, detect the domain, scaffold the template, set up docs, install the test framework, and commit."
+description: "Use to onboard a new or existing project: explore, detect the domain, scaffold the template, set up docs (re-homing any that came from an older or different workspace), install frameworks and the test framework, fix the gitignore, and commit."
 ---
 
 # Project Initialiser
@@ -11,7 +11,7 @@ Onboard a repo end-to-end. Owns the **initial** doc creation (it does the deep e
    - Existing code → `codegraph init -i`, then answer structural questions by querying codegraph directly. Do NOT spawn Explore subagents for what the graph knows.
    - New / empty → skip codegraph.
 
-2. **Inventory what exists** — code, tests, docs, template files, and whether a domain plugin is already present. This decides what to scaffold vs. merge.
+2. **Inventory what exists** — code, tests, docs, template files, and whether a domain plugin is already present. This decides what to scaffold vs. merge — and flag any docs that came from a different or older workspace layout (they get re-homed in step 7, not rewritten).
 
 3. **Detect the domain** — identify it, then check `~/.claude/domains/{x}-domain/`. A usable master is a **built plugin** (has `.claude-plugin/plugin.json` + skills), not just a recipe. If the folder is missing, or holds only a recipe (`Domain-Recipe.md`) with no built plugin, ask the user whether to run `domain-initialiser` first.
 
@@ -25,7 +25,7 @@ Onboard a repo end-to-end. Owns the **initial** doc creation (it does the deep e
 
 5. **Plan & pause** — explain what is planned (domain, what gets scaffolded vs. merged, which optional docs, test framework). Get user feedback. Proceed only after approval.
 
-6. **Install domain (project-scoped) + test framework**
+6. **Install domain (project-scoped), frameworks & test framework**
 
    ```bash
    cp -r ~/.claude/domains/{x}-domain {repo}/.claude/skills/{x}-domain
@@ -38,9 +38,12 @@ Onboard a repo end-to-end. Owns the **initial** doc creation (it does the deep e
      ```
 
      (or list servers in `enabledMcpjsonServers`). Loads as `{x}-domain@skills-dir` on the next session.
-   - Install the unit + UI test framework named in `{x}-domain/Domain-Recipe.md`.
+   - Install the project's frameworks and runtime packages, then the unit + UI test framework named in `{x}-domain/Domain-Recipe.md`.
+   - **Audit the git tree before anything is staged** — run `git status` and make sure `.gitignore` excludes everything that must never be committed: installed packages (`node_modules/`, `.venv/`, `vendor/`, …), build output (`dist/`, `build/`, `target/`, …), logs, caches, and local env files. Create or fix `.gitignore` now; if such files are already tracked, untrack them (`git rm --cached`).
 
 7. **Scaffold docs** — copy the whole `~/.claude/project_TEMPLATE/*` in one pass (`cp -rn`, never clobber existing), then **delete the optional docs the user didn't choose** (`docs/architecture/`, `docs/developer/`, `docs/wiki/`, and `ASSETS.md` if no frontend). Copy-then-prune is fewer tool calls than selective copying. Note: `Architecture.md`, `Developer-Docs.md`, and the wiki `Home.md` are filled in place. **On-demand artifacts are not scaffolded** — they're seeded from their skill's own `templates/` when first produced: the styleguide (`docs/design/Styleguide.html`, step 11 via `ui-design`), and all workflow run artifacts — specs, plans, e2e files, reports — under `docs/artefacts/{sprint}/` (via `plan` / `spec-design` / `e2e` / the workflows). So `docs/design/` and `docs/artefacts/` start absent and appear only when used. Fill `AGENTS.md` (domain, outline, code style — single source), then **trim its Doc map to list only the docs that remain.** If a domain was installed (step 6), add its memory import to the project `CLAUDE.md` so domain memory loads here: `@~/.claude/domains/{x}-domain/DOMAIN-MEMORY.md`. (Project memory is native — `~/.claude/projects/<repo>/memory/` — nothing to scaffold.)
+
+   **Docs repair (existing docs from another or older workspace).** If step 2 flagged docs that follow a different or outdated layout, do **not** re-author them: read only their **outline / context files** (headings, front matter, any index) to learn what each doc is, then **re-home them into the current structure** — move and rename files into their matching template slots (e.g. a stray `SPEC.md` → `docs/artefacts/{sprint}/spec_{feature}.md`, an old top-level `architecture.md` → `docs/architecture/Architecture.md`). **Move/rename only — never edit their content.** When a doc's target slot is ambiguous, ask the user directly rather than guessing.
 
 8. **ASSETS.md** (only if the frontend condition in step 4 holds) — dispatch a subagent to explore the **asset tree only** (codegraph does not cover assets) and fill `ASSETS.md`.
 

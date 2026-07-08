@@ -9,10 +9,9 @@ Turn an idea or plan into a spec that **fixes every downstream decision** — th
 executes whatever this skill records — it does not re-decide — so the judgement lives here.
 
 1. **Brainstorm** — dialogue the idea into shape before writing anything; scale the effort to its complexity and don't interrogate a clear ask:
-   - Check project context first — files, architecture docs, recent commits. If a plan exists (`docs/artefacts/{sprint}/plan_{feature}.md` from `plan`), read it as the requirements basis — the recommended, though optional, starting point.
+   - Gather project context in this order: **query codegraph first** (if the repo is indexed) for structure and impact, **then** the relevant architecture / developer docs if needed, **then** the relevant code itself and recent commits — read files only for what the graph and docs don't already answer. If a plan exists (`docs/artefacts/{sprint}/plan_{feature}.md` from `plan`), read it as the requirements basis — the recommended, though optional, starting point.
    - Ask only what you genuinely need, **one question at a time**, multiple-choice when you can — purpose, scope (in/out), constraints, success criteria.
    - Propose 2-3 approaches with trade-offs; lead with your recommendation.
-   - Apply **YAGNI** — cut every feature that isn't needed.
    - Shape the design into small units with one clear purpose and clean interfaces — that split drives the implement packages in step 5.
    - Present the design in sections sized to their complexity and get the user's nod before writing the spec.
 2. **UI** — if the feature has a UI, invoke `ui-design` to lay out its mockup against the styleguide; capture it in the spec's UI section.
@@ -26,6 +25,6 @@ executes whatever this skill records — it does not re-decide — so the judgem
    - **Execution** (who holds the context): **inline** — the main thread does the work · **subagent-driven** — each package is delegated to a fresh subagent so the orchestrator's context stays clean across many packages. Independent of the technique (subagent-driven can run `direct` *or* `tdd`). **Strongly recommended from ≥3 packages**, or whenever context pressure is likely. If subagent-driven, pick the flavour:
      - **dynamic** — the compact sequential loop built into `dynamic-workflow` (handoff → report, no parallelism, no per-task review subagents; the default).
      - **full** — `superpowers:subagent-driven-development` (adds per-task spec + code-quality review subagents; heavier, stricter).
-5. **Write the spec** — copy this skill's `templates/SPEC_TEMPLATE.md` to `docs/artefacts/{sprint}/spec_{feature}.md` (ask the user for the current sprint if unclear), fill it, and size the **implement packages** (≥1; large, independent work → more packages — and ≥3 packages is the signal to switch execution to **subagent-driven**).
+5. **Write the spec** — copy this skill's `templates/SPEC_TEMPLATE.md` to `docs/artefacts/{sprint}/spec_{feature}.md` (ask the user for the current sprint if unclear), fill it, and size the **implement packages** (≥1; just one package is allowed, but large, independent work needs more packages — and ≥3 packages is the signal to switch execution to **subagent-driven**).
 
 Return to `dynamic-workflow`, which owns the review pause and the spec commit.

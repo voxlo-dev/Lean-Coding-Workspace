@@ -24,9 +24,23 @@ Assume the user is capable, but lazy with words, because he can't type as fast a
 
 **Tool call rules:** Default to the most capable shell of the operating system (e.g. PowerShell for Windows / bash for Linux), if one shell does not work use another.
 
-**Version Control rules:** {e.g. Conventional Commits — `<type>(<scope>): <subject>`
+**Version Control rules:** {e.g For personal solo dev projects (default):
+
+- Conventional Commits — `<type>: <subject & scope>` - in few words
+  Types: `feat` `fix` `docs` `refactor` `test` `chore`
+  e.g. `feat: add token refresh for auth` · `fix: handle empty payload in api`
+- Simple Branching - `<sprint-slug>` - no folders, one branch per sprint (user handles merging)
+  e.g. `initialise-project` · `dashboard-ui-v2` · `backend-optimisations` }
+  {e.g. For opensource / large enterprise projects:
+- Conventional Commits: `<type>(<scope>): <subject>`
   Types: `feat` `fix` `docs` `refactor` `test` `chore`
   e.g. `feat(auth): add token refresh` · `fix(api): handle empty payload`
+- Branching: `<type>/<short-slug>`
+  e.g. `feature/token-refresh` · `fix/empty-payload` · `chore/bump-deps`
+- Pull requests: one topic per PR, small and reviewable; tests green before
+  merge; link the spec/issue.
+  e.g. title `feat(auth): add token refresh`, body references `docs/artefacts/{sprint}/spec_...` }
+
 
 - **Branching:** `<type>/<short-slug>`
   e.g. `feature/token-refresh` · `fix/empty-payload` · `chore/bump-deps`
@@ -106,4 +120,4 @@ Designing a new project or a large architecture change → recommend `project-de
 
 - **Project initialised?** No `AGENTS.md` / template docs → recommend `project-initialiser` first.
 - **Clean git tree?** Dirty → surface it and recommend committing, gitignoring or reverting so the run starts clean.
-- **Autonomy mode?** Ask once — pause for review before each commit (default) or run autonomously. Applies to the whole run; pass it to the workflow.
+- **Autonomy mode?** Ask once — pause for review BEFORE each commit (default) or run autonomously. Applies to the whole run; pass it to the workflow.
