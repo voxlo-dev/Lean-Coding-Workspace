@@ -9,7 +9,7 @@ Turn an idea or plan into a spec that **fixes every downstream decision** — th
 executes whatever this skill records — it does not re-decide — so the judgement lives here.
 
 1. **Brainstorm** — dialogue the idea into shape before writing anything; scale the effort to its complexity and don't interrogate a clear ask:
-   - Gather project context in this order: **query codegraph first** (if the repo is indexed) for structure and impact, **then** the relevant architecture / developer docs if needed, **then** the relevant code itself and recent commits — read files only for what the graph and docs don't already answer. If a plan exists (`docs/artefacts/{sprint}/plan_{feature}.md` from `plan`), read it as the requirements basis — the recommended, though optional, starting point.
+   - Gather project context in this order: **query codegraph first** (if the repo is indexed) for structure and impact, **then** the relevant architecture / developer docs if needed, **then** the relevant code itself and recent commits — read files only for what the graph and docs don't already answer. If a `sprint-plan.md` (from `sprint-cycle`) or a `plan_{feature}.md` (from `plan`) exists for the current sprint, read it as the requirements basis — the recommended, though optional, starting point: the sprint plan frames the whole batch, a feature plan sharpens one item.
    - Ask only what you genuinely need, **one question at a time**, multiple-choice when you can — purpose, scope (in/out), constraints, success criteria.
    - Propose 2-3 approaches with trade-offs; lead with your recommendation.
    - Shape the design into small units with one clear purpose and clean interfaces — that split drives the implement packages in step 5.

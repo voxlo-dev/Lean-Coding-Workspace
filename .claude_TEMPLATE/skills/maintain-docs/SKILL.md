@@ -22,7 +22,7 @@ For each doc, ask "does *this* change affect it?" from what you already know. Op
 | `docs/artefacts/{sprint}/spec_*` | when in context | a spec was implemented this run | update its **Status** (e.g. draft → done) and tick the **acceptance criteria** you met — only with that context in hand; otherwise leave it. Every other file in `docs/artefacts/` (plans, e2e cases, reports) is a frozen run record — never edited here |
 | `ASSETS.md` (if present) | medium | assets were added, moved, or repurposed | add/adjust the row(s); keep `Used in` accurate |
 | `docs/developer/` (if present) | medium | api reference, guides, key decisions, long-term todos, or known bugs changed | see Architecture & developer docs below |
-| `docs/architecture/` (if present) | low | core architecture changed or was extended | see Architecture & developer docs below |
+| `docs/architecture/` (if present) | low | a drafted subsystem was actually implemented, or core architecture changed | fill the subsystem from the real code and flip its **Status** `planned → implemented`; bump the doc's top **Status** `draft → partial → current`. See Architecture & developer docs below |
 | `docs/wiki/` (if present) | low | user-facing interaction changed | read the wiki Home page first, then make very targeted edits |
 | `docs/design/` (if present) | — | design system changed | **don't touch here** — the styleguide and mockups are owned by `ui-design` |
 
@@ -30,6 +30,7 @@ For each doc, ask "does *this* change affect it?" from what you already know. Op
 
 ## Architecture & developer docs
 
+- **Draft → filled.** `project-initialiser` seeds `Architecture.md` as a `draft` skeleton whose subsystems are marked `planned`. When a subsystem is genuinely built, fill it from the real code and set its **Status** to `implemented`; raise the doc's top **Status** to `partial`, and to `current` once no `planned` subsystem remains. **Never mark `implemented` from a plan alone — only from shipped code.**
 - Record core changes/additions; keep edits factual, no speculation. Keep `Architecture.md` focused on the software architecture; engineering detail that would clutter it — api reference, guides, key decisions, long-term todos, known bugs — belongs in `docs/developer/`.
 - **Split either when it grows past ~300–500 lines:** break the document into one file per subsystem/topic under `docs/architecture/` or `docs/developer/`, keeping a short top-level index (`Architecture.md` / `Developer-Docs.md`) that links them.
 
