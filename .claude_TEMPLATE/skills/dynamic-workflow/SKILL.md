@@ -5,7 +5,7 @@ description: "Use for feature work or any change that warrants a spec. spec-desi
 
 # Dynamic Workflow
 
-1. **Spec** — invoke `spec-design`. It brainstorms, designs the UI if there is one, decides the **test strategy** and the **implementation strategy** (technique + execution mode), and writes the spec. Review, then commit the spec.
+1. **Spec** — invoke `spec-design`. It brainstorms, designs the UI if there is one, decides the **test strategy** and the **implementation strategy** (technique + execution mode), and writes the spec. If the current sprint has a `docs/artefacts/{sprint}/sprint-plan.md` (from `sprint-cycle`), spec this feature from it — it's the sprint's umbrella scope. Review, then commit the spec.
 2. **Implement** — work the spec's implement packages **in order**, each built with the spec's **technique**, committed per package (optional review first). The spec's **execution mode** decides who does the work:
    - **inline** → build the package in the main thread: `direct` (locate code, write it, run tests to green) · `TDD` (`superpowers:test-driven-development`, only when the test strategy is full-TDD) · `debugging` (`superpowers:systematic-debugging`).
    - **subagent-driven** → **orchestrate instead of implementing** (see below). Flavour `dynamic` = the loop below; flavour `full` = `superpowers:subagent-driven-development`.

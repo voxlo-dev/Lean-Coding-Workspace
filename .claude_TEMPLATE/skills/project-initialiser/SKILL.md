@@ -47,10 +47,10 @@ Onboard a repo end-to-end. Owns the **initial** doc creation (it does the deep e
 
 8. **ASSETS.md** (only if the frontend condition in step 4 holds) — dispatch a subagent to explore the **asset tree only** (codegraph does not cover assets) and fill `ASSETS.md`.
 
-9. **Architecture** (only if chosen) — for an existing codebase, read the core source files and fill `docs/architecture/Architecture.md` at the **macro level only** (big picture). For a new project, or whenever the user wants a *designed* rather than reverse-engineered architecture, invoke `project-designer` to design it and write the doc, then continue. Details accrue later via `maintain-docs`.
+9. **Architecture draft** (only if chosen) — lay down a **draft skeleton, not a finished doc**: derive the section structure of `docs/architecture/Architecture.md` from the domain recipe and the macro picture (existing code → read core files for the big picture only; new project → the intended shape). Mark it **`Status: draft`** at the top and each subsystem **`planned`**; don't write speculative internals. `maintain-docs` fills subsystems concretely and flips them to `implemented` as they get built. The architecture *decisions* — a new project's design, or a big change — belong to `sprint-cycle`'s planning, not here; recommend it as the next step after init.
 
 10. **Wiki** (only if chosen) — fill `docs/wiki/Home.md` and add the pages it lists, scaled to the project.
 
-11. **Styleguide** (only if chosen) — invoke `ui-design` at the styleguide level; it seeds `docs/design/Styleguide.html` from its template and fills it. Skip if `project-designer` already set it during the architecture step (9).
+11. **Styleguide** (only if chosen) — invoke `ui-design` at the styleguide level; it seeds `docs/design/Styleguide.html` from its template and fills it.
 
 12. **Commit** — if the directory isn't a git repo yet, `git init` first, then commit. (Open a PR if the repo uses that flow.)

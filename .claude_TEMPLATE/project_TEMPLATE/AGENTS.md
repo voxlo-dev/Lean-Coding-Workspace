@@ -26,7 +26,7 @@ Agent-agnostic project guide. Single source of truth for domain, structure, and 
 
 ## Workflow settings
 
-{Optional — pinned overrides for this repo's workflows, so they don't have to be re-asked each run. Delete the section if unused. Examples: default test levels (e.g. `core`, e2e off), orchestrator `parallel_threshold`, default autonomy mode (pause-per-commit / autonomous), the current `{sprint}` label for `docs/artefacts/`.}
+{Optional — pinned overrides for this repo's workflows, so they don't have to be re-asked each run. Delete the section if unused. Examples: default test levels (e.g. `core`, e2e off), orchestrator `parallel_threshold`, default autonomy mode (pause-per-commit / autonomous). (The active sprint is tracked in **Living context → Current sprint** below, not here.)}
 
 ## Doc map
 
@@ -36,7 +36,7 @@ Rows whose doc is wrapped in `{}` are optional — they exist only if the projec
 | --- | --- | --- | --- |
 | `README.md` | user | single | user-facing entry point |
 | `AGENTS.md` | coding agent | single | this file: domain, structure, code style, conventions |
-| `docs/artefacts/{sprint}/` | agent · developer | stacking (one folder per sprint; type is a filename prefix — `plan_` `spec_` `user-stories_` `e2e_` `e2e-run_` `impl-report_` `handover_` `e2e-report_`) | all workflow run artifacts, bound to their sprint/feature (specs, plans, e2e cases, reports). Committed and frozen after the run; the user decides when a sprint rolls over. `maintain-docs` only updates a spec's Status/ACs — nothing else here |
+| `docs/artefacts/{sprint}/` | agent · developer | stacking (one folder per sprint; type is a filename prefix — `plan_` `spec_` `user-stories_` `e2e_` `e2e-run_` `impl-report_` `handover_` `e2e-report_`) plus two sprint-level singletons `sprint-plan.md` and `Changelog.md` | all workflow run artifacts, bound to their sprint/feature (specs, plans, e2e cases, reports), under the sprint's umbrella `sprint-plan.md`. Committed and frozen after the run; `sprint-cycle` opens each sprint and closes it with `Changelog.md`. `maintain-docs` only updates a spec's Status/ACs — nothing else here |
 | {`ASSETS.md`} | coding agent | single | asset inventory (consult before searching the asset tree) |
 | {`docs/architecture/`} | developer · agent | self-splitting | planned/implemented architecture: big picture, systems, subsystems |
 | {`docs/developer/`} | developer · agent | self-splitting | api reference, guides, key decisions, long-term todos, known bugs |
@@ -46,9 +46,13 @@ Rows whose doc is wrapped in `{}` are optional — they exist only if the projec
 
 ## Living context
 
-Human-set, committed project state — goals and open decisions. Keep factual and current.
+Human-set, committed project state — the current sprint, goals, and open decisions. Keep factual and current.
 Gotchas and learnings Claude discovers live in **project memory** (the `maintain-memory`
 skill), not here.
+
+### Current sprint
+
+{the active sprint slug — its run artifacts live in `docs/artefacts/{slug}/`; `sprint-cycle` sets it. `none` is valid: `minimal-workflow` fixes and maintenance passes need no sprint.}
 
 ### Current goals
 

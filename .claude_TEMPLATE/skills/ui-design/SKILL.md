@@ -1,14 +1,16 @@
 ---
 name: ui-design
-description: "Use when designing the look and feel of a UI — colors, themes, typography, layout, mockups, design system. Invokable from project-designer (styleguide level) and spec-design (concrete layouts for a feature). Routes web frontends to Claude Design; builds HTML mockups otherwise."
+description: "Use when designing the look and feel of a UI — colors, themes, typography, layout, mockups, design system. Invokable from sprint-cycle (styleguide level) and spec-design (concrete layouts for a feature). Routes web frontends to Claude Design; builds HTML mockups otherwise."
 ---
 
 # UI Design
 
 Design a UI's look and feel, capture it as a durable **design system** (the styleguide)
 and — when a feature is being built — concrete **mockups**. Invoked from
-`project-designer` (set the styleguide only) or `spec-design` (lay out a specific
+`sprint-cycle` (set the styleguide only) or `spec-design` (lay out a specific
 feature). For a one-off styling tweak, just do it — this skill is for designing.
+
+> **UX first — even for a small feature.** Never integrate a feature into the UI by the path of least effort. Each time, ask: does this hurt the UX? Should the layout be reworked or elements regrouped? Is every element unambiguous and positioned by its relevance — can something be simplified? Prefer the layout change that keeps the experience clean over the minimal one that just squeezes the feature in.
 
 **Design only as precisely as the stage needs.** At project/design level, settle the
 styleguide foundations — brand & tone of voice, palette, type, spacing, theming
@@ -74,6 +76,6 @@ reuses superpowers' companion server — no separate install:
 - **Consent:** offer it once before first use (opens a local URL, token-intensive), then decide per question — browser for visual choices, terminal for text.
 - **Converge:** the companion is for exploring; the moment a direction is picked, build the durable mockup from `templates/layout.html` (step 3b). That mockup — not the companion screens — is what lands in the spec.
 
-When **invoked from `project-designer`**, run steps 1–2 then set the styleguide only
+When **invoked from `sprint-cycle`**, run steps 1–2 then set the styleguide only
 (stop before per-feature mockups) and return. When **invoked from `spec-design`**, the
 styleguide already exists — design this feature's layout against it.

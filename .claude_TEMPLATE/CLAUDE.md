@@ -49,7 +49,10 @@ Assume the user is capable, but lazy with words, because he can't type as fast a
   e.g. title `feat(auth): add token refresh`, body references `docs/artefacts/{sprint}/spec_...`}
 
 **General codestyle rules**
-{e.g. keep code comments short and precise}
+
+- Keep code comments short and precise.
+- **Abstraction over minimal-diff.** The smallest change is not automatically the best one — near-duplicate code hurts a clean codebase more than a little extra effort does. When a new feature closely resembles existing code, prefer **one shared abstraction that represents both** over two similar-but-separate components: less redundancy, looser coupling — at the cost of some extra coding and tests. Refactor the existing code into that shape rather than bolting the feature on beside it. (Weigh it against YAGNI: abstract over *real* duplication, not a speculative future one.)
+- **UX first on any UI change — even a small one.** Never wire a feature into the UI by the path of least effort. Ask each time: does this hurt the UX? Should the layout be reworked or elements regrouped? Is every element unambiguous and placed by its relevance — can something even be simplified? Accept more UI churn to keep the experience clean. (`ui-design` owns the detail.)
 
 **MD Syntax rules:** Always use `-` for normal list bullets in markdown files. For directory trees and annotated structure blocks. Use the pretty Unicode form: `├──`, `│`, `└──`, with aligned `←` comments. Markdown tables must use standard pipe-table syntax only: a header row, a separator row like this: `| --- | --- {...} |`, and unaligned columns separated with single whitespaces. Never use additional whitespaces for aligning. Example below.
 
@@ -114,10 +117,11 @@ Options:
 
 Turning a fuzzy idea, a draft, or a brainstorming transcript into a clear requirements plan first (the *Lastenheft*, end-user level) → recommend `plan` (optional, non-technical, no code exploration). Its `docs/artefacts/{sprint}/plan_{feature}.md` feeds `spec-design` or any workflow; it is not wired into one.
 
-Designing a new project or a large architecture change → recommend `project-designer` (deep brainstorm + web research → architecture doc → optional dynamic-workflow handoff).
+Managing a sprint — closing the active one (scope check → changelog → merge/PR to `main`) or planning the next with architecture decisions, **or** standing up a new project → recommend `sprint-cycle` (spec-design-style planning + web research → `docs/artefacts/{sprint}/sprint-plan.md` → dynamic-workflow handoff). It records architecture *decisions*; the architecture *doc* is written by `maintain-docs` once implemented.
 
 **Preflight — before starting any workflow:**
 
 - **Project initialised?** No `AGENTS.md` / template docs → recommend `project-initialiser` first.
+- **Which sprint?** Check `AGENTS.md` → **Current sprint** — run artifacts land in `docs/artefacts/{sprint}/`. Starting a fresh batch of feature work → recommend `sprint-cycle` to close the old sprint and plan the new one. A lone fix or a maintenance pass needs no sprint.
 - **Clean git tree?** Dirty → surface it and recommend committing, gitignoring or reverting so the run starts clean.
 - **Autonomy mode?** Ask once — pause for review BEFORE each commit (default) or run autonomously. Applies to the whole run; pass it to the workflow.
