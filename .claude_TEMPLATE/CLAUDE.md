@@ -41,14 +41,7 @@ Assume the user is capable, but lazy with words, because he can't type as fast a
   merge; link the spec/issue.
   e.g. title `feat(auth): add token refresh`, body references `docs/artefacts/{sprint}/spec_...` }
 
-
-- **Branching:** `<type>/<short-slug>`
-  e.g. `feature/token-refresh` · `fix/empty-payload` · `chore/bump-deps`
-- **Pull requests:** one topic per PR, small and reviewable; tests green before
-  merge; link the spec/issue.
-  e.g. title `feat(auth): add token refresh`, body references `docs/artefacts/{sprint}/spec_...`}
-
-**General codestyle rules**
+**General codestyle rules:**
 
 - Keep code comments short and precise.
 - **Abstraction over minimal-diff.** The smallest change is not automatically the best one — near-duplicate code hurts a clean codebase more than a little extra effort does. When a new feature closely resembles existing code, prefer **one shared abstraction that represents both** over two similar-but-separate components: less redundancy, looser coupling — at the cost of some extra coding and tests. Refactor the existing code into that shape rather than bolting the feature on beside it. (Weigh it against YAGNI: abstract over *real* duplication, not a speculative future one.)
@@ -115,9 +108,9 @@ Options:
 - **superpowers** — invoke `superpowers/using-superpowers` for the full brainstorm → plan → implement framework
 - **no workflow** — use no workflow skill; relax these rules and let the agent work freely
 
-Turning a fuzzy idea, a draft, or a brainstorming transcript into a clear requirements plan first (the *Lastenheft*, end-user level) → recommend `plan` (optional, non-technical, no code exploration). Its `docs/artefacts/{sprint}/plan_{feature}.md` feeds `spec-design` or any workflow; it is not wired into one.
+Turning a fuzzy idea, a draft, or a brainstorming transcript into a clear plan first → recommend `plan`. It writes a standalone `docs/artefacts/{sprint}/plan_{feature}.md` (the *Lastenheft*, product/UX level) — optionally climbing to high-level domain/architecture decisions when the scope warrants; web research optional. Feeds `spec-design` or any workflow; standalone it is not wired into one. (`sprint-cycle` reuses `plan` in sprint-plan mode for the sprint's umbrella `sprint-plan.md`.)
 
-Managing a sprint — closing the active one (scope check → changelog → merge/PR to `main`) or planning the next with architecture decisions, **or** standing up a new project → recommend `sprint-cycle` (spec-design-style planning + web research → `docs/artefacts/{sprint}/sprint-plan.md` → dynamic-workflow handoff). It records architecture *decisions*; the architecture *doc* is written by `maintain-docs` once implemented.
+Managing a sprint — closing the active one (scope check → changelog → merge/PR to `main`) or planning the next, **or** standing up a new project → recommend `sprint-cycle`. It plans the next sprint via `plan` (sprint-plan mode) → `docs/artefacts/{sprint}/sprint-plan.md` → dynamic-workflow handoff. It records architecture *decisions*; the architecture *doc* is written by `maintain-docs` once implemented.
 
 **Preflight — before starting any workflow:**
 
