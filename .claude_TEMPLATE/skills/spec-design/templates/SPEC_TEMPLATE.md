@@ -3,8 +3,6 @@
 Date: {YYYY-MM-DD} · Status: {draft | approved | done} · Plan: {link `docs/artefacts/{sprint}/plan_{feature}.md` if any, else —}
 
 Feature spec for `dynamic-workflow` — the *Pflichtenheft*. Comes out of `spec-design`
-(from the plan above when there is one); it fixes the test and implementation strategy,
-then drives the implement packages.
 
 ## Goal / problem
 
