@@ -18,6 +18,9 @@ Desktop.ini
 # Logs
 *.log
 
+# Headroom
+.tokensave
+
 # Build output / dependencies (uncomment / extend per stack)
 # node_modules/
 # dist/
