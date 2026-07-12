@@ -85,7 +85,7 @@ the template is a loose scaffold, not a checklist:
 - **Feature / standalone** → `docs/artefacts/{sprint}/plan_{feature}.md` (ask the user for the sprint if
   unclear; a standalone plan lives in the current sprint's folder, or `none` if there's no active sprint).
 
-The plan is deliberately **unambiguous** — the opposite of the input it came from. Get the user's approval.
+The plan is deliberately **unambiguous** — the opposite of the input it came from. Get the user's approval — **always, even in autonomous mode**; a plan is never auto-approved.
 
 ## Handoff
 

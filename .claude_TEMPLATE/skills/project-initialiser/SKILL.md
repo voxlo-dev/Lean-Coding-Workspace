@@ -8,8 +8,8 @@ description: "Use to onboard a new or existing project: explore, detect the doma
 Onboard a repo end-to-end. Owns the **initial** doc creation (it does the deep exploration); `maintain-docs` only updates docs afterwards. Small projects don't need heavy docs — the user opts in per doc (step 4). **Change nothing before the user approves the plan (step 5).**
 
 1. **Explore & gather context**
-   - Existing code → `codegraph init -i`, then answer structural questions by querying codegraph directly. Do NOT spawn Explore subagents for what the graph knows.
-   - New / empty → skip codegraph.
+   - **Existing code → run `codegraph init -i` now.** This is a required setup action, not optional exploration — index the repo *before* asking any structural question. Then answer structural questions by querying codegraph directly; do NOT spawn Explore subagents for what the graph knows.
+   - New / empty → skip codegraph (nothing to index yet; note it so the user can run `codegraph init` once code exists).
 
 2. **Inventory what exists** — code, tests, docs, template files, and whether a domain plugin is already present. This decides what to scaffold vs. merge — and flag any docs that came from a different or older workspace layout (they get re-homed in step 7, not rewritten).
 
