@@ -36,6 +36,7 @@ this section if there's no UI.}
 Decided by `spec-design`; the pipeline follows it without re-deciding.
 
 - **Test:** {none | minimal | core | full-TDD} · **e2e:** {yes | no}
+- **Smoke script:** {if minimal — path of the committed smoke script the package writes & the happy path it covers, e.g. `scripts/smoke/{feature}.*`; else —}
 - **Modules to test:** {which modules / components the tests must cover — not concrete tests}
 - **Implementation — technique:** {direct | tdd | debugging}
 - **Implementation — execution:** {inline | subagent-driven: dynamic | subagent-driven: full}

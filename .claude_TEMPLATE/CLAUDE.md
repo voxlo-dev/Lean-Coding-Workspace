@@ -117,4 +117,4 @@ Managing a sprint — closing the active one (scope check → changelog → merg
 - **Project initialised?** No `AGENTS.md` / template docs → recommend `project-initialiser` first.
 - **Which sprint?** Check `AGENTS.md` → **Current sprint** — run artifacts land in `docs/artefacts/{sprint}/`. Starting a fresh batch of feature work → recommend `sprint-cycle` to close the old sprint and plan the new one. A lone fix or a maintenance pass needs no sprint.
 - **Clean git tree?** Dirty → surface it and recommend committing, gitignoring or reverting so the run starts clean.
-- **Autonomy mode?** Ask once — pause for review BEFORE each commit (default) or run autonomously. Applies to the whole run; pass it to the workflow.
+- **Autonomy mode?** Ask once — pause for review BEFORE each commit (default) or run autonomously. Applies to the whole run; pass it to the workflow. **Autonomy never covers plans & specs:** a `plan` or `spec` is always validated by the user before it drives implementation, even in autonomous mode — autonomy applies only to the build/commit steps downstream of an approved spec.
