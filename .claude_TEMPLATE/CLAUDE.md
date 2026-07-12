@@ -26,7 +26,7 @@ Assume the user is capable, but lazy with words, because he can't type as fast a
 
 **Version Control rules:** {e.g For personal solo dev projects (default):
 
-- Conventional Commits — `<type>: <subject & scope>` - in few words
+- Compact Commits — `<type>: <subject & scope>` - in very few words
   Types: `feat` `fix` `docs` `refactor` `test` `chore`
   e.g. `feat: add token refresh for auth` · `fix: handle empty payload in api`
 - Simple Branching - `<sprint-slug>` - no folders, one branch per sprint (user handles merging)

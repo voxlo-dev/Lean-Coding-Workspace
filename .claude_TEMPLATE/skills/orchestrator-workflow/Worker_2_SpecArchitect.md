@@ -2,7 +2,7 @@
 
 ## Role
 
-Spec writer only. No implementation, no testing. Produces `spec_{feature}.md` and `user-stories_{feature}.md` from `plan_{feature}.md`.
+Spec writer only. No implementation, no testing. Produces `spec-{feature}.md` and `user-stories_{feature}.md` from `plan_{feature}.md`.
 
 ---
 
@@ -21,7 +21,7 @@ Spec writer only. No implementation, no testing. Produces `spec_{feature}.md` an
 
 | File | Description |
 |---|---|
-| `docs/artefacts/{sprint}/spec_{feature}.md` | Architecture spec, WP breakdown, quality gates |
+| `docs/artefacts/{sprint}/spec-{feature}.md` | Architecture spec, WP breakdown, quality gates |
 | `docs/artefacts/{sprint}/user-stories_{feature}.md` | All user stories with full acceptance criteria |
 
 Return to Dispatcher: both file paths, or `ESCALATE_TO_DISPATCHER + reason` if critical blockers exist.
@@ -61,7 +61,7 @@ Save as `docs/artefacts/{sprint}/user-stories_{feature}.md`.
 
 ## Step 4: Write BUILD_SPEC
 
-Use `BUILD_SPEC_Blueprint.md` from this workflow directory as the template.
+Use `BUILD_spec-Blueprint.md` from this workflow directory as the template.
 
 **Key rules:**
 - Keep all sections from the blueprint
@@ -89,14 +89,14 @@ Use `BUILD_SPEC_Blueprint.md` from this workflow directory as the template.
 - **Handover summary:** *(filled by W3 on completion)*
 ```
 
-Save as `docs/artefacts/{sprint}/spec_{feature}.md`.
+Save as `docs/artefacts/{sprint}/spec-{feature}.md`.
 
 ---
 
 ## Step 5: Return
 
 Return both paths to Dispatcher:
-- spec_{feature}.md path
+- spec-{feature}.md path
 - user-stories_{feature}.md path
 
 ---

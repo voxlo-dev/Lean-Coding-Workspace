@@ -32,21 +32,22 @@ Read `AGENTS.md` → **Current sprint**.
 
 **Scope check — read-light, run nothing new:**
 
-- Every `spec_*` in the sprint folder at **Status: done**?
+- Every `spec-*` in the sprint folder at **Status: done**?
 - Tests green: the unit suite passes and the existing **e2e reports** (`e2e-run_*` / `e2e-report_*`) are green — **do not start a new e2e run**.
 - Docs current? — **estimate, don't read**: scan the sprint's git history for `docs/` changes that match the code changes. Code moved but docs didn't → flag it.
 - `AGENTS.md` → **Open decisions** empty?
 
-**Anything missing → STOP.** List exactly what's open and recommend the fix (e.g. "spec_X still draft → `dynamic-workflow`"; "docs drifted → `maintain-docs`"; "open decision Y → resolve with the user"). **Never auto-fix** — hand the recommendation back.
+**Anything missing → STOP.** List exactly what's open and recommend the fix (e.g. "spec-X still draft → `dynamic-workflow`"; "docs drifted → `maintain-docs`"; "open decision Y → resolve with the user"). **Never auto-fix** — hand the recommendation back.
 
 **All clear:**
 
 - Write a **compact changelog** → `docs/artefacts/{sprint}/Changelog.md` (what shipped, grouped feat/fix/docs/refactor; link the specs).
-- **Integrate per the project's Version Control rules** (CLAUDE.md / AGENTS.md): open a **PR to `main`** with the changelog, **or merge the sprint branch directly to `main`**. Follow whichever the rules specify.
 
 ## 2. Release / deploy *(reserved)*
 
-Placeholder for a future `release` skill (build, deploy, tag). For now: note it's not wired
+- **Integrate per the project's Version Control rules** (CLAUDE.md / AGENTS.md): open a **PR to `main`** with the changelog, **or merge the sprint branch directly to `main`**. Follow whichever the rules specify.
+
+- ToDo: Placeholder for a future `release` skill (build, deploy, tag). For now: note it's not wired
 yet and **pause** — let the user run any release step manually before planning the next sprint.
 
 ## 3. Plan the next sprint
