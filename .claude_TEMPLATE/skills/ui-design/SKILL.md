@@ -59,7 +59,7 @@ open; once it's settled, build the durable mockup here — the companion is for 
 
 ## 4. Persist & integrate
 
-- **Styleguide** — `docs/design/Styleguide.html` is the durable, project-wide system (brand & tone of voice, palette, type, spacing, theming, components as atoms + patterns); seed it from `templates/styleguide.html` the first time, then edit in place. It has a built-in light/dark toggle — fill the dark tokens or drop them. It's the single source every feature designs against. Extended later via `maintain-docs`.
+- **Styleguide** — `docs/design/Styleguide.html` is the durable, project-wide system; seed it from `templates/styleguide.html` the first time, then edit in place. Built-in light/dark toggle — fill the dark tokens or drop them. The single source every feature designs against; extended later via `maintain-docs`.
 - **Mockups** are per-feature, not global: they live in the spec (or `docs/design/mockups/`) so the spec's implement package builds against them. Never pour concrete layouts into the styleguide.
 - **Pause for user review** before committing anything.
 - **Commit** the styleguide and any mockups.
@@ -75,7 +75,3 @@ reuses superpowers' companion server — no separate install:
 - **Full loop & CSS classes:** read `visual-companion.md` next to those scripts before driving it.
 - **Consent:** offer it once before first use (opens a local URL, token-intensive), then decide per question — browser for visual choices, terminal for text.
 - **Converge:** the companion is for exploring; the moment a direction is picked, build the durable mockup from `templates/layout.html` (step 3b). That mockup — not the companion screens — is what lands in the spec.
-
-When **invoked from `plan`** (new UI project), run steps 1–2 then set the styleguide only
-(stop before per-feature mockups) and return. When **invoked from `spec-design`**, the
-styleguide already exists — design this feature's layout against it.

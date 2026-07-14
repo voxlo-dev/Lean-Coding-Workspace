@@ -18,7 +18,7 @@ per step.
 2. **Automation already runnable?** — a coded, runnable e2e test exists → run it.
    - **Green → done.**
    - **Red → back to implementation** (`dynamic-workflow` step 2).
-3. **No automation yet — drive the test once, by what's available, logging to `{spec}-e2e-run.md`:**
+3. **No automation yet — drive the test once, by what's available, logging to `e2e-run_{feature}.md`:**
    - **e2e framework + MCP server present** → dispatch an **e2e subagent**: execute the test-case steps through the MCP server and fill the run log.
    - **otherwise** → delegate to the user: recommend running it manually or via a browser / computer-use agent, and write them the exact prompt / steps to follow; capture the result in the run log.
 4. **Automate it** — from the concrete passing run, write the e2e automation so future runs are repeatable. A red run here also sends you back to implementation.
