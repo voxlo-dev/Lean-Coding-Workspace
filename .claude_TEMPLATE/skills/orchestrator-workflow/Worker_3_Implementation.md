@@ -23,7 +23,7 @@ Two authorities — keep them separate:
 
 | Input | Source |
 |---|---|
-| spec-{feature}.md path | Dispatcher |
+| spec_{feature}.md path | Dispatcher |
 | user-stories_{feature}.md path | Dispatcher |
 | codegraph availability (indexed yes/no) | Dispatcher |
 | Project key | Dispatcher |

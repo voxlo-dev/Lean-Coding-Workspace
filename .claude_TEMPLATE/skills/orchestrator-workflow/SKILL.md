@@ -43,14 +43,14 @@ No config file — these are the defaults. Resolve them at Bootstrap and pass th
 START: dispatcher receives task
 │
 ├── Phase 1: Pair Planning  — run Phase1_PairPlanning.md INLINE (interactive, not a subagent)
-│     ├── Discovery (inside Phase 1): is spec-{feature}.md present AND complete?
+│     ├── Discovery (inside Phase 1): is spec_{feature}.md present AND complete?
 │     │     NO/incomplete → ground planning via codegraph (indexed repo) or a brief Explore subagent
-│     │     YES           → load existing spec-{feature}.md + user-stories_{feature}.md as context
+│     │     YES           → load existing spec_{feature}.md + user-stories_{feature}.md as context
 │     └── Gate: explicit user approval of plan_{feature}.md before Phase 2 (silence ≠ approval)
 │
 ├── Phase 2: Spec Architect  — dispatch Worker_2_SpecArchitect.md (Sonnet)
 │     Pass: plan_{feature}.md path + project key + codegraph availability + active test levels
-│     Receive: spec-{feature}.md path + user-stories_{feature}.md path
+│     Receive: spec_{feature}.md path + user-stories_{feature}.md path
 │     Gate: both exist and BUILD_SPEC has ≥1 WP before Phase 3
 │
 ├── Phase 3: Implementation (auto-scaled)  — dispatch Worker_3_Implementation.md (Sonnet)
@@ -95,7 +95,7 @@ All artifacts live under one sprint folder — `artefacts/{sprint}/` — with th
 
 ```
 Phase 1  → artefacts/{sprint}/plan_{feature}.md                (user-approved plan)
-Phase 2  → artefacts/{sprint}/spec-{feature}.md                (authoritative spec)
+Phase 2  → artefacts/{sprint}/spec_{feature}.md                (authoritative spec)
          → artefacts/{sprint}/user-stories_{feature}.md        (stories + ACs)
 Phase 3  → artefacts/{sprint}/impl-report_{feature}_WP<N>.md
          → artefacts/{sprint}/handover_{feature}.md
@@ -103,7 +103,7 @@ Phase 4  → artefacts/{sprint}/e2e-report_{feature}.md
 codegraph → <repo>/.codegraph/                                      (index — owned by codegraph)
 ```
 
-Everything under `artefacts/` is a **run record**: committed with the run and frozen afterwards — `maintain-docs` only ever touches a `spec-*` file's Status/ACs (see the `AGENTS.md` doc map). `plan_{feature}.md` here is the orchestrator's pair-plan, not to be confused with a `plan`-skill *Lastenheft* — both share the folder and the `plan_` prefix; one build keeps one.
+Everything under `artefacts/` is a **run record**: committed with the run and frozen afterwards — `maintain-docs` only ever touches a `spec_*` file's Status/ACs (see the `AGENTS.md` doc map). `plan_{feature}.md` here is the orchestrator's pair-plan, not to be confused with a `plan`-skill *Lastenheft* — both share the folder and the `plan_` prefix; one build keeps one.
 
 ## Dispatcher Rules
 
@@ -138,7 +138,7 @@ Declare done when:
 
 - [ ] Bootstrap done (memory consulted, test levels asked, config resolved, codegraph availability noted)?
 - [ ] Phase 1: plan_{feature}.md exists and user explicitly approved?
-- [ ] spec-{feature}.md + user-stories_{feature}.md exist with ≥1 WP?
+- [ ] spec_{feature}.md + user-stories_{feature}.md exist with ≥1 WP?
 - [ ] W3 mode chosen (single / dispatcher) from WP count vs `parallel_threshold`?
 - [ ] handover_{feature}.md received from W3?
 - [ ] Post-impl reindex run if enabled and repo indexed?

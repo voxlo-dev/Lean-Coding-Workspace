@@ -35,6 +35,6 @@ executes whatever this skill records — it does not re-decide — so the judgem
      - **dynamic** — the compact sequential loop built into `dynamic-workflow` (handoff → report, no parallelism, no per-task review subagents; the default).
      - **full** — `superpowers:subagent-driven-development` (adds per-task spec + code-quality review subagents; heavier, stricter).
    - **Confirm technique + execution with the user via the `AskUserQuestion` tool** — lead with your recommendation and its rationale; let the user validate before it's locked into the spec.
-5. **Write the spec** — copy this skill's `templates/spec-TEMPLATE.md` to `artefacts/{sprint}/spec-{feature}.md` (ask the user for the current sprint if unclear), fill it, and size the **implement packages** (≥1; just one package is allowed, but large, independent work needs more packages — and ≥3 packages is the signal to switch execution to **subagent-driven**).
+5. **Write the spec** — copy this skill's `templates/SPEC_TEMPLATE.md` to `artefacts/{sprint}/spec_{feature}.md` (ask the user for the current sprint if unclear), fill it, and size the **implement packages** (≥1; just one package is allowed, but large, independent work needs more packages — and ≥3 packages is the signal to switch execution to **subagent-driven**).
 
 Return to `dynamic-workflow`, which owns the review pause and the spec commit. **The spec review is mandatory even in autonomous mode** — a spec (like a plan) is never auto-approved; the user validates it before it drives implementation.

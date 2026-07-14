@@ -32,10 +32,10 @@ Read `AGENTS.md` → **Current sprint**.
 
 **Scope check — read-light, run nothing new:**
 
-- Every `spec-*` in the sprint folder at **Status: done**?
+- Every `spec_*` in the sprint folder at **Status: done**?
 - Tests green: the unit suite passes and the existing **e2e reports** (`e2e-run_*` / `e2e-report_*`) are green — **do not start a new e2e run**.
 - Docs current? — **estimate, don't read**: scan the sprint's git history for `docs/` changes that match the code changes. Code moved but `docs/behaviour.md` didn't → flag it (behaviour drift is the classic rot).
-- `docs/decisions.md` — no entries still stuck at Status `proposed` that this sprint should have resolved? (this replaces the old `AGENTS.md → Open decisions` check)
+- `docs/decisions.md` — no entries still stuck at Status `proposed` that this sprint should have resolved?
 
 **Anything missing → STOP.** List exactly what's open and recommend the fix (e.g. "spec-X still draft → `dynamic-workflow`"; "behaviour drifted → `maintain-docs`"; "decision NNNN still `proposed` → resolve with the user"). **Never auto-fix** — hand the recommendation back.
 

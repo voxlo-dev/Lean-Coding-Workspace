@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Template for `spec-{feature}.md`. Worker 2 creates this at the start of Phase 2.
+Template for `spec_{feature}.md`. Worker 2 creates this at the start of Phase 2.
 
 The BUILD_SPEC is the **single authoritative architecture document**. It drives the WP breakdown, acceptance criteria, and the W4 validation gate. Update it whenever architecture, scope, or interfaces change.
 
@@ -156,5 +156,5 @@ Filled progressively as W3 runs.
 - [ ] API surfaces fully specified?
 - [ ] Quality gates and active W4 levels documented in Section 7?
 - [ ] Structural basis noted (codegraph / greenfield)?
-- [ ] BUILD_SPEC saved as `artefacts/{sprint}/spec-{feature}.md`?
+- [ ] BUILD_SPEC saved as `artefacts/{sprint}/spec_{feature}.md`?
 - [ ] Both the spec and `user-stories_{feature}.md` paths returned to Dispatcher?
