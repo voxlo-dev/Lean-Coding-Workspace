@@ -7,11 +7,11 @@ description: "Optional e2e stage of dynamic-workflow: validate a UI feature end-
 
 End-to-end validation for a UI feature. The goal is two things at once: a **green e2e
 run** and **repeatable automation** for next time. The test case is the separate Markdown
-file `spec-design` wrote (`docs/artefacts/{sprint}/e2e_{feature}.md`, seeded from `spec-design`'s
+file `spec-design` wrote (`artefacts/{sprint}/e2e_{feature}.md`, seeded from `spec-design`'s
 `templates/e2e-testcase.md`).
 
 This skill ships its own template in `templates/` — `e2e-run.md`. Seed a run log from it
-(`docs/artefacts/{sprint}/e2e-run_{feature}.md`) whenever you drive the test, recording observed vs. expected
+(`artefacts/{sprint}/e2e-run_{feature}.md`) whenever you drive the test, recording observed vs. expected
 per step.
 
 1. **Test case available?** — no e2e test-case file → ask the user what to do (write one now / skip e2e / verify manually). Don't invent a test case silently.

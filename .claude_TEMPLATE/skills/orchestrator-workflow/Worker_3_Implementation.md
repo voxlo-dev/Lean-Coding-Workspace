@@ -36,8 +36,8 @@ Two authorities — keep them separate:
 
 | File | Description |
 |---|---|
-| `docs/artefacts/{sprint}/impl-report_{feature}_WP<N>.md` | One per WP: what was done, AC status, risk notes |
-| `docs/artefacts/{sprint}/handover_{feature}.md` | Aggregated handover for W4 |
+| `artefacts/{sprint}/impl-report_{feature}_WP<N>.md` | One per WP: what was done, AC status, risk notes |
+| `artefacts/{sprint}/handover_{feature}.md` | Aggregated handover for W4 |
 
 Returns to Dispatcher:
 - `HANDOVER_READY` + handover_{feature}.md path

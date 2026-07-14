@@ -26,7 +26,7 @@
 
 ## Documentation
 
-Full guides, tutorials, and cookbook: see the [Wiki](../../wiki).
+Full guides, tutorials, and cookbook: see [docs/product/](./docs/product/).
 
 ## Contributing
 

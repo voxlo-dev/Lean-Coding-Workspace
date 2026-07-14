@@ -2,7 +2,7 @@
 
 Written by `spec-design`; consumed by the `e2e` skill. One end-to-end scenario through
 the real UI. Keep steps concrete and observable — each is a When → Then a human or agent
-can verify. Copied to `docs/artefacts/{sprint}/e2e_{feature}.md`.
+can verify. Copied to `artefacts/{sprint}/e2e_{feature}.md`.
 
 ## Scope
 

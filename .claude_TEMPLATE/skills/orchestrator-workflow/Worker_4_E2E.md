@@ -27,7 +27,7 @@ E2E testing only. No implementation, no spec changes. Validates the implementati
 
 | File | Description |
 |---|---|
-| `docs/artefacts/{sprint}/e2e-report_{feature}.md` | Test results per level, issues, fix requests |
+| `artefacts/{sprint}/e2e-report_{feature}.md` | Test results per level, issues, fix requests |
 
 Returns to Dispatcher:
 - `VALIDATION_PASS` + e2e-report_{feature}.md path

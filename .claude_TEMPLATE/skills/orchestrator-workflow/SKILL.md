@@ -35,7 +35,7 @@ No config file — these are the defaults. Resolve them at Bootstrap and pass th
 1. Consult already-loaded memory — the project `MEMORY.md` (and any imported domain/global memory) is in context. No gateway call.
 2. **Ask the user which test levels to run** (smoke / integration / full E2E; defaults above). Resolve the remaining Configuration values (defaults + any user/`AGENTS.md` overrides).
 3. Note whether the repo is codegraph-indexed (`.codegraph/` exists) — this decides how discovery and structural grounding run.
-4. **Resolve the artifact folder** — ask the user for the current `{sprint}` (the user decides when a sprint rolls over; reuse the newest `docs/artefacts/*` folder if they don't care) and set `{feature}` as this build's slug. Every phase writes under `docs/artefacts/{sprint}/` with the filenames from Artifact Flow.
+4. **Resolve the artifact folder** — ask the user for the current `{sprint}` (the user decides when a sprint rolls over; reuse the newest `artefacts/*` folder if they don't care) and set `{feature}` as this build's slug. Every phase writes under `artefacts/{sprint}/` with the filenames from Artifact Flow.
 
 ## Decision Tree
 
@@ -91,19 +91,19 @@ Discovery, structural grounding, and the post-impl refresh use **codegraph** dir
 
 ## Artifact Flow
 
-All artifacts live under one sprint folder — `docs/artefacts/{sprint}/` — with the type as a filename prefix and the feature in the name. `{sprint}` is resolved at Bootstrap (ask the user; the user decides when a sprint rolls over); `{feature}` is this build's slug.
+All artifacts live under one sprint folder — `artefacts/{sprint}/` — with the type as a filename prefix and the feature in the name. `{sprint}` is resolved at Bootstrap (ask the user; the user decides when a sprint rolls over); `{feature}` is this build's slug.
 
 ```
-Phase 1  → docs/artefacts/{sprint}/plan_{feature}.md                (user-approved plan)
-Phase 2  → docs/artefacts/{sprint}/spec-{feature}.md                (authoritative spec)
-         → docs/artefacts/{sprint}/user-stories_{feature}.md        (stories + ACs)
-Phase 3  → docs/artefacts/{sprint}/impl-report_{feature}_WP<N>.md
-         → docs/artefacts/{sprint}/handover_{feature}.md
-Phase 4  → docs/artefacts/{sprint}/e2e-report_{feature}.md
+Phase 1  → artefacts/{sprint}/plan_{feature}.md                (user-approved plan)
+Phase 2  → artefacts/{sprint}/spec-{feature}.md                (authoritative spec)
+         → artefacts/{sprint}/user-stories_{feature}.md        (stories + ACs)
+Phase 3  → artefacts/{sprint}/impl-report_{feature}_WP<N>.md
+         → artefacts/{sprint}/handover_{feature}.md
+Phase 4  → artefacts/{sprint}/e2e-report_{feature}.md
 codegraph → <repo>/.codegraph/                                      (index — owned by codegraph)
 ```
 
-Everything under `docs/artefacts/` is a **run record**: committed with the run and frozen afterwards — `maintain-docs` only ever touches a `spec-*` file's Status/ACs (see the `AGENTS.md` doc map). `plan_{feature}.md` here is the orchestrator's pair-plan, not to be confused with a `plan`-skill *Lastenheft* — both share the folder and the `plan_` prefix; one build keeps one.
+Everything under `artefacts/` is a **run record**: committed with the run and frozen afterwards — `maintain-docs` only ever touches a `spec-*` file's Status/ACs (see the `AGENTS.md` doc map). `plan_{feature}.md` here is the orchestrator's pair-plan, not to be confused with a `plan`-skill *Lastenheft* — both share the folder and the `plan_` prefix; one build keeps one.
 
 ## Dispatcher Rules
 

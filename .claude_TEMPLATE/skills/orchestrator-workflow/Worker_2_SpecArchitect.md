@@ -21,8 +21,8 @@ Spec writer only. No implementation, no testing. Produces `spec-{feature}.md` an
 
 | File | Description |
 |---|---|
-| `docs/artefacts/{sprint}/spec-{feature}.md` | Architecture spec, WP breakdown, quality gates |
-| `docs/artefacts/{sprint}/user-stories_{feature}.md` | All user stories with full acceptance criteria |
+| `artefacts/{sprint}/spec-{feature}.md` | Architecture spec, WP breakdown, quality gates |
+| `artefacts/{sprint}/user-stories_{feature}.md` | All user stories with full acceptance criteria |
 
 Return to Dispatcher: both file paths, or `ESCALATE_TO_DISPATCHER + reason` if critical blockers exist.
 
@@ -55,7 +55,7 @@ Rules:
 - ACs must be concrete and verifiable — no "the system should handle X gracefully" without specifying what "gracefully" means
 - Copy user story sketches from plan_{feature}.md and expand them — do not invent stories not in the plan without noting it
 
-Save as `docs/artefacts/{sprint}/user-stories_{feature}.md`.
+Save as `artefacts/{sprint}/user-stories_{feature}.md`.
 
 ---
 
@@ -89,7 +89,7 @@ Use `BUILD_spec-Blueprint.md` from this workflow directory as the template.
 - **Handover summary:** *(filled by W3 on completion)*
 ```
 
-Save as `docs/artefacts/{sprint}/spec-{feature}.md`.
+Save as `artefacts/{sprint}/spec-{feature}.md`.
 
 ---
 
