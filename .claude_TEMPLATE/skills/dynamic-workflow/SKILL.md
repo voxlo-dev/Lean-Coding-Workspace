@@ -20,10 +20,10 @@ attempts (an attempt = a new approach via a tool call) — don't grind.
 ## Dynamic subagent-driven orchestration
 
 Used when the spec's execution mode is **subagent-driven / dynamic**. The point is **context
-management**: over many packages, an inline main thread fills with read files and loses the
-spec across compactions. Here the calling model stays a pure **coordinator** — its context
-holds only the spec, the package list, and the running reports, while every read/write/test
-happens in fresh subagents whose context is discarded after each package.
+management**: over many packages an inline thread fills with read files and loses the spec
+across compactions. The calling model stays a pure **coordinator** — its context holds only
+the spec, the package list, and the reports; every read/write/test happens in fresh subagents,
+discarded after each package.
 
 **Models:** orchestrate on a capable model (Opus/Fable); dispatch **Sonnet-class** subagents
 for the work (e2e can be a browser agent).

@@ -14,7 +14,7 @@ keep the index lean, and **remove what's no longer true**.
 
 | Scope | Lives in | Loaded | Use for |
 | --- | --- | --- | --- |
-| **Project** | `~/.claude/projects/<repo>/memory/` | nativ, auto, every session | facts true only for this repo |
+| **Project** | `~/.claude/projects/<repo>/memory/` | native, auto, every session | facts true only for this repo |
 | **Domain** | `~/.claude/domains/{x}-domain/DOMAIN-MEMORY.md` | `@import` in domain projects | facts true for every project of this domain |
 | **Global** | `~/.claude/memory/MEMORY.md` | `@import` from `~/.claude/CLAUDE.md` | facts true everywhere, across all projects |
 

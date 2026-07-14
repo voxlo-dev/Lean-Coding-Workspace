@@ -3,8 +3,7 @@
 Date: {YYYY-MM-DD}
 Sprint: {slug — or `standalone` / `none`}
 
-**loose scaffold** for Product/UX level (*Lastenheft*:
-what & why) by default; Produced by `plan`;
+**Loose scaffold**, Product/UX level (*Lastenheft* — what & why). Produced by `plan`;
 recommended input for `spec-design`, usable by any workflow.
 
 ## Vision / goal
@@ -43,8 +42,8 @@ recommended input for `spec-design`, usable by any workflow.
 
 ## UI flows *(optional)*
 
-{for screen-based capabilities — the steps the user walks through; reference mockups in `docs/design/` and
-the wiki where they exist.}
+{for screen-based capabilities — the steps the user walks through; reference mockups in
+`docs/design/` and product docs where they exist.}
 
 - **{flow name}:** {step 1 → step 2 → …}
 
