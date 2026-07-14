@@ -24,14 +24,12 @@ path; link to `docs/architecture.md` if relevant.}
 ## Behaviour delta
 
 {the product-semantic change this spec introduces — the rules / invariants / interaction
-contracts it adds or alters against `docs/behaviour.md`. This is the spec's core: the
-acceptance criteria below are the testable form of it, and at the docs step `maintain-docs`
-distils exactly this back into `behaviour.md`. Drop only if the project has no `behaviour.md`.}
+contracts it adds or alters against `docs/behaviour.md`. The spec's core: the acceptance
+criteria below are its testable form. Drop only if the project has no `behaviour.md`.}
 
 ## Components
 
-{the units touched/added — purpose, interface, dependencies. Implementation guidance;
-`maintain-docs` distils the durable parts into `docs/architecture.md` at the docs step.}
+{the units touched/added — purpose, interface, dependencies. Implementation guidance.}
 
 ## UI / mockups
 
@@ -65,7 +63,6 @@ The testable form of the **Behaviour delta** — each rule/invariant above shoul
 
 ## Open questions
 
-{unresolved points; remove when none. A question that is really a *decision* (an architecture
-or product choice with trade-offs) doesn't belong in this frozen spec — record it as a
-`proposed` entry in `docs/decisions.md` and link it here, so it resolves in the open and
-isn't lost when the spec freezes.}
+{unresolved points; remove when none. A real *decision* (an architecture/product choice with
+trade-offs) doesn't belong in this frozen spec — record it as a `proposed` entry in
+`docs/decisions.md` and link it here.}

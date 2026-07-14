@@ -14,7 +14,7 @@ E2E testing only. No implementation, no spec changes. Validates the implementati
 
 | Input | Source |
 |---|---|
-| spec-{feature}.md path | Dispatcher |
+| spec_{feature}.md path | Dispatcher |
 | user-stories_{feature}.md path | Dispatcher |
 | handover_{feature}.md path | Dispatcher |
 | Active test levels (smoke / integration / full E2E) | Dispatcher |

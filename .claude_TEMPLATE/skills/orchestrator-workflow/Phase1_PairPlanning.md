@@ -23,7 +23,7 @@ Check `artefacts/{sprint}/` for an existing `plan_{feature}.md`:
 
 ## Step 2: Auto-Discovery Gate
 
-Check whether `spec-{feature}.md` exists in `artefacts/{sprint}/` AND passes the completeness check below.
+Check whether `spec_{feature}.md` exists in `artefacts/{sprint}/` AND passes the completeness check below.
 
 **Completeness check — BUILD_SPEC must have all of:**
 - Section 1: Project Overview (non-empty)

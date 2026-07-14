@@ -51,8 +51,7 @@ Docs are split by **lifespan**: `docs/` is DURABLE (truth about the shipped syst
 
 {the active sprint slug — its run artifacts live in `artefacts/{slug}/`; `sprint-cycle` sets it. `none` is valid: `minimal-workflow` fixes and maintenance passes need no sprint.}
 
-<!-- This is the only living pointer that belongs in AGENTS.md. Everything else that used to
-     sit here now has a lifespan-correct home: current goals → the sprint's `sprint-plan.md`;
-     open decisions → `docs/decisions.md` entries with Status `proposed`; gotchas/learnings →
-     project memory (`maintain-memory`). -->
+<!-- The only living pointer that belongs in AGENTS.md. Other living state has a lifespan-correct
+     home: goals → the sprint's `sprint-plan.md`; open decisions → `docs/decisions.md` (Status
+     `proposed`); gotchas/learnings → project memory (`maintain-memory`). -->
 
