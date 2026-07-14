@@ -7,9 +7,9 @@ description: "Use to turn an idea, a rough draft, or a brainstorming transcript 
 
 Turn a fuzzy idea into a crisp plan. **One skill, two shapes:**
 
-- **Feature / standalone plan** → `docs/artefacts/{sprint}/plan_{feature}.md` — one capability or a
+- **Feature / standalone plan** → `artefacts/{sprint}/plan_{feature}.md` — one capability or a
   focused batch, the *Lastenheft* (what the user wants and why).
-- **Sprint plan** → `docs/artefacts/{sprint}/sprint-plan.md` — the sprint's umbrella scope: the
+- **Sprint plan** → `artefacts/{sprint}/sprint-plan.md` — the sprint's umbrella scope: the
   batch of features/fixes plus the architecture/domain decisions that bind them. This is the mode
   `sprint-cycle` invokes.
 
@@ -24,9 +24,9 @@ implementation: `spec-design` turns the plan into the technical *Pflichtenheft*.
 sprint plan with architecture is long. Every section must earn its place — cut the rest.
 
 **Grounding — only what already exists, never a source spelunk:** existing mockups (`docs/design/`),
-the wiki (`docs/wiki/`), `AGENTS.md`, `docs/architecture/` (draft or filled), project memory, and
-codegraph if indexed. Pull these in when present; for architecture decisions, ground them in what's
-there rather than inventing.
+product docs (`docs/product/`), `AGENTS.md`, `docs/behaviour.md`, `docs/decisions.md`,
+`docs/architecture.md` (draft or filled), project memory, and codegraph if indexed. Pull these in when
+present; for architecture decisions, ground them in what's there rather than inventing.
 
 ## 1. Pick the starting point
 
@@ -49,7 +49,7 @@ In sprint mode this is the batch of work under the umbrella.
 
 - A **user story** for each meaningful capability — *as a {role}, I want {capability}, so that {value}*.
 - A **UI flow** wherever it's a screen journey — the steps the user walks through. Ground flows in existing
-  mockups (`docs/design/`) and the wiki when they exist.
+  mockups (`docs/design/`) and product docs (`docs/product/`) when they exist.
 - **New UI project with no styleguide yet** → invoke `ui-design` at the **styleguide level**. Per-feature
   mockups come later in `spec-design` / `dynamic-workflow`.
 
@@ -59,7 +59,8 @@ Skip this whole section for a plain product plan. Include it for a sprint plan o
 architecture is at stake:
 
 - **Architecture decisions** — system boundaries, data model, key flows, the binding non-functionals.
-  Record the *decisions*, not a doc: `docs/architecture/` is `maintain-docs`' job once things are built.
+  Record the *decisions* in the plan; they graduate to `docs/decisions.md` (via `sprint-cycle`), and the
+  architecture *doc* (`docs/architecture.md`) is `maintain-docs`' job once things are built.
 - **Domain switch possible** — if the work justifies a different domain/stack, weigh it against migration
   cost and recommend; if a master is missing, flag `domain-initialiser`.
 - **Web research — optional but encouraged** for tech/architecture options: `WebSearch` / `WebFetch`,
@@ -81,8 +82,8 @@ Surface concerns to the user and resolve them before writing.
 Copy this skill's `templates/PLAN_TEMPLATE.md` to the right path and fill **only the sections that fit** —
 the template is a loose scaffold, not a checklist:
 
-- **Sprint mode** → `docs/artefacts/{sprint}/sprint-plan.md`
-- **Feature / standalone** → `docs/artefacts/{sprint}/plan_{feature}.md` (ask the user for the sprint if
+- **Sprint mode** → `artefacts/{sprint}/sprint-plan.md`
+- **Feature / standalone** → `artefacts/{sprint}/plan_{feature}.md` (ask the user for the sprint if
   unclear; a standalone plan lives in the current sprint's folder, or `none` if there's no active sprint).
 
 The plan is deliberately **unambiguous** — the opposite of the input it came from. Get the user's approval — **always, even in autonomous mode**; a plan is never auto-approved.

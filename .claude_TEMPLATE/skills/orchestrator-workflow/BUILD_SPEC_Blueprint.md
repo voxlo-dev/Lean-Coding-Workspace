@@ -156,5 +156,5 @@ Filled progressively as W3 runs.
 - [ ] API surfaces fully specified?
 - [ ] Quality gates and active W4 levels documented in Section 7?
 - [ ] Structural basis noted (codegraph / greenfield)?
-- [ ] BUILD_SPEC saved as `docs/artefacts/{sprint}/spec-{feature}.md`?
+- [ ] BUILD_SPEC saved as `artefacts/{sprint}/spec-{feature}.md`?
 - [ ] Both the spec and `user-stories_{feature}.md` paths returned to Dispatcher?

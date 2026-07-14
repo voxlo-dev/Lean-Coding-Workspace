@@ -6,7 +6,7 @@
 
 ## Goal
 
-Produce `docs/artefacts/{sprint}/plan_{feature}.md` and receive explicit user approval before Phase 2 starts.
+Produce `artefacts/{sprint}/plan_{feature}.md` and receive explicit user approval before Phase 2 starts.
 
 ---
 
@@ -14,7 +14,7 @@ Produce `docs/artefacts/{sprint}/plan_{feature}.md` and receive explicit user ap
 
 The project `MEMORY.md` (and any imported domain/global memory) is already loaded — consult it for prior decisions and gotchas relevant to this task. No gateway call.
 
-Check `docs/artefacts/{sprint}/` for an existing `plan_{feature}.md`:
+Check `artefacts/{sprint}/` for an existing `plan_{feature}.md`:
 - Found and task implies continuation → summarize the plan inline, ask: "Continue from this plan, update it, or start fresh?"
 - **A `plan`-skill *Lastenheft* lands at the same path (`plan_{feature}.md`).** If one exists, treat it as the requirements basis: read it, and in Step 3 only *confirm* its points rather than re-asking them from scratch.
 - Missing or task implies new project → proceed to Step 2.
@@ -23,7 +23,7 @@ Check `docs/artefacts/{sprint}/` for an existing `plan_{feature}.md`:
 
 ## Step 2: Auto-Discovery Gate
 
-Check whether `spec-{feature}.md` exists in `docs/artefacts/{sprint}/` AND passes the completeness check below.
+Check whether `spec-{feature}.md` exists in `artefacts/{sprint}/` AND passes the completeness check below.
 
 **Completeness check — BUILD_SPEC must have all of:**
 - Section 1: Project Overview (non-empty)
@@ -75,7 +75,7 @@ Do NOT ask about testing levels here — the Dispatcher already resolved them wi
 
 ## Step 4: Write plan_{feature}.md
 
-Write `docs/artefacts/{sprint}/plan_{feature}.md`:
+Write `artefacts/{sprint}/plan_{feature}.md`:
 
 ```markdown
 # Plan: [Project Name]

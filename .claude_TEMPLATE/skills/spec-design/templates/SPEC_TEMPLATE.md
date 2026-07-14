@@ -1,8 +1,11 @@
 # Spec — {feature name}
 
-Date: {YYYY-MM-DD} · Status: {draft | approved | done} · Plan: {link `docs/artefacts/{sprint}/plan_{feature}.md` if any, else —}
+Date: {YYYY-MM-DD} · Status: {draft | approved | done} · Plan: {link `artefacts/{sprint}/plan_{feature}.md` if any, else —}
 
-Feature spec for `dynamic-workflow` — the *Pflichtenheft*. Comes out of `spec-design`
+Feature spec for `dynamic-workflow` — the *Pflichtenheft*. Comes out of `spec-design`.
+**This is a throwaway artifact:** the durable truth it produces graduates elsewhere at the
+docs step — behaviour → `behaviour.md`, structure → `architecture.md`, decisions →
+`decisions.md`. Keep the spec lean and implementation-facing; don't turn it into documentation.
 
 ## Goal / problem
 
@@ -15,15 +18,20 @@ Feature spec for `dynamic-workflow` — the *Pflichtenheft*. Comes out of `spec-
 
 ## Approach
 
-{the chosen approach in a few sentences; link to architecture if relevant}
+{the chosen approach in a few sentences, including how components wire together for the main
+path; link to `docs/architecture.md` if relevant.}
+
+## Behaviour delta
+
+{the product-semantic change this spec introduces — the rules / invariants / interaction
+contracts it adds or alters against `docs/behaviour.md`. This is the spec's core: the
+acceptance criteria below are the testable form of it, and at the docs step `maintain-docs`
+distils exactly this back into `behaviour.md`. Drop only if the project has no `behaviour.md`.}
 
 ## Components
 
-{the units touched/added — purpose, interface, dependencies}
-
-## Data flow
-
-{how data moves for the main scenario; sequence or steps}
+{the units touched/added — purpose, interface, dependencies. Implementation guidance;
+`maintain-docs` distils the durable parts into `docs/architecture.md` at the docs step.}
 
 ## UI / mockups
 
@@ -40,7 +48,7 @@ Decided by `spec-design`; the pipeline follows it without re-deciding.
 - **Modules to test:** {which modules / components the tests must cover — not concrete tests}
 - **Implementation — technique:** {direct | tdd | debugging}
 - **Implementation — execution:** {inline | subagent-driven: dynamic | subagent-driven: full}
-- **e2e test case:** {if e2e, link the handoff file `docs/artefacts/{sprint}/e2e_{feature}.md`}
+- **e2e test case:** {if e2e, link the handoff file `artefacts/{sprint}/e2e_{feature}.md`}
 
 ## Implement packages
 
@@ -50,9 +58,14 @@ One or more, run in order, commit after each. This is the only work-package axis
 
 ## Acceptance criteria
 
+The testable form of the **Behaviour delta** — each rule/invariant above should map to a check.
+
 - [ ] {observable, testable outcome}
 - [ ] {…}
 
 ## Open questions
 
-{unresolved points; remove when none}
+{unresolved points; remove when none. A question that is really a *decision* (an architecture
+or product choice with trade-offs) doesn't belong in this frozen spec — record it as a
+`proposed` entry in `docs/decisions.md` and link it here, so it resolves in the open and
+isn't lost when the spec freezes.}

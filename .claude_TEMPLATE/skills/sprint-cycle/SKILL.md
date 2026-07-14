@@ -9,7 +9,7 @@ The thinking layer above the build workflows. One run = one **sprint transition*
 the active sprint, then plan the next. Architecture *decisions* live here; the architecture
 *doc* does not — `maintain-docs` fills that once things are actually implemented.
 
-**A sprint** groups a batch of related work under one `docs/artefacts/{sprint}/` folder and
+**A sprint** groups a batch of related work under one `artefacts/{sprint}/` folder and
 one branch. Its length is the **user's call** — no time-boxes, no story points. A typical
 sprint holds ~1 sprint plan, 1–3 feature plans, 1–5 specs (1–10 packages each), 0–3 e2e
 runs, several minimal-workflow fixes, and a few maintain-docs passes. **No sprint at all is
@@ -34,14 +34,15 @@ Read `AGENTS.md` → **Current sprint**.
 
 - Every `spec-*` in the sprint folder at **Status: done**?
 - Tests green: the unit suite passes and the existing **e2e reports** (`e2e-run_*` / `e2e-report_*`) are green — **do not start a new e2e run**.
-- Docs current? — **estimate, don't read**: scan the sprint's git history for `docs/` changes that match the code changes. Code moved but docs didn't → flag it.
-- `AGENTS.md` → **Open decisions** empty?
+- Docs current? — **estimate, don't read**: scan the sprint's git history for `docs/` changes that match the code changes. Code moved but `docs/behaviour.md` didn't → flag it (behaviour drift is the classic rot).
+- `docs/decisions.md` — no entries still stuck at Status `proposed` that this sprint should have resolved? (this replaces the old `AGENTS.md → Open decisions` check)
 
-**Anything missing → STOP.** List exactly what's open and recommend the fix (e.g. "spec-X still draft → `dynamic-workflow`"; "docs drifted → `maintain-docs`"; "open decision Y → resolve with the user"). **Never auto-fix** — hand the recommendation back.
+**Anything missing → STOP.** List exactly what's open and recommend the fix (e.g. "spec-X still draft → `dynamic-workflow`"; "behaviour drifted → `maintain-docs`"; "decision NNNN still `proposed` → resolve with the user"). **Never auto-fix** — hand the recommendation back.
 
-**All clear:**
+**All clear — record what shipped:**
 
-- Write a **compact changelog** → `docs/artefacts/{sprint}/Changelog.md` (what shipped, grouped feat/fix/docs/refactor; link the specs).
+- **If the project has a `CHANGELOG.md`** — cut its `[Unreleased]` section into a dated release section (`## [x.y.z] — YYYY-MM-DD`), leaving a fresh empty `[Unreleased]`. Link the specs.
+- **If it doesn't** — the git history (Conventional Commits, one branch per sprint) *is* the record; write no changelog file. Optionally summarise the sprint in the merge/PR body instead.
 
 ## 2. Release / deploy *(reserved)*
 
@@ -54,10 +55,10 @@ yet and **pause** — let the user run any release step manually before planning
 
 Invoke **`plan` in sprint-plan mode** — it owns the planning dialogue, the architecture/domain
 decisions, the optional web research, and (new project) the styleguide-level `ui-design` call. It
-writes `docs/artefacts/{sprint}/sprint-plan.md`: the sprint's umbrella scope — goals, the
+writes `artefacts/{sprint}/sprint-plan.md`: the sprint's umbrella scope — goals, the
 architecture decisions, and the batch of features/fixes in scope.
 
-- **Ground it** for `plan`: codegraph if indexed, `AGENTS.md`, `docs/architecture/` (draft or filled), project memory. For a brand-new project, note the target instead and run the planning **wide** (deep brainstorm + research + domain/stack).
+- **Ground it** for `plan`: codegraph if indexed, `AGENTS.md`, `docs/architecture.md` (draft or filled), `docs/behaviour.md` and `docs/decisions.md` if present, project memory. For a brand-new project, note the target instead and run the planning **wide** (deep brainstorm + research + domain/stack).
 - **A complex plan may already exist** (pasted from a Claude chat, or a `plan_*` *Lastenheft*) → feed it to `plan` as the basis.
 
 `spec-design` later formalises the sprint plan into specs; `dynamic-workflow` derives specs directly
@@ -66,11 +67,12 @@ from it. Get the user's approval on the plan before moving on.
 ## 4. Open the branch & update living context
 
 - **New sprint branch** — create `<sprint-slug>` (matches the workspace branching rule: one branch per sprint). Ask the user for the slug if unclear.
-- **`AGENTS.md`** — set **Current sprint** to the new slug, refresh **Current goals**, and seed **Open decisions** with anything still unresolved from planning.
+- **`AGENTS.md`** — set **Current sprint** to the new slug (the only living pointer here). Goals live in the `sprint-plan.md`, not in `AGENTS.md`.
+- **`docs/decisions.md`** (if the project has it) — record the sprint's **architecture decisions** as entries (Status `accepted`), and seed anything still unresolved as Status `proposed`. This is the home for decisions; the sprint plan references them, it doesn't duplicate them.
 
 Then hand off to `dynamic-workflow` (spec each feature from the sprint plan) — or `minimal-workflow` for the small stuff.
 
 ## Handoff & boundaries
 
-- Produces: `Changelog.md` (at close), `sprint-plan.md` (via `plan`), the branch, the living-context update.
-- Never writes the architecture doc, specs, or product code — those belong to `maintain-docs`, `spec-design`, and the build workflows. `maintain-memory` runs at the workflows' memory step, not here.
+- Produces: the release cut in `CHANGELOG.md` (at close, if present), decision entries in `docs/decisions.md`, `sprint-plan.md` (via `plan`), the branch, the `Current sprint` update.
+- Never writes the architecture/behaviour docs, specs, or product code — those belong to `maintain-docs`, `spec-design`, and the build workflows. `maintain-memory` runs at the workflows' memory step, not here.
