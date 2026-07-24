@@ -16,7 +16,10 @@ dir); it activates only when `project-initialiser` copies it into a repo's
 Research, then write the recipe:
 
 - **Websearch** the domain's official docs and its unit + UI/integration test frameworks.
-- **Search the Claude marketplace** (`/plugin`) for reusable skills, MCP servers and agents.
+- **Mine three sources for reusable capability** — record every hit in the recipe with its kind (step 3 vendors them all **into the master**; nothing is installed globally):
+  - **Language server** — check `claude-plugins-official` for the domain language's LSP (config-only plugins carrying an `lspServers` block). Available: `csharp-lsp`, `typescript-lsp` (TS/JS), `pyright-lsp` (Python), `kotlin-lsp`, `clangd-lsp` (C/C++), `gopls-lsp` (Go), `jdtls-lsp` (Java), `rust-analyzer-lsp`, `swift-lsp`, `ruby-lsp`, `php-lsp`, `lua-lsp`, `liquid-lsp`. Record the exact `command` + `extensionToLanguage` so step 3 can lift it — **and** the server binary's install command (like the test framework; the LSP config only points at it, project-initialiser installs it).
+  - **`fullstack-dev-skills`** — pick the few skills that fit the domain's stack (e.g. `csharp-developer`, `typescript-pro`, `python-pro`, `kotlin-specialist`, `game-developer`). Curate hard: only what the domain genuinely needs, never the bundle.
+  - **Wider marketplace** (`/plugin`) — domain-specific skills, MCP servers, and agents not covered above.
 - **Trusted sources only.** Use official docs and well-rated GitHub/marketplace
   projects — never invent facts, commands, or APIs. If you can't ground a detail in a
   real source, leave it as a `{TODO}` for the user rather than guessing.
@@ -42,11 +45,13 @@ install domain skills/MCPs globally.
 
 1. `.claude-plugin/plugin.json` — set `name` to `{x}-domain`.
 2. **Skills** — for each in the recipe, by source kind:
-   - **Real marketplace skill** (folder has its own `SKILL.md`) → copy that folder into
-     `skills/`. Verify the `SKILL.md` is actually there first — don't copy an empty shell.
-   - **Config-only marketplace plugin** (LSP/MCP, no `SKILL.md`) → there's nothing to
-     copy as a skill. Lift its config block into the right place instead: `lspServers`
-     → the plugin's own `plugin.json`; `mcpServers` → `.mcp.json` (see step 3).
+   - **Real marketplace skill** (folder has its own `SKILL.md`, incl. `fullstack-dev-skills`
+     entries) → copy that folder into `skills/`. Verify the `SKILL.md` is actually there
+     first — don't copy an empty shell. **Trim** it to the domain's need and add a one-line
+     source note at the top (where it came from) so its provenance stays traceable.
+   - **Config-only plugin** (LSP/MCP, no `SKILL.md` — e.g. the official `*-lsp` plugins) →
+     there's nothing to copy as a skill. Lift its config block into the right place instead:
+     `lspServers` → the master's own `plugin.json`; `mcpServers` → `.mcp.json` (see step 3).
    - **Custom** → author `skills/{name}/SKILL.md` (use superpowers' skill-creator),
      grounded in the recipe's cited docs. Never hallucinate commands or APIs.
 3. **MCP servers** — add each to `.mcp.json` (`mcpServers`) and install the package it

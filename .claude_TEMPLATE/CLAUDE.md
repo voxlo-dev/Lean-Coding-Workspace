@@ -55,17 +55,24 @@ Assume the user is capable, but lazy with words, because he can't type as fast a
 | --- | --- | --- |
 | superpowers | Brainstorming, planning, skill-creation framework | Brainstorm/spec phases; whenever a new reusable skill is needed |
 | codegraph | Pre-indexed code knowledge graph (MCP) | Any structural / "how does X work" / impact question in an **indexed** project. Self-describes via its MCP server — do not duplicate its guidance here |
-| headroom | In-session context-budget management **only** | Automatic. Handles in-session budget only — long-term memory is the native `MEMORY.md` system below, not headroom |
+| context7 | Up-to-date upstream library/framework/API docs (MCP) | Implementation steps — look up current library APIs instead of trusting recall; prefer over WebSearch for library docs |
+| github | GitHub API operations (MCP) — issues, PRs, reviews, repo search | Any PR / issue / repo workflow (`gh` for local git, this for the GitHub API surface) |
+| plugin-dev | Skill / plugin / agent / hook authoring toolkit | Building or refactoring workspace skills, domains, and plugins |
 
 Policy: codegraph replaces file-reading exploration. In an indexed project, answer
 structural questions by querying codegraph directly — do **not** spawn Explore
 subagents for what the graph already knows.
 
+Policy: context7 is the default source for **upstream** docs (libraries, frameworks,
+SDKs, APIs) — consult it at implementation time rather than trusting recall. It does not
+overlap codegraph (*your* code) or maintain-docs (*your* project's docs).
+
 ## Domains
 
 Master domain plugins live **inert** in `~/.claude/domains/{x}-domain/`. That folder is
 NOT a skills directory, so masters never auto-load globally. Each master bundles its
-recipe (`Domain-Recipe.md`), skills, agents, and `.mcp.json`.
+recipe (`Domain-Recipe.md`), skills, agents, and LSP/MCP config (`plugin.json`
+`lspServers` + `.mcp.json`) — all vendored in, self-contained.
 
 `project-initialiser` copies the matching master into the repo's
 `.claude/skills/{x}-domain/`, where it loads **project-scoped** — only in that repo.
@@ -77,7 +84,7 @@ Available masters: {}. Create one with the `domain-initialiser` skill.
 ## Memory
 
 Long-term memory is **native Markdown** — no plugin. The `maintain-memory` skill curates
-it; `headroom` covers in-session budget only. Three scopes, pick the narrowest:
+it and prunes stale entries. Three scopes, pick the narrowest:
 
 - **Project** — `~/.claude/projects/<repo>/memory/`, auto-loaded every session (native).
 - **Domain** — `~/.claude/domains/{x}-domain/DOMAIN-MEMORY.md`, imported by domain projects.

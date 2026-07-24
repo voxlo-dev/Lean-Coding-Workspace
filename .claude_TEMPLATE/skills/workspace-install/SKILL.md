@@ -1,6 +1,6 @@
 ---
 name: workspace-install
-description: "Use to bootstrap or repair the global workspace: copy the template into ~/.claude, collect system + user info into the global CLAUDE.md, install the three mandatory plugins, verify them, and capture the user's working rules. Explicit-invoke."
+description: "Use to bootstrap or repair the global workspace: copy the template into ~/.claude, collect system + user info into the global CLAUDE.md, install the mandatory plugins, verify them, and capture the user's working rules. Explicit-invoke."
 disable-model-invocation: true
 ---
 
@@ -45,9 +45,8 @@ Ask in plain chat — **not** the question tool — so the user can answer freel
 
 Install only the ones not already working. Each via its own installer / README:
 
-- **superpowers** — https://github.com/obra/superpowers
 - **codegraph** — https://github.com/colbymchenry/codegraph
-- **headroom** — https://github.com/chopratejas/headroom
+- **superpowers**, **context7**, **github**, **plugin-dev** — from the `claude-plugins-official` marketplace (add via `/plugin`; `context7`/`github` are MCP-backed, `plugin-dev` is the authoring toolkit)
 
 Long-term memory is **native** (no plugin) — step 1 already seeded `~/.claude/memory/MEMORY.md` and its `@import` in `CLAUDE.md`. See the `maintain-memory` skill.
 
@@ -57,7 +56,7 @@ Long-term memory is **native** (no plugin) — step 1 already seeded `~/.claude/
 
 ## 6. Verify the plugins
 
-Confirm each of the three is actually **working**, not merely present:
+Confirm each mandatory plugin is actually **working**, not merely present:
 
 - its skills/commands/MCP tools are discoverable this session, and
 - its entry point runs (no failing hook, no error on invoke).
