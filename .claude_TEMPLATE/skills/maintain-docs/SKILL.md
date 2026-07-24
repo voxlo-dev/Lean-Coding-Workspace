@@ -41,3 +41,11 @@ For each doc, ask "does *this* change affect it?" from what you already know. Op
 - **`behaviour.md` is the anti-rot core.** The spec was a delta; the durable truth of *how the product now behaves* must land here or the next spec re-derives it. Write the smallest accurate change — this is what makes specs disposable.
 - **`architecture.md` draft → filled.** Fill a `planned` subsystem from real code only once it's built, then flip it to `implemented` (doc top `draft → partial → current`). **Never mark `implemented` from a plan.**
 - **Split** any durable doc past ~300–500 lines into one file per topic under a same-named folder (`architecture/`, `dev/`, `behaviour/`, `decisions/`), keeping the original as the index.
+
+## Audit mode — optional, on request only
+
+**Not part of the normal delta sweep.** Run this only when the user explicitly asks to *audit* doc (or `AGENTS.md`/`CLAUDE.md`) quality — never as a routine pass, or you double-touch docs for nothing. Where the sweep above distils *this run's* delta, the audit judges the *existing* docs against a quality bar and proposes fixes.
+
+1. **Score each doc** against the rubric — commands/workflows current · architecture clarity · non-obvious patterns captured · conciseness (no restating the obvious) · currency (matches the code now) · actionability (executable, not vague). Grade **A** (comprehensive/current) → **F** (missing/stale).
+2. **Report before touching anything** — a short per-doc table (score + concrete issues + recommended additions). Present it, then get the user's OK.
+3. **Fix targeted** — only genuinely useful additions (real commands, real gotchas, drifted structure); show each as a diff with a one-line *why*. Never pad with generic best-practice or restate what's obvious from the code. Respect each doc's `CONTRACT` header.

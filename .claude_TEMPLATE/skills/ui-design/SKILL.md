@@ -1,6 +1,6 @@
 ---
 name: ui-design
-description: "Use when designing the look and feel of a UI — colors, themes, typography, layout, mockups, design system. Invokable from plan (styleguide level, new UI project) and spec-design (concrete layouts for a feature). Routes web frontends to Claude Design; builds HTML mockups otherwise."
+description: "Use when designing the look and feel of a UI — colors, themes, typography, layout, mockups, design system. Invokable from plan (styleguide level, new UI project) and spec-design (concrete layouts for a feature). Routes web frontends to Claude Design or in-repo frontend-design; builds HTML mockups otherwise."
 ---
 
 # UI Design
@@ -26,7 +26,7 @@ pretty** — style only enough to communicate a token or a screen's structure.
 ## 1. Frame the stage & branch
 
 - **Stage:** project/design level → styleguide only · feature/spec level → concrete layout for *this* feature, grounded in the existing styleguide.
-- **Branch:** a **web frontend** (→ Claude Design handoff, step 3a) or anything else — desktop, game, mobile-native, CLI/TUI (→ build mockups directly, step 3b)?
+- **Branch:** a **web frontend** — either handed to **Claude Design** (external, step 3a) or **built in-repo** by `frontend-design` (step 3c) — or anything else: desktop, game, mobile-native, CLI/TUI (→ build mockups directly, step 3b).
 
 ## 2. Brainstorm UI/UX
 
@@ -56,6 +56,22 @@ open; once it's settled, build the durable mockup here — the companion is for 
 - Seed mockups from `templates/layout.html` — self-contained HTML (no build step), with phone and desktop frames; delete the frame you don't need. Viewable in any browser regardless of the real tech stack.
 - Simple UI → embed the snippet directly in the spec's UI section. Sophisticated UI → put the files under `docs/design/mockups/` and link them from the spec.
 - Keep them faithful to `docs/design/Styleguide.html` — paste its tokens into the mockup's `:root`.
+
+## 3c. Web frontend, built in-repo → frontend-design
+
+The alternative to the Claude Design handoff (3a): when the frontend is written **directly
+in the repo** — a component/page in the project's real stack (Svelte, React, plain
+HTML/CSS/JS) — invoke the `frontend-design` skill for the actual code craft. It owns the
+aesthetic *execution* (distinctive typography, cohesive palette, motion, spatial
+composition) that the mockup-only path (3b) doesn't produce.
+
+- **Ground it in the styleguide.** Pass `frontend-design` the tokens from
+  `docs/design/Styleguide.html` so the output stays on-system, not a one-off aesthetic.
+- **No styleguide yet?** Design the system first (steps 2 + 4), *then* let `frontend-design`
+  execute against it — don't let a single component silently define the whole look.
+- **Still persist (step 4).** The in-repo code is the product, but if this established or
+  extended the design system, fold those decisions back into `docs/design/Styleguide.html` —
+  that stays the source of truth every later feature designs against.
 
 ## 4. Persist & integrate
 
