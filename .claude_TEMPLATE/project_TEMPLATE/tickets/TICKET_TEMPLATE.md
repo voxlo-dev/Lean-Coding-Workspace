@@ -1,9 +1,11 @@
 # T-NNN — {title}
 
 <!-- CONTRACT (binding):
-  - PURPOSE: one unit of work — the *what* and the *why*. Nothing else.
-  - WRITTEN ONCE, THEN FROZEN. Only the Links section may gain a line later.
-  - CAP ~half a page. The *how* is a plan/spec in `artefacts/{sprint}/` — link it, never inline it.
+  - PURPOSE: one unit of work, in full — the *what* and the *why*. This is where the detail
+    lives: the sprint file and `backlog.md` only carry a one-line summary of it.
+  - WRITTEN ONCE, THEN FROZEN. Two exceptions: the Links section may gain a line, and a
+    `decision` ticket gains its Outcome when it is settled.
+  - CAP ~1 page. Still no solution design — the *how* is a spec in `artefacts/{sprint}/`.
   - NO STATUS FIELD: the board position is the status (`backlog.md` while open, the sprint
     file's board while in flight). A ticket is listed in exactly one of them, never both.
   - FILE lives permanently in `tickets/`, named `T-NNN-{slug}.md`; it never moves between
@@ -11,6 +13,7 @@
   - WHO WRITES: `plan`, or any run that spots something worth capturing.
 -->
 
+- **Summary:** {one line — this is what the board and the backlog show}
 - **Category:** {feature | bug | decision | ux | refactor | chore}
 - **Importance:** {critical | high | medium | low}
 - **Effort:** {S | M | L}
@@ -23,9 +26,27 @@ Decision → the forces that make this a real choice.}
 
 ## What
 
-{the unambiguous outcome, acceptance in plain words. No solution design.
+{the unambiguous outcome. No solution design.
 Decision → the question to settle, and the options if they're already known.}
+
+## User story *(optional)*
+
+As a {role}, I want {capability}, so that {value}.
+
+## UI flow *(optional)*
+
+{for a screen journey — the steps the user walks through; reference mockups in
+`docs/design/` and product docs where they exist.}
+
+## Acceptance *(optional)*
+
+- [ ] {what must be observably true for this to be done, in plain words}
+
+## Outcome *(decision tickets only — filled when settled)*
+
+{what was decided and why, in a few lines. This is the detail behind the one-line entry in
+`docs/decisions.md`; that index links here rather than repeating it.}
 
 ## Links *(optional)*
 
-{plan / spec / mockup / decision entry, added as they come into being}
+{spec / mockup / decision entry / related tickets, added as they come into being}

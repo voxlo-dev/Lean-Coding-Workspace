@@ -5,8 +5,9 @@
     The column IS the status — ticket files carry none.
   - DRAFT = captured, not ready to pull. BACKLOG = refined, ready to pull into a sprint.
   - IN FLIGHT lives elsewhere: once pulled, a ticket is listed on the sprint file's board
-    (`artefacts/{sprint}/sprint-plan.md`) and nowhere else. Never in both.
-  - INDEX ONLY — one line, no detail. The detail is the ticket file in `tickets/`.
+    (`artefacts/{sprint}/sprint.md`) and nowhere else. Never in both.
+  - INDEX ONLY — the line is the ticket's own Summary, verbatim. Never restate or expand
+    the ticket here; the detail is the file in `tickets/`.
   - WHO MOVES: `plan` and any run that captures something → Draft/Backlog · `open-sprint`
     pulls Backlog → the sprint board · `close-sprint` carries anything unfinished back here.
   - OPEN DECISIONS live here as `decision` tickets. Once settled they graduate to
@@ -16,8 +17,8 @@
 
 ## Draft
 
-- `T-NNN` {title} — {category} · {importance}
+- `T-NNN` {title} — {summary} · {category} · {importance}
 
 ## Backlog
 
-- `T-NNN` {title} — {category} · {importance} · {effort}
+- `T-NNN` {title} — {summary} · {category} · {importance} · {effort}

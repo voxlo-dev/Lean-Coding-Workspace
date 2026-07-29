@@ -1,6 +1,6 @@
 # Spec — {feature name}
 
-Date: {YYYY-MM-DD} · Status: {draft | approved | done} · Ticket: {`T-NNN` it implements, else —} · Plan: {link `artefacts/{sprint}/plan_{feature}.md` if any, else —}
+Date: {YYYY-MM-DD} · Status: {draft | approved | done} · Tickets: {`T-NNN`, … it implements — else —}
 
 Feature spec for `dynamic-workflow` — the *Pflichtenheft*. Comes out of `spec-design`.
 **This is a throwaway artifact:** the durable truth it produces graduates elsewhere at the
@@ -51,8 +51,10 @@ Decided by `spec-design`; the pipeline follows it without re-deciding.
 ## Implement packages
 
 One or more, run in order, commit after each. This is the only work-package axis to size.
+Where the spec covers several tickets, name the ticket each package serves — that is what
+tells the workflow when a ticket may move to **To Test**.
 
-- **{package name}** — {what it builds} · files: {paths to read/touch}
+- **{package name}** — {what it builds} · ticket: {`T-NNN` or —} · files: {paths to read/touch}
 
 ## Acceptance criteria
 

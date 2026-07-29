@@ -51,7 +51,7 @@ Onboard a repo end-to-end. Owns the **initial** doc creation (it does the deep e
    **(a) File re-home — move/rename only, never touch content.** Read only the doc's outline (headings, front matter, index) to identify it, then move it to its slot. The old **pre-lifespan-split** layout maps across:
    - `docs/artefacts/**` → `artefacts/**` (artefacts moved out of `docs/`, which is now durable-only)
    - `docs/architecture/Architecture.md` → `docs/architecture.md` · `docs/developer/Developer-Docs.md` → `docs/dev.md` · `docs/wiki/` → `docs/product/`
-   - a stray `SPEC.md`/`spec_*` → `artefacts/{sprint}/spec_{feature}.md`; a `plan_*` → `artefacts/{sprint}/`
+   - a stray `SPEC.md`/`spec_*` → `artefacts/{sprint}/spec_{feature}.md`; an old `plan_*` / `sprint-plan.md` → `artefacts/{sprint}/`, then mine it for tickets (it is no longer a live artifact)
 
    **(b) In-place structural update of the entry docs** — these are *not* re-homed, they're rewritten to the new shape (an existing `AGENTS.md`/`README.md` survives `cp -rn`, so it stays in the OLD format unless you migrate it):
    - **`AGENTS.md`** — rebuild the **Doc map** to the new tiered table (durable vs ephemeral; list only docs that exist). Collapse the old **Living context** section: keep **Current sprint** as the one-line pointer; move **Open decisions** → `decision` tickets in `backlog.md`; drop **Current goals** (it lives in the sprint file now); gotchas/learnings → project memory.

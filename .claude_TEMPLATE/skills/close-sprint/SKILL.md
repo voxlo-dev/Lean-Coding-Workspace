@@ -26,7 +26,7 @@ Read `AGENTS.md` → **Current sprint**.
 
 ## 1. Clear the board
 
-Read the sprint file's board (`artefacts/{sprint}/sprint-plan.md`). Every ticket left in
+Read the sprint file's board (`artefacts/{sprint}/sprint.md`). Every ticket left in
 **Active** or **To Test** needs a call from the user — **finish it now, or carry it over**:
 
 - **Carry over** — move the line back into `backlog.md` (**Backlog**, or **Draft** if the sprint proved it isn't ready). The ticket file itself never moves. This is mandatory: the board freezes with the sprint, so anything left on it silently disappears.
@@ -55,7 +55,7 @@ touched shared/core code; skip it for a tiny or docs-only sprint.
 The board is now all **Done**. Each of those tickets left durable truth behind — graduate it,
 then the ticket has served its purpose:
 
-- **`decision` tickets** → an entry in `docs/decisions.md`, Status `accepted`, referencing the ticket. This is the only way a decision enters that doc.
+- **`decision` tickets** → fill the ticket's **Outcome** section (what was decided and why), then add **one line** to `docs/decisions.md`: short description, `accepted`, link to the ticket. That file is an index — the reasoning stays in the ticket. This is the only way a decision enters it.
 - **Everything user-visible** → a line under `[Unreleased]` in `CHANGELOG.md` (if present), unless the run already added it.
 - Behaviour deltas are already in `docs/behaviour.md` (written per run) — don't rewrite them here.
 
