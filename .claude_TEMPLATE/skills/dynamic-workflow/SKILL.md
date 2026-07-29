@@ -5,15 +5,16 @@ description: "Use for feature work or any change that warrants a spec. spec-desi
 
 # Dynamic Workflow
 
-1. **Spec** — invoke `spec-design`. It brainstorms, designs the UI if there is one, decides the **test strategy** and the **implementation strategy** (technique + execution mode), and writes the spec. If the current sprint has a `artefacts/{sprint}/sprint-plan.md` (from `open-sprint`), spec this feature from it — it's the sprint's umbrella scope. **Review the spec with the user, then commit it — this review always happens, even in autonomous mode** (a spec is never auto-approved).
+1. **Spec** — invoke `spec-design`. It brainstorms, designs the UI if there is one, decides the **test strategy** and the **implementation strategy** (technique + execution mode), and writes the spec. If the current sprint has a sprint file (`artefacts/{sprint}/sprint-plan.md`, from `open-sprint`), work an **Active** ticket off its board — the ticket is the requirement, the sprint file the frame. Link the spec on the board line. **Review the spec with the user, then commit it — this review always happens, even in autonomous mode** (a spec is never auto-approved).
 2. **Implement** — work the spec's implement packages **in order**, each built with the spec's **technique**, committed per package (optional review first). If the test strategy is **minimal**, the package writes the committed **smoke script** the spec names (setup → happy path → teardown its own state) and runs it once — not ad-hoc manual driving. The spec's **execution mode** decides who does the work:
    - **inline** → build the package in the main thread: `direct` (locate code, write it, run tests to green) · `TDD` (`superpowers:test-driven-development`, only when the test strategy is full-TDD) · `debugging` (`superpowers:systematic-debugging`).
    - **subagent-driven** → **orchestrate instead of implementing** (see below). Flavour `dynamic` = the loop below; flavour `full` = `superpowers:subagent-driven-development`.
    Whenever a package leans on a third-party library/framework/API, look up current usage via **context7** rather than trusting recall — it replaces most WebSearch for library docs. Subagent-driven packages: tell the handoff to do the same.
    Technique and mode are **fixed**. The one sanctioned deviation: a package that fails or turns buggy → `superpowers:systematic-debugging`, then resume.
 3. **e2e** (optional) — only if the spec's test strategy includes e2e → invoke `e2e` (subagent-driven mode: delegate it to an e2e / browser subagent rather than driving it inline). A red result sends you back to step 2.
-4. **Docs** — invoke `maintain-docs` (subagent-driven mode: delegate to a docs subagent), then commit.
+4. **Docs** — invoke `maintain-docs` in **per-run mode** (subagent-driven mode: delegate to a docs subagent), then commit. The low-churn docs are not your job — `close-sprint` batches them.
 5. **Memory** — invoke `maintain-memory`.
+6. **Board** — move the ticket's line from **Active** to **To Test** on the sprint file's board (straight to **Done** if the e2e step already verified it). One line, no other file. Nothing found worth doing but out of scope? Capture it as a ticket in `backlog.md` instead of leaving it in a comment.
 
 **Stuck? Escalate.** On a technical problem, pause and ask the user after ~5 solution
 attempts (an attempt = a new approach via a tool call) — don't grind.

@@ -31,6 +31,8 @@ broad. When scope becomes clearer later, **move** the entry (don't copy it).
   never both** — a fact duplicated across memory and docs guarantees one stale copy.
 - **Skip what's already recorded elsewhere:** code structure, git history, and anything
   in `CLAUDE.md` / `AGENTS.md`. Memory is for what those *don't* capture.
+- **Open work is not memory.** A bug, a todo, a question to settle → a ticket in
+  `backlog.md`. Memory holds what is *true*, the board holds what is *to do*.
 
 ## How to write
 

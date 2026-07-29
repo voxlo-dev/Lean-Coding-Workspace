@@ -12,5 +12,6 @@ Smallest possible ceremony — no spec, no other workflow skills, no planning. J
 3. **Loop to green** — implement and run the test until it passes.
 4. **Minimal docs & memory maintenance** — only the most essential changes, do not invoke the skill, drifts are catched by large workflow runs.
 5. **Commit.**
+6. **Board, only if a ticket drove this** — move its line to **To Test** on the sprint file's board. A fix done on the spot needs no ticket at all; something you *won't* do now goes into `backlog.md` as one.
 
 **Hand off when automation isn't worth it** — when the change/test is non-trivial, very specific/niche or the test is hard to write (no framework, hard-to-test feature), pause and let the user verify before committing. Weigh manual testing against the cost of automating; hand off when manual is clearly faster.

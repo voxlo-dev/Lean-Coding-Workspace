@@ -100,6 +100,15 @@ installs, personal tool setup, this-machine-only quirks) → **memory**. System-
 generally true engineering knowledge → **`docs/dev.md`**. If a fact is in one, it must not
 be in the other; when in doubt, ask whether it would still be true on someone else's machine.
 
+## Work items — the markdown kanban
+
+Every unit of work is a **ticket** file in `tickets/` (`T-NNN-{slug}.md`): *what* and *why*, category, importance, effort, dependencies — written once, then frozen. Tickets carry **no status**; their position on a board is the status, and each is indexed in exactly one place:
+
+- **`backlog.md`** (living, survives sprints) — columns **Draft** · **Backlog**: everything open. Open *decisions* live here too, as `decision` tickets; `docs/decisions.md` only ever receives the settled outcome.
+- **The sprint file** `artefacts/{sprint}/sprint-plan.md` (plan + board) — columns **Active** · **To Test** · **Done**: what's in flight. Active *is* the sprint scope. It freezes with the sprint, so `close-sprint` must finish or carry over everything left on it.
+
+Moves: `plan` and any run capture → Draft/Backlog · `open-sprint` pulls → Active · the build workflows → To Test · `e2e`/user → Done · `close-sprint` distils and freezes. **A fix done on the spot needs no ticket** — capture only what isn't being done now.
+
 ## Workflows (skills — invoke, don't read files)
 
 These load as skills — Claude may invoke one when you name it, and you can also run it with `/name`. (Only `workspace-install` is user-only via `disable-model-invocation`.)
@@ -120,12 +129,12 @@ Options:
 - **superpowers** — invoke `superpowers/using-superpowers` for the full brainstorm → plan → implement framework
 - **no workflow** — use no workflow skill; relax these rules and let the agent work freely
 
-Turning a fuzzy idea, a draft, or a brainstorming transcript into a clear plan first → recommend `plan`. It writes a standalone `artefacts/{sprint}/plan_{feature}.md` (the *Lastenheft*, product/UX level) — optionally climbing to high-level domain/architecture decisions when the scope warrants; web research optional. Feeds `spec-design` or any workflow; standalone it is not wired into one. (`open-sprint` reuses `plan` in sprint-plan mode for the sprint's umbrella `sprint-plan.md`.)
+Turning a fuzzy idea, a draft, or a brainstorming transcript into a clear plan first → recommend `plan`. It writes a standalone `artefacts/{sprint}/plan_{feature}.md` (the *Lastenheft*, product/UX level) — optionally climbing to high-level domain/architecture decisions when the scope warrants; web research optional. Feeds `spec-design` or any workflow; standalone it is not wired into one. (`open-sprint` reuses `plan` in sprint-file mode for the sprint file itself.) Either way, `plan` cuts the tickets.
 
 Managing a sprint is two skills, run in that order at a release boundary:
 
-- **close-sprint** — the active release scope is done: scope check → optional code review of the whole sprint diff → changelog cut → merge/PR to `main`.
-- **open-sprint** — plan the next sprint via `plan` (sprint-plan mode) → `artefacts/{sprint}/sprint-plan.md` → branch + `Current sprint` → dynamic-workflow handoff. Also the entry point for a **new project** (nothing to close). It records architecture *decisions*; the architecture *doc* is written by `maintain-docs` once implemented.
+- **close-sprint** — the active release scope is done: clear the board (finish or carry over) → optional code review of the whole sprint diff → distil Done → batched docs pass → changelog cut → merge/PR to `main`.
+- **open-sprint** — plan the next sprint via `plan` (sprint-file mode) → `artefacts/{sprint}/sprint-plan.md`, pull tickets from `backlog.md` onto its board → branch + `Current sprint` → dynamic-workflow handoff. Also the entry point for a **new project** (nothing to close). It records architecture *decisions*; the architecture *doc* is written by `maintain-docs` once implemented.
 
 **Preflight — before starting any workflow:**
 

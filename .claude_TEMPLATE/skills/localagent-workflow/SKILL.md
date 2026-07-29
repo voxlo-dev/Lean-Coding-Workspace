@@ -25,7 +25,7 @@ A sequential, context-frugal multi-agent workflow built for a **weak (~30B) loca
 1. **Planning** → plan inline *with* the user (grounded in codegraph if indexed) → writes `localagent/PLAN.md` (systems, features, test strategy, unit list).
 2. **Plan gate** → show the user the unit list, get explicit approval. **Stop until approved** — the only routine pause.
 3. **Build loop** (per unit, dependency order, just-in-time): `spec-architect (spec + contract) → test-author (red) → [WALL] → implementer (green, blind) → verifier`. Update `STATE.md` after every sub-step. Rework on red: behaviour-only report; wall drops after 3 red cycles; escalate at 5.
-4. **Finalize** → `e2e` (only if a browser/integration surface exists) → `docs` → invoke **`maintain-memory`** → commit / PR.
+4. **Finalize** → `e2e` (only if a browser/integration surface exists) → `docs` → invoke **`maintain-memory`** → move the ticket to **To Test** on the sprint file's board → commit / PR.
 
 ## Escalation
 

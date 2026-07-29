@@ -1,6 +1,6 @@
 ---
 name: plan
-description: "Use to turn an idea, a rough draft, or a brainstorming transcript into a clear plan — either a standalone feature/requirements plan (plan_{feature}.md, the *Lastenheft*) or a sprint's umbrella plan (sprint-plan.md, invoked by open-sprint). Product/UX level by default; may climb to high-level domain & architecture decisions when the scope warrants. Web research optional. Hands the plan to spec-design or any workflow."
+description: "Use to turn an idea, a rough draft, or a brainstorming transcript into a clear plan — either a standalone feature/requirements plan (plan_{feature}.md, the *Lastenheft*) or the sprint file (sprint-plan.md = plan + kanban board, invoked by open-sprint). Emits tickets into tickets/ and indexes them. Product/UX level by default; may climb to high-level domain & architecture decisions when the scope warrants. Web research optional. Hands the plan to spec-design or any workflow."
 ---
 
 # Plan
@@ -9,11 +9,16 @@ Turn a fuzzy idea into a crisp plan. **One skill, two shapes:**
 
 - **Feature / standalone plan** → `artefacts/{sprint}/plan_{feature}.md` — one capability or a
   focused batch, the *Lastenheft* (what the user wants and why).
-- **Sprint plan** → `artefacts/{sprint}/sprint-plan.md` — the sprint's umbrella scope: the
-  batch of features/fixes plus the architecture/domain decisions that bind them. This is the mode
-  `open-sprint` invokes.
+- **Sprint file** → `artefacts/{sprint}/sprint-plan.md` — the plan *above the board*: the theme,
+  the architecture/domain decisions that bind the sprint, the non-goals, and below them the
+  kanban board. This is the mode `open-sprint` invokes. It **creates the file, or modifies an
+  existing one** (a mid-sprint re-plan touches the plan part; the board is moved by the
+  workflows, not rewritten here).
 
 The mode is set by the caller (`open-sprint` → sprint mode) or by the ask.
+
+**Both modes emit tickets.** Work items are not lists inside the plan — they are files in
+`tickets/`, indexed by `backlog.md` (open) or the sprint board (in flight). See step 6.
 
 **Altitude — default product/UX, climb only when it earns it.** Stay at *what the user wants and why*.
 You **may** rise to high-level **domain & architecture decisions** when the scope warrants — always in
@@ -42,8 +47,10 @@ present; for architecture decisions, ground them in what's there rather than inv
 
 ## 2. Categorise everything
 
-Sort every item into **bugs · features · UX · refactors** and keep them distinct — one item, one category.
-In sprint mode this is the batch of work under the umbrella.
+Sort every item into **feature · bug · ux · refactor · chore · decision** and keep them distinct — one
+item, one category. Each becomes one ticket in step 6. **`decision`** is the category for a question
+that is genuinely open: it is work (it must be settled), so it belongs on the board, not in
+`docs/decisions.md` — that doc only ever receives the *outcome*.
 
 ## 3. Define user stories & UI flows
 
@@ -59,8 +66,10 @@ Skip this whole section for a plain product plan. Include it for a sprint plan o
 architecture is at stake:
 
 - **Architecture decisions** — system boundaries, data model, key flows, the binding non-functionals.
-  Record the *decisions* in the plan; they graduate to `docs/decisions.md` (via `open-sprint`), and the
-  architecture *doc* (`docs/architecture.md`) is `maintain-docs`' job once things are built.
+  Record the ones you **settle here** in the plan; they graduate to `docs/decisions.md` (via
+  `open-sprint`). Anything still genuinely open becomes a **`decision` ticket** instead — don't fake a
+  decision to close a section. The architecture *doc* (`docs/architecture.md`) is `maintain-docs`' job
+  once things are built.
 - **Domain switch possible** — if the work justifies a different domain/stack, weigh it against migration
   cost and recommend; if a master is missing, flag `domain-initialiser`.
 - **Web research — optional but encouraged** for tech/architecture options: `WebSearch` / `WebFetch`,
@@ -77,22 +86,33 @@ This is the value over a raw transcript. For each item ask:
 
 Surface concerns to the user and resolve them before writing.
 
-## 6. Write the plan
+## 6. Write the plan, then cut the tickets
 
 Copy this skill's `templates/PLAN_TEMPLATE.md` to the right path and fill **only the sections that fit** —
 the template is a loose scaffold, not a checklist:
 
-- **Sprint mode** → `artefacts/{sprint}/sprint-plan.md`
+- **Sprint mode** → `artefacts/{sprint}/sprint-plan.md` (the sprint file: plan + board). Modifying an
+  existing one → edit the plan part only, never rewrite the board.
 - **Feature / standalone** → `artefacts/{sprint}/plan_{feature}.md` (ask the user for the sprint if
   unclear; a standalone plan lives in the current sprint's folder, or `none` if there's no active sprint).
 
-The plan is deliberately **unambiguous** — the opposite of the input it came from. Get the user's approval — **always, even in autonomous mode**; a plan is never auto-approved.
+Then turn every categorised item from step 2 into a **ticket**:
+
+- Copy `tickets/TICKET_TEMPLATE.md` → `tickets/T-NNN-{slug}.md`, next free number, never reused.
+  Keep it at the ticket's altitude: *what* and *why*, ~half a page, **no solution design** — the plan
+  you just wrote is its `how` context, link it.
+- **Index it once, in exactly one place:** not ready to pull → `backlog.md` **Draft** · refined and
+  ready → `backlog.md` **Backlog** · going into this sprint right now → the sprint file's **Active**
+  column (that is the sprint scope). Never in two places.
+- **Don't ticket what's already done.** A fix made on the spot needs none.
+
+The plan is deliberately **unambiguous** — the opposite of the input it came from. Get the user's approval on plan *and* ticket cut — **always, even in autonomous mode**; a plan is never auto-approved.
 
 ## Handoff
 
-The plan is an **input artifact**.
+The plan is an **input artifact**; the tickets are the durable work items it leaves behind.
 
 - **Standalone** — not wired into a workflow; hand `plan_{feature}.md` to `spec-design` (recommended) or
-  any workflow.
+  any workflow. Its tickets sit in `backlog.md` until a sprint pulls them.
 - **Sprint mode** — `open-sprint` continues from here (branch, living-context update), then
-  `dynamic-workflow` specs each feature from the `sprint-plan.md`.
+  `dynamic-workflow` specs each **Active** ticket off the sprint file.
