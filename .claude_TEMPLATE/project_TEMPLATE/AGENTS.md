@@ -30,7 +30,7 @@ Agent-agnostic project guide. Single source of truth for domain, structure, and 
 
 ## Doc map
 
-Docs are split by **lifespan**: `docs/` is DURABLE (truth about the shipped system, versioned with the code); `artefacts/` is EPHEMERAL (process/working memory, frozen per sprint). Every fact has one home. Rows wrapped in `{}` are optional — they exist only if the project opted in; drop the row (and braces) so the table lists only docs that exist.
+Docs are split by **lifespan**: `docs/` is DURABLE (truth about the shipped system, versioned with the code); `tickets/` + `backlog.md` are LIVING (open work, carried across sprints); `artefacts/` is EPHEMERAL (process/working memory, frozen per sprint). Every fact has one home. Rows wrapped in `{}` are optional — they exist only if the project opted in; drop the row (and braces) so the table lists only docs that exist.
 
 | Doc | Tier | Audience | Form | Content |
 | --- | --- | --- | --- | --- |
@@ -39,12 +39,14 @@ Docs are split by **lifespan**: `docs/` is DURABLE (truth about the shipped syst
 | {`docs/behaviour.md`} | durable | agent · developer | self-splitting | SSOT for how the *shipped* product behaves — product semantics as a rulebook (rules, invariants, per-screen interaction contracts). Specs are deltas against this |
 | {`docs/decisions.md`} | durable | agent · developer | append-only ledger | ADR-lite decision log — one home for every architecture/engineering/product decision + rationale; agents don't re-litigate settled choices |
 | {`docs/architecture.md`} | durable | developer · agent | self-splitting | planned/implemented software structure: big picture, systems, subsystems |
-| {`docs/dev.md`} | durable | developer · agent | self-splitting | engineering knowledge code/tests/codegraph don't capture: setup, env, build/debug workflows, dependency quirks (not bugs/todos — those go to the issue tracker) |
+| {`docs/dev.md`} | durable | developer · agent | self-splitting | engineering knowledge code/tests/codegraph don't capture: setup, env, build/debug workflows, dependency quirks (not bugs/todos — those become tickets) |
 | {`docs/product/`} | durable | user | self-splitting (Diátaxis) | end-user docs; single source for the wiki/docs-site (published from CI, never hand-edited) |
 | {`docs/design/`} | durable | developer | single (`Styleguide.html`) | styleguide / design system (per-feature mockups live with their specs) |
 | {`ASSETS.md`} | — | coding agent | single | asset inventory (consult before searching the asset tree) |
 | {`CHANGELOG.md`} | durable | user | append-only | user-facing changelog, per release (only if the project has releases/external users) |
-| `artefacts/{sprint}/` | ephemeral | agent · developer | stacking (one folder per sprint; type is a filename prefix — `plan_` `spec_` `user-stories_` `e2e_` `e2e-run_` `impl-report_` `handover_` `e2e-report_`) plus the sprint-level `sprint-plan.md` | all workflow run artifacts, bound to their sprint/feature, under the umbrella `sprint-plan.md`. Committed and frozen after the run; `open-sprint` opens each sprint and `close-sprint` closes it (changelog/git history). `maintain-docs` only updates a spec's Status/ACs — durable truth is distilled into `docs/`, never left here |
+| `tickets/` | living | agent · developer | one file per ticket (`T-NNN-{slug}.md`) | every unit of work as a mini-plan: *what* and *why*, category, importance, effort, dependencies. Written once, then frozen — they carry no status and never move between sprints |
+| `backlog.md` | living | agent · developer | index (Draft · Backlog) | one line per **open** ticket. The column is the status. Open decisions live here too, until they graduate to `docs/decisions.md` |
+| `artefacts/{sprint}/` | ephemeral | agent · developer | stacking (one folder per sprint; type is a filename prefix — `plan_` `spec_` `user-stories_` `e2e_` `e2e-run_` `impl-report_` `handover_` `e2e-report_`) plus the sprint file `sprint-plan.md` | all workflow run artifacts, bound to their sprint/feature. Committed and frozen after the run — **except `sprint-plan.md`**: it is the sprint file (plan + kanban board Active · To Test · Done), whose board keeps moving until `close-sprint` freezes it with the sprint. `open-sprint` opens each sprint, `close-sprint` closes it. `maintain-docs` only updates a spec's Status/ACs — durable truth is distilled into `docs/`, never left here |
 | {`localagent/`} | ephemeral | agent | stacking (one set per run) | localagent-workflow run records (PLAN/STATE/units) — committed, frozen after the run, not maintained |
 
 ## Current sprint
@@ -52,6 +54,6 @@ Docs are split by **lifespan**: `docs/` is DURABLE (truth about the shipped syst
 {the active sprint slug — the current *release scope*, spanning many runs; all their artifacts live in `artefacts/{slug}/`. `open-sprint` sets it and is the only thing that moves it. `none` is valid: `minimal-workflow` fixes and maintenance passes need no sprint.}
 
 <!-- The only living pointer that belongs in AGENTS.md. Other living state has a lifespan-correct
-     home: goals → the sprint's `sprint-plan.md`; open decisions → `docs/decisions.md` (Status
-     `proposed`); gotchas/learnings → project memory (`maintain-memory`). -->
+     home: goals → the sprint file; open work & open decisions → `backlog.md` + `tickets/`;
+     gotchas/learnings → project memory (`maintain-memory`). -->
 

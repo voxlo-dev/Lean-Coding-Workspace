@@ -1,6 +1,6 @@
 # Spec — {feature name}
 
-Date: {YYYY-MM-DD} · Status: {draft | approved | done} · Plan: {link `artefacts/{sprint}/plan_{feature}.md` if any, else —}
+Date: {YYYY-MM-DD} · Status: {draft | approved | done} · Ticket: {`T-NNN` it implements, else —} · Plan: {link `artefacts/{sprint}/plan_{feature}.md` if any, else —}
 
 Feature spec for `dynamic-workflow` — the *Pflichtenheft*. Comes out of `spec-design`.
 **This is a throwaway artifact:** the durable truth it produces graduates elsewhere at the
@@ -64,5 +64,5 @@ The testable form of the **Behaviour delta** — each rule/invariant above shoul
 ## Open questions
 
 {unresolved points; remove when none. A real *decision* (an architecture/product choice with
-trade-offs) doesn't belong in this frozen spec — record it as a `proposed` entry in
-`docs/decisions.md` and link it here.}
+trade-offs) doesn't belong in this frozen spec — cut a `decision` ticket for it
+(`backlog.md`) and link it here. Its outcome later graduates to `docs/decisions.md`.}
