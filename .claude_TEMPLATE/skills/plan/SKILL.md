@@ -1,6 +1,6 @@
 ---
 name: plan
-description: "Use to turn an idea, a rough draft, or a brainstorming transcript into a clear plan — either a standalone feature/requirements plan (plan_{feature}.md, the *Lastenheft*) or a sprint's umbrella plan (sprint-plan.md, invoked by sprint-cycle). Product/UX level by default; may climb to high-level domain & architecture decisions when the scope warrants. Web research optional. Hands the plan to spec-design or any workflow."
+description: "Use to turn an idea, a rough draft, or a brainstorming transcript into a clear plan — either a standalone feature/requirements plan (plan_{feature}.md, the *Lastenheft*) or a sprint's umbrella plan (sprint-plan.md, invoked by open-sprint). Product/UX level by default; may climb to high-level domain & architecture decisions when the scope warrants. Web research optional. Hands the plan to spec-design or any workflow."
 ---
 
 # Plan
@@ -11,9 +11,9 @@ Turn a fuzzy idea into a crisp plan. **One skill, two shapes:**
   focused batch, the *Lastenheft* (what the user wants and why).
 - **Sprint plan** → `artefacts/{sprint}/sprint-plan.md` — the sprint's umbrella scope: the
   batch of features/fixes plus the architecture/domain decisions that bind them. This is the mode
-  `sprint-cycle` invokes.
+  `open-sprint` invokes.
 
-The mode is set by the caller (`sprint-cycle` → sprint mode) or by the ask.
+The mode is set by the caller (`open-sprint` → sprint mode) or by the ask.
 
 **Altitude — default product/UX, climb only when it earns it.** Stay at *what the user wants and why*.
 You **may** rise to high-level **domain & architecture decisions** when the scope warrants — always in
@@ -59,7 +59,7 @@ Skip this whole section for a plain product plan. Include it for a sprint plan o
 architecture is at stake:
 
 - **Architecture decisions** — system boundaries, data model, key flows, the binding non-functionals.
-  Record the *decisions* in the plan; they graduate to `docs/decisions.md` (via `sprint-cycle`), and the
+  Record the *decisions* in the plan; they graduate to `docs/decisions.md` (via `open-sprint`), and the
   architecture *doc* (`docs/architecture.md`) is `maintain-docs`' job once things are built.
 - **Domain switch possible** — if the work justifies a different domain/stack, weigh it against migration
   cost and recommend; if a master is missing, flag `domain-initialiser`.
@@ -94,5 +94,5 @@ The plan is an **input artifact**.
 
 - **Standalone** — not wired into a workflow; hand `plan_{feature}.md` to `spec-design` (recommended) or
   any workflow.
-- **Sprint mode** — `sprint-cycle` continues from here (branch, living-context update), then
+- **Sprint mode** — `open-sprint` continues from here (branch, living-context update), then
   `dynamic-workflow` specs each feature from the `sprint-plan.md`.

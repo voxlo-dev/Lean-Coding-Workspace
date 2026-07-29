@@ -26,10 +26,10 @@ For each doc, ask "does *this* change affect it?" from what you already know. Op
 | `AGENTS.md` → Current sprint | high | the sprint pointer moved | keep the one-line pointer correct; also fix code-style/conventions if they changed (single source — never copy into README) |
 | `AGENTS.md` → Doc map | high | a doc was added or removed | keep the map listing only docs that exist |
 | `docs/decisions.md` (if present) | high | a decision was made, or an old one overturned | **append** a new entry (never rewrite one); to overturn, add the new entry and set the old one's Status to `superseded by NNNN`. A still-open question → entry with Status `proposed` |
-| `CHANGELOG.md` (if present) | medium | a user-visible change shipped | add a line under `[Unreleased]` in the right group (Added/Changed/Fixed/Removed). User's view only — not a git-log dump. (`sprint-cycle` cuts `[Unreleased]` into a release at sprint close) |
+| `CHANGELOG.md` (if present) | medium | a user-visible change shipped | add a line under `[Unreleased]` in the right group (Added/Changed/Fixed/Removed). User's view only — not a git-log dump. (`close-sprint` cuts `[Unreleased]` into a release at sprint close) |
 | `artefacts/{sprint}/spec_*` | when in context | a spec was implemented this run | update its **Status** (e.g. draft → done) and tick the **acceptance criteria** you met — only with that context in hand; otherwise leave it. Every other file in `artefacts/` (plans, e2e cases, reports) is a frozen run record — never edited here |
 | `ASSETS.md` (if present) | medium | assets were added, moved, or repurposed | add/adjust the row(s); keep `Used in` accurate |
-| `docs/dev.md` (if present) | medium | setup, env, build/debug workflow, or a dependency quirk changed | record it; **don't** copy api signatures (link codegraph/generated docs) and **don't** log bugs/todos here (→ issue tracker / memory) |
+| `docs/dev.md` (if present) | medium | setup, env, build/debug workflow, or a dependency quirk changed | record it **only if it is system-independent** — absolute paths, local installs and machine-specific setup go to memory instead, never to both (see below). **Don't** copy api signatures (link codegraph/generated docs) and **don't** log bugs/todos here (→ issue tracker / memory) |
 | `docs/architecture.md` (if present) | low | a drafted subsystem was actually implemented, or core structure changed | fill the subsystem from the real code and flip its **Status** `planned → implemented`; bump the doc's top **Status** `draft → partial → current`. See below |
 | `docs/product/` (if present) | low | user-facing interaction changed | read the relevant page first, then make very targeted edits |
 | `docs/design/` (if present) | — | design system changed | **don't touch here** — the styleguide and mockups are owned by `ui-design` |
@@ -40,6 +40,10 @@ For each doc, ask "does *this* change affect it?" from what you already know. Op
 
 - **`behaviour.md` is the anti-rot core.** The spec was a delta; the durable truth of *how the product now behaves* must land here or the next spec re-derives it. Write the smallest accurate change — this is what makes specs disposable.
 - **`architecture.md` draft → filled.** Fill a `planned` subsystem from real code only once it's built, then flip it to `implemented` (doc top `draft → partial → current`). **Never mark `implemented` from a plan.**
+- **`dev.md` vs. memory — one home, never both.** Ask: would this still be true on another
+  machine? Yes → `docs/dev.md`. No (absolute paths, local installations, personal tool setup,
+  machine-only quirks) → `maintain-memory`. Duplicating a fact across both guarantees one of
+  the two goes stale.
 - **Split** any durable doc past ~300–500 lines into one file per topic under a same-named folder (`architecture/`, `dev/`, `behaviour/`, `decisions/`), keeping the original as the index.
 
 ## Audit mode — optional, on request only
