@@ -25,6 +25,10 @@ broad. When scope becomes clearer later, **move** the entry (don't copy it).
 
 - Decisions + their rationale, gotchas, non-obvious constraints, build/debug insights.
 - One fact per entry, concrete and self-contained. Link related entries by name.
+- **Machine-bound facts belong here, not in docs:** absolute paths, local installations,
+  personal tool setup, this-machine-only quirks. The mirror rule: anything
+  system-independent and generally true → `docs/dev.md` via `maintain-docs`. **One home,
+  never both** — a fact duplicated across memory and docs guarantees one stale copy.
 - **Skip what's already recorded elsewhere:** code structure, git history, and anything
   in `CLAUDE.md` / `AGENTS.md`. Memory is for what those *don't* capture.
 

@@ -6,6 +6,9 @@
     If a fact is already in the code, the tests, or (in an indexed repo) codegraph, do NOT
     copy it here — link to the source instead. Hand-copied API signatures are the classic
     drift trap.
+  - SYSTEM-INDEPENDENT ONLY: everything here must hold on any contributor's machine.
+    Absolute paths, local installations, personal tool setup and machine-only quirks go to
+    project memory instead — one home per fact, never both.
   - BOUNDARIES: structure → `architecture.md`; product behaviour → `behaviour.md`;
     decisions + rationale → `decisions.md`; user-facing docs → `product/`; per-session
     gotchas & fragile-area warnings → project memory; bugs & tech debt → the issue tracker.

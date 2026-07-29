@@ -6,7 +6,7 @@
   - FORMAT: Keep a Changelog. Curated to the USER's view — only user-visible changes,
     grouped per release. Not a git-log dump.
   - WHO WRITES: `maintain-docs` appends to `[Unreleased]` as user-facing changes ship;
-    `sprint-cycle` cuts `[Unreleased]` into a dated release section at sprint close.
+    `close-sprint` cuts `[Unreleased]` into a dated release section at sprint close.
 -->
 
 All notable user-facing changes to this project are documented here.

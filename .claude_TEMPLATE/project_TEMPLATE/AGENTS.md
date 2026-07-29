@@ -44,12 +44,12 @@ Docs are split by **lifespan**: `docs/` is DURABLE (truth about the shipped syst
 | {`docs/design/`} | durable | developer | single (`Styleguide.html`) | styleguide / design system (per-feature mockups live with their specs) |
 | {`ASSETS.md`} | — | coding agent | single | asset inventory (consult before searching the asset tree) |
 | {`CHANGELOG.md`} | durable | user | append-only | user-facing changelog, per release (only if the project has releases/external users) |
-| `artefacts/{sprint}/` | ephemeral | agent · developer | stacking (one folder per sprint; type is a filename prefix — `plan_` `spec_` `user-stories_` `e2e_` `e2e-run_` `impl-report_` `handover_` `e2e-report_`) plus the sprint-level `sprint-plan.md` | all workflow run artifacts, bound to their sprint/feature, under the umbrella `sprint-plan.md`. Committed and frozen after the run; `sprint-cycle` opens each sprint and closes it (changelog/git history). `maintain-docs` only updates a spec's Status/ACs — durable truth is distilled into `docs/`, never left here |
+| `artefacts/{sprint}/` | ephemeral | agent · developer | stacking (one folder per sprint; type is a filename prefix — `plan_` `spec_` `user-stories_` `e2e_` `e2e-run_` `impl-report_` `handover_` `e2e-report_`) plus the sprint-level `sprint-plan.md` | all workflow run artifacts, bound to their sprint/feature, under the umbrella `sprint-plan.md`. Committed and frozen after the run; `open-sprint` opens each sprint and `close-sprint` closes it (changelog/git history). `maintain-docs` only updates a spec's Status/ACs — durable truth is distilled into `docs/`, never left here |
 | {`localagent/`} | ephemeral | agent | stacking (one set per run) | localagent-workflow run records (PLAN/STATE/units) — committed, frozen after the run, not maintained |
 
 ## Current sprint
 
-{the active sprint slug — its run artifacts live in `artefacts/{slug}/`; `sprint-cycle` sets it. `none` is valid: `minimal-workflow` fixes and maintenance passes need no sprint.}
+{the active sprint slug — the current *release scope*, spanning many runs; all their artifacts live in `artefacts/{slug}/`. `open-sprint` sets it and is the only thing that moves it. `none` is valid: `minimal-workflow` fixes and maintenance passes need no sprint.}
 
 <!-- The only living pointer that belongs in AGENTS.md. Other living state has a lifespan-correct
      home: goals → the sprint's `sprint-plan.md`; open decisions → `docs/decisions.md` (Status

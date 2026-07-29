@@ -20,7 +20,7 @@ Assume the user is capable, but lazy with words, because he can't type as fast a
 **User defined rules:** User defined rules have priority over ANYTHING else including other rules from this file.
 {Add custom user defined rules}
 
-**Language rules:** Keep all Markdown files English only — relaxed only where a crisp, well-defined term has no exact English equivalent (e.g. *Lastenheft* / *Pflichtenheft*): keep the original term rather than spend tokens on a lossy paraphrase. Keep conversations with the user in the user's preferred language.
+**Language rules:** Keep all Markdown files English only — relaxed only where a crisp, well-defined term has no exact English equivalent (e.g. *Lastenheft* / *Pflichtenheft*): keep the original term rather than spend tokens on a lossy paraphrase. Defaults, no asking needed: **subagent handoffs, briefs and reports → English**; **code, identifiers and comments → English**. Only two things follow the user: **conversation → the user's preferred language**, and **user-facing UI strings → the user's call per project** (ask once, record it in `AGENTS.md`).
 
 **Tool call rules:** Default to the most capable shell of the operating system (e.g. PowerShell for Windows / bash for Linux), if one shell does not work use another.
 
@@ -43,7 +43,7 @@ Assume the user is capable, but lazy with words, because he can't type as fast a
 
 **General codestyle rules:**
 
-- Keep code comments short and precise.
+- **Code comments: compact and one level above the code.** Say what a thing is for and why it exists — never a line-by-line walk-through, never concrete usage examples or sample values (they rot the moment the code moves). If explaining it honestly needs more than ~5 lines, it isn't a comment: write it in `docs/` (usually `dev.md`) and leave a one-liner pointing there.
 - **Abstraction over minimal-diff.** The smallest change is not automatically the best one — near-duplicate code hurts a clean codebase more than a little extra effort does. When a new feature closely resembles existing code, prefer **one shared abstraction that represents both** over two similar-but-separate components: less redundancy, looser coupling — at the cost of some extra coding and tests. Refactor the existing code into that shape rather than bolting the feature on beside it. (Weigh it against YAGNI: abstract over *real* duplication, not a speculative future one.)
 - **UX first on any UI change — even a small one.** Never wire a feature into the UI by the path of least effort. Ask each time: does this hurt the UX? Should the layout be reworked or elements regrouped? Is every element unambiguous and placed by its relevance — can something even be simplified? Accept more UI churn to keep the experience clean. (`ui-design` owns the detail.)
 
@@ -95,6 +95,11 @@ it and prunes stale entries. Three scopes, pick the narrowest:
 `maintain-memory` runs at each workflow's memory step: writes new facts to the right
 scope and **prunes stale ones**. Imported (domain/global) memory loads in full — keep lean.
 
+**Memory vs. docs — one home, never both.** Machine-bound facts (absolute paths, local
+installs, personal tool setup, this-machine-only quirks) → **memory**. System-independent,
+generally true engineering knowledge → **`docs/dev.md`**. If a fact is in one, it must not
+be in the other; when in doubt, ask whether it would still be true on someone else's machine.
+
 ## Workflows (skills — invoke, don't read files)
 
 These load as skills — Claude may invoke one when you name it, and you can also run it with `/name`. (Only `workspace-install` is user-only via `disable-model-invocation`.)
@@ -115,13 +120,16 @@ Options:
 - **superpowers** — invoke `superpowers/using-superpowers` for the full brainstorm → plan → implement framework
 - **no workflow** — use no workflow skill; relax these rules and let the agent work freely
 
-Turning a fuzzy idea, a draft, or a brainstorming transcript into a clear plan first → recommend `plan`. It writes a standalone `artefacts/{sprint}/plan_{feature}.md` (the *Lastenheft*, product/UX level) — optionally climbing to high-level domain/architecture decisions when the scope warrants; web research optional. Feeds `spec-design` or any workflow; standalone it is not wired into one. (`sprint-cycle` reuses `plan` in sprint-plan mode for the sprint's umbrella `sprint-plan.md`.)
+Turning a fuzzy idea, a draft, or a brainstorming transcript into a clear plan first → recommend `plan`. It writes a standalone `artefacts/{sprint}/plan_{feature}.md` (the *Lastenheft*, product/UX level) — optionally climbing to high-level domain/architecture decisions when the scope warrants; web research optional. Feeds `spec-design` or any workflow; standalone it is not wired into one. (`open-sprint` reuses `plan` in sprint-plan mode for the sprint's umbrella `sprint-plan.md`.)
 
-Managing a sprint — closing the active one (scope check → changelog → merge/PR to `main`) or planning the next, **or** standing up a new project → recommend `sprint-cycle`. It plans the next sprint via `plan` (sprint-plan mode) → `artefacts/{sprint}/sprint-plan.md` → dynamic-workflow handoff. It records architecture *decisions*; the architecture *doc* is written by `maintain-docs` once implemented.
+Managing a sprint is two skills, run in that order at a release boundary:
+
+- **close-sprint** — the active release scope is done: scope check → optional code review of the whole sprint diff → changelog cut → merge/PR to `main`.
+- **open-sprint** — plan the next sprint via `plan` (sprint-plan mode) → `artefacts/{sprint}/sprint-plan.md` → branch + `Current sprint` → dynamic-workflow handoff. Also the entry point for a **new project** (nothing to close). It records architecture *decisions*; the architecture *doc* is written by `maintain-docs` once implemented.
 
 **Preflight — before starting any workflow:**
 
 - **Project initialised?** No `AGENTS.md` / template docs → recommend `project-initialiser` first.
-- **Which sprint?** Check `AGENTS.md` → **Current sprint** — run artifacts land in `artefacts/{sprint}/`. Starting a fresh batch of feature work → recommend `sprint-cycle` to close the old sprint and plan the new one. A lone fix or a maintenance pass needs no sprint.
+- **Which sprint?** Check `AGENTS.md` → **Current sprint** — run artifacts land in `artefacts/{sprint}/`. **A sprint is not a run:** it is the scope of a *release* and holds many runs, plans and specs. Stay in the active sprint for the whole release; only when that release is actually done and a new batch begins, recommend `close-sprint` → `open-sprint`. A lone fix or a maintenance pass needs no sprint.
 - **Clean git tree?** Dirty → surface it and recommend committing, gitignoring or reverting so the run starts clean.
 - **Autonomy mode?** Ask once — pause for review BEFORE each commit (default) or run autonomously. Applies to the whole run; pass it to the workflow. **Autonomy never covers plans & specs:** a `plan` or `spec` is always validated by the user before it drives implementation, even in autonomous mode — autonomy applies only to the build/commit steps downstream of an approved spec.
