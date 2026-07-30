@@ -51,17 +51,9 @@ touches `memory/`, `projects/`, `domains/` or your settings.
 
 ## How a session goes
 
-```
-new project ──→ /project-initialiser ──→ /open-sprint ─┐
-                                                       │
-                    ┌──────────────────────────────────┘
-                    ↓
-              pick a workflow ──→ spec ──→ implement ──→ test ──→ docs + memory ──→ commit/PR
-                    ↑                                                                   │
-                    └───────────────── next run, same sprint ───────────────────────────┘
-                                                       │
-                                    release done ──→ /close-sprint ──→ /open-sprint
-```
+<p align="center">
+  <img src="assets/session-flow.svg" alt="A repo is initialised once, then each release is a sprint: open-sprint cuts the branch, many runs happen inside it (spec, implement, e2e, docs and memory, commit), and close-sprint distils and merges before the next sprint opens." width="880">
+</p>
 
 Concretely, at the start of a chat Claude checks the project's memory, then asks which workflow to
 use and recommends one. Before it starts it runs a short preflight: is the project initialised,
@@ -114,6 +106,26 @@ A fix you do on the spot needs no ticket. The board captures what *isn't* being 
 `/open-sprint` pulls tickets from the backlog onto a fresh board and cuts a branch;
 `/close-sprint` clears the board, optionally reviews the whole sprint diff, distils what shipped
 into the durable docs, cuts the changelog, and merges.
+
+## How it all connects
+
+Every skill has a lane, and every file it produces has a lifespan. Read a column top-down: the
+skill on top writes what sits beneath it. Read the board left to right: that's the journey of one
+ticket, and where it sits *is* its status.
+
+<p align="center">
+  <img src="assets/skills-and-docs.svg" alt="Skills across the top; beneath them four bands by lifespan: living work items (tickets and backlog), ephemeral process history (the sprint file with its board, specs, reports), durable docs (AGENTS.md, behaviour, architecture, dev, product, decisions, changelog), and memory." width="1000">
+</p>
+
+The two directions matter more than the boxes. **Left to right** is how work travels: an idea
+becomes a ticket, gets pulled onto a board, gets a spec, becomes code, and ends up distilled into
+durable docs — with whatever didn't get finished carried back to the backlog. **Top to bottom** is
+ownership: exactly one skill writes each file, which is why nothing here has two versions of the
+same truth.
+
+Note what is *not* in the durable band: no skill writes a fact there while the work is still in
+flight. Specs, reports and boards are process history, deliberately frozen and forgotten;
+`maintain-docs` and `close-sprint` distil what survives into `docs/`.
 
 ## What a project looks like
 
