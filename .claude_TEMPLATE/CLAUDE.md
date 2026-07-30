@@ -111,7 +111,9 @@ Moves: `plan` and any run capture → Draft/Backlog · `open-sprint` pulls → A
 
 ## Workflows (skills — invoke, don't read files)
 
-These load as skills — Claude may invoke one when you name it, and you can also run it with `/name`. (Only `workspace-install` is user-only via `disable-model-invocation`.)
+These load as skills — Claude may invoke one when you name it, and you can also run it with `/name`. (Only `workspace-install` is user-only via `disable-model-invocation` — it writes to the global workspace.)
+
+**Keeping it current** — `workspace-install` is also the repair/sync path: it knows which files are workspace-owned and may be overwritten and which are yours. Never `cp` the template over a live workspace by hand. Bringing an already-initialised *project* onto the current structure is `project-initialiser`'s docs-migration step — individual work, in dialogue with the user, never a fixed recipe.
 
 **The workflow gate applies only to software-development tasks** — building or changing code, features, bugfixes. For non-dev work (writing, research, general questions, one-off shell tasks), skip it: act directly, with these workspace rules relaxed to fit the task. For software development it is **mandatory**.
 

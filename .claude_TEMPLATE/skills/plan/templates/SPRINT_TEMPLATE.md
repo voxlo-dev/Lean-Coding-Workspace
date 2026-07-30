@@ -17,6 +17,10 @@ Date: {YYYY-MM-DD}
 
 {what is explicitly out of this sprint, so nobody re-argues it mid-flight}
 
+## (UI) flow *(optional)*
+
+{for a user journey — the steps the user walks through and how the tickets are connected}
+
 ## Architecture & domain decisions *(optional — only when real architecture is at stake)*
 
 {high-level only, and only what this planning actually **settled**: system boundaries, data
