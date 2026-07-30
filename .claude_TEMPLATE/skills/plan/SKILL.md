@@ -61,8 +61,8 @@ Surface concerns to the user and resolve them before writing anything.
 ## 4. UI & architecture — only when the scope warrants *(optional)*
 
 - **New UI project with no styleguide yet** → invoke `ui-design` at the **styleguide level**. Per-feature
-  mockups come later in `spec-design` / `dynamic-workflow`. A screen journey belongs in its ticket's
-  UI flow section.
+  mockups come later in `spec-design` / `dynamic-workflow`. A user journey that spans several tickets
+  goes into the sprint file's **(UI) flow** section — it's what shows how the tickets connect.
 - **Architecture decisions** (sprint mode, real architecture at stake) — system boundaries, data model,
   key flows, binding non-functionals. Record the ones you **settle** in the sprint file; they graduate to
   `docs/decisions.md` via `open-sprint`. Anything still open becomes a **`decision` ticket** instead —
@@ -74,8 +74,8 @@ Surface concerns to the user and resolve them before writing anything.
 ## 5. Cut the tickets
 
 Copy `tickets/TICKET_TEMPLATE.md` → `tickets/T-NNN-{slug}.md`, next free number, never reused. Fill
-**only the sections that fit** — the optional ones (user story, UI flow, acceptance) earn their place
-or get dropped. Keep it at the ticket's altitude: *what* and *why*, ~1 page, **no solution design**.
+**only the sections that fit** — the optional ones (user story, and Outcome for decisions) earn their
+place or get dropped. Keep it at the ticket's altitude: *what* and *why*, ~1 page, **no solution design**.
 
 **Index each one exactly once**, its Summary line verbatim:
 

@@ -7,11 +7,13 @@ description: "Use to onboard a new or existing project: explore, detect the doma
 
 Onboard a repo end-to-end. Owns the **initial** doc creation (it does the deep exploration); `maintain-docs` only updates docs afterwards. Small projects don't need heavy docs — the user opts in per doc (step 4). **Change nothing before the user approves the plan (step 5).**
 
+**Already initialised, just on an older layout?** Then this is a **migration**, not an onboarding: run steps 1–2 (inventory), go straight to the docs migration inside step 7, and scaffold only what is genuinely missing. Skip everything the project already has.
+
 1. **Explore & gather context**
    - **Existing code → run `codegraph init -i` now.** This is a required setup action, not optional exploration — index the repo *before* asking any structural question. Then answer structural questions by querying codegraph directly; do NOT spawn Explore subagents for what the graph knows.
    - New / empty → skip codegraph (nothing to index yet; note it so the user can run `codegraph init` once code exists).
 
-2. **Inventory what exists** — code, tests, docs, template files, and whether a domain plugin is already present. This decides what to scaffold vs. merge — and flag any docs on a different or older workspace layout (they get migrated in step 7: content files are re-homed, the entry docs `AGENTS.md`/`README.md` are rewritten in place).
+2. **Inventory what exists** — code, tests, docs, template files, and whether a domain plugin is already present. This decides what to scaffold vs. merge — and flag any docs on a different or older workspace layout (they get migrated in step 7, individually and with the user).
 
 3. **Detect the domain** — identify it, then check `~/.claude/domains/{x}-domain/`. A usable master is a **built plugin** (has `.claude-plugin/plugin.json` + skills), not just a recipe. If the folder is missing, or holds only a recipe (`Domain-Recipe.md`) with no built plugin, ask the user whether to run `domain-initialiser` first.
 
@@ -46,24 +48,22 @@ Onboard a repo end-to-end. Owns the **initial** doc creation (it does the deep e
 
 7. **Scaffold docs** — copy the whole `~/.claude/project_TEMPLATE/*` in one pass (`cp -rn`, never clobber existing), then **delete the optional docs the user didn't choose** (`docs/behaviour.md`, `docs/decisions.md`, `docs/architecture.md`, `docs/dev.md`, `docs/product/`, `CHANGELOG.md`, and `ASSETS.md` if no frontend). Copy-then-prune is fewer tool calls than selective copying. Note: `behaviour.md`, `decisions.md`, `architecture.md`, `dev.md`, and `product/index.md` are filled in place. **`backlog.md` and `tickets/TICKET_TEMPLATE.md` are not optional** — the board is how every workflow captures work; leave both in place, empty. **On-demand artifacts are not scaffolded** — they're seeded from their skill's own `templates/` when first produced: the styleguide (`docs/design/Styleguide.html`, step 11 via `ui-design`), and all workflow run artifacts — specs, plans, e2e files, reports — under `artefacts/{sprint}/` (via `plan` / `spec-design` / `e2e` / the workflows). So `docs/design/` and `artefacts/` start absent and appear only when used. Fill `AGENTS.md` (domain, outline, code style — single source), then **trim its Doc map to list only the docs that remain.** If a domain was installed (step 6), add its memory import to the project `CLAUDE.md` so domain memory loads here: `@~/.claude/domains/{x}-domain/DOMAIN-MEMORY.md`. (Project memory is native — `~/.claude/projects/<repo>/memory/` — nothing to scaffold.)
 
-   **Docs repair (existing docs from another or older workspace).** If step 2 flagged docs on a different or outdated layout, migrate them into the current structure. There are **three kinds** of migration — don't conflate them:
+   **Docs migration (docs from an older or foreign layout).** If step 2 flagged docs that don't match the current structure, bring them across. **There is no fixed migration recipe** — every project carries its own doc history, and a canned list of renames is wrong more often than right. Derive it with the user:
 
-   **(a) File re-home — move/rename only, never touch content.** Read only the doc's outline (headings, front matter, index) to identify it, then move it to its slot. The old **pre-lifespan-split** layout maps across:
-   - `docs/artefacts/**` → `artefacts/**` (artefacts moved out of `docs/`, which is now durable-only)
-   - `docs/architecture/Architecture.md` → `docs/architecture.md` · `docs/developer/Developer-Docs.md` → `docs/dev.md` · `docs/wiki/` → `docs/product/`
-   - a stray `SPEC.md`/`spec_*` → `artefacts/{sprint}/spec_{feature}.md`; an old `plan_*` / `sprint-plan.md` → `artefacts/{sprint}/`, then mine it for tickets (it is no longer a live artifact)
+   1. **Inventory** every doc-ish file, including the ones outside `docs/`: loose plans, TODO lists, wikis, per-sprint folders, notes in the README. Identify each from its **outline only** (headings, front matter, index) — you are placing files, not reading them.
+   2. **Classify** each one. The kinds are what generalises, not the paths:
+      - **Re-home** — content still valid, only its slot changed: move/rename, never touch the content.
+      - **Rewrite in place** — the entry docs `AGENTS.md` / `README.md`. They survive `cp -rn`, so they keep the OLD shape unless rewritten: rebuild the **Doc map** to the tiered table (list only docs that exist), collapse living context to the one-line **Current sprint** pointer, repoint stale doc links.
+      - **Consolidate / split** — many-to-one or one-to-many: scattered `Key decisions` sections into `docs/decisions.md`, a `TODO.md` into tickets, per-sprint changelogs into the root `CHANGELOG.md` (or dropped, if the project has none).
+      - **No counterpart** — say so plainly instead of forcing it into the nearest slot. Leave it, fold it into an existing doc, or drop it; that's the user's call.
+   3. **Propose the whole mapping as a short list and get the user's OK before touching files.** Ambiguity is a question, never a guess.
+   4. Execute, and keep the migration a **separate commit** from anything else this run does.
 
-   **(b) In-place structural update of the entry docs** — these are *not* re-homed, they're rewritten to the new shape (an existing `AGENTS.md`/`README.md` survives `cp -rn`, so it stays in the OLD format unless you migrate it):
-   - **`AGENTS.md`** — rebuild the **Doc map** to the new tiered table (durable vs ephemeral; list only docs that exist). Collapse the old **Living context** section: keep **Current sprint** as the one-line pointer; move **Open decisions** → `decision` tickets in `backlog.md`; drop **Current goals** (it lives in the sprint file now); gotchas/learnings → project memory.
-   - **`README.md`** — repoint any `Documentation → wiki` link to `docs/product/`.
-
-   **(c) Decisions & behaviour — consolidate / forward-fill:**
-   - **Decisions** → **split by settled vs open.** Settled ones seed `docs/decisions.md` from every scattered source (the old `Architecture.md → Key decisions` and `Developer-Docs.md → Key decisions` sections): reformat into the append-only entry shape — a re-home into a new format, not a content rewrite — assign numbers, Status `accepted`. Anything still open (`AGENTS.md → Open decisions`, old `proposed` entries) becomes a `decision` ticket in `tickets/` + `backlog.md` instead; that doc holds outcomes only.
-   - **Loose backlogs & TODO lists** → any `TODO.md`, backlog section, or todo list scattered through the docs becomes tickets: one file per item in `tickets/`, indexed in `backlog.md` (**Draft** unless it's clearly refined). This is the point of the board — nothing stays loose in the docs.
-   - **`behaviour.md` cannot be produced by moving a file** — no old doc maps to it. Default: leave it as the seeded template; it fills as features ship (per step 9). **Exception — offer, don't impose:** if the project carries substantial behaviour buried in checked-off specs or an old behaviour-like doc, offer the user a one-time distillation pass to seed `behaviour.md` from it (this is the one place init writes durable behaviour content — it directly fixes the retro failure of truth being trapped in frozen specs).
-   - Old per-sprint `Changelog.md` files → fold into the root `CHANGELOG.md` if the project opted into one, else drop.
-
-   When a doc's target slot is ambiguous, ask the user rather than guessing.
+   Four rules hold whatever the old layout was:
+   - **`docs/` is durable-only** — process history belongs in `artefacts/{sprint}/`. A finished spec or plan is history, not a live artifact: re-home it, then mine it for tickets.
+   - **No work item stays loose in the docs** — bugs, todos, backlog sections and open decisions all become tickets in `tickets/`, indexed in `backlog.md` (**Draft** unless clearly refined). That's the point of the board.
+   - **Decisions split by settled vs open** — settled ones become index lines in `docs/decisions.md` (numbered, `accepted`); open ones become `decision` tickets. That doc holds outcomes only.
+   - **`behaviour.md` can't be produced by moving a file.** Default: leave the seeded template, it fills as features ship (step 9). **Exception — offer, don't impose:** where substantial behaviour is buried in checked-off specs or a behaviour-like doc, offer a one-time distillation pass. This is the only place init writes durable behaviour content, and it exists to free truth trapped in frozen specs.
 
 8. **ASSETS.md** (only if the frontend condition in step 4 holds) — dispatch a subagent to explore the **asset tree only** (codegraph does not cover assets) and fill `ASSETS.md`.
 

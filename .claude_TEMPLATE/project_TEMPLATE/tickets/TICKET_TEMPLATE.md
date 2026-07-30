@@ -33,15 +33,6 @@ Decision → the question to settle, and the options if they're already known.}
 
 As a {role}, I want {capability}, so that {value}.
 
-## UI flow *(optional)*
-
-{for a screen journey — the steps the user walks through; reference mockups in
-`docs/design/` and product docs where they exist.}
-
-## Acceptance *(optional)*
-
-- [ ] {what must be observably true for this to be done, in plain words}
-
 ## Outcome *(decision tickets only — filled when settled)*
 
 {what was decided and why, in a few lines. This is the detail behind the one-line entry in

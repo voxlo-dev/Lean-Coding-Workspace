@@ -16,7 +16,7 @@ Bootstrap or repair `~/.claude` from this template, then personalise it. **Never
 
 ## 1. Inventory & copy the template into `~/.claude`
 
-- List which template files already exist in `~/.claude` — those are the merge candidates; the rest are fresh copies. This inventory also tells you whether this is a fresh bootstrap or a repair.
+- `diff -r --strip-trailing-cr` the template against `~/.claude` (live copies may carry different line endings). What's missing is a fresh copy, what differs is a merge candidate — and the inventory itself tells you whether this is a bootstrap or a repair. Report it before touching anything.
 - Copy everything missing, leave existing files untouched:
 
   ```bash
@@ -24,7 +24,11 @@ Bootstrap or repair `~/.claude` from this template, then personalise it. **Never
   ```
 
   (`-n` = no-clobber. Run from `{workspace}`, or use the absolute path.)
-- For files that exist in both **and** differ, `diff` each and merge by hand. The global `CLAUDE.md` is always a manual merge — it carries collected info from the steps below.
+- **On a repair, `-n` is not enough** — a skill whose template version changed keeps the old installed copy. Two kinds of file, treat them differently:
+  - **workspace-owned** — `skills/`, `project_TEMPLATE/`: overwrite from the template (`cp -r` without `-n`). A user edit inside the installed copy is lost **by design**; real customisations belong in the workspace repo. Deletions don't happen by themselves — a skill renamed or dropped in the template leaves its old folder behind and still loads, so remove those explicitly.
+  - **user-owned** — `memory/`, `projects/`, `domains/`, `settings.json`, `.mcp.json`: never touch. A domain master is generated, not templated (`domain-initialiser` rebuilds one on request).
+- **`CLAUDE.md` is always a manual merge**, never a copy: take the template's structural changes (new sections, reworded rules) and leave the user-filled ones alone — **User Info**, **System Info**, custom **RULES**, **Available masters**.
+- New skill *folders* are usually discovered only in the next session — say so rather than claiming they're live.
 
 ## 2. Collect system info → global CLAUDE.md
 
