@@ -1,8 +1,7 @@
 # E2E Run Log — {feature}
 
-Protocol of one execution of `e2e_{feature}.md`. Per step: observed behaviour vs. expected,
-plus a verdict. Written by the `e2e` skill (or its run agent). Copied to
-`artefacts/{sprint}/e2e-run_{feature}.md`.
+Protocol of one execution of `e2e_{feature}.md` — observed vs. expected per step, plus a
+verdict. Written by `e2e` (or its run agent) to `artefacts/{sprint}/e2e-run_{feature}.md`.
 
 ## Run metadata
 
