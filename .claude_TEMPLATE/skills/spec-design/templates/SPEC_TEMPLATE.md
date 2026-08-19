@@ -2,10 +2,10 @@
 
 Date: {YYYY-MM-DD} · Status: {draft | approved | done} · Tickets: {`T-NNN`, … it implements — else —}
 
-Feature spec for `dynamic-workflow` — the *Pflichtenheft*. Comes out of `spec-design`.
-**This is a throwaway artifact:** the durable truth it produces graduates elsewhere at the
-docs step — behaviour → `behaviour.md`, structure → `architecture.md`, decisions →
-`decisions.md`. Keep the spec lean and implementation-facing; don't turn it into documentation.
+Feature spec for `dynamic-workflow` — the *Pflichtenheft*, written by `spec-design`.
+**A throwaway artifact:** its durable truth graduates at the docs step — behaviour →
+`behaviour.md`, structure → `architecture.md`, decisions → `decisions.md`. Keep it lean and
+implementation-facing.
 
 ## Goal / problem
 
@@ -24,8 +24,8 @@ path; link to `docs/architecture.md` if relevant.}
 ## Behaviour delta
 
 {the product-semantic change this spec introduces — the rules / invariants / interaction
-contracts it adds or alters against `docs/behaviour.md`. The spec's core: the acceptance
-criteria below are its testable form. Drop only if the project has no `behaviour.md`.}
+contracts it adds or alters against `docs/behaviour.md`. The spec's core; the acceptance
+criteria below are its testable form. Keep it wherever the project has a `behaviour.md`.}
 
 ## Components
 
@@ -33,16 +33,15 @@ criteria below are its testable form. Drop only if the project has no `behaviour
 
 ## UI / mockups
 
-{only if this feature has a UI — invoke `ui-design`. Self-contained HTML mockup inline,
-or linked from `docs/design/mockups/`; design against `docs/design/Styleguide.html`. Remove
-this section if there's no UI.}
+{only for a feature with a UI — invoke `ui-design`. Self-contained HTML mockup inline, or
+linked from `docs/design/mockups/`, designed against `docs/design/Styleguide.html`.}
 
 ## Strategy
 
 Decided by `spec-design`; the pipeline follows it without re-deciding.
 
-- **Test:** {none | minimal | core | full-TDD} · **e2e:** {yes | no}
-- **Smoke script:** {if minimal — path of the committed smoke script the package writes & the happy path it covers, e.g. `scripts/smoke/{feature}.*`; else —}
+- **Test:** {none | smoke | core | full-TDD} · **e2e:** {yes | no}
+- **Smoke script:** {if smoke — path of the committed smoke script the package writes & the happy path it covers, e.g. `scripts/smoke/{feature}.*`; else —}
 - **Modules to test:** {which modules / components the tests must cover — not concrete tests}
 - **Implementation — technique:** {direct | tdd | debugging}
 - **Implementation — execution:** {inline | subagent-driven: dynamic | subagent-driven: full}
@@ -65,6 +64,6 @@ The testable form of the **Behaviour delta** — each rule/invariant above shoul
 
 ## Open questions
 
-{unresolved points; remove when none. A real *decision* (an architecture/product choice with
-trade-offs) doesn't belong in this frozen spec — cut a `decision` ticket for it (`backlog/`) and
-link it here. Its outcome is later written into `artefacts/{sprint}/sprint-decisions.md`.}
+{unresolved points; remove when none. A real *decision* — an architecture/product choice with
+trade-offs — becomes a `decision` ticket in `backlog/`, linked here, rather than living in this
+frozen spec. Its outcome is later written into `artefacts/{sprint}/sprint-decisions.md`.}

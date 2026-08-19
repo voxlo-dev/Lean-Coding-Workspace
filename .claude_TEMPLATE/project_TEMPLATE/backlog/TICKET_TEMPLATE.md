@@ -1,13 +1,13 @@
 # T-NNN — {title}
 
 <!-- CONTRACT (binding):
-  - One unit of work: the *what* and the *why*, ~1 page, no solution design (that's a spec
-    in `artefacts/{sprint}/`). Written once, then frozen — only Links may grow.
-  - Lives at `backlog/T-NNN-{slug}.md` its whole life; IDs are never reused. Boards *index*
-    it, they never hold it, so it never moves between sprints.
-  - No status field: the board position is the status (`backlog.md` until pulled, the sprint
-    board once in flight). Listed in exactly one of them.
-  - DISSOLVES at `close-sprint` — a Done ticket is deleted once its durable truth has
+  - One unit of work: the *what* and the *why*, ~1 page. Solution design belongs to a spec in
+    `artefacts/{sprint}/`. Written once, then frozen — only Links may grow.
+  - Lives at `backlog/T-NNN-{slug}.md` its whole life, IDs never reused. Boards *index* it, so
+    it stays put across sprints.
+  - The board position is the status, and it is carried in exactly one board: `backlog.md`
+    until pulled, the sprint board once in flight.
+  - DISSOLVES at `close-sprint` — a done ticket is deleted once its durable truth has
     graduated: decisions → `artefacts/{sprint}/sprint-decisions.md`, behaviour →
     `docs/behaviour.md`, user-visible change → `CHANGELOG.md`. Git history keeps the rest.
   - Writer: `plan`, or any run that spots something worth capturing.

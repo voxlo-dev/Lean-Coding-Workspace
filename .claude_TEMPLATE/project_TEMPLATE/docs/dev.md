@@ -1,19 +1,18 @@
 # Developer Docs — {project name}
 
 <!-- CONTRACT (binding — sections are suggestions, this header is not):
-  - PURPOSE: the engineering knowledge that code, tests, and codegraph DON'T capture —
-    setup, environment, non-obvious build/debug workflows, external-dependency quirks.
-    If a fact is already in the code, the tests, or (in an indexed repo) codegraph, do NOT
-    copy it here — link to the source instead. Hand-copied API signatures are the classic
-    drift trap.
-  - SYSTEM-INDEPENDENT ONLY: everything here must hold on any contributor's machine.
-    Absolute paths, local installations, personal tool setup and machine-only quirks go to
-    project memory instead — one home per fact, never both.
+  - PURPOSE: the engineering knowledge that code, tests and codegraph DON'T capture — setup,
+    environment, non-obvious build/debug workflows, external-dependency quirks. Whatever the
+    code, the tests or (in an indexed repo) codegraph already state gets a link instead of a
+    copy; hand-copied API signatures are the classic drift trap.
+  - SYSTEM-INDEPENDENT ONLY: everything here holds on any contributor's machine. Absolute
+    paths, local installations, personal tool setup and machine-only quirks go to project
+    memory — one home per fact.
   - BOUNDARIES: structure → `architecture.md`; product behaviour → `behaviour.md`;
     decisions + rationale → `decisions.md`; user-facing docs → `product/`; per-session
     gotchas & fragile-area warnings → project memory; bugs & tech debt → a ticket in `backlog/`.
-  - WHO WRITES: `maintain-docs`. Keep edits factual, no speculation.
-  - SPLIT at ~300–500 lines → one file per topic under `dev/`, keep this as the index.
+  - WHO WRITES: `maintain-docs`. Keep edits factual.
+  - SPLIT at ~300–500 lines → one file per topic under `dev/`, this stays the index.
 -->
 
 ## Setup & environment
@@ -33,10 +32,6 @@ pins that matter, sharp edges. Skip the ordinary ones.}
 
 ## API reference
 
-{Do not hand-maintain signatures. In an indexed repo, codegraph is the live reference; else
-link to generated docs (typedoc / rustdoc / …). Note here only what generation can't express
-— usage contracts, invariants a caller must uphold.}
-
-<!-- Bugs, limitations, and tech debt are NOT tracked here — they belong on the board as a
-     ticket in `backlog/` or in project memory (fragile-area warnings for
-     future sessions). -->
+{Link the live reference — codegraph in an indexed repo, otherwise generated docs (typedoc /
+rustdoc / …). Note here only what generation can't express: usage contracts, invariants a
+caller must uphold.}

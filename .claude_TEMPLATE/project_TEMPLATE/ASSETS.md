@@ -1,8 +1,7 @@
 # ASSETS.md
 
-Inventory of project assets — what exists, what it's for, and where it's used.
-Consult this before scanning the asset tree; keep it current when assets change.
-Group by type; add or drop categories to fit the project.
+Inventory of project assets — what exists, what it's for, where it's used. Consult it before
+scanning the asset tree, keep it current as assets change, group by the types that fit.
 
 ## {category — e.g. Images / Audio / Models / Fonts / Prefabs / Data}
 

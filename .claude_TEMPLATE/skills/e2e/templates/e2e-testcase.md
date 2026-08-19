@@ -1,8 +1,8 @@
 # E2E Test Case — {feature}
 
-Written by `spec-design`; consumed by the `e2e` skill. One end-to-end scenario through
-the real UI. Keep steps concrete and observable — each is a When → Then a human or agent
-can verify. Copied to `artefacts/{sprint}/e2e_{feature}.md`.
+One end-to-end scenario through the real UI: written by `spec-design`, consumed by `e2e`,
+living at `artefacts/{sprint}/e2e_{feature}.md`. Each step is a concrete, observable
+When → Then that a human or agent can verify.
 
 ## Scope
 

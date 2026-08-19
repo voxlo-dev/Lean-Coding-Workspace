@@ -3,18 +3,17 @@
 <!-- CONTRACT (binding — the section layout below is only a suggestion, this header is not):
   - PURPOSE: single source of truth for how the *shipped* product behaves — product
     semantics as a rulebook. Agents and developers read this to know the current truth.
-  - WHO WRITES: `maintain-docs` writes the behaviour *delta* here at each feature's docs
-    step. A spec is a throwaway that describes the delta; THIS doc carries the state.
-  - READ THIS FIRST: `spec-design` grounds new work in this doc, not in old specs — so the
-    current truth never has to be reassembled from stacked spec addenda.
-  - WHAT GOES IN: declarative rules, invariants, per-screen interaction contracts. Present
-    tense, the current truth only.
-  - WHAT STAYS OUT: prose narrative, history/changelog, rationale (→ decisions.md),
-    structure/components (→ architecture.md), implementation detail.
-  - STRUCTURE: organise by whatever fits the product — by screen, feature area, or rule
-    domain. The blocks below are FORM PATTERNS; replace them with what fits, delete the
-    rest. Never leave an empty template section standing.
-  - SPLIT at ~300–500 lines → one file per area under `behaviour/`, keep this as the index.
+  - WHO WRITES: `maintain-docs`, the behaviour *delta* at each feature's docs step. A spec is
+    a throwaway describing that delta; THIS doc carries the state.
+  - READ THIS FIRST: `spec-design` grounds new work here, so the current truth stays readable
+    in one place instead of reassembled from stacked spec addenda.
+  - WHAT GOES IN: declarative rules, invariants, per-screen interaction contracts — present
+    tense, current truth.
+  - WHAT STAYS OUT: prose narrative, history/changelog, rationale (→ `decisions.md`),
+    structure/components (→ `architecture.md`), implementation detail.
+  - STRUCTURE: organise by whatever fits the product — screen, feature area, rule domain. The
+    blocks below are FORM PATTERNS: replace them with what fits, delete the rest.
+  - SPLIT at ~300–500 lines → one file per area under `behaviour/`, this stays the index.
 -->
 
 ## {Rule domain — e.g. Scheduling / Snooze / Streaks}

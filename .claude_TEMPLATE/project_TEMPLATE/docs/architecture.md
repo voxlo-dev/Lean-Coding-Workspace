@@ -6,15 +6,14 @@
     pieces connect. Optimised as agent context: "where does X live", boundaries, entry points.
   - WHO WRITES: seeded as `draft` by `project-initialiser`; `maintain-docs` fills subsystems
     from real code as they're built.
-  - BOUNDARIES — keep these OUT: product behaviour/rules → `behaviour.md`; the *why* of a
-    choice → `decisions.md`; api signatures, setup, gotchas → `dev.md`. This doc answers
-    only *structure*.
-  - STATUS (exact): doc top = `draft → partial → current`; each subsystem = `planned → implemented`.
-    Never mark `implemented` from a plan alone — only from shipped code.
-  - STRUCTURE: scale to the project. Sections below are suggestions; drop what you don't use,
-    never leave them empty. Diagrams are OPTIONAL — in an indexed repo codegraph is the live
-    structure; keep any diagram here only if it earns its upkeep.
-  - SPLIT at ~300–500 lines → one file per subsystem under `architecture/`, keep this as the index.
+  - BOUNDARIES: this doc answers *structure* only. Product behaviour/rules → `behaviour.md`;
+    the *why* of a choice → `decisions.md`; API signatures, setup, gotchas → `dev.md`.
+  - STATUS (exact): doc top = `draft → partial → current`; each subsystem = `planned →
+    implemented`, flipped from shipped code alone.
+  - STRUCTURE: scale to the project — the sections below are suggestions, keep the ones you
+    fill. Diagrams are OPTIONAL: in an indexed repo codegraph is the live structure, so keep
+    one here only where it earns its upkeep.
+  - SPLIT at ~300–500 lines → one file per subsystem under `architecture/`, this stays the index.
 -->
 
 **Status:** {draft | partial | current}
