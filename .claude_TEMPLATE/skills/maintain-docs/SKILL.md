@@ -5,57 +5,54 @@ description: "Use at the docs step of the minimal and dynamic workflows (per-run
 
 # Maintain Docs
 
-**Distill the run's durable truth into `docs/`, then prune the working memory.** This is the step that stops docs from rotting: an ephemeral spec described the *delta*; here that delta graduates into the durable docs so the next session reads current truth from one place, not from stacked spec addenda. Judge each doc from the changes you made *before* opening it, and touch only the docs your mode owns.
+**Distill the run's durable truth into `docs/`.** This is the step that stops docs from rotting: the spec described a *delta*, here it graduates into durable docs so the next session reads current truth from one place, not from stacked spec addenda. Judge each doc from the changes you made *before* opening it, and touch only what your mode owns.
 
 **Two modes — the caller sets it:**
 
-- **Per-run** (minimal/dynamic-workflow, after the change) — only the docs that are an **input to the next run**: `behaviour.md`, the decision pair (`sprint-decisions.md` + `decisions.md`), the spec's Status/ACs. Small, hot, cheap. These cannot wait: `spec-design` reads `behaviour.md` as current truth, and a stale one forces the next spec to reconstruct the present from frozen deltas.
-- **Sprint-close** (`close-sprint`, once per sprint) — the rest: `architecture.md`, `dev.md`, `product/`, `ASSETS.md`. Nobody reads them *during* a sprint, and they come out better written from the whole sprint at once than from five separate deltas. The table's Mode column tells you which mode a doc belongs to.
+- **Per-run** (minimal/dynamic-workflow) — only what is an **input to the next run**: `behaviour.md`, the decision pair, the spec's Status/ACs. Small, hot, cheap. These can't wait: `spec-design` reads `behaviour.md` as current truth, and a stale one forces the next spec to reconstruct the present from frozen deltas.
+- **Sprint-close** (`close-sprint`) — the rest: `architecture.md`, `dev.md`, `product/`, `ASSETS.md`. Nobody reads them *during* a sprint, and they come out better written from the whole sprint at once than from five separate deltas.
 
 **Two rules that override everything below:**
 
-- **Lifespan split.** `docs/` = durable truth about the *shipped* system. `artefacts/` = frozen process history. You **write into `docs/`**; in `artefacts/` you touch exactly two things — a `spec_*` file's Status/ACs, and the current sprint's `sprint-decisions.md` (append-only, and never one from a past sprint). Nothing else there. The sprint file's board is moved by the workflows and `close-sprint`, never here.
-- **Respect each doc's contract header.** Every durable doc opens with a `CONTRACT` comment: what belongs in it, what stays out, and (for `architecture.md`) the exact status mechanic. The section layout under it is a *suggestion* — restructure to fit the project, but never violate the contract, and never leave an empty template section standing.
+- **Lifespan split.** `docs/` = durable truth about the *shipped* system, `artefacts/` = frozen process history. You **write into `docs/`**; in `artefacts/` you touch exactly two things — a `spec_*` file's Status/ACs and the current sprint's `sprint-decisions.md` (append-only, the current sprint's). The workflows and `close-sprint` move the board.
+- **Respect each doc's contract header.** Every durable doc opens with a `CONTRACT` comment: what belongs in it, what stays out, and (for `architecture.md`) the status mechanic. The section layout under it is a *suggestion* — restructure to fit the project within its contract, and remove any section you leave empty.
 
 ## Step 1 — Relevance gate
 
-Were there changes a reader would care about? Pure internal refactors, typo/formatting fixes, and test-only changes → you can skip the doc sweep.
+Pure internal refactors, typo/formatting fixes and test-only changes → skip the sweep.
 
 ## Step 2 — Per-doc decision (decide before reading)
 
-For each doc, ask "does *this* change affect it?" from what you already know. Open a doc only if the answer is yes. **Optional docs (`docs/behaviour.md`, `docs/decisions.md`, `docs/architecture.md`, `docs/dev.md`, `docs/product/`, `docs/design/`, `ASSETS.md`, `CHANGELOG.md`) only exist if the project opted in at init — if a doc isn't there, skip it; never re-create what the project chose not to have.**
+For each doc ask "does *this* change affect it?" from what you already know, and open it only on yes. **The optional docs only exist if the project opted in at init — skip any that isn't there, the project chose against it.**
 
 | Doc | Mode | Update when | Action |
 | --- | --- | --- | --- |
-| `docs/behaviour.md` (if present) | **per-run** | product behaviour, a rule, or a UX invariant changed | **your first stop.** Write the behaviour *delta* here so this doc carries the current truth. Update the rule/invariant/interaction-contract in place; a spec is a throwaway, this is the state. Present tense, declarative — no history, no rationale (that's `decisions.md`) |
-| `AGENTS.md` → Current sprint | per-run | the sprint pointer moved | keep the one-line pointer correct; also fix code-style/conventions if they changed (single source — never copy into README) |
+| `docs/behaviour.md` | **per-run** | product behaviour, a rule, or a UX invariant changed | **your first stop.** Update the rule/invariant/interaction-contract in place so this doc carries the current truth — a spec is a throwaway, this is the state. Present tense and declarative; history and rationale live in `decisions.md` |
+| `AGENTS.md` → Current sprint | per-run | the sprint pointer moved | keep the one-line pointer correct; also fix code-style/conventions if they changed (single source; the README points here) |
 | `AGENTS.md` → Doc map | per-run | a doc was added or removed | keep the map listing only docs that exist |
-| `artefacts/{sprint}/sprint-decisions.md` (if the project has `docs/decisions.md`) | per-run | a decision was **settled** this run — with or without a `decision` ticket | **append a `##` section**: the forces, what was decided, why over the alternatives. ~15 lines. This is where decision rationale lives; write it now, not at sprint close, so the rest of the sprint doesn't re-litigate it. Create the file from `plan/templates/SPRINT_DECISIONS_TEMPLATE.md` if it isn't there yet |
-| `docs/decisions.md` (if present) | per-run | same trigger — **write both in one move** | **append one line**: next free `NNNN`, short description, `accepted`, link to the `sprint-decisions.md` above. It is an index: never copy the rationale in. To overturn, append the new decision and mark the old line `superseded by NNNN`. A still-open question is not a line here — capture it as a `decision` ticket in `backlog/` |
-| `CHANGELOG.md` (if present) | per-run | a user-visible change shipped | add a line under `[Unreleased]` in the right group (Added/Changed/Fixed/Removed). User's view only — not a git-log dump. (`close-sprint` cuts `[Unreleased]` into a release at sprint close) |
-| `artefacts/{sprint}/spec_*` | per-run | a spec was implemented this run | update its **Status** (e.g. draft → done) and tick the **acceptance criteria** you met — only with that context in hand; otherwise leave it. Every other file in `artefacts/` (plans, e2e cases, reports) is a frozen run record — never edited here |
-| `ASSETS.md` (if present) | sprint-close | assets were added, moved, or repurposed | add/adjust the row(s); keep `Used in` accurate |
-| `docs/dev.md` (if present) | sprint-close | setup, env, build/debug workflow, or a dependency quirk changed | record it **only if it is system-independent** — absolute paths, local installs and machine-specific setup go to memory instead, never to both (see below). **Don't** copy api signatures (link codegraph/generated docs) and **don't** log bugs/todos here (→ a ticket in `backlog/`) |
-| `docs/architecture.md` (if present) | sprint-close | a drafted subsystem was actually implemented, or core structure changed | fill the subsystem from the real code and flip its **Status** `planned → implemented`; bump the doc's top **Status** `draft → partial → current`. See below |
-| `docs/product/` (if present) | sprint-close | user-facing interaction changed | read the relevant page first, then make very targeted edits |
-| `docs/design/` (if present) | never | design system changed | **don't touch here** — the styleguide and mockups are owned by `ui-design` |
+| `artefacts/{sprint}/sprint-decisions.md` | per-run | a decision was **settled** this run — with or without a `decision` ticket | **append a `##` section**, ~15 lines: the forces, what was decided, why over the alternatives. Write it now, not at sprint close, so the rest of the sprint doesn't re-litigate it. Create the file from `plan/templates/SPRINT_DECISIONS_TEMPLATE.md` if missing |
+| `docs/decisions.md` | per-run | same trigger — **write both in one move** | **append one line**: next free `NNNN`, short description, `accepted`, link to that section. An index, with the rationale kept in the sprint file. To overturn, append the new decision and mark the old line `superseded by NNNN`. A still-open question stays a `decision` ticket |
+| `CHANGELOG.md` | per-run | a user-visible change shipped | one line under `[Unreleased]` in the right group (Added/Changed/Fixed/Removed), written as the user's view of the change |
+| `artefacts/{sprint}/spec_*` | per-run | a spec was implemented this run | update its **Status** (draft → done) and tick the **acceptance criteria** met — only with that context in hand |
+| `ASSETS.md` | sprint-close | assets were added, moved, or repurposed | add/adjust the row(s); keep `Used in` accurate |
+| `docs/dev.md` | sprint-close | setup, env, build/debug workflow, or a dependency quirk changed | record it **only if system-independent** — machine-specific setup goes to memory instead. Link codegraph/generated docs for API signatures, and file bugs/todos as tickets |
+| `docs/architecture.md` | sprint-close | a drafted subsystem was implemented, or core structure changed | fill the subsystem from the real code, flip its **Status** `planned → implemented`, bump the doc's top **Status** `draft → partial → current` |
+| `docs/product/` | sprint-close | user-facing interaction changed | read the relevant page first, then edit very targeted |
+| `docs/design/` | never | design system changed | **`ui-design` owns the styleguide and mockups** — leave them to it |
 
-**Not maintained here:** everything under `artefacts/` is a frozen run record — the only exceptions are a `spec_*` file's Status + acceptance criteria and the current sprint's `sprint-decisions.md` (per the table above). Plans, e2e cases, and reports there are pure run history, never edited at the docs step. `localagent/` run records are likewise never touched here. Both are committed as-is by their own workflow.
+**Not maintained here:** everything else under `artefacts/` — plans, e2e cases, reports, `localagent/` records — is a frozen run record, committed as-is by its own workflow.
 
 ## The distillation rule
 
-- **`behaviour.md` is the anti-rot core.** The spec was a delta; the durable truth of *how the product now behaves* must land here or the next spec re-derives it. Write the smallest accurate change — this is what makes specs disposable.
-- **`architecture.md` draft → filled.** Fill a `planned` subsystem from real code only once it's built, then flip it to `implemented` (doc top `draft → partial → current`). **Never mark `implemented` from a plan.**
-- **`dev.md` vs. memory — one home, never both.** Ask: would this still be true on another
-  machine? Yes → `docs/dev.md`. No (absolute paths, local installations, personal tool setup,
-  machine-only quirks) → `maintain-memory`. Duplicating a fact across both guarantees one of
-  the two goes stale.
-- **Split** any durable doc past ~300–500 lines into one file per topic under a same-named folder (`architecture/`, `dev/`, `behaviour/`, `decisions/`), keeping the original as the index.
+- **`behaviour.md` is the anti-rot core.** The durable truth of *how the product now behaves* must land here or the next spec re-derives it. Write the smallest accurate change — this is what makes specs disposable.
+- **`architecture.md` draft → filled.** Fill a `planned` subsystem from the real code once it's built, and flip its status from that code — a plan alone leaves it `planned`.
+- **`dev.md` vs. memory — one home, never both.** Would this still be true on another machine? Yes → `docs/dev.md`. No (absolute paths, local installations, personal tool setup, machine-only quirks) → `maintain-memory`.
+- **Split** any durable doc past ~300–500 lines into one file per topic under a same-named folder, keeping the original as the index.
 
 ## Audit mode — optional, on request only
 
-**Not part of the normal delta sweep.** Run this only when the user explicitly asks to *audit* doc (or `AGENTS.md`/`CLAUDE.md`) quality — never as a routine pass, or you double-touch docs for nothing. Where the sweep above distils *this run's* delta, the audit judges the *existing* docs against a quality bar and proposes fixes.
+**Not part of the normal delta sweep.** Run only when the user explicitly asks to *audit* doc (or `AGENTS.md`/`CLAUDE.md`) quality. Where the sweep distils *this run's* delta, the audit judges the *existing* docs against a quality bar.
 
-1. **Score each doc** against the rubric — commands/workflows current · architecture clarity · non-obvious patterns captured · conciseness (no restating the obvious) · currency (matches the code now) · actionability (executable, not vague). Grade **A** (comprehensive/current) → **F** (missing/stale).
-2. **Report before touching anything** — a short per-doc table (score + concrete issues + recommended additions). Present it, then get the user's OK.
-3. **Fix targeted** — only genuinely useful additions (real commands, real gotchas, drifted structure); show each as a diff with a one-line *why*. Never pad with generic best-practice or restate what's obvious from the code. Respect each doc's `CONTRACT` header.
+1. **Score each doc** — commands/workflows current · architecture clarity · non-obvious patterns captured · conciseness · currency (matches the code now) · actionability. Grade **A** (comprehensive/current) → **F** (missing/stale).
+2. **Report before touching anything** — a short per-doc table (score, concrete issues, recommended additions), then get the user's OK.
+3. **Fix targeted** — only genuinely useful additions (real commands, real gotchas, drifted structure), each as a diff with a one-line *why*. Keep every addition project-specific and non-obvious.
