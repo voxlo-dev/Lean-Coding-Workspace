@@ -5,89 +5,62 @@ description: "Use when designing the look and feel of a UI — colors, themes, t
 
 # UI Design
 
-Design a UI's look and feel, capture it as a durable **design system** (the styleguide)
-and — when a feature is being built — concrete **mockups**. Invoked from
-`plan` (set the styleguide only, new UI project) or `spec-design` (lay out a specific
-feature). For a one-off styling tweak, just do it — this skill is for designing.
+Design a UI's look and feel, capture it as a durable **design system** (the styleguide) and — when a feature is being built — concrete **mockups**. Invoked from `plan` (styleguide only, new UI project) or `spec-design` (one feature's layout). This skill is for designing; a one-off styling tweak is just done.
 
-> **UX first — even for a small feature.** Never integrate a feature into the UI by the path of least effort. Each time, ask: does this hurt the UX? Should the layout be reworked or elements regrouped? Is every element unambiguous and positioned by its relevance — can something be simplified? Prefer the layout change that keeps the experience clean over the minimal one that just squeezes the feature in.
+> **UX first — even for a small feature.** Each time, before wiring anything in: does this hurt the UX, should the layout or grouping be reworked, is every element unambiguous and placed by its relevance, can something be simplified? Prefer the layout change that keeps the experience clean over the minimal one.
 
-**Design only as precisely as the stage needs.** At project/design level, settle the
-styleguide foundations — brand & tone of voice, palette, type, spacing, theming
-(light/dark), and components split into **atoms** (buttons, inputs, chips) and composed
-**patterns** (cards, list rows, form fields) — then stop. No concrete screens; layouts and
-mockups come later, per feature, when that feature is implemented.
+**Design only as precisely as the stage needs.** At project/design level settle the styleguide foundations — brand & tone of voice, palette, type, spacing, theming (light/dark), components split into **atoms** (buttons, inputs, chips) and composed **patterns** (cards, list rows, form fields) — then stop. Concrete screens come later, per feature.
 
-This skill ships **HTML templates** in `templates/` next to it — `styleguide.html` (the
-design-system sheet) and `layout.html` (phone + desktop mockup frames). Seed them into the
-project on demand; nothing empty is pre-scaffolded into `docs/`. Keep them **functional, not
-pretty** — style only enough to communicate a token or a screen's structure.
+This skill ships two **HTML templates**: `styleguide.html` (the design-system sheet) and `layout.html` (phone + desktop mockup frames). Seed them into the project on demand — nothing empty is pre-scaffolded — and keep them **functional, not pretty**: style only enough to communicate a token or a screen's structure.
 
 ## 1. Frame the stage & branch
 
-- **Stage:** project/design level → styleguide only · feature/spec level → concrete layout for *this* feature, grounded in the existing styleguide.
-- **Branch:** a **web frontend** — either handed to **Claude Design** (external, step 3a) or **built in-repo** by `frontend-design` (step 3c) — or anything else: desktop, game, mobile-native, CLI/TUI (→ build mockups directly, step 3b).
+- **Stage:** project/design level → styleguide only · feature/spec level → a concrete layout for *this* feature, grounded in the existing styleguide.
+- **Branch:** a **web frontend** — handed to **Claude Design** (external, 3a) or **built in-repo** by `frontend-design` (3c) — or anything else: desktop, game, mobile-native, CLI/TUI (→ mockups directly, 3b).
 
 ## 2. Brainstorm UI/UX
 
-Dialogue the look and feel into shape — cover only what the stage needs and scale
-ruthlessly (at styleguide level don't design screens; at feature level don't re-litigate
-the brand):
+Dialogue the look and feel into shape, covering what the stage needs — at styleguide level the system, at feature level this one feature's layout:
 
-- Ask **one question at a time**, multiple-choice when you can: brand/tone, palette, theme(s) (light/dark), typography, spacing/density, key layout patterns, component style, references the user likes.
-- Apply **YAGNI** — only what the stage needs.
-- For genuinely **visual** questions — layout options, style directions, side-by-side comparisons — reach for the **Visual Companion** (below) so the user *sees* the choice instead of reading it. For conceptual/text questions ("what does *playful* mean here?", which features are in scope) stay in the terminal.
+- Ask **one question at a time**, multiple-choice where possible: brand/tone, palette, theme(s), typography, spacing/density, key layout patterns, component style, references the user likes.
+- Apply **YAGNI**.
+- For genuinely **visual** questions (layout options, style directions, side-by-side comparisons) reach for the **Visual Companion** below so the user *sees* the choice; conceptual questions stay in the terminal.
 
 ## 3a. Web frontend → Claude Design handoff
 
-Claude Design (claude.ai/design) is a separate Anthropic Labs tool; the link is one-way
-**Design → Code** with no MCP — see [[claude-design]].
+Claude Design (claude.ai/design) is a separate Anthropic Labs tool; the link is one-way **Design → Code** with no MCP — see [[claude-design]].
 
 - Write a **handoff brief**: design intent, brand/tone, the palette and type from step 2, hard constraints, and exactly which screens/components are needed (none at styleguide level — just the system).
-- Hand the brief to the user to run in Claude Design. They export the result (handoff bundle / standalone HTML / PDF) into the repo.
-- **Ingest** the export: distil the design system into `docs/design/Styleguide.html` (seed it from `templates/styleguide.html`, then fill the tokens); place any screen mockups with the spec (step 4).
+- Hand it to the user to run there. They export the result (handoff bundle / standalone HTML / PDF) into the repo.
+- **Ingest** the export: distil the design system into `docs/design/Styleguide.html`, place any screen mockups with the spec.
 
 ## 3b. Everything else → build mockups directly
 
-Explore layout directions in the **Visual Companion** first (below) if the choice is still
-open; once it's settled, build the durable mockup here — the companion is for exploring,
-`layout.html` is the artifact that lands in the spec.
+Explore directions in the **Visual Companion** while the choice is open; once it's settled build the durable mockup here — the companion explores, `layout.html` is the artifact that lands in the spec.
 
-- Seed mockups from `templates/layout.html` — self-contained HTML (no build step), with phone and desktop frames; delete the frame you don't need. Viewable in any browser regardless of the real tech stack.
-- Simple UI → embed the snippet directly in the spec's UI section. Sophisticated UI → put the files under `docs/design/mockups/` and link them from the spec.
-- Keep them faithful to `docs/design/Styleguide.html` — paste its tokens into the mockup's `:root`.
+- Seed from `templates/layout.html` — self-contained HTML, no build step, phone and desktop frames (delete the one you don't need), viewable in any browser regardless of the real stack.
+- Simple UI → embed the snippet in the spec's UI section. Sophisticated UI → files under `docs/design/mockups/`, linked from the spec.
+- Keep them faithful to the styleguide — paste its tokens into the mockup's `:root`.
 
 ## 3c. Web frontend, built in-repo → frontend-design
 
-The alternative to the Claude Design handoff (3a): when the frontend is written **directly
-in the repo** — a component/page in the project's real stack (Svelte, React, plain
-HTML/CSS/JS) — invoke the `frontend-design` skill for the actual code craft. It owns the
-aesthetic *execution* (distinctive typography, cohesive palette, motion, spatial
-composition) that the mockup-only path (3b) doesn't produce.
+The alternative to 3a: when the frontend is written **directly in the repo** in the project's real stack (Svelte, React, plain HTML/CSS/JS), invoke `frontend-design` for the code craft. It owns the aesthetic *execution* — distinctive typography, cohesive palette, motion, spatial composition — that the mockup-only path doesn't produce.
 
-- **Ground it in the styleguide.** Pass `frontend-design` the tokens from
-  `docs/design/Styleguide.html` so the output stays on-system, not a one-off aesthetic.
-- **No styleguide yet?** Design the system first (steps 2 + 4), *then* let `frontend-design`
-  execute against it — don't let a single component silently define the whole look.
-- **Still persist (step 4).** The in-repo code is the product, but if this established or
-  extended the design system, fold those decisions back into `docs/design/Styleguide.html` —
-  that stays the source of truth every later feature designs against.
+- **Ground it in the styleguide** — pass it those tokens so the output stays on-system, not a one-off aesthetic.
+- **No styleguide yet?** Design the system first (steps 2 + 4), *then* execute against it, so the system defines the look rather than one component.
+- **Still persist (step 4):** the in-repo code is the product, but anything this established or extended in the design system folds back into the styleguide.
 
 ## 4. Persist & integrate
 
-- **Styleguide** — `docs/design/Styleguide.html` is the durable, project-wide system; seed it from `templates/styleguide.html` the first time, then edit in place. Built-in light/dark toggle — fill the dark tokens or drop them. The single source every feature designs against; extended later via `maintain-docs`.
-- **Mockups** are per-feature, not global: they live in the spec (or `docs/design/mockups/`) so the spec's implement package builds against them. Never pour concrete layouts into the styleguide.
-- **Pause for user review** before committing anything.
-- **Commit** the styleguide and any mockups.
+- **Styleguide** — `docs/design/Styleguide.html` is the durable, project-wide system; seed it from `templates/styleguide.html` the first time, then edit in place. Built-in light/dark toggle — fill the dark tokens or drop them. Every feature designs against it; `maintain-docs` extends it later.
+- **Mockups** are per-feature: they live in the spec (or `docs/design/mockups/`) so the implement package builds against them, while the styleguide stays free of concrete layouts.
+- **Pause for user review**, then **commit** the styleguide and any mockups.
 
 ## Visual Companion
 
-An interactive browser tool for the **visual** parts of the brainstorm (step 2) and a live
-pre-step to the finished mockup (step 3b): you write HTML wireframes / option screens, the
-user sees them in a browser and clicks to choose, you read the selection and iterate. It
-reuses superpowers' companion server — no separate install:
+An interactive browser tool for the **visual** parts of the brainstorm and a live pre-step to the finished mockup: you write HTML wireframes / option screens, the user sees them in a browser and clicks to choose, you read the selection and iterate. It reuses superpowers' companion server — no separate install:
 
 - **Scripts:** newest version dir under `~/.claude/plugins/cache/claude-plugins-official/superpowers/*/skills/brainstorming/scripts/`. Start with `start-server.sh --project-dir <repo>`; on Windows set `run_in_background: true` and read `$STATE_DIR/server-info` next turn for the URL.
 - **Full loop & CSS classes:** read `visual-companion.md` next to those scripts before driving it.
-- **Consent:** offer it once before first use (opens a local URL, token-intensive), then decide per question — browser for visual choices, terminal for text.
-- **Converge:** the companion is for exploring; the moment a direction is picked, build the durable mockup from `templates/layout.html` (step 3b). That mockup — not the companion screens — is what lands in the spec.
+- **Consent:** offer it once before first use (opens a local URL, token-intensive), then decide per question.
+- **Converge:** the moment a direction is picked, build the durable mockup from `templates/layout.html`. That mockup — not the companion screens — is what lands in the spec.
