@@ -62,12 +62,14 @@ Imported (domain/global) memory loads in full — keep it lean. **Memory vs. doc
 
 ## Work items — the markdown kanban
 
-Every unit of work is a **ticket** in `tickets/` (`T-NNN-{slug}.md`): *what* and *why*, category, importance, effort, dependencies — written once, then frozen. Tickets carry **no status**; their position on a board is the status, and each is indexed in exactly one place:
+Every unit of work is a **ticket** in `backlog/` (`T-NNN-{slug}.md`): *what* and *why*, category, importance, effort, dependencies — written once, then frozen. **The file never moves**; boards only *index* it, and a ticket is indexed in exactly one place:
 
-- **`backlog.md`** — living, survives sprints. Columns **Draft** · **Backlog**: everything open. Open *decisions* live here too, as `decision` tickets; `docs/decisions.md` only ever receives the settled outcome.
-- **`artefacts/{sprint}/sprint.md`** — plan + board. Columns **Active** · **To Test** · **Done**: what's in flight. Active *is* the sprint scope, and it freezes with the sprint.
+- **`backlog/backlog.md`** — living, survives sprints. Columns **Draft** · **Backlog**: everything not yet pulled. Open *decisions* live here too, as `decision` tickets.
+- **`artefacts/{sprint}/sprint.md`** — frame + board: every ticket pulled into the sprint, one line each carrying a status token **open · active · to test · done**. The board *is* the sprint scope, and it freezes with the sprint.
 
-Moves: `plan` and any run capture → Draft/Backlog · `open-sprint` pulls → Active · the build workflows → To Test · `e2e`/user → Done · `close-sprint` distils and freezes. **A fix done on the spot needs no ticket** — capture only what isn't being done now.
+Moves: `plan` and any run capture → Draft/Backlog · `open-sprint` pulls → the board at `open` · the build workflows → `to test` · `e2e`/user → `done` · `close-sprint` distils, then **dissolves** the done tickets (files deleted — that's what keeps `backlog/` bounded) and carries the rest back. **A fix done on the spot needs no ticket** — capture only what isn't being done now.
+
+**Decisions** get two homes, written in one move the moment one is settled: the reasoning as a section in `artefacts/{sprint}/sprint-decisions.md`, and one line in `docs/decisions.md` — the flat, append-only index that makes "what is already decided here?" a single read.
 
 ## Workflows (skills — invoke, don't read files)
 

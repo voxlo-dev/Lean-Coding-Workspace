@@ -2,12 +2,13 @@
 
 Date: {YYYY-MM-DD}
 
-<!-- The SPRINT FILE: the frame above, the board below. Produced by `plan` (sprint mode),
+<!-- The SPRINT FILE: the frame above, the board below. Written by `plan` (sprint mode),
      opened by `open-sprint`, frozen by `close-sprint` with the sprint.
      - The frame is written once and approved by the user; only a deliberate re-plan touches it.
      - The board is the one living section — the workflows move lines, nobody rewrites it.
-     - NO WORK DETAIL HERE. Every item is a ticket in `tickets/`; this file shows one line per
-       ticket, its Summary verbatim. Keep the whole frame under ~a page. -->
+     - NO WORK DETAIL HERE. Every item is a ticket in `backlog/`; this file shows one line per
+       ticket, its Summary verbatim. Keep the whole frame under ~a page.
+     - NO DECISION RATIONALE HERE — that goes to `sprint-decisions.md` next to this file. -->
 
 ## Goal
 
@@ -21,31 +22,26 @@ Date: {YYYY-MM-DD}
 
 {for a user journey — the steps the user walks through and how the tickets are connected}
 
-## Architecture & domain decisions *(optional — only when real architecture is at stake)*
+## Decisions
 
-{high-level only, and only what this planning actually **settled**: system boundaries, data
-model, key flows, binding non-functionals, stack/domain choice + rationale. These graduate to
-`docs/decisions.md`. Anything still open is a `decision` ticket on the board, not a line here.}
+{one line per decision this sprint settled, each linking its section in `sprint-decisions.md`
+— or `none yet`. Anything still open is a `decision` ticket on the board, not a line here.}
 
 ---
 
 ## Board
 
-<!-- The column IS the status; tickets carry none. One line per ticket, same shape as `backlog.md`.
-     Active   ← `open-sprint` pulls from `backlog.md` (this is the sprint scope)
-     To Test  ← the build workflows, at commit
-     Done     ← `e2e` or the user, once verified
-     At close, `close-sprint` distils Done, carries anything left back to `backlog.md`, and
-     freezes this file. A mid-sprint bug may enter Active directly. -->
+<!-- The sprint scope: every ticket pulled into this sprint, one line each, its Summary
+     verbatim. The status token is the only thing that moves — flip the word, never re-sort
+     or restructure the list. Ticket files stay in `backlog/`; this board only indexes them.
+     open     ← `open-sprint` pulls it from `backlog.md` (this is the sprint scope)
+     active   ← a build workflow picked it up
+     to test  ← that workflow committed it
+     done     ← `e2e` or the user verified it
+     At close, `close-sprint` distils the done ones and dissolves their ticket files, carries
+     anything unfinished back to `backlog.md`, and freezes this file.
+     A mid-sprint bug may be added here directly. -->
 
-### Active
+### Tickets
 
-- `T-NNN` {title} — {summary} · {spec link, once it exists}
-
-### To Test
-
-- `T-NNN` {title} — {summary}
-
-### Done
-
-- `T-NNN` {title} — {summary}
+- [`T-NNN`](../../backlog/T-NNN-{slug}.md) {title} — {summary} · {open / active / to test / done} · {spec link, once it exists}

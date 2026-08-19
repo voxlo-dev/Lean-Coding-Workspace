@@ -15,7 +15,7 @@ questions by reading half the repo. This workspace fixes that with three ideas:
 
 - **Workflows over vibes.** Development work goes through a named pipeline whose steps are fixed.
   You pick the size of the pipeline, not whether to have one.
-- **Every fact has exactly one home.** Durable truth in `docs/`, open work in `tickets/`, process
+- **Every fact has exactly one home.** Durable truth in `docs/`, open work in `backlog/`, process
   history in `artefacts/`, machine-specific facts in memory. No fact lives in two places, so
   nothing silently goes stale.
 - **A lean always-loaded core.** The global instruction file says *when* something applies and
@@ -88,19 +88,26 @@ Supporting skills, mostly invoked by the workflows rather than by you:
 
 ## Work items — the Markdown kanban
 
-Every unit of work is a **ticket** file: `tickets/T-NNN-{slug}.md`, holding *what* and *why*,
+Every unit of work is a **ticket** file: `backlog/T-NNN-{slug}.md`, holding *what* and *why*,
 category, importance, effort and dependencies. A ticket is written once and then frozen.
 
-Tickets carry **no status field**. Their position on a board *is* the status, and each ticket is
-indexed in exactly one place:
+The file never moves. Boards only *index* it, and it appears on exactly one of them:
 
-- **`backlog.md`** — living, survives sprints. Columns **Draft** · **Backlog**: everything open.
-  Open *decisions* live here too, as `decision` tickets.
-- **`artefacts/{sprint}/sprint.md`** — the sprint file: plan on top, board underneath. Columns
-  **Active** · **To Test** · **Done**. Active *is* the sprint scope, and the board freezes when the
-  sprint closes.
+- **`backlog/backlog.md`** — living, survives sprints. Columns **Draft** · **Backlog**: everything
+  not yet pulled. Open *decisions* live here too, as `decision` tickets.
+- **`artefacts/{sprint}/sprint.md`** — the sprint file: plan on top, board underneath. One line per
+  ticket carrying a status token **open · active · to test · done**. That board *is* the sprint
+  scope, and it freezes when the sprint closes.
+
+When a sprint closes, its finished tickets are **dissolved** — the files are deleted once their
+durable truth has graduated into the docs, and git history keeps the rest. So `backlog/` only ever
+holds live work instead of growing forever.
 
 A fix you do on the spot needs no ticket. The board captures what *isn't* being done right now.
+
+Decisions get two homes, written in one move the moment one is settled: the reasoning as a section
+in `artefacts/{sprint}/sprint-decisions.md`, and one line in `docs/decisions.md` — the flat,
+append-only index that keeps "what is already decided here?" a single cheap read.
 
 **A sprint is not a run.** It is the scope of a release and holds many runs, plans and specs.
 `/open-sprint` pulls tickets from the backlog onto a fresh board and cuts a branch;
@@ -133,19 +140,23 @@ flight. Specs, reports and boards are process history, deliberately frozen and f
 project/
 ├── AGENTS.md              ← domain, structure, code style, current sprint (for contributors & agents)
 ├── README.md              ← for your users
-├── backlog.md             ← index of every open ticket
-├── tickets/               ← one file per unit of work, frozen once written
+├── backlog/               ← LIVING: open work, dissolved once it ships
+│   ├── backlog.md         ←   index of everything not yet pulled into a sprint
+│   └── T-NNN-{slug}.md    ←   one file per unit of work, frozen once written
 ├── docs/                  ← DURABLE: truth about the shipped system
 │   ├── behaviour.md       ←   how the product behaves, as a rulebook
 │   ├── decisions.md       ←   settled decisions, one line each
 │   ├── architecture.md    ←   planned/implemented structure
 │   ├── dev.md             ←   setup, env, build/debug, dependency quirks
 │   └── product/           ←   end-user docs
-└── artefacts/{sprint}/    ← EPHEMERAL: specs, e2e files, reports — frozen per sprint
+└── artefacts/{sprint}/    ← EPHEMERAL: frozen per sprint
+    ├── sprint.md          ←   the sprint file: plan + kanban board
+    ├── sprint-decisions.md ←  the reasoning behind what this sprint settled
+    └── spec_*.md …        ←   specs, e2e files, reports
 ```
 
 Docs are split by **lifespan**, and you opt in per doc — a small project doesn't need all of them.
-`docs/` is versioned truth, `tickets/` is open work, `artefacts/` is process history. That split is
+`docs/` is versioned truth, `backlog/` is open work, `artefacts/` is process history. That split is
 what keeps the whole thing from turning into a swamp.
 
 ## Domains

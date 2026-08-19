@@ -52,7 +52,7 @@ Decided by `spec-design`; the pipeline follows it without re-deciding.
 
 One or more, run in order, commit after each. This is the only work-package axis to size.
 Where the spec covers several tickets, name the ticket each package serves — that is what
-tells the workflow when a ticket may move to **To Test**.
+tells the workflow when a ticket may go to `to test`.
 
 - **{package name}** — {what it builds} · ticket: {`T-NNN` or —} · files: {paths to read/touch}
 
@@ -66,5 +66,5 @@ The testable form of the **Behaviour delta** — each rule/invariant above shoul
 ## Open questions
 
 {unresolved points; remove when none. A real *decision* (an architecture/product choice with
-trade-offs) doesn't belong in this frozen spec — cut a `decision` ticket for it
-(`backlog.md`) and link it here. Its outcome later graduates to `docs/decisions.md`.}
+trade-offs) doesn't belong in this frozen spec — cut a `decision` ticket for it (`backlog/`) and
+link it here. Its outcome is later written into `artefacts/{sprint}/sprint-decisions.md`.}
