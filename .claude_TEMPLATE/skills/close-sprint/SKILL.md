@@ -1,6 +1,6 @@
 ---
 name: close-sprint
-description: "Use to close the active sprint (release scope): clear the kanban board (finish or carry over) → optional code review of the whole sprint diff → distil Done tickets → batched maintain-docs pass → changelog cut → merge/PR to main. Never touches product code. Hands off to open-sprint for the next sprint. Invokable by Claude or via /close-sprint."
+description: "Use to close the active sprint (release scope): clear the kanban board (finish or carry over) → optional code review of the whole sprint diff → distil and dissolve the done tickets → batched maintain-docs pass → changelog cut → merge/PR to main. Never touches product code. Hands off to open-sprint for the next sprint. Invokable by Claude or via /close-sprint."
 ---
 
 # Close Sprint
@@ -26,10 +26,10 @@ Read `AGENTS.md` → **Current sprint**.
 
 ## 1. Clear the board
 
-Read the sprint file's board (`artefacts/{sprint}/sprint.md`). Every ticket left in
-**Active** or **To Test** needs a call from the user — **finish it now, or carry it over**:
+Read the sprint file's board (`artefacts/{sprint}/sprint.md`). Every ticket not at **done**
+needs a call from the user — **finish it now, or carry it over**:
 
-- **Carry over** — move the line back into `backlog.md` (**Backlog**, or **Draft** if the sprint proved it isn't ready). The ticket file itself never moves. This is mandatory: the board freezes with the sprint, so anything left on it silently disappears.
+- **Carry over** — put the line back into `backlog/backlog.md` (**Backlog**, or **Draft** if the sprint proved it isn't ready) and drop it from the board. The ticket file never moves — it has been in `backlog/` all along. This is mandatory: the board freezes with the sprint, so anything left on it silently disappears.
 - **Finish it** — hand back to `dynamic-`/`minimal-workflow` and come back here.
 
 Then the scope check — **read-light, run nothing new:**
@@ -50,14 +50,21 @@ touched shared/core code; skip it for a tiny or docs-only sprint.
 - **How:** run the repo's review command (`/code-review`) or `superpowers:requesting-code-review`. Nothing available → review the diff yourself, prioritised: cross-package seams and duplication first (the classic sprint-level defect — per-run reviews can't see it), then correctness, then the workspace code-style rules.
 - **Report, don't repair.** Present the findings ranked by severity and let the user decide. Anything they want fixed leaves this skill: `minimal-workflow` for a small fix, `dynamic-workflow` if it needs a spec. Come back here afterwards.
 
-## 3. Distil the Done column
+## 3. Distil, then dissolve the board
 
-The board is now all **Done**. Each of those tickets left durable truth behind — graduate it,
-then the ticket has served its purpose:
+The board is now all **done**. Each ticket left durable truth behind — graduate it, then the
+ticket has served its purpose and goes away.
 
-- **`decision` tickets** → fill the ticket's **Outcome** section (what was decided and why), then add **one line** to `docs/decisions.md`: short description, `accepted`, link to the ticket. That file is an index — the reasoning stays in the ticket. This is the only way a decision enters it.
+**Graduate** (only what isn't recorded yet — most of it landed during the sprint):
+
+- **`decision` tickets** → a `##` section in `artefacts/{sprint}/sprint-decisions.md` (forces, what was decided, why over the alternatives) plus one `accepted` line in `docs/decisions.md`. Normally already written the moment the decision was settled; here you only catch what slipped.
 - **Everything user-visible** → a line under `[Unreleased]` in `CHANGELOG.md` (if present), unless the run already added it.
 - Behaviour deltas are already in `docs/behaviour.md` (written per run) — don't rewrite them here.
+
+**Dissolve** — once the above is true, **delete the ticket files** of every done ticket from
+`backlog/`. Their lines stay on the frozen board as the record of what shipped, the reasoning
+lives in the docs it graduated into, and git history keeps the rest. This is what stops
+`backlog/` from growing forever. **Never delete a carried-over ticket** — that one is still open.
 
 ## 4. Batched docs pass
 
@@ -78,7 +85,7 @@ whole sprint's changes at once. Written better this way than as five separate de
 
 ## Handoff & boundaries
 
-- **The sprint file freezes here** — plan *and* board. It is the sprint's archive; nothing moves it afterwards, and no ticket may be left on it (step 1).
-- Produces: the cleared board, the carried-over backlog lines, decision entries in `docs/decisions.md`, the batched docs pass, the review findings (if run), the release cut in `CHANGELOG.md` (if present), the merge/PR to `main`.
+- **The sprint file freezes here** — frame, board *and* `sprint-decisions.md`. Together they are the sprint's archive: nothing moves them afterwards, and every line left on the board must read `done` (step 1).
+- Produces: the all-done board, the carried-over backlog lines, the dissolved ticket files, any missing entries in `sprint-decisions.md` + `docs/decisions.md`, the batched docs pass, the review findings (if run), the release cut in `CHANGELOG.md` (if present), the merge/PR to `main`.
 - Then → **`open-sprint`** to plan and open the next one. If the user is done for now, leave **Current sprint** as it is; `open-sprint` moves the pointer.
 - Never writes plans, specs, docs, or product code — those belong to `open-sprint`, `spec-design`, `maintain-docs`, and the build workflows.

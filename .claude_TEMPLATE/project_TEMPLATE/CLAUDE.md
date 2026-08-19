@@ -2,10 +2,7 @@
 
 @./AGENTS.md
 
-`AGENTS.md` is the agent-agnostic source of truth (domain, structure, code style, conventions).
-
-The global workspace CLAUDE.md (`~/.claude/CLAUDE.md`) is loaded automatically — do
-not re-import it.
+`AGENTS.md` is the agent-agnostic source of truth.
 
 ## Claude-Code-specific overrides
 

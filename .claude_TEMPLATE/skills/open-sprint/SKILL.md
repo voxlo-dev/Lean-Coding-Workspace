@@ -1,6 +1,6 @@
 ---
 name: open-sprint
-description: "Use to plan and open the next sprint (release scope) via the `plan` skill in sprint-file mode: architecture-aware, optional web research, possible domain switch — then pull tickets from backlog.md onto the sprint board, branch, set Current sprint, record decisions. Also the entry point for a brand-new project (nothing to close). Hands off to dynamic-workflow. Invokable by Claude or via /open-sprint."
+description: "Use to plan and open the next sprint (release scope) via the `plan` skill in sprint-file mode: architecture-aware, optional web research, possible domain switch — then pull tickets from the backlog onto the sprint board, branch, set Current sprint, record decisions. Also the entry point for a brand-new project (nothing to close). Hands off to dynamic-workflow. Invokable by Claude or via /open-sprint."
 ---
 
 # Open Sprint
@@ -37,29 +37,29 @@ decisions, the optional web research, the ticket cut, and (new project) the styl
 `ui-design` call. It writes `artefacts/{sprint}/sprint.md`: the **sprint file** — theme,
 architecture decisions, non-goals, and the board underneath.
 
-- **Ground it** for `plan`: **`backlog.md` first** (what's already open and waiting), then codegraph if indexed, `AGENTS.md`, `docs/architecture.md` (draft or filled), `docs/behaviour.md` and `docs/decisions.md` if present, project memory. For a brand-new project, note the target instead and run the planning **wide**.
+- **Ground it** for `plan`: **`backlog/backlog.md` first** (what's already open and waiting), then codegraph if indexed, `AGENTS.md`, `docs/architecture.md` (draft or filled), `docs/behaviour.md` and `docs/decisions.md` if present, project memory. For a brand-new project, note the target instead and run the planning **wide**.
 - **A plan may already exist** (pasted from a Claude chat, a document, tickets already sitting in the backlog) → feed it to `plan` as the basis rather than re-deriving it.
 
 ## 2. Pull the scope onto the board
 
-The sprint scope **is** the board's Active column — no second list anywhere.
+The sprint scope **is** the board — no second list anywhere.
 
-- Take from `backlog.md` **Backlog** (not Draft — refine it first or leave it) plus whatever `plan` just cut, and move those lines into the sprint file's **Active** column. Remove them from `backlog.md`: a ticket is indexed in exactly one place.
+- Take from `backlog.md` **Backlog** (not Draft — refine it first or leave it) plus whatever `plan` just cut, and move those lines onto the sprint board at status `open`. Delete them from `backlog.md`: a ticket is indexed in exactly one place. **The ticket files don't move** — they stay in `backlog/` and the board links them.
 - **Respect `Depends on`** — don't pull a ticket whose dependency stays behind.
 - Size it against the sprint's theme, not against ambition. Anything not pulled simply stays in the backlog; that's the point of having one.
 
 Get the user's approval on plan **and** the pulled scope before moving on. `dynamic-workflow`
-then specs each Active ticket; `spec-design` reads the ticket as its requirements basis.
+then specs each ticket on the board; `spec-design` reads the ticket as its requirements basis.
 
 ## 3. Open the branch & update living context
 
 - **New sprint branch** — create `<sprint-slug>` (matches the workspace branching rule: one branch per sprint). Ask the user for the slug if unclear.
 - **`AGENTS.md`** — set **Current sprint** to the new slug (the only living pointer here). Goals live in the sprint file, not in `AGENTS.md`.
-- **`docs/decisions.md`** (if the project has it) — one `accepted` line per architecture decision the planning actually **settled**, linking the sprint file for the reasoning. It's an index; don't copy the rationale in. Anything still open is a `decision` ticket on the board, never a line here.
+- **Record what the planning settled** (only if the project has `docs/decisions.md`) — for each decision: a `##` section with the reasoning in `artefacts/{sprint}/sprint-decisions.md`, a one-liner in the sprint file's **Decisions** section, and one `accepted` line in `docs/decisions.md` (next free `NNNN`, linking the sprint-decisions file). Index lines never carry the rationale. Anything still open is a `decision` ticket on the board, never a line here.
 
-Then hand off to `dynamic-workflow` (spec each Active ticket) — or `minimal-workflow` for the small stuff.
+Then hand off to `dynamic-workflow` (spec each ticket on the board) — or `minimal-workflow` for the small stuff.
 
 ## Handoff & boundaries
 
-- Produces: the sprint file `sprint.md` with its Active column (via `plan`), the tickets in `tickets/`, decision entries in `docs/decisions.md`, the branch, the `Current sprint` update.
+- Produces: the sprint file `sprint.md` with its board (via `plan`), the tickets in `backlog/`, the sprint's `sprint-decisions.md` plus its index lines in `docs/decisions.md`, the branch, the `Current sprint` update.
 - Never writes the architecture/behaviour docs, specs, or product code — those belong to `maintain-docs`, `spec-design`, and the build workflows. `maintain-memory` runs at the workflows' memory step, not here.

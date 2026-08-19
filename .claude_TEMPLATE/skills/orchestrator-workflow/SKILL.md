@@ -123,7 +123,7 @@ After Phase 4 returns `VALIDATION_PASS`, run the standard closing steps:
 
 1. **Docs** — invoke `maintain-docs` in **per-run mode** (delegate to a docs subagent), then commit the doc updates. The low-churn docs are batched by `close-sprint`, not written here.
 2. **Memory** — invoke `maintain-memory` to persist decisions, rationale, and gotchas to the right scope (and prune stale entries).
-3. **Board** — move the ticket(s) this build implemented from **Active** to **To Test** on the sprint file's board.
+3. **Board** — flip the ticket(s) this build implemented to `to test` on the sprint file's board.
 3. **Git / PR** — commit the work per the workspace Version Control rules (Conventional Commits, feature branch) and open a pull request that links the spec, if the repo uses that flow.
 
 ## Final Output Conditions

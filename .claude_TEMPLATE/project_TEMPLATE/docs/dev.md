@@ -11,7 +11,7 @@
     project memory instead — one home per fact, never both.
   - BOUNDARIES: structure → `architecture.md`; product behaviour → `behaviour.md`;
     decisions + rationale → `decisions.md`; user-facing docs → `product/`; per-session
-    gotchas & fragile-area warnings → project memory; bugs & tech debt → a ticket in `backlog.md`.
+    gotchas & fragile-area warnings → project memory; bugs & tech debt → a ticket in `backlog/`.
   - WHO WRITES: `maintain-docs`. Keep edits factual, no speculation.
   - SPLIT at ~300–500 lines → one file per topic under `dev/`, keep this as the index.
 -->
@@ -38,5 +38,5 @@ link to generated docs (typedoc / rustdoc / …). Note here only what generation
 — usage contracts, invariants a caller must uphold.}
 
 <!-- Bugs, limitations, and tech debt are NOT tracked here — they belong on the board as a
-     ticket (`tickets/` + `backlog.md`) or in project memory (fragile-area warnings for
+     ticket in `backlog/` or in project memory (fragile-area warnings for
      future sessions). -->

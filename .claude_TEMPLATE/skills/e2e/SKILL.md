@@ -22,4 +22,4 @@ per step.
    - **e2e framework + MCP server present** → dispatch an **e2e subagent**: execute the test-case steps through the MCP server and fill the run log.
    - **otherwise** → delegate to the user: recommend running it manually or via a browser / computer-use agent, and write them the exact prompt / steps to follow; capture the result in the run log.
 4. **Automate it** — from the concrete passing run, write the e2e automation so future runs are repeatable. A red run here also sends you back to implementation.
-5. **Board** — green and verified → move the ticket's line to **Done** on the sprint file's board. That column is what `close-sprint` distils; a ticket the user still has to eyeball stays in **To Test**.
+5. **Board** — green and verified → flip the ticket's status to `done` on the sprint file's board. That status is what `close-sprint` distils and dissolves; a ticket the user still has to eyeball stays at `to test`.
