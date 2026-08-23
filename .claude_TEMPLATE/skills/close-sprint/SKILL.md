@@ -1,13 +1,15 @@
 ---
 name: close-sprint
-description: "Use to close the active sprint (release scope): clear the kanban board (finish or carry over) → distil and dissolve the done tickets → batched maintain-docs pass, behaviour.md first → changelog cut → merge to main. Never touches product code. Hands off to open-sprint for the next sprint. Invokable by Claude or via /close-sprint."
+description: "Use to close the active sprint: clear the kanban board (finish or carry over) → optional whole-sprint code review → distil and dissolve the done tickets → batched maintain-docs pass, behaviour.md first → merge to main. Never touches product code, never publishes — that's `release`. Hands off to open-sprint for the next sprint. Invokable by Claude or via /close-sprint."
 ---
 
 # Close Sprint
 
-The wrap-up half of the sprint cycle. One run = one **sprint close**: clear the board, optionally review the sprint as a whole, distil what it produced, write the batched docs, integrate to `main`. Close a sprint once its release scope is done — planning the next one is `open-sprint`'s job.
+The wrap-up half of the sprint cycle. One run = one **sprint close**: clear the board, optionally review the sprint as a whole, distil what it produced, write the batched docs, integrate to `main`. Close a sprint once its scope is done — planning the next one is `open-sprint`'s job.
 
-**Leave the product code untouched here.** This skill produces the changelog and the integration, then hands off; review findings go back as recommendations.
+**A sprint integrates, it does not publish.** A version spans however many sprints it needs; `release` cuts it from `main` after. Nothing here bumps a version, writes a changelog or tags.
+
+**Leave the product code untouched here.** This skill produces the distilled docs and the integration, then hands off; review findings go back as recommendations.
 
 ## 0. Detect the mode
 
@@ -43,7 +45,6 @@ The board is now all **done**. Each ticket left durable truth behind — graduat
 **Graduate** (only what isn't recorded yet — most landed during the sprint):
 
 - **`decision` tickets** → a `##` section in `artefacts/{sprint}/sprint-decisions.md` (forces, what was decided, why over the alternatives) plus one `accepted` line in `docs/decisions.md`. Normally written the moment the decision was settled; here you only catch what slipped.
-- **Everything user-visible** → a line under `[Unreleased]` in `CHANGELOG.md` (if present), unless the run already added it.
 - **Behaviour** is step 4's job — the specs' deltas and the sprint file's Behaviour context go into `docs/behaviour.md` in one pass, so don't pre-empt it here.
 
 **Dissolve** — once that holds, **delete the ticket files of every done ticket** from `backlog/`, and those only; a carried-over ticket is still open and stays. Their lines remain on the frozen board as the record of what shipped, the reasoning lives in the docs it graduated into, git history keeps the rest. This is what keeps `backlog/` bounded.
@@ -52,19 +53,19 @@ The board is now all **done**. Each ticket left durable truth behind — graduat
 
 Invoke **`maintain-docs` in sprint-close mode**: `docs/behaviour.md` first — fold every spec's Behaviour delta into the rulebook in one pass — then the low-churn docs nobody reads *during* a sprint (`architecture.md`, `dev.md`, `product/`, `ASSETS.md`), written from the whole sprint at once, which reads better than five separate deltas.
 
-## 5. Record what shipped
+## 5. Integrate
 
-- **With a `CHANGELOG.md`** — cut `[Unreleased]` into a dated release section (`## [x.y.z] — YYYY-MM-DD`), leaving a fresh empty `[Unreleased]`. Link the specs.
-- **Without one** — the git history (one branch per sprint) *is* the record. Optionally summarise the sprint in the merge/PR body.
+**Per the project's Version Control rules** (CLAUDE.md / AGENTS.md). **Solo default: merge the sprint branch straight into `main`** and say so — no PR, no approval round. Where the rules prescribe the PR flow, open the PR and summarise the sprint in its body.
 
-## 6. Release / deploy *(reserved)*
+The frozen sprint folder *is* the record of what shipped — no separate summary doc. `release` composes the changelog from it when the version is cut.
 
-- **Integrate per the project's Version Control rules** (CLAUDE.md / AGENTS.md). **Solo default: merge the sprint branch straight into `main`** and say so — no PR, no approval round. Where the rules prescribe the PR flow, open the PR with the changelog instead.
-- ToDo: placeholder for a future `release` skill (build, deploy, tag). For now say it's not wired yet and **pause** — the user runs any release step manually.
+## 6. Release? *(optional, and usually not now)*
+
+Only where the project publishes. Does this sprint complete a **version's** worth of scope? Yes → `release` · no → sprints accumulate on `main` until one does. Never publishes: skip, don't ask.
 
 ## Handoff & boundaries
 
 - **The sprint file freezes here** — frame, board *and* `sprint-decisions.md`. Together they are the sprint's archive, and every board line reads `done` (step 1).
-- Produces: the all-done board, the carried-over backlog lines, the dissolved ticket files, any missing entries in `sprint-decisions.md` + `docs/decisions.md`, the batched docs pass, the review findings (if run), the release cut, the merge/PR to `main`.
-- Then → **`open-sprint`** for the next one. If the user is done for now, leave **Current sprint** as it is; `open-sprint` moves the pointer.
+- Produces: the all-done board, the carried-over backlog lines, the dissolved ticket files, any missing entries in `sprint-decisions.md` + `docs/decisions.md`, the batched docs pass, the review findings (if run), the merge/PR to `main`.
+- Then → **`open-sprint`** for the next one, and **`release`** where step 6 said yes. If the user is done for now, leave **Current sprint** as it is; `open-sprint` moves the pointer.
 - Plans, specs, docs and product code belong to `open-sprint`, `spec-design`, `maintain-docs` and the build workflows.

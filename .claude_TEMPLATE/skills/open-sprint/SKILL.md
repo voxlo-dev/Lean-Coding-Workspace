@@ -1,11 +1,11 @@
 ---
 name: open-sprint
-description: "Use to plan and open the next sprint (release scope) via the `plan` skill in sprint-file mode: architecture-aware, optional web research, possible domain switch — then pull tickets from the backlog onto the sprint board, branch, set Current sprint, record decisions. Also the entry point for a brand-new project (nothing to close). Hands off to dynamic-workflow. Invokable by Claude or via /open-sprint."
+description: "Use to plan and open the next sprint via the `plan` skill in sprint-file mode: architecture-aware, optional web research, possible domain switch — then pull tickets from the backlog onto the sprint board, branch, set Current sprint, record decisions. Also the entry point for a brand-new project (nothing to close). Hands off to dynamic-workflow. Invokable by Claude or via /open-sprint."
 ---
 
 # Open Sprint
 
-The planning half of the sprint cycle, and the thinking layer above the build workflows. One run = one **new sprint**: plan the release scope, open its branch, point the project at it. Architecture *decisions* live here; the architecture *doc* is `maintain-docs`' job once things are implemented.
+The planning half of the sprint cycle, and the thinking layer above the build workflows. One run = one **new sprint**: plan its scope, open its branch, point the project at it. Architecture *decisions* live here; the architecture *doc* is `maintain-docs`' job once things are implemented.
 
 **Sizing a sprint:** the whole batch that ships together, under one `artefacts/{sprint}/` folder and one branch, spanning many workflow runs — a handful to a few dozen tickets, 1–5 specs (1–10 packages each), 0–3 e2e runs, several minimal-workflow fixes, a few docs passes. Its length is the **user's call**: no time-boxes, no story points.
 

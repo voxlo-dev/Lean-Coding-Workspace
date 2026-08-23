@@ -12,7 +12,8 @@
     until pulled, the sprint board once in flight.
   - DISSOLVES at `close-sprint` — a done ticket is deleted once its durable truth has
     graduated: decisions → `artefacts/{sprint}/sprint-decisions.md`, behaviour →
-    `docs/behaviour.md`, user-visible change → `CHANGELOG.md`. Git history keeps the rest.
+    `docs/behaviour.md`. Its board line stays as the record `release` reads for the
+    changelog; git history keeps the rest.
   - Writer: `plan`, or any run that spots something worth capturing.
 -->
 

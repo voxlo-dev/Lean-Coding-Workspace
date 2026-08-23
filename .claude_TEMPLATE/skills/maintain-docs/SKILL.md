@@ -9,7 +9,7 @@ description: "Use at the docs step of the minimal and dynamic workflows (per-run
 
 **Two modes — the caller sets it:**
 
-- **Per-run** (minimal/dynamic-workflow) — only what is an **input to the next run**: the decision pair, the spec's Status/ACs, the pointers in `AGENTS.md`, the changelog line. Small, hot, cheap. The run's behaviour delta stays in its spec, which is what `spec-design` reads.
+- **Per-run** (minimal/dynamic-workflow) — only what is an **input to the next run**: the decision pair, the spec's Status/ACs, the pointers in `AGENTS.md`. Small, hot, cheap. The run's behaviour delta stays in its spec, which is what `spec-design` reads.
 - **Sprint-close** (`close-sprint`) — the rest, `behaviour.md` first, then `architecture.md`, `dev.md`, `product/`, `ASSETS.md`. Nobody reads them *during* a sprint, and they come out better written from the whole sprint at once than from five separate deltas.
 
 **Four rules that override everything below:**
@@ -35,7 +35,6 @@ For each doc ask "does *this* change affect it?" from what you already know, and
 | `AGENTS.md` → Doc map | per-run | a doc was added or removed | keep the map listing only docs that exist |
 | `artefacts/{sprint}/sprint-decisions.md` | per-run | a decision was **settled** this run — with or without a `decision` ticket | **append a `##` section**, ~15 lines: the forces, what was decided, why over the alternatives. Write it now, not at sprint close, so the rest of the sprint doesn't re-litigate it. Create the file from `plan/templates/SPRINT_DECISIONS_TEMPLATE.md` if missing |
 | `docs/decisions.md` | per-run | same trigger — **write both in one move** | **append one line**: take `Next decision` from the top and increment it, short description, `accepted`, link to that section. An index, with the rationale kept in the sprint file. To overturn, append the new decision and mark the old line `superseded by NNNN`. A still-open question stays a `decision` ticket |
-| `CHANGELOG.md` | per-run | a user-visible change shipped | one line under `[Unreleased]` in the right group (Added/Changed/Fixed/Removed), written as the user's view of the change |
 | `artefacts/{sprint}/spec_*` | per-run | a spec was implemented this run | update its **Status** (draft → done) and tick the **acceptance criteria** met — only with that context in hand |
 | `docs/behaviour.md` | **sprint-close** | the sprint changed product behaviour, a rule, or a UX invariant | **your first stop at close.** Fold the sprint's behaviour deltas — from its `spec_*` files and the sprint file's Behaviour context — into the rulebook in place, one pass over the whole sprint. Present tense and declarative; rationale lives in `decisions.md` |
 | `ASSETS.md` | sprint-close | assets were added, moved, or repurposed | add/adjust the row(s); keep `Used in` accurate |
@@ -44,7 +43,7 @@ For each doc ask "does *this* change affect it?" from what you already know, and
 | `docs/product/` | sprint-close | user-facing interaction changed | read the relevant page first, then edit very targeted |
 | `docs/design/` | never | design system changed | **`ui-design` owns the styleguide and mockups** — leave them to it |
 
-**Not maintained here:** everything else under `artefacts/` — plans, e2e cases, reports, `localagent/` records — belongs to the workflow that wrote it, which corrects it while the sprint runs.
+**Not maintained here:** everything else under `artefacts/` — plans, e2e cases, reports, `localagent/` records, `release-{version}/` — belongs to the workflow that wrote it, which corrects it while the sprint runs. `docs/release.md` is the one durable doc owned elsewhere: the user writes it, `release` appends its waivers.
 
 ## The distillation rule
 

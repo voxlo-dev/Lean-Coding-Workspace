@@ -46,9 +46,16 @@
   <text x="866" y="206" text-anchor="middle" font-size="11.5" font-weight="600" fill="#312e81">/close-sprint</text>
   <text x="866" y="225" text-anchor="middle" font-size="10" fill="#4f46e5">review · distil · merge</text>
 
+  <!-- release (optional, spans several sprints) -->
+  <path d="M888,244 V282" stroke="#94a3b8" stroke-width="1.4" fill="none" stroke-dasharray="5 4" marker-end="url(#arw)"/>
+  <rect x="820" y="288" width="136" height="58" rx="8" fill="#f8fafc" stroke="#6366f1" stroke-dasharray="5 4"/>
+  <text x="888" y="311" text-anchor="middle" font-size="11.5" font-weight="600" fill="#312e81">/release</text>
+  <text x="888" y="330" text-anchor="middle" font-size="9.5" fill="#4f46e5">once N sprints make</text>
+  <text x="888" y="342" text-anchor="middle" font-size="9.5" fill="#4f46e5">a version</text>
+
   <!-- loop back -->
-  <path d="M866,244 V404 Q866,416 854,416 H296 Q284,416 284,404 V250"
+  <path d="M800,244 V404 Q800,416 788,416 H296 Q284,416 284,404 V250"
         stroke="#94a3b8" stroke-width="1.4" fill="none" stroke-dasharray="5 4" marker-end="url(#arw)"/>
   <rect x="486" y="404" width="178" height="20" rx="4" fill="#fbfbfd"/>
-  <text x="575" y="418" text-anchor="middle" font-size="10" fill="#64748b">release done → next sprint</text>
+  <text x="575" y="418" text-anchor="middle" font-size="10" fill="#64748b">sprint done → next sprint</text>
 </svg>
