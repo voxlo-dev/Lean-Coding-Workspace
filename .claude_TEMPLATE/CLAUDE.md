@@ -22,17 +22,17 @@ Assume the user is capable, but lazy with words, because he can't type as fast a
 
 **Tool calls:** default to the OS's most capable shell (PowerShell on Windows, bash on Linux); if one doesn't work, use another.
 
-**Version control:** {e.g. solo dev projects (default): compact commits `<type>: <subject & scope>` in very few words · types `feat` `fix` `docs` `refactor` `test` `chore` · one branch per sprint, `<sprint-slug>`, no folders · **merge straight to `main`** at sprint close, no PR and no code-review round unless the user asks} {e.g. opensource / enterprise: conventional commits `<type>(<scope>): <subject>` · branches `<type>/<short-slug>` · one topic per PR, small and reviewable, tests green before merge, links its spec, reviewed before merge}
+**Version control:** {e.g. solo dev projects (default): compact commits `<type>: <subject & scope>` in very few words · types `feat` `fix` `docs` `refactor` `test` `chore` · one branch per sprint, `<sprint-slug>`, no folders · **merge straight to `main`** at sprint close, no PR or review round unless asked} {e.g. opensource / enterprise: conventional commits `<type>(<scope>): <subject>` · branches `<type>/<short-slug>` · one topic per PR, small and reviewable, tests green before merge, links its spec, reviewed before merge}
 
 **Code style:**
 
 - **Comments sit one level above the code** — what a thing is for and why it exists. Never a line-by-line walk-through, never usage examples or sample values (they rot the moment the code moves). Needs more than ~5 lines? Then it isn't a comment: write it in `docs/` (usually `dev.md`), leave a one-liner pointing there.
-- **Write only what gets read again.** Before a comment, a doc section or a note in an artifact, run four checks: will anyone read this again · would a reader other than the user find it relevant · will it still be true in a month · does it matter beyond this conversation. A "no" anywhere means it belongs in the chat, not in a file. Effort spent writing is not evidence that something is worth keeping.
-- **Present state only** — every doc and every comment describes what *is*, in present tense. No "not", "no longer", "used to", no removal notes, no record of what was tried. Two exceptions, and only these: `docs/decisions.md` marks a decision `superseded by`, and `artefacts/` is process history by definition.
+- **Write only what gets read again** — before any comment, doc section or artifact note: will anyone read it · is it relevant to someone other than the user · will it still be true in a month. A "no" anywhere → it goes in the chat, not in a file.
+- **Present state only** — docs and comments describe what *is*: no "not", "no longer", "used to", no removal notes, no record of what was tried. Exceptions: `docs/decisions.md` (`superseded by`) and `artefacts/`.
 - **Abstraction over minimal-diff** — the smallest change is not automatically the best one, and near-duplicate code hurts more than extra effort does. A feature resembling existing code gets **one shared abstraction representing both**: refactor into that shape rather than bolting the feature on beside it. Weigh against YAGNI — abstract over *real* duplication, never a speculative one.
 - **UX first on any UI change, however small** — never wire a feature in by the path of least effort. Each time: does this hurt the UX, should the layout or grouping be reworked, is every element unambiguous and placed by its relevance, can something be simplified? Accept UI churn to keep the experience clean. (`ui-design` owns the detail.)
 
-**Templates — fill, then strip.** A template's `CONTRACT` header or guidance block is instructions for whoever fills the file, not content. **Delete it the first time you fill that file with real content**, leaving one line pointing at the template it came from; a file still sitting empty keeps its block until someone fills it.
+**Templates — fill, then strip.** A `CONTRACT` header or guidance block instructs whoever fills the file; it is not content. Delete it on the first real fill, leaving one line pointing at its template. A file still empty keeps it.
 
 **MD syntax:** `-` for list bullets. Directory trees in the Unicode form `├──` `│` `└──`, with aligned `←` comments. Tables: standard pipe syntax only — header row, a `| --- | --- |` separator, single spaces between columns, never padded for alignment.
 
@@ -66,16 +66,16 @@ Imported (domain/global) memory loads in full — keep it lean. **Memory vs. doc
 
 ## Work items — the markdown kanban
 
-Every unit of work is a **ticket** in `backlog/` (`T-NNN-{slug}.md`): *what* and *why*, category, importance, effort, dependencies. A ticket is **live** — sharpen it whenever understanding improves, rather than treating it as an archive. **The file never moves**; boards only *index* it, and a ticket is indexed in exactly one place:
+Every unit of work is a **ticket** in `backlog/` (`T-NNN-{slug}.md`): *what* and *why*, category, importance, effort, dependencies. Tickets stay **live**: sharpen one whenever understanding improves. **The file never moves**; boards only *index* it, and a ticket is indexed in exactly one place:
 
-- **`backlog/backlog.md`** — living, survives sprints. Columns **Draft** · **Backlog**: everything not yet pulled. Open *decisions* live here too, as `decision` tickets. It carries the **next free `T-NNN`** at the top, so no run has to derive it.
+- **`backlog/backlog.md`** — living, survives sprints. Columns **Draft** · **Backlog**: everything not yet pulled. Open *decisions* live here too, as `decision` tickets. Carries the **next free `T-NNN`** at the top.
 - **`artefacts/{sprint}/sprint.md`** — frame + board: every ticket pulled into the sprint, one line each carrying a status token **open · active · to test · done**. The board *is* the sprint scope.
 
-**Everything under `artefacts/{sprint}/` stays live until `close-sprint` freezes the sprint** — a spec, a report or the board may be **corrected** while the sprint runs; only the closed sprint's folder is history. Correcting is not annotating: never append progress notes, status commentary or a record of what was tried. If it isn't the artifact's own content, it goes in the chat.
+**`artefacts/{sprint}/` stays live until `close-sprint` freezes the sprint** — correct a spec, a report or the board while the sprint runs; only a closed folder is history. Correcting is not annotating: no progress notes, no status commentary, no record of what was tried.
 
 Moves: `plan` and any run capture → Draft/Backlog · `open-sprint` pulls → the board at `open` · the build workflows → `to test` · `e2e`/user → `done` · `close-sprint` distils, then **dissolves** the done tickets (files deleted — that's what keeps `backlog/` bounded) and carries the rest back. **A fix done on the spot needs no ticket** — capture only what isn't being done now.
 
-**Decisions** get two homes, written in one move the moment one is settled: the reasoning as a section in `artefacts/{sprint}/sprint-decisions.md`, and one line in `docs/decisions.md` — the flat, append-only index that makes "what is already decided here?" a single read, carrying the **next free `NNNN`** at its top. It is the one durable doc allowed to link into `artefacts/`; every other doc stands on its own.
+**Decisions** get two homes, written in one move the moment one is settled: the reasoning as a section in `artefacts/{sprint}/sprint-decisions.md`, and one line in `docs/decisions.md` — the flat, append-only index that makes "what is already decided here?" a single read, carrying the **next free `NNNN`** at its top — and the one durable doc allowed to link into `artefacts/`; every other stands on its own.
 
 ## Workflows (skills — invoke, don't read files)
 

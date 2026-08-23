@@ -67,8 +67,15 @@ Not tracked (see `.gitignore`): `.claude/`, `.serena/`, `.tokensave`.
   *where* the rest lives — never what a skill does (that duplicates the skill's description and
   goes stale). Adding a paragraph there is a permanent cost; default to putting it in a skill.
 - **Placeholders** are `{...}` — substituted by a skill or by the user at install time.
-- **Write instructions, not explanations.** Skill prose is read by an agent under pressure: short
-  imperative steps, decisions with a stated default, no motivational preamble.
+- **Write instructions, not explanations.** Skills and `CONTRACT` blocks are read by a model and
+  never shipped to a person, so optimise for tokens, not readability: imperative steps, decisions
+  with a stated default, no preamble, no restated rationale, no "this is deliberate because…".
+  A clause beats a sentence, a sentence beats a paragraph. Justify a rule only where an agent
+  would otherwise break it.
+- **Compress on write, not after.** Every edit lands in final compressed form and *integrated* —
+  a new rule joins the existing list or sentence in the existing voice, never as its own section.
+  A reader who can tell which lines are new, because they explain more or sit in a fresh block,
+  is looking at a bad edit.
 - **One home per fact.** The same rule stated in `CLAUDE.md` and a skill will drift. Reference it.
 - **MD syntax** per the global rules: `-` bullets, Unicode trees with aligned `←` comments,
   unpadded pipe tables.

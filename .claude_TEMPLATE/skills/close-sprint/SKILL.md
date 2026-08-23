@@ -30,7 +30,7 @@ Then the scope check — **read-light, run nothing new:**
 
 ## 2. Code review *(only when the project's version-control rules call for it)*
 
-The one place the sprint gets judged **as a whole**; individual runs only ever saw their own package. **On a solo project this is off by default — don't ask**, run it only when the user asks for it. Where the rules prescribe review before merge (opensource / enterprise flow), run it whenever the sprint shipped real feature work or touched shared/core code.
+The one place the sprint gets judged **as a whole**; individual runs only ever saw their own package. **Solo project: off, and don't ask** — run it only on request. Where the rules prescribe review before merge, run it whenever the sprint shipped real feature work or touched shared/core code.
 
 - **Scope:** the cumulative diff against `main` (`main...<sprint-branch>`), not the last commit.
 - **How:** the repo's review command (`/code-review`) or `superpowers:requesting-code-review`. Nothing available → review the diff yourself, prioritised: cross-package seams and duplication first (the classic sprint-level defect per-run reviews can't see), then correctness, then the workspace code-style rules.
@@ -50,7 +50,7 @@ The board is now all **done**. Each ticket left durable truth behind — graduat
 
 ## 4. Batched docs pass
 
-Invoke **`maintain-docs` in sprint-close mode**: `docs/behaviour.md` first — fold every spec's Behaviour delta into the rulebook in one pass — then the low-churn docs nobody reads *during* a sprint (`architecture.md`, `dev.md`, `product/`, `ASSETS.md`). Written from the whole sprint at once, which reads better than five separate deltas and keeps `behaviour.md` a usable overview rather than a pile of edits.
+Invoke **`maintain-docs` in sprint-close mode**: `docs/behaviour.md` first — fold every spec's Behaviour delta into the rulebook in one pass — then the low-churn docs nobody reads *during* a sprint (`architecture.md`, `dev.md`, `product/`, `ASSETS.md`), written from the whole sprint at once, which reads better than five separate deltas.
 
 ## 5. Record what shipped
 

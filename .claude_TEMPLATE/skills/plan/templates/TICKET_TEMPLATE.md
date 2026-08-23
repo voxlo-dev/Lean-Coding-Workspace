@@ -4,8 +4,8 @@
   - Template: `~/.claude/skills/plan/templates/TICKET_TEMPLATE.md`.
   - One unit of work: the *what* and the *why*, ~1 page. Solution design belongs to a spec in
     `artefacts/{sprint}/`.
-  - LIVE, not frozen: sharpen the ticket whenever understanding improves — a wrong or vague
-    ticket is worth fixing, and its number stays the same. Only the *altitude* is fixed.
+  - LIVE, not frozen: sharpen it whenever understanding improves; the number stays. Only the
+    *altitude* is fixed.
   - Lives at `backlog/T-NNN-{slug}.md` its whole life, IDs never reused; the next free number
     is at the top of `backlog.md`. Boards *index* it, so it stays put across sprints.
   - The board position is the status, and it is carried in exactly one board: `backlog.md`

@@ -10,7 +10,7 @@ Smallest possible ceremony: no spec, no planning, no other workflow skills. Just
 1. **Start immediately** — locate and understand the relevant code (codegraph if the repo is indexed, otherwise a targeted search), then implement. If the change leans on a third-party library/framework/API, look up current usage via **context7** instead of trusting recall.
 2. **Test, if the project has a test setup** — prefer automated: find an existing test covering the change, else write one or extend the closest. No test setup at all → skip to step 4 and hand off for manual verification.
 3. **Loop to green.**
-4. **Minimal docs & memory maintenance** — the essentials inline, skills uninvoked; the large workflow runs catch the drift. **Changed product behaviour without a spec?** Add the delta as a line to the sprint file's **Behaviour context** — that is what `close-sprint` folds into `docs/behaviour.md`, and a fix with no spec has nowhere else to leave it.
+4. **Minimal docs & memory maintenance** — the essentials inline, skills uninvoked; the large workflow runs catch the drift. **Changed behaviour without a spec?** One line into the sprint file's **Behaviour context** — `close-sprint` folds that into `docs/behaviour.md`.
 5. **Commit.**
 6. **Board, only if a ticket drove this** — flip its status to `to test` on the sprint board. A fix done on the spot needs no ticket; anything left undone becomes one in `backlog/`.
 
