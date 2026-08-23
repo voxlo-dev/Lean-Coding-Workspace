@@ -25,8 +25,10 @@ questions by reading half the repo. This workspace fixes that with three ideas:
 
 - Claude Code (CLI, desktop, or IDE extension)
 - Git
-- Five plugins, installed for you by the install skill: `superpowers`, `codegraph`, `context7`,
-  `github`, `plugin-dev`
+- Four plugins, installed for you by the install skill: `superpowers`, `codegraph`, `context7`,
+  `plugin-dev`
+- Optional, offered during install: the `github` plugin and the `gh` CLI — needed for the PR flow
+  and for releases, skippable if you only work locally
 
 ## Install
 
@@ -52,7 +54,7 @@ touches `memory/`, `projects/`, `domains/` or your settings.
 ## How a session goes
 
 <p align="center">
-  <img src="assets/session-flow.svg" alt="A repo is initialised once, then each release is a sprint: open-sprint cuts the branch, many runs happen inside it (spec, implement, e2e, docs and memory, commit), and close-sprint distils and merges before the next sprint opens." width="880">
+  <img src="assets/session-flow.svg" alt="A repo is initialised once, then sprints repeat: open-sprint cuts the branch, many runs happen inside it (spec, implement, e2e, docs and memory, commit), and close-sprint distils and merges before the next sprint opens. Release branches off close-sprint once several sprints add up to a version." width="880">
 </p>
 
 Concretely, at the start of a chat Claude checks the project's memory, then asks which workflow to
@@ -79,6 +81,7 @@ Supporting skills, mostly invoked by the workflows rather than by you:
 | --- | --- |
 | `/project-initialiser` | onboard a repo: explore, detect domain, scaffold docs, install test framework, migrate existing docs |
 | `/open-sprint` · `/close-sprint` | open and close a sprint (see below); also the entry point for a brand-new project |
+| `/release` | publish a version: changelog, version bump, security gate, PR, CI, audit, ship, tag |
 | `spec-design` | stage 1 of `dynamic-workflow`: brainstorm, design the UI, decide the test + implementation strategy, write the spec |
 | `e2e` | optional end-to-end validation stage; drives the feature once, then writes the automation |
 | `ui-design` | look and feel — colors, typography, layout, mockups, design system |
@@ -111,11 +114,18 @@ Decisions get two homes, written in one move the moment one is settled: the reas
 in `artefacts/{sprint}/sprint-decisions.md`, and one line in `docs/decisions.md` — the flat,
 append-only index that keeps "what is already decided here?" a single cheap read.
 
-**A sprint is not a run.** It is the scope of a release and holds many runs, plans and specs.
-`/open-sprint` pulls tickets from the backlog onto a fresh board and cuts a branch;
-`/close-sprint` clears the board, distils what shipped into the durable docs, cuts the changelog,
-and merges. Everything in `artefacts/{sprint}/` stays correctable while the sprint runs and freezes
-only at close — a spec is the sprint's working truth, not an archive from the moment it is written.
+**A sprint is not a run.** It holds many runs, plans and specs. `/open-sprint` pulls tickets from
+the backlog onto a fresh board and cuts a branch; `/close-sprint` clears the board, distils what
+shipped into the durable docs, and merges. Everything in `artefacts/{sprint}/` stays correctable
+while the sprint runs and freezes only at close — a spec is the sprint's working truth, not an
+archive from the moment it is written.
+
+**A sprint is not a release either.** Sprints integrate into `main`; a published version spans as
+many of them as it needs. `/release` cuts one afterwards: changelog composed from the sprint
+archives since the last tag, version bump, dependency and secret gate, a PR against the `release`
+branch, CI, an audit of the release itself rather than of code already reviewed at each close, then
+ship and tag. The changelog is a **release artifact**, not a repo doc — it lives in the PR body and
+the GitHub release, while the repo keeps the sprint archives and the tag.
 
 ## How it all connects
 
@@ -124,7 +134,7 @@ skill on top writes what sits beneath it. Read the board left to right: that's t
 ticket, and where it sits *is* its status.
 
 <p align="center">
-  <img src="assets/skills-and-docs.svg" alt="Skills across the top; beneath them four bands by lifespan: living work items (tickets and backlog), ephemeral process history (the sprint file with its board, specs, reports), durable docs (AGENTS.md, behaviour, architecture, dev, product, decisions, changelog), and memory." width="1000">
+  <img src="assets/skills-and-docs.svg" alt="Skills across the top; beneath them four bands by lifespan: living work items (tickets and backlog), ephemeral process history (the sprint file with its board, specs, reports), durable docs (AGENTS.md, behaviour, architecture, dev, product, decisions, release runbook), and memory." width="1000">
 </p>
 
 The two directions matter more than the boxes. **Left to right** is how work travels: an idea
@@ -151,11 +161,14 @@ project/
 │   ├── decisions.md       ←   settled decisions, one line each + the decision counter
 │   ├── architecture.md    ←   planned/implemented structure
 │   ├── dev.md             ←   setup, env, build/debug, dependency quirks
+│   ├── release.md         ←   release runbook: version carriers, build & publish, the gate
 │   └── product/           ←   end-user docs
-└── artefacts/{sprint}/    ← EPHEMERAL: live for the sprint, frozen at its close
-    ├── sprint.md          ←   the sprint file: frame, behaviour context, kanban board
-    ├── sprint-decisions.md ←  the reasoning behind what this sprint settled
-    └── spec_*.md …        ←   specs, e2e files, reports
+└── artefacts/             ← EPHEMERAL: live while in flight, frozen once closed
+    ├── {sprint}/          ←   one folder per sprint, frozen at its close
+    │   ├── sprint.md      ←     the sprint file: frame, behaviour context, kanban board
+    │   ├── sprint-decisions.md ← the reasoning behind what this sprint settled
+    │   └── spec_*.md …    ←     specs, e2e files, reports
+    └── release-{version}/ ←   one per published version, spanning the sprints since the last tag
 ```
 
 Docs are split by **lifespan**, and you opt in per doc — a small project doesn't need all of them.

@@ -114,9 +114,10 @@
 
   <rect x="1032" y="382" width="138" height="92" rx="6" fill="#ffffff" stroke="#3b82f6"/>
   <text x="1101" y="404" text-anchor="middle" font-size="9.5" fill="#1e3a8a">decisions.md</text>
-  <text x="1101" y="420" text-anchor="middle" font-size="9.5" fill="#1e3a8a">CHANGELOG.md</text>
-  <text x="1101" y="440" text-anchor="middle" font-size="9" fill="#2563eb">one line each,</text>
-  <text x="1101" y="453" text-anchor="middle" font-size="9" fill="#2563eb">linking the sprint</text>
+  <text x="1101" y="422" text-anchor="middle" font-size="9" fill="#2563eb">one line each,</text>
+  <text x="1101" y="434" text-anchor="middle" font-size="9" fill="#2563eb">linking the sprint</text>
+  <text x="1101" y="455" text-anchor="middle" font-size="9.5" fill="#1e3a8a">release.md</text>
+  <text x="1101" y="468" text-anchor="middle" font-size="9" fill="#2563eb">runbook for /release</text>
 
   <!-- memory -->
   <rect x="880" y="512" width="138" height="44" rx="6" fill="#ffffff" stroke="#a855f7"/>

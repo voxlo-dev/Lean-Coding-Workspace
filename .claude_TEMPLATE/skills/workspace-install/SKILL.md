@@ -44,19 +44,26 @@ Ask in plain chat — **not** the question tool — so the user can answer freel
 Only the ones not already working, each via its own installer / README:
 
 - **codegraph** — https://github.com/colbymchenry/codegraph
-- **superpowers**, **context7**, **github**, **plugin-dev** — from the `claude-plugins-official` marketplace (add via `/plugin`).
+- **superpowers**, **context7**, **plugin-dev** — from the `claude-plugins-official` marketplace (add via `/plugin`).
 
 Long-term memory is **native** (no plugin) — step 1 already seeded `~/.claude/memory/MEMORY.md` and its `@import` in `CLAUDE.md`. See `maintain-memory`.
 
+## 4a. GitHub access *(optional — ask, don't assume)*
+
+Needed by `release` and any project on the PR flow; skip for a user working purely locally. Both halves or neither:
+
+- **`gh` CLI** — `winget install --id GitHub.cli` / `brew install gh` / per distro. Then **the user runs `gh auth login`**: interactive and browser-based, so pause here.
+- **`github` plugin** — same marketplace, but only a wrapper around a remote MCP server authenticating via `GITHUB_PERSONAL_ACCESS_TOKEN`. **Without that variable it silently exposes zero tools.** Cheapest source is the login just done: `setx GITHUB_PERSONAL_ACCESS_TOKEN "$(gh auth token)"` / shell-profile equivalent. Say plainly it lands in the environment in clear text; offer a scoped PAT instead.
+
 ## 5. Restart — pause
 
-**Only if step 4 changed anything.** Ask the user to restart Claude Code (and the terminal), then resume; **stop here** until they confirm. Nothing changed → say so and skip.
+**Only if step 4 or 4a changed anything.** Ask the user to restart Claude Code (and the terminal), then resume; **stop here** until they confirm. A new environment variable needs the restart too, or the MCP server starts unauthenticated. Nothing changed → say so and skip.
 
 ## 6. Verify the plugins
 
 Confirm each mandatory plugin is actually **working**, not merely present: its skills/commands/MCP tools are discoverable this session, and its entry point runs (no failing hook, no error on invoke).
 
-Report what passed and failed. For any failure propose a brief troubleshooting plan and **get the user's OK before any tool calls**. Common trap: an orphaned or dependency-incomplete plugin-cache directory shadowing the working one — check the cache for stale/duplicate versions when a plugin is "installed" but its hook or tools silently fail.
+Report what passed and failed. For any failure propose a brief troubleshooting plan and **get the user's OK before any tool calls**. Two traps behind a plugin that is "installed" yet silently exposes nothing: an orphaned or dependency-incomplete cache directory shadowing the working one, and a remote MCP server whose credential is missing — `enabledPlugins: true` in `settings.json` says nothing about either. For **github** specifically, `get_me` returning your account is the proof; `gh auth status` is the separate one.
 
 ## 7. Offer to capture working rules → global CLAUDE.md (optional)
 

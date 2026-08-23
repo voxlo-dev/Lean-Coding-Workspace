@@ -12,6 +12,7 @@ Turn a recipe into a self-contained **master domain plugin** under `~/.claude/do
 Research, then write the recipe:
 
 - **Websearch** the domain's official docs and its unit + UI/integration test frameworks.
+- **Research how the stack ships** — where the version lives, the dependency-audit command, the build command, and the store/registry rules including its track order. `release` inherits this, so it is the one thing no per-project runbook should have to re-derive; a domain that never publishes records `none`.
 - **Mine three sources for reusable capability** — record every hit with its kind (step 3 vendors them all **into the master**):
   - **Language server** — check `claude-plugins-official` for the domain language's LSP (config-only plugins carrying an `lspServers` block): `csharp-lsp`, `typescript-lsp` (TS/JS), `pyright-lsp`, `kotlin-lsp`, `clangd-lsp` (C/C++), `gopls-lsp`, `jdtls-lsp` (Java), `rust-analyzer-lsp`, `swift-lsp`, `ruby-lsp`, `php-lsp`, `lua-lsp`, `liquid-lsp`. Record the exact `command` + `extensionToLanguage` so step 3 can lift it — **and** the server binary's install command (like the test framework, the LSP config only points at it; project-initialiser installs it).
   - **`fullstack-dev-skills`** — the few skills fitting the domain's stack (e.g. `csharp-developer`, `typescript-pro`, `python-pro`, `kotlin-specialist`, `game-developer`). Curate hard: what the domain genuinely needs, rather than the bundle.
@@ -42,4 +43,5 @@ Vendor everything **into the plugin folder** so the master is self-contained, ke
 
 - `plugin.json` and `.mcp.json` parse as JSON; every `SKILL.md` has valid frontmatter.
 - The test-framework install command is recorded in the recipe (project-initialiser runs it).
+- The recipe's **Release** section is filled, or explicitly `none` — `release` reads it as its default for the stack.
 - Real activation is confirmed later, when project-initialiser copies the master into a repo.

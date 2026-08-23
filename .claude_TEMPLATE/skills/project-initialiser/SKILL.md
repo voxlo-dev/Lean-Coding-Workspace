@@ -22,7 +22,7 @@ Onboard a repo end-to-end. Owns the **initial** doc creation (it does the deep e
    - developer docs? `docs/dev.md` — setup, env, build/debug workflows, dependency quirks: the engineering knowledge codegraph and tests don't capture.
    - product docs? `docs/product/` — end-user guides / reference, single source for any published site.
    - styleguide / design system? (offer only with a UI)
-   - changelog? `CHANGELOG.md` — **only with releases / external users, default off**; otherwise git history is the record.
+   - release runbook? `docs/release.md` — version carriers, build/publish targets, the security gate. **Only where the project publishes, default off**; `release` refuses to run without it. The changelog is not a doc — `release` composes it per version from the sprint archives.
 
    `ASSETS.md` is created **only if** the project has (or will have) a frontend using assets — decide it from the inventory. Record all decisions: they gate scaffolding, the AGENTS.md doc map and `maintain-docs` later — a "no" means `maintain-docs` ignores that doc too.
 
@@ -46,7 +46,7 @@ Onboard a repo end-to-end. Owns the **initial** doc creation (it does the deep e
    2. **Classify** each one; the kinds are what generalises, not the paths:
       - **Re-home** — still valid, only its slot changed: move/rename, content untouched.
       - **Rewrite in place** — `AGENTS.md` / `README.md` survive `cp -rn` and keep the OLD shape unless rewritten: rebuild the **Doc map** as the tiered table (only docs that exist), collapse living context to the one-line **Current sprint** pointer, repoint stale links.
-      - **Consolidate / split** — scattered `Key decisions` sections into `docs/decisions.md`, a `TODO.md` into tickets, per-sprint changelogs into the root `CHANGELOG.md` (or dropped, if there is none).
+      - **Consolidate / split** — scattered `Key decisions` sections into `docs/decisions.md`, a `TODO.md` into tickets, release/build instructions into `docs/release.md`. An existing `CHANGELOG.md` stays if users read it, but no skill maintains it — `release` composes each version's changelog from the sprint archives.
       - **No counterpart** — say so plainly; leave it, fold it in, or drop it, the user's call.
    3. **Propose the whole mapping as a short list and get the user's OK before touching files.** Ask about anything ambiguous.
    4. Execute, as a **separate commit** from anything else this run does.

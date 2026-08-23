@@ -43,7 +43,7 @@ Assume the user is capable, but lazy with words, because he can't type as fast a
 | superpowers | Brainstorm & spec phases; authoring any new reusable skill |
 | codegraph | Every structural / "how does X work" / impact question in an **indexed** project — it *replaces* file-reading exploration, so never spawn an Explore subagent for what the graph knows. Self-describes via its MCP server |
 | context7 | The default source for **upstream** docs (libraries, frameworks, SDKs, APIs) at implementation time — over recall, over WebSearch. No overlap with codegraph (*your* code) or maintain-docs (*your* docs) |
-| github | The GitHub API surface — issues, PRs, reviews, repo search (`gh` stays for local git) |
+| github *(optional)* | PRs, reviews, issues, repo search, secret scanning; dead without its token (`workspace-install` sets it up with `gh`). **No Actions, no release creation** — those, tagging and local git are `gh` |
 | plugin-dev | Building or refactoring workspace skills, domains, plugins, agents, hooks |
 
 ## Domains
@@ -94,11 +94,12 @@ Claude may invoke these when the user names one; the user can also run them with
 | superpowers | the full brainstorm → plan → implement framework (`superpowers/using-superpowers`) |
 | no workflow | none of these; relax the rules and work freely |
 | plan | **first**, whenever a fuzzy idea, draft or brainstorm transcript has to become concrete work |
-| close-sprint → open-sprint | at a release boundary, in that order |
+| close-sprint → open-sprint | at a sprint boundary, in that order |
+| release | a version's worth of scope sits on `main` and the project publishes — after the close, never inside a sprint |
 
 **Preflight — before starting any workflow:**
 
 - **Project initialised?** No `AGENTS.md` / template docs → recommend `project-initialiser` first.
-- **Which sprint?** `AGENTS.md` → **Current sprint**; run artifacts land in `artefacts/{sprint}/`. **A sprint is not a run:** it is the scope of a *release* and holds many runs, plans and specs — stay in the active one for the whole release, and recommend `close-sprint` → `open-sprint` only once it is actually done. A lone fix or maintenance pass needs no sprint.
+- **Which sprint?** `AGENTS.md` → **Current sprint**; run artifacts land in `artefacts/{sprint}/`. **A sprint is not a run:** it holds many runs, plans and specs — stay in the active one until its scope is done, then `close-sprint` → `open-sprint`. **Nor is it a release:** a version spans as many sprints as it needs, and `release` cuts it from `main` after. A lone fix or maintenance pass needs no sprint.
 - **Clean git tree?** Dirty → surface it and recommend committing, gitignoring or reverting so the run starts clean.
 - **Autonomy mode?** Ask once, applies to the whole run and is passed to the workflow: pause for review BEFORE each commit (default), or run autonomously. **Autonomy never covers plans & specs** — those are always user-validated before they drive implementation.
