@@ -24,7 +24,7 @@ The whole workflow is designed for a **weak (~30B) local model**: every agent ge
 
 Test code and production code go into the repo's normal source/test trees — not under `localagent/`. e2e writes a short report (`localagent/E2E.md`); docs are updated in place.
 
-Everything under `localagent/` is a **run record**: committed with the run and frozen afterwards — the docs step never edits it (see the project `AGENTS.md` doc map).
+Everything under `localagent/` is a **run record**: committed with the run and frozen once the sprint closes — the docs step never edits it (see the project `AGENTS.md` doc map).
 
 ## STATE.md — your entire working memory
 

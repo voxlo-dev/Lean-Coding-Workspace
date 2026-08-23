@@ -1,9 +1,11 @@
 # Decisions — sprint {slug}
 
-<!-- CONTRACT (binding):
+<!-- CONTRACT (binding — delete this comment with the first decision section; template:
+     `~/.claude/skills/plan/templates/SPRINT_DECISIONS_TEMPLATE.md`):
   - The reasoning behind every decision this sprint SETTLED — the detail behind the
     one-liners in `docs/decisions.md`. One `##` section each, ~15 lines, newest at the bottom.
-  - Exists only where the project has `docs/decisions.md`; NNNN comes from that index.
+  - Exists only where the project has `docs/decisions.md`; NNNN is the `Next decision` counter
+    at the top of that index, incremented as you take it.
   - WRITTEN LIVE: whoever settles a decision appends its section here and its index line there
     in the same move, so the rest of the sprint stops re-litigating it. Writers: `open-sprint`
     · `maintain-docs` · `close-sprint` (only what's still missing).

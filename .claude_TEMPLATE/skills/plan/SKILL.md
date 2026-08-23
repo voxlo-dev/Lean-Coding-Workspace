@@ -12,7 +12,7 @@ Turn a fuzzy idea into concrete, unambiguous work. **The output is tickets** —
 
 **Altitude — default product/UX, climb only when it earns it.** Stay at *what the user wants and why*. Rise to high-level **domain & architecture decisions** when the scope warrants — always in sprint mode, with real architecture at stake. Implementation is `spec-design`'s altitude: it turns a ticket into the technical *Pflichtenheft*.
 
-**Grounding — what already exists, rather than a source spelunk:** `backlog/backlog.md` (what's already captured, so you cut no duplicate), existing mockups (`docs/design/`), product docs, `AGENTS.md`, `docs/behaviour.md`, `docs/decisions.md`, `docs/architecture.md` (draft or filled), project memory, codegraph if indexed. Ground architecture decisions in what's there.
+**Grounding — what already exists, rather than a source spelunk:** `backlog/backlog.md` (what's already captured, so you cut no duplicate), **`docs/behaviour.md`** — this is the one step that reads it whole, as the overview of everything the product does; every later step works from the slice you cut out of it — existing mockups (`docs/design/`), product docs, `AGENTS.md`, `docs/decisions.md`, `docs/architecture.md` (draft or filled), project memory, codegraph if indexed. Ground architecture decisions in what's there.
 
 ## 1. Pick the starting point
 
@@ -43,7 +43,7 @@ Surface concerns and resolve them before writing anything.
 
 ## 5. Cut the tickets
 
-Copy `backlog/TICKET_TEMPLATE.md` → `backlog/T-NNN-{slug}.md`, next free number, never reused. Fill **only the sections that fit** — the optional ones (user story, links) earn their place or get dropped. Keep the ticket's altitude: *what* and *why*, ~1 page, solution design left to the spec. The file stays in `backlog/` for its whole life; boards only index it.
+Copy `templates/TICKET_TEMPLATE.md` → `backlog/T-NNN-{slug}.md`, taking **`Next ticket` from the top of `backlog.md` and incrementing it** — numbers are never reused, and nobody has to scan the folder to find the free one. Fill **only the sections that fit** — the optional ones (user story, links) earn their place or get dropped — and **delete the template's `CONTRACT` comment**, keeping its pointer line. Keep the ticket's altitude: *what* and *why*, ~1 page, solution design left to the spec. The file stays in `backlog/` for its whole life; boards only index it, and it stays editable until it dissolves.
 
 **Index each one exactly once**, its Summary line verbatim: not ready to pull → `backlog.md` **Draft** · refined and ready → `backlog.md` **Backlog** · going into the active sprint now → the sprint board at status `open` (that is the sprint scope).
 
@@ -51,7 +51,9 @@ Copy `backlog/TICKET_TEMPLATE.md` → `backlog/T-NNN-{slug}.md`, next free numbe
 
 ## 6. Sprint mode only — write the sprint file
 
-Copy `templates/SPRINT_TEMPLATE.md` → `artefacts/{sprint}/sprint.md` and fill the frame: goal, non-goals, the Decisions one-liners. Work detail lives in the tickets (the board shows one line each), decision rationale in `sprint-decisions.md` (copy `templates/SPRINT_DECISIONS_TEMPLATE.md` next to the sprint file, if the project has `docs/decisions.md`). Modifying an existing sprint file → edit the frame, leave the board alone.
+Copy `templates/SPRINT_TEMPLATE.md` → `artefacts/{sprint}/sprint.md` and fill the frame: goal, non-goals, **Behaviour context**, the Decisions one-liners. Work detail lives in the tickets (the board shows one line each), decision rationale in `sprint-decisions.md` (copy `templates/SPRINT_DECISIONS_TEMPLATE.md` next to the sprint file, if the project has `docs/decisions.md`). Modifying an existing sprint file → edit the frame, leave the board alone.
+
+**Behaviour context is the section that pays for itself.** You just read `docs/behaviour.md` whole; write down the slice this sprint works in — the rules and invariants its tickets touch, plus what shall change about them. Every `spec-design` run then grounds on that half page instead of re-reading the full rulebook, and `close-sprint` folds the sprint's deltas back in. Skip it only where the project has no `behaviour.md`.
 
 Get the user's approval on the ticket cut (and the frame, in sprint mode) — **always, even in autonomous mode**; planning is always user-validated.
 

@@ -103,7 +103,7 @@ Phase 4  → artefacts/{sprint}/e2e-report_{feature}.md
 codegraph → <repo>/.codegraph/                                      (index — owned by codegraph)
 ```
 
-Everything under `artefacts/` is a **run record**: committed with the run and frozen afterwards — `maintain-docs` only ever touches a `spec_*` file's Status/ACs (see the `AGENTS.md` doc map). `plan_{feature}.md` here is the orchestrator's own pair-plan — a Phase-1 run record, not to be confused with the `plan` skill, which produces tickets rather than a plan file.
+Everything under `artefacts/` is a **run record**: committed with its run, correctable while the sprint runs, frozen when `close-sprint` closes it — `maintain-docs` only ever touches a `spec_*` file's Status/ACs (see the `AGENTS.md` doc map). `plan_{feature}.md` here is the orchestrator's own pair-plan — a Phase-1 run record, not to be confused with the `plan` skill, which produces tickets rather than a plan file.
 
 ## Dispatcher Rules
 
