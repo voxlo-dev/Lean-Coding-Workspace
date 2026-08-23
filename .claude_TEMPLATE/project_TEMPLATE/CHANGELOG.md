@@ -1,6 +1,7 @@
 # Changelog
 
-<!-- CONTRACT (binding):
+<!-- CONTRACT (binding — delete this comment with the first release section; template:
+     `~/.claude/project_TEMPLATE/CHANGELOG.md`):
   - OPTIONAL doc, kept only where the project has releases / external users. Otherwise the
     git history (Conventional Commits) is the record and this file is deleted.
   - FORMAT: Keep a Changelog, curated to the USER's view — user-visible changes only, grouped

@@ -34,7 +34,7 @@
 
     <rect x="424" y="44" width="138" height="52" rx="8" fill="#eef2ff" stroke="#6366f1"/>
     <text x="493" y="68" text-anchor="middle" font-size="11" font-weight="600" fill="#312e81">spec-design</text>
-    <text x="493" y="84" text-anchor="middle" font-size="9.5" fill="#4f46e5">reads behaviour.md</text>
+    <text x="493" y="84" text-anchor="middle" font-size="9.5" fill="#4f46e5">reads the sprint file</text>
 
     <rect x="576" y="44" width="138" height="52" rx="8" fill="#eef2ff" stroke="#6366f1"/>
     <text x="645" y="68" text-anchor="middle" font-size="11" font-weight="600" fill="#312e81">dynamic-workflow</text>
@@ -124,5 +124,5 @@
   <text x="949" y="545" text-anchor="middle" font-size="9" fill="#9333ea">project · domain · global</text>
 
   <text x="120" y="596" font-size="9.5" fill="#64748b">/project-initialiser scaffolds every doc above once, before any of this — /workspace-install sets up the workspace itself.</text>
-  <text x="120" y="614" font-size="9.5" fill="#64748b">A ticket is written once and never edited; it travels left to right, its status token is where it sits, and /close-sprint dissolves it once its truth has graduated.</text>
+  <text x="120" y="614" font-size="9.5" fill="#64748b">A ticket stays editable for its whole life; it travels left to right, its status token is where it sits, and /close-sprint dissolves it once its truth has graduated.</text>
 </svg>

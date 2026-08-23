@@ -23,14 +23,14 @@ Read `AGENTS.md` → **Current sprint**.
 
 Invoke **`plan` in sprint-file mode** — it owns the planning dialogue, the architecture/domain decisions, the optional web research, the ticket cut, and (new project) the styleguide-level `ui-design` call. It writes `artefacts/{sprint}/sprint.md`: theme, architecture decisions, non-goals, and the board underneath.
 
-- **Ground it** for `plan`: **`backlog/backlog.md` first** (what's already open and waiting), then codegraph if indexed, `AGENTS.md`, `docs/architecture.md` (draft or filled), `docs/behaviour.md` and `docs/decisions.md` if present, project memory. For a brand-new project note the target instead and plan **wide**.
+- **Ground it** for `plan`: **`backlog/backlog.md` first** (what's already open and waiting), then **`docs/behaviour.md` read whole** — planning is the one step that takes the full product overview, and the slice it cuts becomes the sprint file's Behaviour context — then codegraph if indexed, `AGENTS.md`, `docs/architecture.md` (draft or filled), `docs/decisions.md` if present, project memory. For a brand-new project note the target instead and plan **wide**.
 - **A plan may already exist** (pasted from a Claude chat, a document, tickets already in the backlog) → feed it to `plan` as the basis.
 
 ## 2. Pull the scope onto the board
 
 The sprint scope **is** the board — one list, nowhere else.
 
-- Take from `backlog.md` **Backlog** (Draft first needs refining) plus whatever `plan` just cut, and move those lines onto the sprint board at status `open`. Delete them from `backlog.md`: a ticket is indexed in exactly one place. **The ticket files stay in `backlog/`** and the board links them.
+- Take from `backlog.md` **Backlog** (Draft first needs refining) plus whatever `plan` just cut, and move those lines onto the sprint board at status `open`. Delete them from `backlog.md` — a ticket is indexed in exactly one place — and leave its `Next ticket` counter as it is; numbers only ever go up. **The ticket files stay in `backlog/`** and the board links them.
 - **Respect `Depends on`** — pull a ticket only with its dependencies.
 - Size it against the sprint's theme rather than ambition. Anything not pulled stays in the backlog; that's the point of having one.
 
@@ -40,7 +40,7 @@ Get the user's approval on plan **and** pulled scope before moving on.
 
 - **New sprint branch** `<sprint-slug>` (one branch per sprint). Ask for the slug if unclear.
 - **`AGENTS.md`** — set **Current sprint** to the new slug, the only living pointer here; goals live in the sprint file.
-- **Record what the planning settled** (if the project has `docs/decisions.md`) — per decision: a `##` section with the reasoning in `artefacts/{sprint}/sprint-decisions.md`, a one-liner in the sprint file's **Decisions** section, and one `accepted` line in `docs/decisions.md` (next free `NNNN`, linking the sprint-decisions file). Index lines stay rationale-free. Anything still open is a `decision` ticket on the board.
+- **Record what the planning settled** (if the project has `docs/decisions.md`) — per decision: a `##` section with the reasoning in `artefacts/{sprint}/sprint-decisions.md`, a one-liner in the sprint file's **Decisions** section, and one `accepted` line in `docs/decisions.md`, taking **`Next decision` from the top of that file and incrementing it**. Index lines stay rationale-free. Anything still open is a `decision` ticket on the board.
 
 Then hand off to `dynamic-workflow` (spec each ticket on the board) — or `minimal-workflow` for the small stuff; `spec-design` reads the ticket as its requirements basis.
 

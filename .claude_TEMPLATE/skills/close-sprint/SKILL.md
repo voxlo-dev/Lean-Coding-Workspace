@@ -1,6 +1,6 @@
 ---
 name: close-sprint
-description: "Use to close the active sprint (release scope): clear the kanban board (finish or carry over) → optional code review of the whole sprint diff → distil and dissolve the done tickets → batched maintain-docs pass → changelog cut → merge/PR to main. Never touches product code. Hands off to open-sprint for the next sprint. Invokable by Claude or via /close-sprint."
+description: "Use to close the active sprint (release scope): clear the kanban board (finish or carry over) → distil and dissolve the done tickets → batched maintain-docs pass, behaviour.md first → changelog cut → merge to main. Never touches product code. Hands off to open-sprint for the next sprint. Invokable by Claude or via /close-sprint."
 ---
 
 # Close Sprint
@@ -24,13 +24,13 @@ Then the scope check — **read-light, run nothing new:**
 
 - Every `spec_*` in the sprint folder at **Status: done**?
 - Tests green: the unit suite passes and the existing **e2e reports** (`e2e-run_*` / `e2e-report_*`) are green — the existing ones, no fresh run.
-- `docs/behaviour.md` current? — **estimate, don't read**: scan the sprint's git history for `behaviour.md` changes matching the code changes. Code moved but behaviour didn't → flag it (behaviour drift is the classic rot). Step 4 covers the other docs.
+- Every spec's **Behaviour delta** filled where the project has a `behaviour.md`? That is what step 4 folds into the rulebook, so a spec that shipped behaviour without recording it is the gap to catch here.
 
-**Anything missing → STOP.** List exactly what's open and hand the fix back as a recommendation ("spec-X still draft → `dynamic-workflow`", "behaviour drifted → `maintain-docs`").
+**Anything missing → STOP.** List exactly what's open and hand the fix back as a recommendation ("spec-X still draft → `dynamic-workflow`", "spec-Y ships behaviour but records no delta → back to the run that wrote it").
 
-## 2. Code review *(optional — ask the user)*
+## 2. Code review *(only when the project's version-control rules call for it)*
 
-The one place the sprint gets judged **as a whole**; individual runs only ever saw their own package. Ask once — recommend it when the sprint shipped real feature work or touched shared/core code, skip it for a tiny or docs-only sprint.
+The one place the sprint gets judged **as a whole**; individual runs only ever saw their own package. **On a solo project this is off by default — don't ask**, run it only when the user asks for it. Where the rules prescribe review before merge (opensource / enterprise flow), run it whenever the sprint shipped real feature work or touched shared/core code.
 
 - **Scope:** the cumulative diff against `main` (`main...<sprint-branch>`), not the last commit.
 - **How:** the repo's review command (`/code-review`) or `superpowers:requesting-code-review`. Nothing available → review the diff yourself, prioritised: cross-package seams and duplication first (the classic sprint-level defect per-run reviews can't see), then correctness, then the workspace code-style rules.
@@ -44,13 +44,13 @@ The board is now all **done**. Each ticket left durable truth behind — graduat
 
 - **`decision` tickets** → a `##` section in `artefacts/{sprint}/sprint-decisions.md` (forces, what was decided, why over the alternatives) plus one `accepted` line in `docs/decisions.md`. Normally written the moment the decision was settled; here you only catch what slipped.
 - **Everything user-visible** → a line under `[Unreleased]` in `CHANGELOG.md` (if present), unless the run already added it.
-- Behaviour deltas are already in `docs/behaviour.md` — leave them as they are.
+- **Behaviour** is step 4's job — the specs' deltas and the sprint file's Behaviour context go into `docs/behaviour.md` in one pass, so don't pre-empt it here.
 
 **Dissolve** — once that holds, **delete the ticket files of every done ticket** from `backlog/`, and those only; a carried-over ticket is still open and stays. Their lines remain on the frozen board as the record of what shipped, the reasoning lives in the docs it graduated into, git history keeps the rest. This is what keeps `backlog/` bounded.
 
 ## 4. Batched docs pass
 
-Invoke **`maintain-docs` in sprint-close mode**: the low-churn docs nobody reads *during* a sprint — `architecture.md`, `dev.md`, `product/`, `ASSETS.md` — written once from the whole sprint at once, which reads better than five separate deltas.
+Invoke **`maintain-docs` in sprint-close mode**: `docs/behaviour.md` first — fold every spec's Behaviour delta into the rulebook in one pass — then the low-churn docs nobody reads *during* a sprint (`architecture.md`, `dev.md`, `product/`, `ASSETS.md`). Written from the whole sprint at once, which reads better than five separate deltas and keeps `behaviour.md` a usable overview rather than a pile of edits.
 
 ## 5. Record what shipped
 
@@ -59,7 +59,7 @@ Invoke **`maintain-docs` in sprint-close mode**: the low-churn docs nobody reads
 
 ## 6. Release / deploy *(reserved)*
 
-- **Integrate per the project's Version Control rules** (CLAUDE.md / AGENTS.md): a **PR to `main`** with the changelog, or a direct merge of the sprint branch — whichever the rules specify.
+- **Integrate per the project's Version Control rules** (CLAUDE.md / AGENTS.md). **Solo default: merge the sprint branch straight into `main`** and say so — no PR, no approval round. Where the rules prescribe the PR flow, open the PR with the changelog instead.
 - ToDo: placeholder for a future `release` skill (build, deploy, tag). For now say it's not wired yet and **pause** — the user runs any release step manually.
 
 ## Handoff & boundaries

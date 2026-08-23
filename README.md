@@ -68,7 +68,7 @@ gate applies to code only.
 | Skill | Reach for it |
 | --- | --- |
 | `/minimal-workflow` | one small, well-scoped change or bugfix — no spec |
-| `/dynamic-workflow` | the default for real features: spec → implement → optional e2e → docs → memory → PR |
+| `/dynamic-workflow` | the default for real features: spec → implement → green suite → optional e2e → docs → memory → board |
 | `/orchestrator-workflow` | (experimental) large, parallelisable work; pair-planning, work packages, parallel subagents, E2E loop |
 | `/localagent-workflow` | (experimental) a build that must stay robust on a weak or local (~30B) model: sequential, context-frugal, forced TDD |
 | `/plan` | **first**, whenever a fuzzy idea or brainstorm has to become concrete work. Output is tickets, never a plan file |
@@ -89,12 +89,14 @@ Supporting skills, mostly invoked by the workflows rather than by you:
 ## Work items — the Markdown kanban
 
 Every unit of work is a **ticket** file: `backlog/T-NNN-{slug}.md`, holding *what* and *why*,
-category, importance, effort and dependencies. A ticket is written once and then frozen.
+category, importance, effort and dependencies. A ticket stays editable for its whole life — what
+is fixed is its altitude, not its wording.
 
 The file never moves. Boards only *index* it, and it appears on exactly one of them:
 
 - **`backlog/backlog.md`** — living, survives sprints. Columns **Draft** · **Backlog**: everything
-  not yet pulled. Open *decisions* live here too, as `decision` tickets.
+  not yet pulled. Open *decisions* live here too, as `decision` tickets, and the next free ticket
+  number sits at the top so no run has to derive it.
 - **`artefacts/{sprint}/sprint.md`** — the sprint file: plan on top, board underneath. One line per
   ticket carrying a status token **open · active · to test · done**. That board *is* the sprint
   scope, and it freezes when the sprint closes.
@@ -111,8 +113,9 @@ append-only index that keeps "what is already decided here?" a single cheap read
 
 **A sprint is not a run.** It is the scope of a release and holds many runs, plans and specs.
 `/open-sprint` pulls tickets from the backlog onto a fresh board and cuts a branch;
-`/close-sprint` clears the board, optionally reviews the whole sprint diff, distils what shipped
-into the durable docs, cuts the changelog, and merges.
+`/close-sprint` clears the board, distils what shipped into the durable docs, cuts the changelog,
+and merges. Everything in `artefacts/{sprint}/` stays correctable while the sprint runs and freezes
+only at close — a spec is the sprint's working truth, not an archive from the moment it is written.
 
 ## How it all connects
 
@@ -141,16 +144,16 @@ project/
 ├── AGENTS.md              ← domain, structure, code style, current sprint (for contributors & agents)
 ├── README.md              ← for your users
 ├── backlog/               ← LIVING: open work, dissolved once it ships
-│   ├── backlog.md         ←   index of everything not yet pulled into a sprint
-│   └── T-NNN-{slug}.md    ←   one file per unit of work, frozen once written
+│   ├── backlog.md         ←   index of everything not yet pulled + the ticket counter
+│   └── T-NNN-{slug}.md    ←   one file per unit of work
 ├── docs/                  ← DURABLE: truth about the shipped system
-│   ├── behaviour.md       ←   how the product behaves, as a rulebook
-│   ├── decisions.md       ←   settled decisions, one line each
+│   ├── behaviour.md       ←   how the product behaves, as a rulebook — written at sprint close
+│   ├── decisions.md       ←   settled decisions, one line each + the decision counter
 │   ├── architecture.md    ←   planned/implemented structure
 │   ├── dev.md             ←   setup, env, build/debug, dependency quirks
 │   └── product/           ←   end-user docs
-└── artefacts/{sprint}/    ← EPHEMERAL: frozen per sprint
-    ├── sprint.md          ←   the sprint file: plan + kanban board
+└── artefacts/{sprint}/    ← EPHEMERAL: live for the sprint, frozen at its close
+    ├── sprint.md          ←   the sprint file: frame, behaviour context, kanban board
     ├── sprint-decisions.md ←  the reasoning behind what this sprint settled
     └── spec_*.md …        ←   specs, e2e files, reports
 ```

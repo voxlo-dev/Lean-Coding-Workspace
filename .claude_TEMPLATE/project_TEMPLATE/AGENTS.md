@@ -32,9 +32,9 @@ Agent-agnostic project guide — the single source for domain, structure and cod
 
 Docs are split by **lifespan**, and every fact has exactly one home:
 
-- **durable** — `docs/`, truth about the shipped system, versioned with the code
-- **living** — `backlog/`, open work, carried across sprints, dissolved once shipped
-- **ephemeral** — `artefacts/`, process memory, frozen per sprint
+- **durable** — `docs/`, truth about the shipped system, versioned with the code. Stands on its own: no durable doc links into `artefacts/`, the one exception being `docs/decisions.md`
+- **living** — `backlog/`, open work, carried across sprints, editable throughout, dissolved once shipped
+- **ephemeral** — `artefacts/`, process memory: live for the running sprint, frozen when `close-sprint` closes it
 
 Rows in `{}` are optional and exist only where the project opted in — drop the row and the braces so the table lists the docs that are actually there.
 
@@ -42,17 +42,17 @@ Rows in `{}` are optional and exist only where the project opted in — drop the
 | --- | --- | --- |
 | `README.md` | — | user-facing entry point |
 | `AGENTS.md` | — | this file: domain, structure, code style, conventions |
-| {`docs/behaviour.md`} | durable | SSOT for how the *shipped* product behaves — rules, invariants, per-screen interaction contracts. Specs are deltas against this |
-| {`docs/decisions.md`} | durable | one line per settled decision, newest on top — the cheap read for "what is already decided here?", so agents skip re-litigating. The rationale lives in the sprint that settled it (`artefacts/{sprint}/sprint-decisions.md`), linked per line |
+| {`docs/behaviour.md`} | durable | SSOT for how the *shipped* product behaves — rules, invariants, per-screen interaction contracts. The whole-product overview `plan` reads; written once per sprint, at close. During a sprint its working slice is the sprint file's **Behaviour context**, and the specs' deltas against it |
+| {`docs/decisions.md`} | durable | one line per settled decision, newest on top — the cheap read for "what is already decided here?", so agents skip re-litigating. Carries the `Next decision` counter. The rationale lives in the sprint that settled it (`artefacts/{sprint}/sprint-decisions.md`), linked per line — the one durable doc that may point into `artefacts/` |
 | {`docs/architecture.md`} | durable | planned/implemented software structure: big picture, systems, subsystems |
 | {`docs/dev.md`} | durable | engineering knowledge code/tests/codegraph miss: setup, env, build/debug workflows, dependency quirks (bugs & todos become tickets) |
 | {`docs/product/`} | durable | end-user docs (Diátaxis); single source for the wiki/docs-site, published from CI |
 | {`docs/design/`} | durable | `Styleguide.html`, the design system (per-feature mockups live with their specs) |
 | {`ASSETS.md`} | — | asset inventory — consult it before searching the asset tree |
 | {`CHANGELOG.md`} | durable | user-facing changelog per release (only with releases / external users) |
-| `backlog/` | living | one file per ticket (`T-NNN-{slug}.md`): *what* and *why*, category, importance, effort, dependencies — written once, then frozen. The file stays put from capture until `close-sprint` **dissolves** it; boards only ever index it. `backlog.md` lists what is not yet pulled into a sprint (Draft · Backlog), open decisions included as `decision` tickets |
-| `artefacts/{sprint}/` | ephemeral | every workflow run artifact, bound to its sprint — type as filename prefix (`spec_` `user-stories_` `e2e_` `e2e-run_` `impl-report_` `handover_` `e2e-report_`), committed and frozen after the run. Two files keep living until `close-sprint` freezes them with the sprint: `sprint.md` (frame + board, one line per ticket with an `open`/`active`/`to test`/`done` token) and `sprint-decisions.md` (the reasoning behind each decision settled this sprint, indexed one line each in `docs/decisions.md`) |
-| {`localagent/`} | ephemeral | localagent-workflow run records (PLAN/STATE/units) — frozen after the run |
+| `backlog/` | living | one file per ticket (`T-NNN-{slug}.md`): *what* and *why*, category, importance, effort, dependencies — sharpened whenever understanding improves, never frozen. The file stays put from capture until `close-sprint` **dissolves** it; boards only ever index it. `backlog.md` lists what is not yet pulled into a sprint (Draft · Backlog), open decisions included as `decision` tickets, and carries the `Next ticket` counter |
+| `artefacts/{sprint}/` | ephemeral | every workflow run artifact, bound to its sprint — type as filename prefix (`spec_` `user-stories_` `e2e_` `e2e-run_` `impl-report_` `handover_` `e2e-report_`), committed with its run and **correctable until `close-sprint` freezes the whole folder**. The sprint's live core: `sprint.md` (frame with the **Behaviour context**, plus the board, one line per ticket with an `open`/`active`/`to test`/`done` token), `sprint-decisions.md` (the reasoning behind each decision settled this sprint, indexed one line each in `docs/decisions.md`) and the `spec_*` behaviour deltas the next spec grounds on |
+| {`localagent/`} | ephemeral | localagent-workflow run records (PLAN/STATE/units) — frozen with the sprint |
 
 ## Current sprint
 

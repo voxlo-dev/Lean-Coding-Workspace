@@ -2,8 +2,10 @@
 
 Date: {YYYY-MM-DD} · Status: {draft | approved | done} · Tickets: {`T-NNN`, … it implements — else —}
 
-Feature spec for `dynamic-workflow` — the *Pflichtenheft*, written by `spec-design`.
-**A throwaway artifact:** its durable truth graduates at the docs step — behaviour →
+Feature spec for `dynamic-workflow` — the *Pflichtenheft*, written by `spec-design`
+(template: `~/.claude/skills/spec-design/templates/SPEC_TEMPLATE.md`).
+**A throwaway artifact:** it stays live for the sprint — later specs read its Behaviour delta
+as current truth — and its durable truth graduates at sprint close: behaviour →
 `behaviour.md`, structure → `architecture.md`, decisions → `decisions.md`. Keep it lean and
 implementation-facing.
 
@@ -24,8 +26,10 @@ path; link to `docs/architecture.md` if relevant.}
 ## Behaviour delta
 
 {the product-semantic change this spec introduces — the rules / invariants / interaction
-contracts it adds or alters against `docs/behaviour.md`. The spec's core; the acceptance
-criteria below are its testable form. Keep it wherever the project has a `behaviour.md`.}
+contracts it adds or alters against the sprint file's **Behaviour context**. The spec's core,
+and the sprint's current truth until `close-sprint` folds it into `docs/behaviour.md`; the
+acceptance criteria below are its testable form. Keep it wherever the project has a
+`behaviour.md`.}
 
 ## Components
 
@@ -49,15 +53,23 @@ Decided by `spec-design`; the pipeline follows it without re-deciding.
 
 ## Implement packages
 
-One or more, run in order, commit after each. This is the only work-package axis to size.
-Where the spec covers several tickets, name the ticket each package serves — that is what
-tells the workflow when a ticket may go to `to test`.
+One or more, run in order, commit after each. This is the only work-package axis to size —
+cut by coherent unit of work, never by what happens to be independently testable. Where the
+spec covers several tickets, name the ticket each package serves: that is what tells the
+workflow when a ticket may go to `to test`.
+
+**Each package carries its own acceptance criteria** — the observable outcome that makes it
+done, and the bar a subagent is judged against. Tests are one criterion among them; the suite
+as a whole goes green once, at the end of the run.
 
 - **{package name}** — {what it builds} · ticket: {`T-NNN` or —} · files: {paths to read/touch}
+  - [ ] {observable outcome that makes this package done}
+  - [ ] {…}
 
 ## Acceptance criteria
 
-The testable form of the **Behaviour delta** — each rule/invariant above should map to a check.
+The testable form of the **Behaviour delta**, for the feature as a whole — each rule/invariant
+above should map to a check. Per-package criteria live with their package.
 
 - [ ] {observable, testable outcome}
 - [ ] {…}
@@ -65,5 +77,5 @@ The testable form of the **Behaviour delta** — each rule/invariant above shoul
 ## Open questions
 
 {unresolved points; remove when none. A real *decision* — an architecture/product choice with
-trade-offs — becomes a `decision` ticket in `backlog/`, linked here, rather than living in this
-frozen spec. Its outcome is later written into `artefacts/{sprint}/sprint-decisions.md`.}
+trade-offs — becomes a `decision` ticket in `backlog/`, linked here, rather than being settled
+in a spec. Its outcome is written into `artefacts/{sprint}/sprint-decisions.md`.}

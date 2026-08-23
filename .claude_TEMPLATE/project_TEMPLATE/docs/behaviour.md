@@ -1,16 +1,21 @@
 # Behaviour — {project name}
 
-<!-- CONTRACT (binding — the section layout below is only a suggestion, this header is not):
+<!-- CONTRACT (binding — the section layout below is only a suggestion, this header is not.
+     Delete this comment once the doc holds real rules; template:
+     `~/.claude/project_TEMPLATE/docs/behaviour.md`):
   - PURPOSE: single source of truth for how the *shipped* product behaves — product
-    semantics as a rulebook. Agents and developers read this to know the current truth.
-  - WHO WRITES: `maintain-docs`, the behaviour *delta* at each feature's docs step. A spec is
-    a throwaway describing that delta; THIS doc carries the state.
-  - READ THIS FIRST: `spec-design` grounds new work here, so the current truth stays readable
-    in one place instead of reassembled from stacked spec addenda.
+    semantics as a rulebook, and the overview of everything the product does.
+  - WHO WRITES: `maintain-docs` in sprint-close mode, once per sprint, folding in the deltas
+    the sprint's `spec_*` files recorded. A spec is a throwaway describing one delta; THIS doc
+    carries the state, and writing it in one pass keeps it a readable whole.
+  - WHO READS: `plan` reads it whole, as the product overview it cuts each sprint's
+    **Behaviour context** from. `spec-design` works from that slice and reads a section here
+    only when the slice falls short — never the file wholesale.
   - WHAT GOES IN: declarative rules, invariants, per-screen interaction contracts — present
-    tense, current truth.
+    tense, current truth. Obsolete rules get deleted, never annotated.
   - WHAT STAYS OUT: prose narrative, history/changelog, rationale (→ `decisions.md`),
-    structure/components (→ `architecture.md`), implementation detail.
+    structure/components (→ `architecture.md`), implementation detail, links into
+    `artefacts/`.
   - STRUCTURE: organise by whatever fits the product — screen, feature area, rule domain. The
     blocks below are FORM PATTERNS: replace them with what fits, delete the rest.
   - SPLIT at ~300–500 lines → one file per area under `behaviour/`, this stays the index.
