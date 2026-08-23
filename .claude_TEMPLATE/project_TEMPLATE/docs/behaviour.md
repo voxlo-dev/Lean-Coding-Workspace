@@ -7,10 +7,10 @@
     semantics as a rulebook, and the overview of everything the product does.
   - WHO WRITES: `maintain-docs` in sprint-close mode, once per sprint, folding in the deltas
     the sprint's `spec_*` files recorded. A spec is a throwaway describing one delta; THIS doc
-    carries the state, and writing it in one pass keeps it a readable whole.
-  - WHO READS: `plan` reads it whole, as the product overview it cuts each sprint's
-    **Behaviour context** from. `spec-design` works from that slice and reads a section here
-    only when the slice falls short — never the file wholesale.
+    carries the state.
+  - WHO READS: `plan`, whole — it cuts each sprint's **Behaviour context** from here.
+    `spec-design` works from that slice, reading a section here only when the slice falls
+    short, never wholesale.
   - WHAT GOES IN: declarative rules, invariants, per-screen interaction contracts — present
     tense, current truth. Obsolete rules get deleted, never annotated.
   - WHAT STAYS OUT: prose narrative, history/changelog, rationale (→ `decisions.md`),

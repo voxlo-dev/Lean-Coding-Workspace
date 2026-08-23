@@ -12,8 +12,8 @@
     points at, and it works for decisions that never had a ticket.
   - Settled only. An open question is *work*: a `decision` ticket on a board.
   - Append-only. To overturn, append the new decision and mark the old line
-    `superseded by NNNN`. This is the one doc that records history — everywhere else,
-    obsolete truth is deleted rather than annotated.
+    `superseded by NNNN`. The one doc that records history; everywhere else obsolete truth is
+    deleted, not annotated.
   - Writers: `open-sprint` (what the planning settled) · `maintain-docs` (settled inside a
     run) · `close-sprint` (any done `decision` ticket not yet recorded). Each writes the
     `sprint-decisions.md` section and this line in the same move.

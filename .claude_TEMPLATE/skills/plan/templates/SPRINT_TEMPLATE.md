@@ -22,10 +22,8 @@ Date: {YYYY-MM-DD} · template: `~/.claude/skills/plan/templates/SPRINT_TEMPLATE
 ## Behaviour context
 
 {the slice of `docs/behaviour.md` this sprint works in — the rules and invariants its tickets
-touch, and what shall change about them. Cut by `plan` from the full rulebook so that
-`spec-design` grounds on half a page instead of the whole doc; `close-sprint` folds the
-sprint's deltas back into `behaviour.md`. Drop the section where the project has no
-`behaviour.md`.}
+touch, and what shall change. `spec-design` grounds here instead of the full rulebook;
+`close-sprint` folds the deltas back. Drop where the project has no `behaviour.md`.}
 
 ## (UI) flow *(optional)*
 
