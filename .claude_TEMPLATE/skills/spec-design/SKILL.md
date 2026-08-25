@@ -1,6 +1,6 @@
 ---
 name: spec-design
-description: "Stage 1 of dynamic-workflow: brainstorm a feature, design its UI if any, decide the test and implementation strategy, then write the spec. The spec's decisions drive the whole pipeline, so decide deliberately here."
+description: "Stage 1 of dynamic-workflow: brainstorm a feature, design its UI if any, decide its testing preset and delegation, then write the spec. The spec's decisions drive the whole pipeline, so decide deliberately here."
 ---
 
 # Spec Design
@@ -19,19 +19,27 @@ Turn an idea or plan into a spec that **fixes every downstream decision** — th
    - **No design system yet?** It establishes the styleguide first — brand & tone, palette, type, spacing, theming, components as atoms + patterns → `docs/design/Styleguide.html`. Every later feature designs against it, so it comes before any feature mockup.
    - **Then** lay out *this* feature's mockup against that styleguide — UX-first: rework the layout or regroup elements where that serves the experience.
    - Capture the mockup (and a link to the styleguide) in the spec's UI section.
-3. **Decide the test strategy** — a coverage level, plus whether e2e is needed:
-   - **none** · **smoke** (a fixed, committed smoke script) · **core** (key flows, no redundancy) · **full-TDD** (red-green-refactor throughout).
-   - **smoke = a committed smoke script.** One reusable script per feature (`test/smoke/{feature}.*` or the framework's equivalent): **setup → run the happy path → assert → tear down its own state**. The implement package writes it; it joins the test suite and reruns on every later change with one command. Record which happy path it must cover.
-   - **Recommended default: core, technique `direct`.** Reserve **full-TDD** for logic-heavy, spec-stable units (algorithms, state machines, parsers) — inline TDD costs context without independent bug-finding, since the same model writes test and code from the same understanding, so its tests confirm assumptions rather than catch them.
-   - **e2e? yes / no** — orthogonal, pairs with any level.
-   - Record the level and **which modules / components must be tested**, at that altitude rather than as test code: the implement packages write the tests themselves (with `direct` alongside or right after the package's code, with `tdd` red-green upfront), so there is no separate test stage. The suite goes green **once, at the end of the run**, so never size a package around its testability. If e2e is in scope, write the **e2e test case as its own Markdown file**: seed `artefacts/{sprint}/e2e_{feature}.md` from the `e2e` skill's `templates/e2e-testcase.md` (When → Then steps) for that skill to consume.
-   - **Confirm the strategy with the user via `AskUserQuestion`** — recommended level (and e2e yes/no) as the lead option with the alternatives.
-4. **Decide the implementation strategy** — two **orthogonal** choices, both recorded in the spec:
-   - **Technique** (how each package is built): **direct** (write the code, then its package tests to the recorded level) · **tdd** (`superpowers:test-driven-development`, only when the test strategy is full-TDD) · **debugging** (`superpowers:systematic-debugging`, for bugfix-shaped work).
-   - **Execution** (who holds the context): **inline** — the main thread does the work · **subagent-driven** — each package goes to a fresh subagent so the orchestrator's context stays clean across many packages. Independent of the technique. **Strongly recommended from ≥3 packages**, or whenever context pressure is likely. If subagent-driven, pick the flavour: **dynamic** — the compact sequential loop built into `dynamic-workflow` (the default) · **full** — `superpowers:subagent-driven-development` (adds per-task spec + code-quality review subagents; heavier, stricter).
-   - **Confirm technique + execution with the user via `AskUserQuestion`** — lead with your recommendation and its rationale before it's locked into the spec.
-5. **Write the spec** — copy `templates/SPEC_TEMPLATE.md` to `artefacts/{sprint}/spec_{feature}.md` (ask for the current sprint if unclear), fill it, and size the **implement packages** (≥1; one is allowed, large independent work takes more — and ≥3 is the signal for **subagent-driven** execution).
+3. **Decide the testing** — one preset (coverage *and* when the tests are written), plus whether e2e is needed:
+
+   | Preset | What the implement packages do |
+   | --- | --- |
+   | none | no tests |
+   | smoke | one committed script per feature (`test/smoke/{feature}.*` or the framework's equivalent): setup → happy path → assert → tear down its own state. Joins the suite, reruns with one command on every later change; record which happy path it covers |
+   | core | key flows, no redundancy — each package writes its tests alongside or right after its own code |
+   | light-tdd | core coverage upfront: package 1 lands the signatures and the tests and confirms red, the later packages turn them green |
+   | strict-tdd | full coverage, red-green-refactor per unit via `superpowers:test-driven-development` |
+
+   - **Default: `light-tdd` where the feature carries real logic, `core` for UI, glue and thin CRUD.** Reserve `strict-tdd` for logic-heavy, spec-stable units (algorithms, state machines, parsers): per-unit red-green costs context without independent bug-finding, since one model writes test and code from the same understanding, so its tests confirm assumptions rather than catch them. `light-tdd` buys that back for one package of overhead — the tests exist before any implementation, delegated even from an agent that never sees it.
+   - **e2e? yes / no** — orthogonal, pairs with any preset.
+   - Record the preset and **which modules / components must be tested**, at that altitude rather than as test code — the implement packages write the tests themselves, so there is no separate test stage. The suite goes green **once, at the end of the run**, so never size a package around its testability. If e2e is in scope, write the **e2e test case as its own Markdown file**: seed `artefacts/{sprint}/e2e_{feature}.md` from the `e2e` skill's `templates/e2e-testcase.md` (When → Then steps) for that skill to consume.
+   - **Confirm with the user via `AskUserQuestion`** — recommended preset (and e2e yes/no) as the lead option with the alternatives. **Name the skill an option pulls in** (`strict-tdd` → `superpowers:test-driven-development`), so its cost is visible at the pick.
+4. **Decide the delegation** — who holds the context while the packages are built: **inline** (the main thread does the work) · **delegated** (each package goes to a fresh subagent via `dynamic-workflow`'s sequential loop, so the orchestrator's context stays clean) · **delegated+review** (`superpowers:subagent-driven-development` — adds per-task spec and code-quality review subagents; heavier, stricter).
+   - **Delegated from ≥3 packages**, or whenever context pressure is likely. It is also what makes `light-tdd` bite hardest: the tests come from an agent with no implementation in its context.
+   - **Confirm with the user via `AskUserQuestion`** — lead with your recommendation and its rationale, again naming the skill an option pulls in (`delegated+review` → `superpowers:subagent-driven-development`).
+5. **Write the spec** — copy `templates/SPEC_TEMPLATE.md` to `artefacts/{sprint}/spec_{feature}.md` (ask for the current sprint if unclear), fill it, and size the **implement packages** (≥1; one is allowed, large independent work takes more — and ≥3 is the signal for **delegated**).
    - **Every package carries its own acceptance criteria** — the observable outcome that makes it done, and the bar a subagent is judged against. Cut packages by coherent unit of work.
+   - **With `light-tdd`, package 1 is the contract & tests package**: the signatures, types and stubs the **Components** section fixes, plus the tests for the recorded modules, no logic. Its criterion is a red suite failing on missing implementation; every later package names the tests it turns green — so settle the Components interfaces *here*, don't leave them to the implementation.
+   - **A bugfix-shaped package runs `superpowers:systematic-debugging`**, whatever the preset says — mark it in the package line.
    - Delete the template's guidance comments as you fill it, keeping the pointer line.
 
 Return to `dynamic-workflow`, which owns the review pause and the spec commit. **The spec review is mandatory even in autonomous mode** — a spec, like a plan, is always user-validated before it drives implementation.

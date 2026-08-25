@@ -43,11 +43,10 @@ linked from `docs/design/mockups/`, designed against `docs/design/Styleguide.htm
 
 Decided by `spec-design`; the pipeline follows it without re-deciding.
 
-- **Test:** {none | smoke | core | full-TDD} · **e2e:** {yes | no}
+- **Testing:** {none | smoke | core | light-tdd | strict-tdd} · **e2e:** {yes | no}
+- **Test scope:** {which modules / components the tests must cover — not concrete tests}
 - **Smoke script:** {if smoke — path of the committed smoke script the package writes & the happy path it covers, e.g. `scripts/smoke/{feature}.*`; else —}
-- **Modules to test:** {which modules / components the tests must cover — not concrete tests}
-- **Implementation — technique:** {direct | tdd | debugging}
-- **Implementation — execution:** {inline | subagent-driven: dynamic | subagent-driven: full}
+- **Delegation:** {inline | delegated | delegated+review}
 - **e2e test case:** {if e2e, link the handoff file `artefacts/{sprint}/e2e_{feature}.md`}
 
 ## Implement packages
@@ -58,7 +57,9 @@ spec covers several tickets, name the ticket each package serves: that is what t
 workflow when a ticket may go to `to test`.
 
 **Each package carries its own acceptance criteria** — the observable outcome that makes it
-done. Tests are one criterion; the suite goes green once, at the end of the run.
+done. Tests are one criterion; the suite goes green once, at the end of the run. With
+`light-tdd`, package 1 is the contract & tests package (signatures + tests, confirmed red) and
+every later package names the tests it turns green.
 
 - **{package name}** — {what it builds} · ticket: {`T-NNN` or —} · files: {paths to read/touch}
   - [ ] {observable outcome that makes this package done}
