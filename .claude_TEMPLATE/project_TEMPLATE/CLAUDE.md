@@ -1,8 +1,9 @@
 # {project name} — Claude Code
 
 @./AGENTS.md
+@./CHECKPOINT.local.md
 
-`AGENTS.md` is the agent-agnostic source of truth.
+`AGENTS.md` is the agent-agnostic source of truth. `CHECKPOINT.local.md`, where one exists, is the previous chat's handout: untracked, deleted once used (`checkpoint`).
 
 ## Claude-Code-specific overrides
 
