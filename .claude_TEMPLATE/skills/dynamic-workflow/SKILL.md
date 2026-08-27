@@ -12,7 +12,7 @@ description: "Use for feature work or any change that warrants a spec. spec-desi
 
    Whenever a package leans on a third-party library/framework/API, look up current usage via **context7** rather than trusting recall — subagent handoffs get the same instruction. Preset and delegation are **fixed**; the sanctioned deviations are a package the spec marks bugfix-shaped, and a failing or buggy one → `superpowers:systematic-debugging`, then resume. **Announce any skill that activates mid-run, and why** — the user picked the preset, not this.
 3. **Green** — every package done → run the **full suite**, loop to green, commit the fixes. The run's hard gate: an in-flight package may leave a red test, a finished run may not. Failure → `superpowers:systematic-debugging`, then re-run.
-4. **e2e** (optional) — only if the spec's testing includes it → invoke `e2e` (delegated: hand it to an e2e / browser subagent). A red result sends you back to step 2.
+4. **e2e** (optional) — only if the spec's testing includes it → invoke `e2e`. **Always hand it to an e2e / browser subagent**, whatever the spec's delegation says: an e2e run is self-contained and token-hungry, so it never belongs in the main thread. A red result sends you back to step 2.
 5. **Docs** — invoke `maintain-docs` in **per-run mode** (delegated: hand it to a docs subagent), then commit. `behaviour.md` and the low-churn docs are `close-sprint`'s batch.
 6. **Memory** — invoke `maintain-memory`.
 7. **Board** — flip **every ticket the spec implemented** to `to test` (straight to `done` if the e2e step already verified it). A ticket whose packages aren't all done keeps its status. Flip the word, leave every other file alone. Something worth doing but out of scope → capture it as a ticket in `backlog/`.
@@ -41,7 +41,7 @@ Used when the spec's delegation is **delegated**. The point is **context managem
 2. **Report** — the subagent implements, checks its acceptance criteria, commits, and returns a short report (what it did, criteria met, test state, concerns). You read the **report, not the diff**.
 3. **Advance or escalate** — criteria met → mark the package done, next package. **Stuck / blocked → escalate to the user**, rather than taking the implementation over yourself.
 
-Repeat until every package is done, then the green gate (step 3), e2e (step 4) and docs (step 5) delegated the same way, so the orchestrator never loads their context either.
+Repeat until every package is done, then the green gate (step 3) and docs (step 5) delegated the same way, so the orchestrator never loads their context either.
 
 **Orchestrator rules:**
 
