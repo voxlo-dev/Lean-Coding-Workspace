@@ -15,6 +15,9 @@ Desktop.ini
 .env.local
 *.local
 
+# Chat handouts (`checkpoint` skill) and other local-only notes
+*.local.md
+
 # Logs
 *.log
 

@@ -66,3 +66,5 @@ Onboard a repo end-to-end. Owns the **initial** doc creation (it does the deep e
 11. **Styleguide** (only if chosen) — invoke `ui-design` at the styleguide level; it seeds and fills `docs/design/Styleguide.html`.
 
 12. **Commit** — `git init` first if the directory isn't a repo yet. (PR instead, if the repo uses that flow.)
+
+13. **Checkpoint** — invoke `checkpoint`. The first sprint (`open-sprint`) starts in a fresh chat.

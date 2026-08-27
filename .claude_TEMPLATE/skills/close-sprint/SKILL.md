@@ -63,6 +63,10 @@ The frozen sprint folder *is* the record of what shipped — no separate summary
 
 Only where the project publishes. Does this sprint complete a **version's** worth of scope? Yes → `release` · no → sprints accumulate on `main` until one does. Never publishes: skip, don't ask.
 
+## 7. Checkpoint
+
+Invoke `checkpoint`. Whatever comes next — the release, the next sprint, nothing — starts in a fresh chat.
+
 ## Handoff & boundaries
 
 - **The sprint file freezes here** — frame, board *and* `sprint-decisions.md`. Together they are the sprint's archive, and every board line reads `done` (step 1).

@@ -42,7 +42,7 @@ Get the user's approval on plan **and** pulled scope before moving on.
 - **`AGENTS.md`** — set **Current sprint** to the new slug, the only living pointer here; goals live in the sprint file.
 - **Record what the planning settled** (if the project has `docs/decisions.md`) — per decision: a `##` section with the reasoning in `artefacts/{sprint}/sprint-decisions.md`, a one-liner in the sprint file's **Decisions** section, and one `accepted` line in `docs/decisions.md`, taking **`Next decision` from the top of that file and incrementing it**. Index lines stay rationale-free. Anything still open is a `decision` ticket on the board.
 
-Then hand off to `dynamic-workflow` (spec each ticket on the board) — or `minimal-workflow` for the small stuff; `spec-design` reads the ticket as its requirements basis.
+Then invoke `checkpoint` and hand off **in a fresh chat** to `dynamic-workflow` (spec each ticket on the board) — or `minimal-workflow` for the small stuff; `spec-design` reads the ticket as its requirements basis.
 
 ## Handoff & boundaries
 

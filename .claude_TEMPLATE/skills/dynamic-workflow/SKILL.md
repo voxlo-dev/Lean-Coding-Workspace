@@ -16,6 +16,7 @@ description: "Use for feature work or any change that warrants a spec. spec-desi
 5. **Docs** — invoke `maintain-docs` in **per-run mode** (delegated: hand it to a docs subagent), then commit. `behaviour.md` and the low-churn docs are `close-sprint`'s batch.
 6. **Memory** — invoke `maintain-memory`.
 7. **Board** — flip **every ticket the spec implemented** to `to test` (straight to `done` if the e2e step already verified it). A ticket whose packages aren't all done keeps its status. Flip the word, leave every other file alone. Something worth doing but out of scope → capture it as a ticket in `backlog/`.
+8. **Checkpoint** — invoke `checkpoint`, then continue in a fresh chat.
 
 **Stuck? Escalate.** On a technical problem, pause and ask the user after ~5 solution attempts (an attempt = a new approach via a tool call).
 
