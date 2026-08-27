@@ -16,7 +16,8 @@ Concretely, in this repo there is:
 
 - no workflow gate, no preflight, no autonomy question — no `/plan`, `/open-sprint`,
   `/dynamic-workflow`, `spec-design`, `maintain-docs`, …
-- no sprint, no `backlog/`, no tickets, no `artefacts/`, no `docs/` tier system
+- no sprint, no `artefacts/`, no `docs/` tier system — `backlog/` is the one borrowed convention,
+  a plain ticket index for work not being done now, with no board and no sprint above it
 - no `project-initialiser` run, no domain, no `CLAUDE.md` scaffold
 
 **Only this root `AGENTS.md` applies**, plus the user's global `~/.claude/CLAUDE.md` rules on
@@ -47,6 +48,7 @@ Writing to it is not.
 ├── project_TEMPLATE/          ←   scaffold copied into each initialised project
 ├── domains/domain_TEMPLATE/   ←   domain master scaffold
 └── memory/MEMORY.md           ←   global memory seed
+backlog/                       ← tickets for this repo's own work (`T-NNN-{slug}.md` + `backlog.md`)
 assets/*.svg                   ← README diagrams (session flow, skill/doc map)
 README.md                      ← end-user facing: what this is, install, how it fits together
 AGENTS.md                      ← this file
