@@ -65,7 +65,7 @@ Only where the project publishes. Does this sprint complete a **version's** wort
 
 ## 7. Checkpoint
 
-Invoke `checkpoint`. Whatever comes next — the release, the next sprint, nothing — starts in a fresh chat.
+Invoke `checkpoint`; whatever comes next starts in a fresh chat.
 
 ## Handoff & boundaries
 

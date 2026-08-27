@@ -67,4 +67,4 @@ Onboard a repo end-to-end. Owns the **initial** doc creation (it does the deep e
 
 12. **Commit** — `git init` first if the directory isn't a repo yet. (PR instead, if the repo uses that flow.)
 
-13. **Checkpoint** — invoke `checkpoint`. The first sprint (`open-sprint`) starts in a fresh chat.
+13. **Checkpoint** — invoke `checkpoint`; `open-sprint` starts in a fresh chat.
