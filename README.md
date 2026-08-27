@@ -57,8 +57,8 @@ touches `memory/`, `projects/`, `domains/` or your settings.
   <img src="assets/session-flow.svg" alt="A repo is initialised once, then sprints repeat: open-sprint cuts the branch, many runs happen inside it (spec, implement, e2e, docs and memory, commit), and close-sprint distils and merges before the next sprint opens. Release branches off close-sprint once several sprints add up to a version." width="880">
 </p>
 
-Concretely, at the start of a chat Claude checks the project's memory, then asks which workflow to
-use and recommends one. Before it starts it runs a short preflight: is the project initialised,
+Concretely, at the start of a chat Claude picks up any checkpoint the previous chat left, checks
+the project's memory, then asks which workflow to use and recommends one. Before it starts it runs a short preflight: is the project initialised,
 which sprint are we in, is the git tree clean, and should it pause before each commit or run
 autonomously.
 
@@ -86,6 +86,7 @@ Supporting skills, mostly invoked by the workflows rather than by you:
 | `e2e` | optional end-to-end validation stage; drives the feature once, then writes the automation |
 | `ui-design` | look and feel — colors, typography, layout, mockups, design system |
 | `maintain-docs` · `maintain-memory` | the docs and memory steps; both prune as well as write |
+| `/checkpoint` | end a chat at a phase boundary: a short untracked handout the next chat reads and deletes |
 | `/domain-initialiser` | build a domain master (see below) |
 | `/workspace-install` | install, repair, sync |
 

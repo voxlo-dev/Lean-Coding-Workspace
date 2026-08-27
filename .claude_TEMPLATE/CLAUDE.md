@@ -83,6 +83,8 @@ Claude may invoke these when the user names one; the user can also run them with
 
 **The workflow gate applies only to software development** — building or changing code, features, bugfixes. Non-dev work (writing, research, general questions, one-off shell tasks) skips it: act directly, with these rules relaxed to fit the task. For development it is **mandatory**.
 
+**Checkpoint first.** `CHECKPOINT.local.md` in the project root is the previous chat's handout, written by `checkpoint` at a phase boundary: read it, carry it into what follows, **delete the file**.
+
 **Named a concrete workflow or skill? Use it directly.** Otherwise, at the start of a new chat: consult the already-loaded memory for context, then **ask which workflow to use** — with a recommendation inferred from the prompt and that context. Do not start work before the user chooses.
 
 | Pick | When |
