@@ -2,7 +2,9 @@
 
 One end-to-end scenario through the real UI: written by `spec-design`, consumed by `e2e`,
 living at `artefacts/{sprint}/e2e_{feature}.md`. Each step is a concrete, observable
-When → Then that a human or agent can verify.
+When → Then. Phrase **Then** as something an assertion could decide, so `e2e` can script it; mark
+a step `[agent]` only where a script can't reach it (other app, system dialog, hardware, or a
+purely visual judgement).
 
 ## Scope
 

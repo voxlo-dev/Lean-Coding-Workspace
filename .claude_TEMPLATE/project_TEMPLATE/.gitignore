@@ -21,6 +21,9 @@ Desktop.ini
 # Logs
 *.log
 
+# Test output (`e2e` skill): screenshots, videos, traces, framework reports, throwaway scripts
+test-dump/
+
 # Headroom
 .tokensave
 
