@@ -30,7 +30,9 @@ e2e: {
 
 ## Espresso / Android
 
-Least turnkey — expect real setup cost, and weigh a temporary script accordingly.
+A project on the `android-native` domain takes its driver choice from that domain's
+`android-testing` skill instead — this section is the fallback. Least turnkey either way:
+expect real setup cost, and weigh a temporary script accordingly.
 
 - Run: `./gradlew connectedDebugAndroidTest`; JUnit XML lands in `app/build/outputs/androidTest-results/connected/`.
 - Screenshots are explicit: `Screenshot.capture()` (`androidx.test:runner`) inside the test, or `adb exec-out screencap -p > test-dump/{name}.png` from outside.
