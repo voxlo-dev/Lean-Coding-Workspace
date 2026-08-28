@@ -83,7 +83,7 @@ Supporting skills, mostly invoked by the workflows rather than by you:
 | `/open-sprint` · `/close-sprint` | open and close a sprint (see below); also the entry point for a brand-new project |
 | `/release` | publish a version: changelog, version bump, security gate, PR, CI, audit, ship, tag |
 | `spec-design` | stage 1 of `dynamic-workflow`: brainstorm, design the UI, decide the test + implementation strategy, write the spec |
-| `e2e` | optional end-to-end validation stage; drives the feature once, then writes the automation |
+| `e2e` | optional end-to-end validation stage; grows a driver script step by step, driving by agent only where a script can't reach |
 | `ui-design` | look and feel — colors, typography, layout, mockups, design system |
 | `maintain-docs` · `maintain-memory` | the docs and memory steps; both prune as well as write |
 | `/checkpoint` | end a chat at a phase boundary: a short untracked handout the next chat reads and deletes |

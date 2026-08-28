@@ -25,7 +25,7 @@ Read the board in `artefacts/{sprint}/sprint.md`. Every ticket not at **done** n
 Then the scope check — **read-light, run nothing new:**
 
 - Every `spec_*` in the sprint folder at **Status: done**?
-- Tests green: the unit suite passes and the existing **e2e reports** (`e2e-run_*` / `e2e-report_*`) are green — the existing ones, no fresh run.
+- Tests green: the unit suite passes and the existing **e2e reports** (`e2e-report_*`) are green — the existing ones, no fresh run.
 - Every spec's **Behaviour delta** filled where the project has a `behaviour.md`? That is what step 4 folds into the rulebook, so a spec that shipped behaviour without recording it is the gap to catch here.
 
 **Anything missing → STOP.** List exactly what's open and hand the fix back as a recommendation ("spec-X still draft → `dynamic-workflow`", "spec-Y ships behaviour but records no delta → back to the run that wrote it").
