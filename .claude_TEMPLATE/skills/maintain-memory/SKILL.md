@@ -21,7 +21,7 @@ Default to **project**; promote only once a learning is clearly that broad. When
 
 - Decisions + their rationale, gotchas, non-obvious constraints, build/debug insights.
 - One fact per entry, concrete and self-contained. Link related entries by name.
-- **Machine-bound facts belong here:** absolute paths, local installations, personal tool setup, this-machine-only quirks. The mirror rule: anything system-independent and generally true → `docs/dev.md` via `maintain-docs`. **One home, never both** — a duplicated fact guarantees one stale copy.
+- **Machine-bound facts belong here:** absolute paths, local installations, personal tool setup, this-machine-only quirks. The mirror rule: anything system-independent and generally true → `docs/dev.md` via `maintain-docs`. **One home, never both** — a duplicated fact guarantees one stale copy. When the call is close, `docs/dev.md` wins: a **delegated subagent reads the repo, not this memory**, so anything a subagent must know to do its job (build invocations, driver choices, framework quirks) is only reliably there or in its handoff.
 - **Memory is for what other records miss** — code structure, git history and anything in `CLAUDE.md` / `AGENTS.md` are already captured there.
 - **Memory holds what is *true*, the board what is *to do*** — a bug, a todo, a question to settle becomes a ticket in `backlog/`.
 
