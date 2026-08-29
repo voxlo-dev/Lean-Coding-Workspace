@@ -9,8 +9,8 @@ purely visual judgement).
 ## Scope
 
 - **Validates:** {the user-facing flow this exercises}
-- **Env:** {device / browser / build command, e.g. `./gradlew installDebug` on API 31+}
-- **Preconditions:** {fresh install / seeded data / clock at known time / tools like ADB}
+- **Env:** {target the flow runs on, and the command that gets a build onto it}
+- **Preconditions:** {state the flow starts from — fresh install / seeded data / known clock}
 
 ## Steps
 
