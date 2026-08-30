@@ -66,7 +66,7 @@ Imported (domain/global) memory loads in full — keep it lean. **Memory vs. doc
 
 ## Work items — the markdown kanban
 
-Every unit of work is a **ticket** in `backlog/` (`T-NNN-{slug}.md`): *what* and *why*, category, importance, effort, dependencies. Tickets stay **live**: sharpen one whenever understanding improves. **The file never moves**; boards only *index* it, and a ticket is indexed in exactly one place:
+Every unit of work is a **ticket** in `backlog/` (`T-NNN-{slug}.md`, from `~/.claude/skills/plan/templates/TICKET_TEMPLATE.md` — capturing one needs no `plan` run): *what* and *why*, category, importance, effort, dependencies. Tickets stay **live**: sharpen one whenever understanding improves. **The file never moves**; boards only *index* it, and a ticket is indexed in exactly one place:
 
 - **`backlog/backlog.md`** — living, survives sprints. Columns **Draft** · **Backlog**: everything not yet pulled. Open *decisions* live here too, as `decision` tickets. Carries the **next free `T-NNN`** at the top.
 - **`artefacts/{sprint}/sprint.md`** — frame + board: every ticket pulled into the sprint, one line each carrying a status token **open · active · to test · done**. The board *is* the sprint scope.
@@ -104,4 +104,3 @@ Claude may invoke these when the user names one; the user can also run them with
 - **Project initialised?** No `AGENTS.md` / template docs → recommend `project-initialiser` first.
 - **Which sprint?** `AGENTS.md` → **Current sprint**; run artifacts land in `artefacts/{sprint}/`. **A sprint is not a run:** it holds many runs, plans and specs — stay in the active one until its scope is done, then `close-sprint` → `open-sprint`. **Nor is it a release:** a version spans as many sprints as it needs, and `release` cuts it from `main` after. A lone fix or maintenance pass needs no sprint.
 - **Clean git tree?** Dirty → surface it and recommend committing, gitignoring or reverting so the run starts clean.
-- **Autonomy mode?** Ask once, applies to the whole run and is passed to the workflow: pause for review BEFORE each commit (default), or run autonomously. **Autonomy never covers plans & specs** — those are always user-validated before they drive implementation.

@@ -55,7 +55,7 @@ Copy `templates/SPRINT_TEMPLATE.md` → `artefacts/{sprint}/sprint.md` and fill 
 
 **Behaviour context:** from the `docs/behaviour.md` you just read whole, write down the slice this sprint works in — the rules and invariants its tickets touch, plus what shall change. `spec-design` then grounds on that half page instead of the full rulebook; `close-sprint` folds the deltas back in. Skip only where the project has no `behaviour.md`.
 
-Get the user's approval on the ticket cut (and the frame, in sprint mode) — **always, even in autonomous mode**; planning is always user-validated.
+Get the user's approval on the ticket cut (and the frame, in sprint mode); planning is always user-validated.
 
 ## Handoff
 

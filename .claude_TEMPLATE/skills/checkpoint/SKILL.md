@@ -7,7 +7,7 @@ description: "Use to end a chat at a phase boundary rather than let compaction h
 
 At a phase boundary a context reset is cheap — the next phase reads other files anyway — while compaction hits mid-work and summarises everything generically. So: hand over a few lines, then start a fresh chat.
 
-**Write last**, after the phase's final commit: `CHECKPOINT.local.md` in the repo root, overwritten, English. It must stay **untracked** — the project `.gitignore` needs `*.local.md`, add the line if it's missing — and the project `CLAUDE.md` imports it whole into the next session, which is why it stays short.
+**Write last**, after the phase's final commit: `CHECKPOINT.local.md` in the repo root, overwritten, English. It stays untracked (`project-initialiser` owns the gitignore) and the project `CLAUDE.md` imports it whole into the next session, which is why it stays short.
 
 ## Content
 
@@ -21,4 +21,4 @@ At a phase boundary a context reset is cheap — the next phase reads other file
 
 Applied honestly this often leaves nothing. Then write nothing and say so — a handout restating files is pure cost.
 
-Finally, tell the user to continue in a **new chat**; the handout only pays off if the context resets.
+Finally, set the chat title to what the chat actually did — `mcp__ccd_session_mgmt__set_session_title`, present only in the Claude desktop app, skip where it's absent. Then tell the user to continue in a **new chat**; the handout only pays off if the context resets.

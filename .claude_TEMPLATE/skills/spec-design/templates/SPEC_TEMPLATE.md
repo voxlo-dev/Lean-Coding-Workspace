@@ -51,7 +51,7 @@ Decided by `spec-design`; the pipeline follows it without re-deciding.
 
 ## Implement packages
 
-One or more, run in order, commit after each. This is the only work-package axis to size —
+One or more, numbered in run order, commit after each. This is the only work-package axis to size —
 cut by coherent unit of work, never by what happens to be independently testable. Where the
 spec covers several tickets, name the ticket each package serves: that is what tells the
 workflow when a ticket may go to `to test`.
@@ -61,9 +61,9 @@ done. Tests are one criterion; the suite goes green once, at the end of the run.
 `light-tdd`, package 1 is the contract & tests package (signatures + tests, confirmed red) and
 every later package names the tests it turns green.
 
-- **{package name}** — {what it builds} · ticket: {`T-NNN` or —} · files: {paths to read/touch}
-  - [ ] {observable outcome that makes this package done}
-  - [ ] {…}
+1. **{package name}** — {what it builds} · ticket: {`T-NNN` or —} · files: {paths to read/touch}
+   - [ ] {observable outcome that makes this package done}
+   - [ ] {…}
 
 ## Acceptance criteria
 

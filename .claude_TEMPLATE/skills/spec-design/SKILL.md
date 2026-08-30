@@ -18,6 +18,7 @@ Turn an idea or plan into a spec that **fixes every downstream decision** — th
 2. **UI** — if the feature has a sophisticated UI, its design is a primary step of the spec. Invoke `ui-design`:
    - **No design system yet?** It establishes the styleguide first — brand & tone, palette, type, spacing, theming, components as atoms + patterns → `docs/design/Styleguide.html`. Every later feature designs against it, so it comes before any feature mockup.
    - **Then** lay out *this* feature's mockup against that styleguide — UX-first: rework the layout or regroup elements where that serves the experience.
+   - **Pause on the finished design** — show mockup and styleguide, get the user's nod, revise until it holds; revising a UI after the spec fixes it is expensive.
    - Capture the mockup (and a link to the styleguide) in the spec's UI section.
 3. **Decide the testing** — one preset (coverage *and* when the tests are written), plus whether e2e is needed:
 
@@ -36,10 +37,10 @@ Turn an idea or plan into a spec that **fixes every downstream decision** — th
 4. **Decide the delegation** — who holds the context while the packages are built: **inline** (the main thread does the work) · **delegated** (each package goes to a fresh subagent via `dynamic-workflow`'s sequential loop, so the orchestrator's context stays clean) · **delegated+review** (`superpowers:subagent-driven-development` — adds per-task spec and code-quality review subagents; heavier, stricter).
    - **Delegated from ≥3 packages**, or whenever context pressure is likely. It is also what makes `light-tdd` bite hardest: the tests come from an agent with no implementation in its context.
    - **Confirm with the user via `AskUserQuestion`** — lead with your recommendation and its rationale, again naming the skill an option pulls in (`delegated+review` → `superpowers:subagent-driven-development`).
-5. **Write the spec** — copy `templates/SPEC_TEMPLATE.md` to `artefacts/{sprint}/spec_{feature}.md` (ask for the current sprint if unclear), fill it, and size the **implement packages** (≥1; one is allowed, large independent work takes more — and ≥3 is the signal for **delegated**).
+5. **Write the spec** — copy `templates/SPEC_TEMPLATE.md` to `artefacts/{sprint}/spec_{feature}.md` (ask for the current sprint if unclear), fill it, and size the **implement packages** — a numbered list in run order (≥1; one is allowed, large independent work takes more — and ≥3 is the signal for **delegated**).
    - **Every package carries its own acceptance criteria** — the observable outcome that makes it done, and the bar a subagent is judged against. Cut packages by coherent unit of work.
    - **With `light-tdd`, package 1 is the contract & tests package**: the signatures, types and stubs the **Components** section fixes, plus the tests for the recorded modules, no logic. Its criterion is a red suite failing on missing implementation; every later package names the tests it turns green — so settle the Components interfaces *here*, don't leave them to the implementation.
    - **A bugfix-shaped package runs `superpowers:systematic-debugging`**, whatever the preset says — mark it in the package line.
    - Delete the template's guidance comments as you fill it, keeping the pointer line.
 
-Return to `dynamic-workflow`, which owns the review pause and the spec commit. **The spec review is mandatory even in autonomous mode** — a spec, like a plan, is always user-validated before it drives implementation.
+Return to `dynamic-workflow`, which owns the review pause, the spec commit and the autonomy question that follows it.
