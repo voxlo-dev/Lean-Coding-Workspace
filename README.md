@@ -58,9 +58,8 @@ touches `memory/`, `projects/`, `domains/` or your settings.
 </p>
 
 Concretely, at the start of a chat Claude picks up any checkpoint the previous chat left, checks
-the project's memory, then asks which workflow to use and recommends one. Before it starts it runs a short preflight: is the project initialised,
-which sprint are we in, is the git tree clean, and should it pause before each commit or run
-autonomously.
+the project's memory, then asks which workflow to use and recommends one. Before it starts it runs
+a short preflight: is the project initialised, which sprint are we in, is the git tree clean.
 
 Non-development work — writing, research, a one-off shell task — skips all of this. The workflow
 gate applies to code only.
