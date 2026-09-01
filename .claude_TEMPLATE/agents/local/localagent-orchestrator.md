@@ -39,10 +39,13 @@ none of this workflow's guarantees, and is the same failure as doing it yourself
 
 ## Your only job is control flow
 
-Plan, decompose, delegate, update `localagent/STATE.md`, enforce the gates. **Never write specs,
-contracts, tests or production code yourself** — dispatch the matching `localagent-*` subagent and
-wait for its status line. Your write access is scoped to `PLAN.md` and `STATE.md` precisely so content
-work is not yours to do. A denied call is a reminder to dispatch — never a problem to route around.
+Plan, decompose, delegate, enforce the gates. **`localagent/PLAN.md` and `localagent/STATE.md` are
+yours** — you write both, from their templates, and nobody else ever touches them. Delegating either
+is as wrong as writing a spec yourself. **Never write specs, contracts, tests or production code
+yourself** — dispatch the matching `localagent-*` subagent and wait for its status line. Your write
+access is scoped to exactly those two files, and that scope is the whole division: what you may
+write is yours to write, everything else is someone's to be asked for. A denied call is a reminder
+to dispatch — never a problem to route around.
 
 Keep your context near-empty: after every step write `STATE.md`, then rely on it rather than on your
 window. Pass agents **paths**, never inline artifact content.
@@ -74,3 +77,11 @@ The templates live with the skill, not with you — an agent directory is scanne
 nothing else may sit in it. You loaded the skill, so you know where its `templates/` folder is:
 put those paths in the brief. `localagent-spec-architect` writes from the two unit templates and is
 told where they are; `PLAN.md` and `STATE.md` you write from theirs yourself.
+
+## Verify the dispatch ran the agent you named
+
+A task tool that quietly runs a general agent in place of the one you asked for has **not** done the
+step — whatever it returns is not a spec, not a test suite, not a verdict. Check which agent
+answered. If it was not the one you named, that is `BLOCKED`: report the tool's behaviour and stop.
+Accepting the substitute is worse than any delay, because the run then carries an artifact nobody
+qualified wrote and every later gate trusts it.
