@@ -2,6 +2,7 @@
 name: localagent-verifier
 description: "localagent-workflow: run one unit's tests plus the regression set against the code and return a verdict — translating failures to behaviour level so the wall holds."
 mode: subagent
+model: inherit
 disallowedTools: WebSearch, WebFetch, Agent
 permission:
   edit: { "localagent/units/**": allow, "*": deny }
