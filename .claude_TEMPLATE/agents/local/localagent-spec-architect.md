@@ -17,7 +17,8 @@ One job: turn one unit's PLAN entry into two artifacts — a **spec** (behaviour
 
 1. Write `localagent/units/U<N>/contract.md` from the contract template named in your brief — the exact surface:
    - Every exposed function/type/endpoint with its **full signature** (names, parameter and return types).
-   - File/module **paths** where each lives (real paths — never invent; confirm via codegraph or the named files).
+   - File/module **paths** where each lives (real paths — never invent; confirm via codegraph or the named files). **Fill every placeholder** — a `{...}` left in the contract is a hole both blind halves fill differently.
+   - For each callable, whether it is a module export or a member of a type, and how a caller obtains that type. `startServer(port)` and `server.start()` are different contracts; leaving the choice open guarantees the two halves disagree.
    - Error/exception types and data shapes crossing the boundary.
    - What this unit consumes from prior units (by their interface lines) — or "none".
    The contract must be concrete enough that a test and an implementation written from it *without seeing each other* will fit together.

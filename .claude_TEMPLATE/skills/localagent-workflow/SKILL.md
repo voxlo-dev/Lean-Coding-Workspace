@@ -22,7 +22,7 @@ line back — so an external local-model runner can drive them straight from thi
 
 ## Dispatch
 
-The seven `localagent-*` prompts that ship beside this skill are **agent definitions**, not
+The eight `localagent-*` prompts that ship beside this skill are **agent definitions**, not
 documentation: each carries frontmatter for both harness families, so a harness can be told to *run*
 one. They must sit **flat** in its agent directory — `~/.claude/agents/` or
 `~/.config/opencode/agents/`, project-level `.claude/agents/` or `.opencode/agents/` — before a run.
@@ -35,7 +35,7 @@ Nothing else may live in that directory — a stray file is scanned as an agent.
 `templates/` therefore stay with the skill, and the orchestrator passes their paths in the brief.
 
 `localagent-orchestrator` is the **primary** agent: run the whole workflow *as* that session
-(`claude --agent localagent-orchestrator`, or select it in the harness). The other six are subagents.
+(`claude --agent localagent-orchestrator`, or select it in the harness). The other seven are subagents.
 
 Every agent runs in a **fresh, isolated context**; nothing carries between steps but the files. In a
 harness that has them registered you **call the agent by its name** and hand it a 2–3 line brief plus
@@ -81,15 +81,21 @@ must be survivable from it alone. Shape, status ladder and `Attempts` semantics:
 
 ## Phase 1 — Plan, then the gate
 
-Produce `localagent/PLAN.md` from `templates/PLAN.md`: target/systems, features, test strategy, and a
-unit list with dependencies. Keep units small — each bounds every later agent's context. Interactive
-by default: plan *with* the user in 2–3 tight rounds (goal, must-haves vs nice-to-haves, constraints,
-what "done" looks like, risky areas), grounded in codegraph if indexed, else a brief scoped look.
-Headless: derive PLAN.md from the task brief.
+Produce `localagent/PLAN.md` from `templates/PLAN.md`: target/systems, features, **stack**, test
+strategy, and a unit list with dependencies. Keep units small — each bounds every later agent's
+context. Settle the stack here with the user — language, runtime, package manager, test runner,
+libraries: no agent later is allowed to decide it, and one that has to will decide it badly and
+alone. Interactive by default: plan *with* the user in 2–3 tight rounds (goal, must-haves vs
+nice-to-haves, constraints, what "done" looks like, risky areas), grounded in codegraph if indexed,
+else a brief scoped look. Headless: derive PLAN.md from the task brief.
 
 **Plan gate — the only routine pause.** Show the unit list, get explicit approval, **stop until
 approved**; silence is not approval, requested changes → revise and re-show. After it the run is
 autonomous. (Headless: pause if a human is reachable, else record auto-approval in STATE.)
+
+**Scaffold, once.** No runnable project yet — no manifest, no test runner, nothing to build in →
+dispatch `localagent-scaffold` before the first unit; it installs exactly the approved stack and
+returns the test command every later agent needs. An existing project skips this.
 
 ## Phase 2 — Build loop
 

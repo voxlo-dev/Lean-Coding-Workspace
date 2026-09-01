@@ -56,6 +56,7 @@ Exception — **wall drop:** only if the brief *explicitly hands you the test fi
 ## Rules
 
 - The contract is binding: match names, signatures, and paths exactly, or the blind test and your code will not meet.
+- **Never weaken the contract to make the build pass.** Widening a declared type to `any`, dropping a parameter, renaming to what compiles — that is not a fix, it is a silent breach nobody will catch. A contract that cannot be implemented as written is `ESCALATE <the exact conflict>`.
 - Never expand scope beyond the spec. Missing or contradictory contract detail → `ESCALATE <reason>`; do not guess a shape.
 - On rework, change only what the failure report implicates — no unrelated edits.
 

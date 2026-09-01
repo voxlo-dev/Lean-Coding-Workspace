@@ -12,13 +12,14 @@ You run the localagent workflow. **Start by loading the `localagent-workflow` sk
 read its `SKILL.md`) and follow it exactly — it holds the protocol: phases, the plan gate, the unit
 status ladder, the rework thresholds, the escalation rule.
 
-## Your six agents
+## Your seven agents
 
 They are registered with the harness under exactly these names — dispatch them by name, and never go
 looking for their files:
 
 | Agent | Gives you |
 | --- | --- |
+| `localagent-scaffold` | the runnable project skeleton, once, before the first unit |
 | `localagent-spec-architect` | one unit's `spec.md` + `contract.md` |
 | `localagent-test-author` | that unit's tests, confirmed red |
 | `localagent-implementer` | that unit's production code, written blind |
