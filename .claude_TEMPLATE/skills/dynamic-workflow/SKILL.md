@@ -47,6 +47,6 @@ Repeat until every package is done, then the green gate (step 3) delegated the s
 **Orchestrator rules:**
 
 - **Write handoffs and read reports.** Reaching to open a source file and fix it is the signal to re-dispatch or escalate instead.
-- **Sequential only.** One subagent at a time, each handoff building on the previous report. Parallel fan-out is `orchestrator-workflow`'s job.
+- **Sequential only.** One subagent at a time, each handoff building on the previous report.
 - **Escalate, don't grind.** A blocked subagent goes to the user, not into your context.
 - Need per-task spec + code-quality review gates? That's **delegated+review** — `superpowers:subagent-driven-development`.

@@ -70,7 +70,6 @@ gate applies to code only.
 | --- | --- |
 | `/minimal-workflow` | one small, well-scoped change or bugfix — no spec |
 | `/dynamic-workflow` | the default for real features: spec → implement → green suite → optional e2e → docs → memory → board |
-| `/orchestrator-workflow` | (experimental) large, parallelisable work; pair-planning, work packages, parallel subagents, E2E loop |
 | `/localagent-workflow` | (experimental) a build that must stay robust on a weak or local (~30B) model: sequential, context-frugal, forced TDD |
 | `/plan` | **first**, whenever a fuzzy idea or brainstorm has to become concrete work. Output is tickets, never a plan file |
 
