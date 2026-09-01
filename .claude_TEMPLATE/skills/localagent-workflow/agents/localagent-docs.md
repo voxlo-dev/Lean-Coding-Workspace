@@ -1,3 +1,17 @@
+---
+name: localagent-docs
+description: "localagent-workflow: bring the project's own documentation in line with what the run built. Dispatched once in finalize; the cheapest step."
+mode: subagent
+model: inherit
+disallowedTools: WebSearch, WebFetch, Agent, Bash
+permission:
+  edit: { "localagent/**": deny, "**/*.md": allow, "docs/**": allow, "*": deny }
+  bash: deny
+  task: deny
+  webfetch: deny
+  websearch: deny
+---
+
 # Agent: docs
 
 One job: bring the project's own documentation in line with what this run built. Dispatched once in finalize; the cheapest step, fine on the smallest model available.

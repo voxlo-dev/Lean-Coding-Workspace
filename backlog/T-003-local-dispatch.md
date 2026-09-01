@@ -1,8 +1,8 @@
 # T-003 — Local model dispatch tool
 
-- **Summary:** `localagent-dispatch` — a standalone MCP server + CLI that runs a single-purpose agent prompt against a local llama.cpp server with file access scoped to its declared inputs
+- **Summary:** `localagent-dispatch` — a standalone MCP server + CLI that runs an agent prompt against a local llama.cpp server with file access scoped to its declared inputs
 - **Category:** feature
-- **Importance:** medium
+- **Importance:** low
 - **Effort:** M
 - **Depends on:** none
 
@@ -12,24 +12,24 @@
 
 ## Why
 
-Two gaps, one tool closes both.
+**A harness cannot reach a local model.** `localagent-workflow` exists to run on a weak (~30B) local
+model, but Claude Code only dispatches its own vendor's models. Without a bridge the workflow either
+runs on the wrong model class — defeating its purpose — or it leaves the harness entirely.
 
-**The visibility wall is currently only a promise.** `localagent-workflow` forces TDD by having the
-`test-author` and the `implementer` derive independently from a shared contract, with the
-implementer never seeing the test code. Nothing enforces that: a subagent in a normal harness can
-open any file it likes, and the workflow's own SKILL.md has to say so. The wall becomes real the
-moment the agent's file access is scoped to its declared inputs — then the implementer *cannot*
-reach the tests, and code that passes provably satisfies the contract rather than the test text.
+The obvious alternative is to leave: OpenCode launches against `llama-server` and enforces the whole
+workflow natively, including the visibility wall via per-agent `permission.read` globs. **That path
+needs no tooling at all**, which is why this ticket is `low` — it buys one specific thing OpenCode
+does not: keeping a *strong* orchestrator and giving the *weak* model only the bounded content work.
+Plan and gate on the capable model, dispatch `test-author` and `implementer` locally. `dynamic-workflow`'s
+delegated mode wants the same thing for its work packages, one model class up.
 
-**A local model cannot be reached from an agent harness.** `localagent-workflow` exists to run on a
-weak (~30B) local model, but a harness like Claude Code can only dispatch its own vendor's models.
-Without a bridge the workflow either runs on the wrong model class — defeating its purpose — or only
-outside the harness. llama.cpp's own MCP support points the other way: `llama-server` is an MCP
-*client* in its web UI, which does not help.
+Scoping matters here in a way it does not in OpenCode: Claude Code restricts subagents by tool name
+only, with no path or glob mechanism, so an agent dispatched *through* this tool is scoped by the
+tool or not at all. The wall is a property of the dispatcher, not of the harness around it.
 
 The existing "delegate to a local LLM" MCP servers (`hessenpepper/mcp-delegate`,
 `houtini-ai/houtini-lm`, `HenryLinyy/local-llm-mcp`) are all young and none implements per-dispatch
-path scoping — the one property that matters here. Wrapping one costs about as much as owning it.
+path scoping. Wrapping one costs about as much as owning it.
 
 ## What
 
@@ -53,6 +53,10 @@ line. It knows nothing about units, sprints, workflows or any harness.
 | `commands` | commands it may run, or none |
 | `model` | backend override; otherwise the configured default |
 
+An agent prompt file may carry frontmatter — the localagent agents do, for the harnesses. Ignore
+every key except a `permission` block, whose globs are a usable default for `readable`/`writable`
+when the caller passes none.
+
 Returns the agent's final status line (`DONE <path>` · `RED <path>` · `ESCALATE <reason>` ·
 `BLOCKED <reason>`) plus the path to the full transcript, so a failed dispatch is inspectable
 without loading it into the orchestrator's context.
@@ -69,11 +73,6 @@ an agent that may run the test runner must not be able to run anything else.
 configurable, so LM Studio, vLLM or any other compatible endpoint works unchanged. Turn cap and
 timeout per dispatch; hitting either returns `BLOCKED`, never a partial success.
 
-**Also serves `dynamic-workflow`.** Its delegated mode dispatches one implementer subagent per work
-package from a self-contained handoff — the same shape. Keep the interface free of any
-localagent-specific concept (no units, no `U<N>`, no protocol vocabulary) and both workflows can
-dispatch through it, with the path scoping as an optional tightening rather than a requirement.
-
 **Non-goals:** not a model server, not an orchestrator (it never decides what runs next), and not a
 sandbox — path scoping is a correctness boundary against a cooperative agent, not a security
 boundary against a hostile one. Say so in the README.
@@ -83,5 +82,5 @@ boundary against a hostile one. Say so in the README.
 - Does the local model need the whitelist restated in its prompt, or is a denied tool call enough
   feedback for a ~30B model to correct course?
 - Transcript retention: keep every dispatch, or only failed ones?
-- Does the harness's own permission layer double-prompt on each dispatch, and does that make the MCP
-  path noisier in practice than the CLI one?
+- Does Claude Code's permission layer prompt on every dispatch, making the MCP path noisier in
+  practice than just running the whole workflow in OpenCode?
