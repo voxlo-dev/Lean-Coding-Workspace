@@ -50,12 +50,13 @@ Either way: **pass paths, never inline artifact content**, and never pass test f
   not start — agent not registered, call rejected, tool error — is `BLOCKED`. Report it and stop;
   doing the step yourself, or handing it to an unrestricted agent, is the one failure that voids the
   whole run: every guarantee here rests on who wrote what.
-- **The permission blocks are the enforcement.** The wall is a `read`/`glob`/`grep` deny on the test
-  globs in the implementer's definition; every other agent's write access is scoped to what it owns,
-  the orchestrator's to its own ledger so content work is not even possible for it. Two caveats: a
-  shell is a hole in any write scope, so agents that need a test runner are trusted by prompt there;
-  and a harness that ignores the keys falls back to prompt discipline entirely. Widen the test globs
-  to match the project's naming.
+- **One restriction is enforced; everything else is prompt.** The wall — a `read`/`glob`/`grep` deny
+  on the test globs in the implementer's definition — is the only permission any agent carries, and
+  it earns that because a peek at the tests is invisible afterwards and silently voids the TDD
+  guarantee. Widen those globs to match the project's naming. Every other rule here is prose the
+  agents keep: a small model holds a prompt well but loses the thread the moment a tool call is
+  refused, so a scope tight enough to trip it costs more than it protects. Tighten only where a
+  breach would be undetectable.
 - **No agent frontmatter names a model or a tool list.** Both harnesses define those keys with
   different types, so either one makes the file invalid somewhere; the harness picks the model, and
   tool scope is expressed in the keys only one of them reads. The prompts are written for a ~30B
