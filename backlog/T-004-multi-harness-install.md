@@ -23,9 +23,10 @@ two diverged.
 
 `workspace-install` gains a second install target, so one run leaves both harnesses consistent:
 
-- Agent definitions from every skill's `agents/` folder land in `~/.claude/agents/` **and**
-  `~/.config/opencode/agents/`. The files are already dual-dialect — merged frontmatter that each
-  harness reads its own keys from — so this is a copy, not a transform.
+- Agent definitions from `.claude_TEMPLATE/agents/` land in `~/.claude/agents/` **and**
+  `~/.config/opencode/agents/`, **flattened** — the group folders are a repo convenience, and a nested
+  install changes the agent's id in OpenCode. The files are already dual-dialect — merged frontmatter
+  that each harness reads its own keys from, so this is a copy and not a transform.
 - Skip the OpenCode target when that config directory does not exist; installing a harness the user
   does not have is noise, not service.
 - Same repair semantics as the rest of the skill: re-running syncs and reports what changed, and
@@ -36,10 +37,8 @@ that stops being true here.
 
 ## Open questions
 
-- Which skills opt in? `localagent-workflow` is the only one with agents today. A blanket "every
-  `agents/` folder" rule is simpler than a per-skill list and costs nothing while there is one.
-- Which repo folder is the single source for agent definitions — the skill's `agents/`, or a top-level
-  `agents/` tree? Two copies exist today; the installer needs exactly one.
+- Which skills beyond `localagent-workflow` ever ship agents? While it is the only group, the flat
+  copy needs no name-collision rule; a second group would want one.
 
 **Answered:** OpenCode scans its agents directory recursively **but the path below `agents/` becomes
 the agent ID** (`agents/team/reviewer.md` → `team/reviewer`), while Claude Code scans recursively and

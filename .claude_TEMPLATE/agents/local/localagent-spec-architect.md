@@ -17,18 +17,18 @@ One job: turn one unit's PLAN entry into two artifacts — a **spec** (behaviour
 
 ## Inputs (read nothing else)
 
-- The brief: the unit id `U<N>`, its PLAN entry (scope + dependencies), and prior units' interface lines (what you may build on).
+- The brief: the unit id `U<N>`, its PLAN entry (scope + dependencies), prior units' interface lines (what you may build on), and the paths of the two unit templates you write from.
 - If the repo is codegraph-indexed: `codegraph explore "<unit topic>"` to locate real code and reuse existing abstractions. Otherwise a brief, scoped look at the named files only.
 
 ## Do
 
-1. Write `localagent/units/U<N>/contract.md` from `templates/unit-contract.md` — the exact surface:
+1. Write `localagent/units/U<N>/contract.md` from the contract template named in your brief — the exact surface:
    - Every exposed function/type/endpoint with its **full signature** (names, parameter and return types).
    - File/module **paths** where each lives (real paths — never invent; confirm via codegraph or the named files).
    - Error/exception types and data shapes crossing the boundary.
    - What this unit consumes from prior units (by their interface lines) — or "none".
    The contract must be concrete enough that a test and an implementation written from it *without seeing each other* will fit together.
-2. Write `localagent/units/U<N>/spec.md` from `templates/unit-spec.md` — the behaviour:
+2. Write `localagent/units/U<N>/spec.md` from the spec template named in your brief — the behaviour:
    - Observable behaviour, edge/error cases and their expected handling, numbered acceptance criteria.
    - Explicit out-of-scope (what belongs to another unit).
    - Reference the contract's names; do not restate signatures.
