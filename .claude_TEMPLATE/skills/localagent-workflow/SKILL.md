@@ -22,11 +22,17 @@ line back — so an external local-model runner can drive them straight from thi
 
 ## Dispatch
 
-The seven prompts in `agents/` are **agent definitions**, not documentation: each carries frontmatter
-for both harness families, so a harness can be told to *run* one. Copy them into its agent directory
-— `~/.claude/agents/` or `~/.config/opencode/agents/`, project-level `.claude/agents/` or
-`.opencode/agents/` — before a run. Unregistered there is nothing to dispatch, and the model does
-every step itself in one context, which is the failure this workflow exists to prevent.
+The seven `localagent-*` prompts that ship beside this skill are **agent definitions**, not
+documentation: each carries frontmatter for both harness families, so a harness can be told to *run*
+one. They must sit **flat** in its agent directory — `~/.claude/agents/` or
+`~/.config/opencode/agents/`, project-level `.claude/agents/` or `.opencode/agents/` — before a run.
+Both harnesses scan that directory recursively, but OpenCode folds a subfolder into the agent's id
+while Claude Code keys off `name:`, so a nested copy answers to a different name in each. And
+unregistered there is nothing to dispatch at all: the model then does every step itself in one
+context, the failure this workflow exists to prevent.
+
+Nothing else may live in that directory — a stray file is scanned as an agent. This skill's
+`templates/` therefore stay with the skill, and the orchestrator passes their paths in the brief.
 
 `localagent-orchestrator` is the **primary** agent: run the whole workflow *as* that session
 (`claude --agent localagent-orchestrator`, or select it in the harness). The other six are subagents.
@@ -91,7 +97,7 @@ Seed `STATE.md` from the approved unit list, then loop:
 
 | Sub-step | Agent | Input | Output |
 | --- | --- | --- | --- |
-| pending → specced | `localagent-spec-architect` | the unit's PLAN entry + prior units' STATE interface lines | `units/U<N>/spec.md` + `contract.md` |
+| pending → specced | `localagent-spec-architect` | the unit's PLAN entry + prior units' STATE interface lines + the unit templates' paths | `units/U<N>/spec.md` + `contract.md` |
 | specced → tests-red | `localagent-test-author` | `spec.md` + `contract.md` | test files, confirmed failing |
 | tests-red → impl | `localagent-implementer` | `spec.md` + `contract.md` **(never the tests)** | production code |
 | impl → verified | `localagent-verifier` | the unit's tests + implicated src + prior `done` units' test paths (regression set) | verdict + behaviour-level failure report |

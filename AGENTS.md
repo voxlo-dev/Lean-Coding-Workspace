@@ -44,7 +44,8 @@ Writing to it is not.
 ```
 .claude_TEMPLATE/              ← the product; mirrored into ~/.claude/ by workspace-install
 ├── CLAUDE.md                  ←   the always-loaded global instruction file — token budget ~2.3k
-├── skills/{name}/SKILL.md     ←   one folder per skill; templates/ and agents/ beside it
+├── skills/{name}/SKILL.md     ←   one folder per skill; templates/ and references/ beside it
+├── agents/{group}/*.md        ←   agent definitions — harness-registered, so they cannot live in a skill
 ├── project_TEMPLATE/          ←   scaffold copied into each initialised project
 ├── domains/domain_TEMPLATE/   ←   domain master scaffold
 └── memory/MEMORY.md           ←   global memory seed
@@ -63,8 +64,10 @@ Not tracked (see `.gitignore`): `.claude/`, `.serena/`, `.tokensave`.
 - **Every skill needs frontmatter** `name` + `description`; the description is the *only* thing an
   agent picks by, so it must say when to reach for the skill, not what it contains.
   `disable-model-invocation: true` marks user-only skills (currently `workspace-install`).
-- **A skill's helper files** (`templates/`, `agents/`, `references/`) live inside its own folder and
-  are referenced from `SKILL.md` — they load on demand, which is the whole point.
+- **A skill's helper files** (`templates/`, `references/`) live inside its own folder and are
+  referenced from `SKILL.md` — they load on demand, which is the whole point. **Agent definitions are
+  the exception:** a harness registers them from its own agents directory and scans that directory
+  recursively, so they live in `.claude_TEMPLATE/agents/{group}/` and must install flat.
 - **`CLAUDE.md` is always loaded, in every session, forever.** It says *when* something applies and
   *where* the rest lives — never what a skill does (that duplicates the skill's description and
   goes stale). Adding a paragraph there is a permanent cost; default to putting it in a skill.

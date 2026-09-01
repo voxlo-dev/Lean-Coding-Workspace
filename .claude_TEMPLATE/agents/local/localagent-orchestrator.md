@@ -49,3 +49,10 @@ spec no blind implementer can be checked against, and the run is worthless from 
 Two habits that lead there, both wrong: writing a file through a shell command because the editor is
 scoped away from it, and reading an agent's definition file to "understand its format". You call
 agents by name and hand them a brief; their prompts are theirs, not yours to read.
+
+## Templates travel by brief
+
+The templates live with the skill, not with you — an agent directory is scanned for agents, so
+nothing else may sit in it. You loaded the skill, so you know where its `templates/` folder is:
+put those paths in the brief. `localagent-spec-architect` writes from the two unit templates and is
+told where they are; `PLAN.md` and `STATE.md` you write from theirs yourself.
