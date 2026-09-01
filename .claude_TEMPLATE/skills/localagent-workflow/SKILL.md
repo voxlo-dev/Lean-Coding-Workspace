@@ -31,18 +31,26 @@ every step itself in one context, which is the failure this workflow exists to p
 `localagent-orchestrator` is the **primary** agent: run the whole workflow *as* that session
 (`claude --agent localagent-orchestrator`, or select it in the harness). The other six are subagents.
 
-Every agent runs in a **fresh, isolated context**; nothing carries between steps but the files. Its
-prompt is the agent definition + a 2–3 line brief + the path(s) to its declared inputs. **Pass paths,
-never inline artifact content.** Never pass test files to `localagent-implementer` until the wall drops.
+Every agent runs in a **fresh, isolated context**; nothing carries between steps but the files. In a
+harness that has them registered you **call the agent by its name** and hand it a 2–3 line brief plus
+the path(s) to its declared inputs — never open its definition file, its prompt is not yours to read.
+An external runner instead sends the definition file as the system prompt and the brief as the turn.
+Either way: **pass paths, never inline artifact content**, and never pass test files to
+`localagent-implementer` until the wall drops.
 
 - **One agent at a time, sequential** — a local model serves one inference at a time; keep that shape
   in every runner so a run behaves the same everywhere.
+- **A dispatch that will not start is `BLOCKED`** — agent not registered, call rejected, tool error.
+  Report it and stop. Doing the step yourself instead is the one failure that voids the whole run:
+  every guarantee here rests on who wrote what.
 - **The permission blocks are the enforcement.** The wall is a `read`/`glob`/`grep` deny on the test
   globs in the implementer's definition; every other agent's write access is scoped to what it owns,
-  the orchestrator's to `localagent/` so content work is not even possible for it. Where a harness
-  ignores those keys it falls back to prompt discipline — then a stray path in a brief breaks the
-  wall for real, and the test globs may need widening to match the project's naming.
-- **The prompts are written for a ~30B local model** — don't loosen them for a stronger one.
+  the orchestrator's to its own ledger so content work is not even possible for it. Two caveats: a
+  shell is a hole in any write scope, so agents that need a test runner are trusted by prompt there;
+  and a harness that ignores the keys falls back to prompt discipline entirely. Widen the test globs
+  to match the project's naming.
+- **No agent pins a model** — the harness decides, and a key from the wrong dialect fails the whole
+  dispatch. The prompts are written for a ~30B local model; don't loosen them for a stronger one.
 
 ## Artifacts
 

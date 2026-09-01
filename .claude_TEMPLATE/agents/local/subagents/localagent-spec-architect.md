@@ -2,6 +2,7 @@
 name: localagent-spec-architect
 description: "localagent-workflow: turn one unit's PLAN entry into its spec.md (behaviour) + contract.md (interfaces) — the shared source both blind halves derive from."
 mode: subagent
+model: inherit
 disallowedTools: WebSearch, WebFetch, Agent
 permission:
   edit: { "localagent/units/**": allow, "*": deny }
