@@ -56,8 +56,10 @@ Either way: **pass paths, never inline artifact content**, and never pass test f
   shell is a hole in any write scope, so agents that need a test runner are trusted by prompt there;
   and a harness that ignores the keys falls back to prompt discipline entirely. Widen the test globs
   to match the project's naming.
-- **No agent pins a model** — the harness decides, and a key from the wrong dialect fails the whole
-  dispatch. The prompts are written for a ~30B local model; don't loosen them for a stronger one.
+- **No agent frontmatter names a model or a tool list.** Both harnesses define those keys with
+  different types, so either one makes the file invalid somewhere; the harness picks the model, and
+  tool scope is expressed in the keys only one of them reads. The prompts are written for a ~30B
+  local model; don't loosen them for a stronger one.
 
 ## Artifacts
 

@@ -4,7 +4,7 @@ description: "localagent-workflow: run the whole pipeline as the main session â€
 mode: primary
 skills:
   - localagent-workflow
-tools: Read, Glob, Grep, Bash, Write, Edit, Skill, TodoWrite, Agent(localagent-spec-architect, localagent-test-author, localagent-implementer, localagent-verifier, localagent-e2e, localagent-docs)
+disallowedTools: WebSearch, WebFetch
 permission:
   edit: { "localagent/PLAN.md": allow, "localagent/STATE.md": allow, "*": deny }
   bash: { "mkdir *": allow, "git *": allow, "*": deny }

@@ -67,7 +67,11 @@ Not tracked (see `.gitignore`): `.claude/`, `.serena/`, `.tokensave`.
 - **A skill's helper files** (`templates/`, `references/`) live inside its own folder and are
   referenced from `SKILL.md` — they load on demand, which is the whole point. **Agent definitions are
   the exception:** a harness registers them from its own agents directory and scans that directory
-  recursively, so they live in `.claude_TEMPLATE/agents/{group}/` and must install flat.
+  recursively, so they live in `.claude_TEMPLATE/agents/{group}/` and must install flat. Their
+  frontmatter serves both harnesses at once, which holds only because each dialect ignores the
+  other's keys — safe: `name` `disallowedTools` `skills` `hooks` (Claude Code), `mode` `permission`
+  (OpenCode), `description` (both). **Never a key both define differently** — `model` and `tools`
+  each take a different type per harness and make the file invalid in one of them.
 - **`CLAUDE.md` is always loaded, in every session, forever.** It says *when* something applies and
   *where* the rest lives — never what a skill does (that duplicates the skill's description and
   goes stale). Adding a paragraph there is a permanent cost; default to putting it in a skill.
