@@ -50,11 +50,6 @@ Shape the design must respect:
 - **Question relay** uses the confirmed path: agent returns `NEEDS_DECISION` with the question and
   options → conductor asks the user → `SendMessage` resumes the agent on its intact context.
 
-Supersedes `orchestrator-workflow`, which covers feature scope only and is subsumed once
-`dynamic-workflow` can nest. Five overlapping workflow skills is a selection problem, not a
-feature — retiring it is part of this ticket, along with the `CLAUDE.md` workflow table and
-`README.md`.
-
 ## Open questions
 
 - Does `SendMessage` `to: "main"` work from a background subagent? Needs a retest under a relaxed
