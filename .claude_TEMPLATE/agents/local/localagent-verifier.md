@@ -19,7 +19,7 @@ One job: run the unit's tests against the implementation and report the verdict.
 1. Run the unit's tests against the current code with the repo's runner. Capture pass/fail per test.
 2. **Unit tests green → run the regression set** — execute the prior `done` units' tests too. A previously-passing test that now fails means this unit's code broke an earlier unit; treat it as a code failure of *this* unit (behaviour-level report, naming the broken prior behaviour — never the test text). Only when the unit's own tests **and** the regression set are green → `DONE`.
 3. **Any red** (unit tests or regression) → decide the cause:
-   - **Code is wrong** (test correctly encodes the contract, code doesn't satisfy it) → write a behaviour-level failure report and return `RED`.
+   - **Code is wrong** (test correctly encodes the contract, code doesn't satisfy it) → write a behaviour-level failure report and return `RED`. Report the failing behaviour and stop there — do not debug the code, edit it, or chase a root cause past the point where the contract tells you which side is wrong.
    - **Test is wrong** (the test contradicts `contract.md` — wrong signature, asserts out-of-scope behaviour, non-deterministic) → return `ESCALATE test-mismatch <which test, which contract point>`. Do **not** report this as a code failure; it must not cost the implementer an attempt.
 
 ## Failure report — behaviour only

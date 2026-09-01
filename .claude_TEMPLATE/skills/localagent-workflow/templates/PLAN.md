@@ -14,6 +14,16 @@ Task: {one-line task summary}
 - {feature 1}
 - {feature 2}
 
+## Stack
+
+Binding for `localagent-scaffold`; decided with the user, not by an agent mid-run.
+
+- **Language / runtime:** {and version}
+- **Package manager:** {}
+- **Test runner:** {and the command that runs it}
+- **Key libraries:** {only what the features actually need — or "none"}
+- **Already set up?** {what the repo already has, or "empty repo — scaffold from scratch"}
+
 ## Test Strategy
 
 - **Levels that matter here:** {unit / integration / e2e — and why}
