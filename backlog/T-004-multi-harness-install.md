@@ -44,3 +44,22 @@ that stops being true here.
 the agent ID** (`agents/team/reviewer.md` → `team/reviewer`), while Claude Code scans recursively and
 keys off the `name:` frontmatter instead. So the two harnesses would disagree on an agent's name in
 any nested install. **Install flat in both**, whatever the source layout is.
+
+## Known harness limitation (blocks the OpenCode path)
+
+OpenCode's `task` tool exposes only its built-in `subagent_type` values to the model. Markdown-defined
+agents under `~/.config/opencode/agents/` load — `opencode --agent` and `@mention` see them — but do
+not reliably appear in that enum, so a primary agent asking for `localagent-spec-architect` gets a
+`general` subagent that role-plays the part, and the orchestrator cannot tell from the result.
+Tracked upstream as [#29616](https://github.com/anomalyco/opencode/issues/29616), open, confirmed on
+1.18.21; the sibling [#20059](https://github.com/anomalyco/opencode/issues/20059) closed as fixed in
+1.14.39 for agents declared in `opencode.json` rather than as Markdown.
+
+Order to work through before treating this as a design problem:
+
+1. **Restart OpenCode fully** — agents load at startup, and a new session is not enough. One reporter's
+   case resolved on restart alone.
+2. If the names still do not appear, declare the seven agents in `opencode.json` under `"agent"`
+   instead, which is the configuration path #20059 was verified against.
+3. Only then consider the upstream workaround of collapsing agents into keyword-triggered skills —
+   it dissolves the visibility wall, so it costs the workflow its point.
