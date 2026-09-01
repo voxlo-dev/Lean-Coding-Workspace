@@ -2,7 +2,6 @@
 name: localagent-e2e
 description: "localagent-workflow: validate the finished feature end-to-end against the plan's user-visible behaviour. Dispatched once in finalize, only where a real surface exists."
 mode: subagent
-model: inherit
 permission:
   edit: { "localagent/**": allow, "*": ask }
   bash: allow

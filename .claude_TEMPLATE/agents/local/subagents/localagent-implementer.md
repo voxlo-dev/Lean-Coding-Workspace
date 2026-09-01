@@ -2,7 +2,6 @@
 name: localagent-implementer
 description: "localagent-workflow: write the production code for one unit from its spec + contract, blind to the tests. The GREEN half of the wall."
 mode: subagent
-model: inherit
 disallowedTools: WebSearch, WebFetch, Agent
 permission:
   read:

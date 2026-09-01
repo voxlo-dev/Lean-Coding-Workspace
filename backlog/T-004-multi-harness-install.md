@@ -38,5 +38,10 @@ that stops being true here.
 
 - Which skills opt in? `localagent-workflow` is the only one with agents today. A blanket "every
   `agents/` folder" rule is simpler than a per-skill list and costs nothing while there is one.
-- Does OpenCode discover agents in subfolders of its agents directory, or must the copies stay flat?
-  The flat `localagent-*.md` naming already assumes flat — confirm before relying on it.
+- Which repo folder is the single source for agent definitions — the skill's `agents/`, or a top-level
+  `agents/` tree? Two copies exist today; the installer needs exactly one.
+
+**Answered:** OpenCode scans its agents directory recursively **but the path below `agents/` becomes
+the agent ID** (`agents/team/reviewer.md` → `team/reviewer`), while Claude Code scans recursively and
+keys off the `name:` frontmatter instead. So the two harnesses would disagree on an agent's name in
+any nested install. **Install flat in both**, whatever the source layout is.
