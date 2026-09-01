@@ -2,13 +2,6 @@
 name: localagent-test-author
 description: "localagent-workflow: write one unit's tests from its spec + contract and confirm they are red. The RED half of the wall — never writes production code."
 mode: subagent
-disallowedTools: WebSearch, WebFetch, Agent
-permission:
-  edit: { "localagent/**": deny, "*": allow }
-  bash: allow
-  task: deny
-  webfetch: deny
-  websearch: deny
 ---
 
 # Agent: test-author

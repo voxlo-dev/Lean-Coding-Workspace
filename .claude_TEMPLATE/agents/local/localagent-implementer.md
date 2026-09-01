@@ -2,7 +2,6 @@
 name: localagent-implementer
 description: "localagent-workflow: write the production code for one unit from its spec + contract, blind to the tests. The GREEN half of the wall."
 mode: subagent
-disallowedTools: WebSearch, WebFetch, Agent
 permission:
   read:
     "**/*.test.*": deny
@@ -28,11 +27,6 @@ permission:
     "**/tests/**": deny
     "**/__tests__/**": deny
     "*": allow
-  edit: { "localagent/**": deny, "*": allow }
-  bash: { "*": ask }
-  task: deny
-  webfetch: deny
-  websearch: deny
 ---
 
 # Agent: implementer

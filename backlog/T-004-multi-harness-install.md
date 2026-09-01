@@ -45,21 +45,17 @@ the agent ID** (`agents/team/reviewer.md` → `team/reviewer`), while Claude Cod
 keys off the `name:` frontmatter instead. So the two harnesses would disagree on an agent's name in
 any nested install. **Install flat in both**, whatever the source layout is.
 
-## Known harness limitation (blocks the OpenCode path)
+## Dispatching custom agents in OpenCode — observed
 
-OpenCode's `task` tool exposes only its built-in `subagent_type` values to the model. Markdown-defined
-agents under `~/.config/opencode/agents/` load — `opencode --agent` and `@mention` see them — but do
-not reliably appear in that enum, so a primary agent asking for `localagent-spec-architect` gets a
-`general` subagent that role-plays the part, and the orchestrator cannot tell from the result.
-Tracked upstream as [#29616](https://github.com/anomalyco/opencode/issues/29616), open, confirmed on
-1.18.21; the sibling [#20059](https://github.com/anomalyco/opencode/issues/20059) closed as fixed in
-1.14.39 for agents declared in `opencode.json` rather than as Markdown.
+A primary agent asking for `localagent-spec-architect` first got a built-in `general` subagent that
+role-played the part, which the orchestrator could not tell from a real result. Upstream this is
+described as the `task` tool exposing only built-in `subagent_type` values to the model
+([#29616](https://github.com/anomalyco/opencode/issues/29616), open, seen on 1.18.21;
+[#20059](https://github.com/anomalyco/opencode/issues/20059) closed as fixed in 1.14.39 for agents
+declared in `opencode.json`).
 
-Order to work through before treating this as a design problem:
-
-1. **Restart OpenCode fully** — agents load at startup, and a new session is not enough. One reporter's
-   case resolved on restart alone.
-2. If the names still do not appear, declare the seven agents in `opencode.json` under `"agent"`
-   instead, which is the configuration path #20059 was verified against.
-3. Only then consider the upstream workaround of collapsing agents into keyword-triggered skills —
-   it dissolves the visibility wall, so it costs the workflow its point.
+Here it resolved once the agents' `permission` blocks were removed: the correct subagent then ran,
+on the second attempt. So the restricted `task` permission, not the enum, is the prime suspect — a
+`task: { "localagent-*": allow, "*": ask }` map appears to interfere with dispatching by name. If it
+recurs: restart OpenCode fully (agents load at startup, `/new` is not enough) before suspecting the
+enum, and only then try declaring the agents in `opencode.json`.
