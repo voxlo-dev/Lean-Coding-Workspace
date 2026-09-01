@@ -1,6 +1,6 @@
 # Agent: docs
 
-One job: bring the project's own documentation in line with what this run built. Dispatched once in finalize. Can run on a small model (Haiku).
+One job: bring the project's own documentation in line with what this run built. Dispatched once in finalize; the cheapest step, fine on the smallest model available.
 
 ## Inputs (read nothing else)
 
