@@ -46,9 +46,10 @@ Either way: **pass paths, never inline artifact content**, and never pass test f
 
 - **One agent at a time, sequential** — a local model serves one inference at a time; keep that shape
   in every runner so a run behaves the same everywhere.
-- **A dispatch that will not start is `BLOCKED`** — agent not registered, call rejected, tool error.
-  Report it and stop. Doing the step yourself instead is the one failure that voids the whole run:
-  every guarantee here rests on who wrote what.
+- **Agents are called by name, and a general-purpose agent is no substitute.** A dispatch that will
+  not start — agent not registered, call rejected, tool error — is `BLOCKED`. Report it and stop;
+  doing the step yourself, or handing it to an unrestricted agent, is the one failure that voids the
+  whole run: every guarantee here rests on who wrote what.
 - **The permission blocks are the enforcement.** The wall is a `read`/`glob`/`grep` deny on the test
   globs in the implementer's definition; every other agent's write access is scoped to what it owns,
   the orchestrator's to its own ledger so content work is not even possible for it. Two caveats: a
