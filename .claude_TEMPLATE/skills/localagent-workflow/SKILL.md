@@ -82,10 +82,11 @@ must be survivable from it alone. Shape, status ladder and `Attempts` semantics:
 ## Phase 1 — Plan, then the gate
 
 Produce `localagent/PLAN.md` from `templates/PLAN.md`: target/systems, features, **stack**, test
-strategy, and a unit list with dependencies. Keep units small — each bounds every later agent's
-context. Settle the stack here with the user — language, runtime, package manager, test runner,
-libraries: no agent later is allowed to decide it, and one that has to will decide it badly and
-alone. Interactive by default: plan *with* the user in 2–3 tight rounds (goal, must-haves vs
+strategy, and a unit list with dependencies. Keep units small **and few** — a unit is something that
+can fail its own test, not a layer or a folder, and every seam between two is a place the blind
+halves can disagree. Settle the stack here with the user — language, runtime, package manager, test
+runner, libraries: no agent later is allowed to decide it, and one that has to will decide it badly
+and alone. Interactive by default: plan *with* the user in 2–3 tight rounds (goal, must-haves vs
 nice-to-haves, constraints, what "done" looks like, risky areas), grounded in codegraph if indexed,
 else a brief scoped look. Headless: derive PLAN.md from the task brief.
 

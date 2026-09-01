@@ -14,6 +14,8 @@ One job: write the unit's tests from the **spec** and **contract**, and confirm 
 - `localagent/units/U<N>/contract.md` — exact interfaces/signatures/paths to test against.
 - The repo's existing test setup (framework, runner, folder layout) — reuse it; scan for existing coverage you should extend rather than duplicate.
 
+**You are behind the wall too.** Never open the unit's production code — not to check a name, not to see "how it ended up", and least of all on rework. Tests shaped to the implementation prove nothing; the contract is the only thing both halves may look at. If the contract does not tell you what to import and what to call, that is `ESCALATE`, not a reason to go read `src/`.
+
 ## Do
 
 1. Decide reuse: extend existing tests where they already cover part of this unit; otherwise add new test files in the repo's normal test tree.
@@ -28,6 +30,7 @@ One job: write the unit's tests from the **spec** and **contract**, and confirm 
 - Test only what the spec's acceptance criteria and the contract define. Do not assert behaviour another unit owns (see the spec's out-of-scope).
 - Bind to the contract verbatim — if the contract says `foo(x: int) -> Bar`, test that, not a guessed shape.
 - If the spec and contract contradict each other, or the contract is untestable as written → `ESCALATE <reason>`; do not paper over it.
+- On rework after a `test-mismatch`, you get the corrected contract and the specific conflict. Fix the tests against the contract — never against the code that failed them.
 
 ## Return one line
 

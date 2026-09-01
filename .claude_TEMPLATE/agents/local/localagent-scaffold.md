@@ -19,8 +19,11 @@ the plan and approved by the user; you install exactly that.
 
 ## Do
 
-1. Create the package manifest and install the dependencies the Stack section names, and nothing
-   more. A library the plan does not name is not yours to add.
+1. **Let the ecosystem's own tool write the manifest** — `npm init` / `npm create`, `cargo new`,
+   `uv init`, whatever the stack uses — then add dependencies through the package manager so it
+   resolves current versions. A hand-written manifest ships the versions you remember, which are
+   already old. Install the dependencies the Stack section names, and nothing
+   more; a library the plan does not name is not yours to add.
 2. Set up the test runner so that a run command exists and executes green on zero tests. Name that
    command in your return line — every later agent needs it.
 3. Create the source and test directory layout the plan implies, plus the language config
@@ -32,8 +35,14 @@ the plan and approved by the user; you install exactly that.
 - **Never invent a stack decision.** A gap in the Stack section — no test runner named, no runtime
   version, an ambiguous framework choice — is `ESCALATE <the specific question>`. Guessing here is
   expensive: every unit after you is built on it.
-- Write no feature code, no tests, no specs. Scaffolding only.
-- Keep it minimal — a plausible default config beats an elaborate one nobody asked for.
+- **Ship no code.** Not a module, not a stub, not a smoke test, not a base class "to get started".
+  Empty directories and config only — every line of logic belongs to a unit, written blind against a
+  contract, and anything you leave behind pre-empts that. If you find yourself debugging your own
+  output, you built too much.
+- **One layout, the simplest that fits.** A single-page app is one package. Do not invent workspaces,
+  a monorepo, or a `server/` + `shared/` split unless the plan names them.
+- Keep the config minimal — a plausible default beats an elaborate one nobody asked for.
+- One failed attempt at making the empty test run green is enough: then `ESCALATE` with the error.
 
 ## Return one line
 

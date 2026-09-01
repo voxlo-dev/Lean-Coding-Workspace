@@ -34,6 +34,15 @@ One job: turn one unit's PLAN entry into two artifacts — a **spec** (behaviour
 - Stay inside this unit. Do not spec behaviour that another unit owns.
 - Keep both files small and sharp — they bound the next two agents' entire context.
 
+## Before you return: read your own contract as a test-author
+
+For every name you exposed, say the first line of a test out loud: what do I import, from which path, what do I call, what comes back? A name you cannot answer that for is not specified yet. Then check the contract against itself — these are the breaks that cost a whole unit:
+
+- Every type named under **Construction** is declared under **Types**. Every type used in a signature is declared here or is a language builtin.
+- No type mixes its own data fields with methods that belong to something else. A request shape is not a controller.
+- Nothing is called two ways. If a thing is constructed and then invoked, both the constructor and the method are written out.
+- No `{...}` survives.
+
 ## Return one line
 
 `DONE localagent/units/U<N>/` — both `spec.md` and `contract.md` written.
