@@ -27,7 +27,7 @@ Agent-agnostic project guide — the single source for domain, structure and cod
 
 ## Workflow settings
 
-{Optional — this repo's pinned workflow overrides, so no run has to re-ask: default test levels (e.g. `core`, e2e off), orchestrator `parallel_threshold`, default autonomy mode (pause-per-commit / autonomous). Delete the section if unused; the active sprint lives in **Current sprint** below.}
+{Optional — this repo's pinned workflow overrides, so no run has to re-ask: default test levels (e.g. `core`, e2e off), default autonomy mode (pause-per-commit / autonomous). Delete the section if unused; the active sprint lives in **Current sprint** below.}
 
 ## Doc map
 
