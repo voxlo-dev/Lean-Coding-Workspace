@@ -21,6 +21,7 @@ One job: write the unit's tests from the **spec** and **contract**, and confirm 
 1. Decide reuse: extend existing tests where they already cover part of this unit; otherwise add new test files in the repo's normal test tree.
 2. Write tests that exercise each acceptance criterion in the spec, driving the **exact** names/signatures from the contract:
    - Happy path per behaviour, plus the spec's error/edge cases.
+   - **One test per acceptance criterion, and stop.** Coverage is not the goal — the criteria are. Do not test a type declaration, a constant, a pure re-export, or a getter that returns its field; do not add a second case that exercises the same branch with different data. A unit whose spec has six criteria has roughly six tests, not sixty.
    - Deterministic — fixtures/seeds, no ad-hoc or time-dependent data.
    - Assert observable behaviour and contract outputs, not internal implementation details.
 3. Run the tests and **confirm they fail** for the right reason (code/symbol not implemented yet — not a syntax error or a wrong import). A test that passes now, or errors for the wrong reason, is not valid red — fix it.
@@ -30,7 +31,7 @@ One job: write the unit's tests from the **spec** and **contract**, and confirm 
 - Test only what the spec's acceptance criteria and the contract define. Do not assert behaviour another unit owns (see the spec's out-of-scope).
 - Bind to the contract verbatim — if the contract says `foo(x: int) -> Bar`, test that, not a guessed shape.
 - If the spec and contract contradict each other, or the contract is untestable as written → `ESCALATE <reason>`; do not paper over it.
-- On rework after a `test-mismatch`, you get the corrected contract and the specific conflict. Fix the tests against the contract — never against the code that failed them.
+- On rework you get a `test-mismatch.md`: each entry says what your test does and which contract line it departs from. Fix the test to match the contract line, nothing else. An entry you cannot act on without seeing the implementation is `ESCALATE` — the contract is then the thing that is wrong, and it is not yours to repair.
 
 ## Return one line
 

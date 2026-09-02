@@ -24,6 +24,7 @@ One job: turn one unit's PLAN entry into two artifacts — a **spec** (behaviour
    The contract must be concrete enough that a test and an implementation written from it *without seeing each other* will fit together.
 2. Write `localagent/units/U<N>/spec.md` from the spec template named in your brief — the behaviour:
    - Observable behaviour, edge/error cases and their expected handling, numbered acceptance criteria.
+   - **As few criteria as truly pin the behaviour.** Each one becomes a test and a piece of implementation, so an inflated list inflates two agents' entire workload. Six criteria is a normal unit.
    - Explicit out-of-scope (what belongs to another unit).
    - Reference the contract's names; do not restate signatures.
 
@@ -31,7 +32,8 @@ One job: turn one unit's PLAN entry into two artifacts — a **spec** (behaviour
 
 - Behaviour lives in the spec; the surface lives in the contract. Keep them consistent — the same names, no contradictions.
 - Never invent file paths, function names, or types. Unclear scope or a blocking gap in the PLAN entry → `ESCALATE` with the specific question; do not guess.
-- Stay inside this unit. Do not spec behaviour that another unit owns.
+- **The PLAN entry's scope line is a ceiling, not a starting point.** Spec what it says and nothing beside it — no capability that would be nice, no option nobody asked for, no layer "needed anyway". Stay inside this unit and do not spec behaviour another unit owns.
+- **If the unit cannot be built in a handful of modules, it is too big.** Say so: `ESCALATE too-large <what it would take>`, so the plan gets re-cut. A contract that spans nine modules buries the test-author and the implementer in one shot, and every seam inside it is a place their blind guesses diverge.
 - Keep both files small and sharp — they bound the next two agents' entire context.
 
 ## Before you return: read your own contract as a test-author
