@@ -118,14 +118,30 @@ Seed `STATE.md` from the approved unit list, then loop:
    continue.
 4. All units `done` → finalize.
 
-**Rework on `RED`** (red-cycle `k` = the unit's new `Attempts`): re-dispatch the implementer with the
-verifier's **behaviour-level** report (expected vs actual + the contract point / acceptance criterion
-that failed), never the test source. At `k ≥ 3` the **wall drops** — add the unit's test file paths to
-break the deadlock. At `k ≥ 5`, escalate.
+### Who fixes what
 
-**Verifier safety valve:** a verifier judging the *test* wrong (it contradicts `contract.md`) returns
-`ESCALATE test-mismatch` — re-dispatch `localagent-test-author`, or `localagent-spec-architect` if the
-contract itself is wrong, not the implementer, so a bad test costs no attempt.
+Every failure has exactly one owner, and **the report that reaches them is written in contract terms**
+— never in the other side's source. That is what keeps the wall standing through rework: both halves
+only ever see `contract.md` plus a statement of how their own output departs from it.
+
+| Verifier verdict | Owner | Gets | Costs an attempt |
+| --- | --- | --- | --- |
+| `RED` — code does not satisfy the contract | `localagent-implementer` | behaviour-level report: expected vs actual + the contract point that failed | yes |
+| `ESCALATE test-mismatch` — a test contradicts the contract | `localagent-test-author` | the conflict as contract points: what the test does, what the contract says | no |
+| the contract is itself wrong or ambiguous | `localagent-spec-architect` | the conflict; it rewrites `contract.md`, then **both** tests and code are re-derived from it | no, and reset `Attempts` |
+| the toolchain is broken — runner config, build config, a missing dep | `localagent-scaffold` | the error; it is not a unit failure at all | no |
+
+One correction comes earlier than any of these: `localagent-spec-architect` may return `ESCALATE
+too-large` when the unit as planned cannot be built in a handful of modules. Re-cut that unit in
+`PLAN.md`, update `STATE.md`, dispatch again — a planning correction, not a failure, and cheaper than
+any of the rows above.
+
+A conflict that cannot be stated in contract terms is not a test bug — it is the contract's. Route it
+to `localagent-spec-architect` rather than asking either blind half to look at the other's files, and
+never let an agent "just check" the code to work out what a report means.
+
+**Wall drop.** On the `RED` path only, at `k ≥ 3` add the unit's test file paths to the implementer's
+brief to break a deadlock. At `k ≥ 5`, escalate the unit.
 
 ## Phase 3 — Finalize
 
