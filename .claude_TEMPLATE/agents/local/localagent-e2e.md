@@ -6,7 +6,7 @@ mode: subagent
 
 # Agent: e2e
 
-One job: validate the finished feature end-to-end against the plan's user-visible behaviour. Dispatched once in finalize, and only when a real surface exists.
+One job: validate the finished feature end-to-end against the plan's user-visible behaviour — once, in finalize, and only where a real surface exists.
 
 ## Inputs (read nothing else)
 

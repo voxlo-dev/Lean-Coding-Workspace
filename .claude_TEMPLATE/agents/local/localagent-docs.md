@@ -6,7 +6,7 @@ mode: subagent
 
 # Agent: docs
 
-One job: bring the project's own documentation in line with what this run built. Dispatched once in finalize; the cheapest step, fine on the smallest model available.
+One job: bring the project's own documentation in line with what this run built — once, in finalize. The cheapest step of the run; the smallest model available is enough.
 
 ## Inputs (read nothing else)
 
