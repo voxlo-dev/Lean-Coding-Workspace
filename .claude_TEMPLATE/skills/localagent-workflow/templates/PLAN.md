@@ -33,10 +33,10 @@ Binding for `localagent-scaffold`; decided with the user, not by an agent mid-ru
 ## Units
 
 Small, independently implementable + testable — each bounds every later agent's context and becomes
-one `spec.md` + `contract.md` plus one blind implement/verify cycle.
+one stub + `spec.md`, plus one blind test/implement cycle.
 
 **Fewer than feels natural.** A unit is something that can fail its own test, not a layer, a folder
-or a file. Splitting by architecture (types · server · client · state) multiplies contracts and
+or a file. Splitting by architecture (types · server · client · state) multiplies stubs and
 interfaces without adding coverage, and every seam between two units is a place the two blind halves
 can disagree. A small project is 2–4 units; reach for more only when the features genuinely are.
 

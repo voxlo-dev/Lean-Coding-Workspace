@@ -5,8 +5,9 @@ Phase: build            # planning | plan-gate | build | finalize | blocked
 
 ## Units
 
-Status ladder: pending → specced → tests-red → impl → verified → done
-Attempts = red verifier cycles on this unit (wall drops at 3, escalate at 5).
+Status ladder: pending → specced → tests-red → done
+Attempts = escalation rounds on this unit (wall drops at 2, escalate the run at 3). The implementer's
+own fix cycles are not counted here — it self-verifies and only reports back once.
 
 | ID | Title | Depends | Status | Attempts | Dir |
 | --- | --- | --- | --- | --- | --- |
