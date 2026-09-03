@@ -13,13 +13,12 @@ dispatch the agent. `STATE.md`, not your context window, is your working memory.
 **The contract is code, not prose.** `localagent-spec-architect` writes each unit's surface as **stub
 files in the repo's normal tree** — every exposed symbol at its real path with its full signature, a
 body that only raises "not implemented" — and typechecks them before returning. Both halves compile
-against the same declarations, so a signature can no longer be read two ways.
+against the same declarations, so a signature cannot be read two ways.
 
 **TDD is forced by construction:** `localagent-test-author` and `localagent-implementer` are separate
-agents behind a **visibility wall** — neither ever reads the other's files, both derive from the same
-stub plus `spec.md`. The wall is about **source, not evidence**: the implementer runs the tests and
-works from what they print, so it closes its own fix loop; what it may never do is read the test text
-and shape code to fit it.
+agents behind a **visibility wall**, deriving independently from that stub plus `spec.md`. The wall
+is about **source, not evidence**: the implementer runs the tests and works from what they print, so
+it closes its own fix loop; what it may never do is read the test text and shape code to fit it.
 
 Nothing assumes a harness or a project layout. The agent prompts are plain Markdown — one job each,
 declared inputs only, one artifact, one status line back — and their frontmatter carries both harness
@@ -54,10 +53,10 @@ pass test files to `localagent-implementer` until the wall drops.
   agent, is the one failure that voids the whole run: every guarantee rests on who wrote what.
 - **One restriction is enforced; everything else is prompt.** The wall — a `read`/`glob`/`grep` deny
   on the test globs in the implementer's definition, widened to the project's naming — is the only
-  permission any agent carries, because a peek at the test source is invisible afterwards. Running
-  the tests is not denied and must not be: it is what lets the implementer fix itself. Tighten
-  nothing else — a small model holds a prompt well but loses the thread the moment a tool call is
-  refused, so a scope narrow enough to trip it costs more than it protects.
+  permission any agent carries, because a peek at the test source is invisible afterwards. **Running**
+  the tests is never denied: it is what lets the implementer fix itself. Tighten nothing else — a
+  small model holds a prompt well but loses the thread the moment a tool call is refused, so a scope
+  narrow enough to trip it costs more than it protects.
 - **No frontmatter names a model or a tool list.** Both harnesses define those keys with different
   types, so either one makes the file invalid somewhere. The prompts are written for a ~30B local
   model; don't loosen them for a stronger one.
@@ -123,8 +122,7 @@ Seed `STATE.md` from the approved unit list, then loop:
 The implementer fixes its own code inside its own turn — a red test is not a round trip. What reaches
 you is only what it decided is *not* its to fix, and **every rework brief you forward is written in
 stub and acceptance-criterion terms** — never in the other side's source. That is what keeps the wall
-standing through rework: each half only ever sees the shared stub plus a statement of how its own
-output departs from it.
+standing through rework.
 
 | Implementer verdict | Owner gets | Attempt |
 | --- | --- | --- |
@@ -135,7 +133,7 @@ output departs from it.
 | A stub or test file was modified | revert it, re-dispatch the half that edited it with the breach named | counts |
 
 The spec-architect owns both shared files, so **both content escalations route there** — with the stub
-compiling, "test vs contract" is decidable by reading it, and one owner beats two. Earlier still, the
+compiling, "test vs contract" is decidable by reading it. Earlier still, the
 spec-architect may return `ESCALATE too-large`: re-cut that unit in `PLAN.md`, update `STATE.md`,
 dispatch again — a planning correction, cheaper than any row above.
 

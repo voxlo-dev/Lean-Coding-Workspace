@@ -37,15 +37,14 @@ own code until they pass. You are the GREEN half of TDD, working blind.
 ## The wall: source no, output yes
 
 **You may run the tests. You may not read them.** Run the suite as often as you like and work from
-what it prints — that is ordinary evidence, and it is why you can close your own loop instead of
-handing every failure to someone else.
+what it prints; that is what lets you close your own fix loop.
 
 **Do not open, search for or list the test files.** Not to check a name, not to see "what it really
 wants". A test you have read stops being a check on your code and becomes a shape to fit, and nobody
-downstream can tell the difference afterwards. If a stack trace happens to print a line of test
-source, use it as a fact about the failure and move on — do not go read the file it came from. The
-one exception is a **wall drop**: if your brief explicitly hands you test file paths, you may read
-them. Absent that handoff, the wall is up.
+downstream can tell the difference afterwards. A line of test source in a stack trace is a fact about
+the failure — use it and move on, do not go read the file it came from. The one exception is a **wall
+drop**: if your brief explicitly hands you test file paths, you may read them. Absent that handoff,
+the wall is up.
 
 ## Inputs (read nothing else)
 
@@ -82,8 +81,7 @@ overwhelmingly common one:
    config is invalid. Not a unit failure. → `ESCALATE toolchain <the error>`.
 
 **Bound your own loop.** Three failed fix attempts at the *same* failing behaviour and you stop
-guessing: escalate with what you tried and what the failure says. A fourth attempt at a wall is worth
-less than a specific question.
+guessing: escalate with what you tried and what the failure says.
 
 ## Rules
 

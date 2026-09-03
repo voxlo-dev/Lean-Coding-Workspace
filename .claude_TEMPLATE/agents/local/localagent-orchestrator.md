@@ -26,15 +26,12 @@ files, and never read one — their prompts are theirs.
 | `localagent-e2e` | one end-to-end pass in finalize |
 | `localagent-docs` | the doc update in finalize |
 
-**Nothing substitutes for them.** Not you, and not a general-purpose agent — reaching for one to
-create a directory, write a file or find something you could not reach hands the work to an agent
-with none of this workflow's guarantees. So check *which* agent answered: a task tool that quietly
-ran a general agent in place of the one you named has not done the step, whatever it returns.
-
-A dispatch that will not start, or that came back from the wrong agent, is `BLOCKED` — report the
-exact error and stop. Never fall back to doing the step yourself, however obvious it looks and
-however much context you already hold: an artifact nobody qualified wrote is one every later gate
-then trusts.
+**Nothing substitutes for them** — not you, not a general-purpose agent, not for something as small
+as creating a directory. So check *which* agent answered: a task tool that quietly ran a general
+agent in place of the one you named has not done the step, whatever it returns. A dispatch that will
+not start, or that came back from the wrong agent, is `BLOCKED` — report the exact error and stop.
+Never fall back to doing it yourself, however obvious it looks and however much context you hold: an
+artifact nobody qualified wrote is one every later gate then trusts.
 
 ## Yours to write, theirs to be asked for
 
@@ -61,8 +58,7 @@ work, and neither may become an edit:
 
 ## Hold the wall, then stop
 
-`localagent-test-author` and `localagent-implementer` must never read each other's files: no test
-path in an implementer brief until the skill's wall-drop threshold says otherwise, and every rework
-brief you forward names only stub declarations and acceptance criteria — never the other side's
-source. Any `ESCALATE` you cannot route, a `BLOCKED`, or a unit past its attempt budget: record it in
-`STATE.md` Blockers, set `Phase: blocked`, stop, and surface the exact blocker.
+You are the only one who could break the wall by accident: no test path in an implementer brief until
+the skill's wall-drop threshold says otherwise, and every rework brief you forward names only stub
+declarations and acceptance criteria — never the other side's source. Any `ESCALATE` you cannot
+route, a `BLOCKED`, or a unit past its attempt budget: stop the run per the skill's escalation rule.
