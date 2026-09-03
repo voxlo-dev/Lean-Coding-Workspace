@@ -7,6 +7,8 @@ description: "Optional e2e stage of dynamic-workflow: validate a UI feature end-
 
 Validate a UI feature end-to-end as cheaply as possible: **the script is the tester, the agent is the exception.** Input is the test case `spec-design` wrote (`artefacts/{sprint}/e2e_{feature}.md`) — missing → ask the user (write one now / skip e2e / verify manually).
 
+**Never end a turn on a run you didn't watch.** Every build, test and driver invocation runs in the foreground and is waited out; where a tool forces it into the background, poll it to exit and read its output before reporting anything. A backgrounded run handed back as a result is a verdict nobody saw — this binds the e2e subagent above all, whose whole output is that verdict.
+
 A red step is a **product bug** → back to implementation (`dynamic-workflow` step 2); red from a selector, a wait or a fixture is a **script bug** → fix the script, never the product.
 
 1. **Automation already runnable?** — run it first, before any delegation: one command, its invocation in `docs/dev.md`. Green → step 7, the stage is done. Red → triage per the rule above, except red **before this run touched anything**: that is a pre-existing defect, not this run's problem — ticket it and carry on with the case at hand.
