@@ -24,7 +24,7 @@ Bootstrap or repair `~/.claude` from this template, then personalise it. **Copy 
   ```
 
 - **On a repair, `-n` is not enough** — a skill whose template version changed keeps the old installed copy. Two kinds of file:
-  - **workspace-owned** — `skills/`, `project_TEMPLATE/`: overwrite from the template (`cp -r`, no `-n`). A user edit inside the installed copy is lost **by design**; real customisations belong in the workspace repo. Deletions need doing explicitly — a skill renamed or dropped in the template leaves its old folder behind and still loads.
+  - **workspace-owned** — `skills/`, `agents/`, `project_TEMPLATE/`: overwrite from the template (`cp -r`, no `-n`). A user edit inside the installed copy is lost **by design**; real customisations belong in the workspace repo. Deletions need doing explicitly — a skill or agent renamed, moved or dropped in the template leaves its old copy behind and keeps loading; check for a stale *home* too, not just a stale file.
   - **user-owned** — `memory/`, `projects/`, `domains/`, `settings.json`, `.mcp.json`: leave them alone. A domain master is generated, not templated (`domain-initialiser` rebuilds one on request).
 - **`CLAUDE.md` is always a manual merge:** take the template's structural changes (new sections, reworded rules), keep the user-filled ones — **User Info**, **System Info**, custom **RULES**, **Available masters**.
 - New skill *folders* are usually discovered only next session — say so rather than claiming they're live.
