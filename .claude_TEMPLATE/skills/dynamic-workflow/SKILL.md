@@ -18,6 +18,8 @@ description: "Use for feature work or any change that warrants a spec. spec-desi
 7. **Board** — flip **every ticket the spec implemented** to `to test` (straight to `done` if the e2e step already verified it). A ticket whose packages aren't all done keeps its status. Flip the word, leave every other file alone. Something worth doing but out of scope → capture it as a ticket in `backlog/`.
 8. **Checkpoint** — invoke `checkpoint`, then continue in a fresh chat.
 
+**Weigh every dispatch, right before it fires.** A subagent is heavyweight — a full context spin-up plus a handoff — so it earns its keep only where the work is token-hungry, self-contained, or would otherwise flood the orchestrator's context. Below that bar it runs in the main thread even under `delegated`: a per-run docs pass, a small fix after e2e, a one-file change. The same weighing applies to any dispatch a nested skill would trigger (`systematic-debugging`, `e2e`) — follow the skill, decide inline-vs-subagent here.
+
 **Stuck? Escalate.** On a technical problem, pause and ask the user after ~5 solution attempts (an attempt = a new approach via a tool call).
 
 ## Light TDD

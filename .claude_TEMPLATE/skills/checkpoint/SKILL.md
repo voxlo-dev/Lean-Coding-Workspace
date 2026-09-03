@@ -15,10 +15,11 @@ At a phase boundary a context reset is cheap — the next phase reads other file
 
 - **Frame** — sprint slug, branch, phase just finished. One line.
 - **Pick up here** — the next action, plus the paths worth opening first.
-- **Chat-only residue** — what lived nowhere but in the conversation: calls the user made in passing, why the run deviated from its spec, dead ends not worth retrying, open questions.
+- **The user's own words** — every message of theirs that carried feature substance and that no file states: scope calls, answers to questions asked in this chat, a preference dropped in passing. **Quote verbatim, don't paraphrase**, and don't filter by "the next chat can just ask" — making the user answer the same question twice is the drift this block exists to stop. Quoted user text doesn't count against the cap.
+- **Chat-only residue** — why the run deviated from its spec, dead ends not worth retrying, open questions.
 
 **Out: anything a surviving file already says** — board, tickets, spec, docs, commit messages. Link the path, never paraphrase. A fact with a durable home goes there first (decision → `docs/decisions.md`, learning → `maintain-memory`, later work → a ticket) and is not repeated here.
 
-Applied honestly this often leaves nothing. Then write nothing and say so — a handout restating files is pure cost.
+Applied honestly the last block is often empty; the user's words rarely are. Nothing to hand over at all → write nothing and say so, a handout restating files is pure cost.
 
 Finally, set the chat title to what the chat actually did — `mcp__ccd_session_mgmt__set_session_title`, present only in the Claude desktop app, skip where it's absent. Then tell the user to continue in a **new chat**; the handout only pays off if the context resets.
