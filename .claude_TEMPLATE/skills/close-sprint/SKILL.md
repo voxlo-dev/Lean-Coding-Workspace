@@ -22,10 +22,10 @@ Read the board in `artefacts/{sprint}/sprint.md`. Every ticket not at **done** n
 - **Carry over** — put the line back into `backlog/backlog.md` (**Backlog**, or **Draft** if the sprint proved it isn't ready) and drop it from the board; the ticket file stays in `backlog/` as always. This is mandatory: the board freezes with the sprint, so anything left on it silently disappears.
 - **Finish it** — hand back to `dynamic-`/`minimal-workflow`, then return here.
 
-Then the scope check — **read-light, run nothing new:**
+Then the scope check — **read-light, and the only thing run is the suite:**
 
 - Every `spec_*` in the sprint folder at **Status: done**?
-- Tests green: the unit suite passes and the existing **e2e reports** (`e2e-report_*`) are green — the existing ones, no fresh run.
+- Tests green: the unit suite passes, and the **whole e2e suite** runs once here — every flow in the index, this being the sprint's one full pass, since each `e2e` run only drove the flows its own change touched. Red is a finding for step 2, never something the green `e2e-report_*` of an earlier run papers over.
 - Every spec's **Behaviour delta** filled where the project has a `behaviour.md`? That is what step 4 folds into the rulebook, so a spec that shipped behaviour without recording it is the gap to catch here.
 
 **Anything missing → STOP.** List exactly what's open and hand the fix back as a recommendation ("spec-X still draft → `dynamic-workflow`", "spec-Y ships behaviour but records no delta → back to the run that wrote it").
