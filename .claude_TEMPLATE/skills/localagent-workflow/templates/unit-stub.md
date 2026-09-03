@@ -2,8 +2,7 @@
 
 The contract is **source files in the repo's normal tree**, not a document. The `test-author` imports
 them, the `implementer` fills them in; neither can misread a signature, because both compile against
-the same declarations. A prose contract had to be translated back into code twice and diverged twice
-— that is what this replaces. Rules, not a fill-in template: the shape is the language's.
+the same declarations. Rules, not a fill-in template: the shape is the language's.
 
 ## What a stub is
 
@@ -14,7 +13,7 @@ body that does nothing but fail:
   language's "not implemented" (`throw new Error("not implemented")`, `raise NotImplementedError`,
   `todo!()`, `panic("not implemented")`).
 - Types, records, data shapes: **fully declared, real fields** — tests construct these, so a missing
-  field breaks them. Not stubbed away; a data shape has no body to omit.
+  field breaks them.
 - Enums, constants, error types: **real values**. A test may assert one.
 - Every type used in a signature is declared here or is a language builtin.
 
@@ -27,9 +26,8 @@ body that does nothing but fail:
 
 ## It must typecheck
 
-Run the project's build/typecheck **before returning**. A stub that does not compile is not a
-contract — it is the same guesswork the prose version was, and both halves inherit it differently.
-Imports resolve, types line up, the file is importable by a test.
+Run the project's build/typecheck **before returning**: imports resolve, types line up, the file is
+importable by a test. A stub that does not compile is guesswork both halves inherit differently.
 
 ## Docstrings — the only prose that lives here
 
@@ -39,9 +37,8 @@ criteria belong in `spec.md`; do not restate them.
 ## Construction
 
 For every type a test or caller must obtain, the stub says **how**: an exported constructor, a
-factory function, or a plainly-constructible record. If reading the stub does not answer "how do I
-get one of these", add the factory — leaving it open is how the two blind halves each invent a
-different one.
+factory function, or a plainly-constructible record. A type the stub does not answer "how do I get
+one of these" for is one each blind half invents its own way to build.
 
 ## Surfaces that are not importable *(HTTP, sockets, CLI — skip if none)*
 
