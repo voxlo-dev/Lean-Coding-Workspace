@@ -7,13 +7,19 @@ description: "Use for a full feature build that must stay robust on a weak/local
 
 Sequential, context-frugal multi-agent build for a **weak (~30B) local model**. You are the
 **orchestrator**: pure control flow — plan, decompose, delegate, update `STATE.md`, enforce gates.
-Never write specs, contracts, tests or code yourself; catch yourself doing content work → stop and
+Never write specs, stubs, tests or code yourself; catch yourself doing content work → stop and
 dispatch the agent. `STATE.md`, not your context window, is your working memory.
 
+**The contract is code, not prose.** `localagent-spec-architect` writes each unit's surface as **stub
+files in the repo's normal tree** — every exposed symbol at its real path with its full signature, a
+body that only raises "not implemented" — and typechecks them before returning. Both halves compile
+against the same declarations, so a signature can no longer be read two ways.
+
 **TDD is forced by construction:** `localagent-test-author` and `localagent-implementer` are separate
-agents behind a **visibility wall** — neither ever sees the other's files. Both derive independently
-from a shared `contract.md` (interfaces) + `spec.md` (behaviour), and `localagent-verifier` runs the
-tests against the code, so code that passes satisfies the contract, not the test text.
+agents behind a **visibility wall** — neither ever reads the other's files, both derive from the same
+stub plus `spec.md`. The wall is about **source, not evidence**: the implementer runs the tests and
+works from what they print, so it closes its own fix loop; what it may never do is read the test text
+and shape code to fit it.
 
 Nothing assumes a harness or a project layout. The agent prompts are plain Markdown — one job each,
 declared inputs only, one artifact, one status line back — and their frontmatter carries both harness
@@ -21,7 +27,7 @@ dialects at once, so an external local-model runner can drive them straight from
 
 ## Setup — register the agents
 
-The eight `localagent-*` prompts beside this skill are **agent definitions, not documentation** — a
+The seven `localagent-*` prompts beside this skill are **agent definitions, not documentation** — a
 harness must be able to *run* one, or there is nothing to dispatch and the model does every step
 itself in one context, the failure this workflow exists to prevent. Copy them **flat** into its agent
 directory (`~/.claude/agents/`, `~/.config/opencode/agents/`, or project-level `.claude/agents/` ·
@@ -31,7 +37,7 @@ live there — a stray file is scanned as an agent, which is why `templates/` st
 the orchestrator passes their paths in the brief.
 
 `localagent-orchestrator` is the **primary** agent: run the workflow *as* that session
-(`claude --agent localagent-orchestrator`, or select it in the harness); the other seven are subagents.
+(`claude --agent localagent-orchestrator`, or select it in the harness); the other six are subagents.
 
 ## Dispatch
 
@@ -48,9 +54,10 @@ pass test files to `localagent-implementer` until the wall drops.
   agent, is the one failure that voids the whole run: every guarantee rests on who wrote what.
 - **One restriction is enforced; everything else is prompt.** The wall — a `read`/`glob`/`grep` deny
   on the test globs in the implementer's definition, widened to the project's naming — is the only
-  permission any agent carries, because a peek at the tests is invisible afterwards. Tighten nothing
-  else: a small model holds a prompt well but loses the thread the moment a tool call is refused, so
-  a scope narrow enough to trip it costs more than it protects.
+  permission any agent carries, because a peek at the test source is invisible afterwards. Running
+  the tests is not denied and must not be: it is what lets the implementer fix itself. Tighten
+  nothing else — a small model holds a prompt well but loses the thread the moment a tool call is
+  refused, so a scope narrow enough to trip it costs more than it protects.
 - **No frontmatter names a model or a tool list.** Both harnesses define those keys with different
   types, so either one makes the file invalid somewhere. The prompts are written for a ~30B local
   model; don't loosen them for a stronger one.
@@ -62,11 +69,12 @@ pass test files to `localagent-implementer` until the wall drops.
 ├── PLAN.md          ← planning, from templates/PLAN.md
 ├── STATE.md         ← the ledger, from templates/STATE.md
 ├── E2E.md           ← e2e report
-└── units/U<N>/      ← spec.md + contract.md, and the failure reports of its rework
+└── units/U<N>/      ← spec.md
 ```
 
-Tests and production code go into the repo's normal trees, docs are updated in place. Everything under
-`localagent/` records one run: committed with it, never edited afterwards, not living documentation.
+The stubs, the tests and the production code go into the repo's normal trees; docs are updated in
+place. Everything under `localagent/` records one run: committed with it, never edited afterwards,
+not living documentation.
 
 **Write `STATE.md` after every step and re-read it at the start of the next round** — a context reset
 must be survivable from it alone. Shape, status ladder and `Attempts`: `templates/STATE.md`.
@@ -100,35 +108,39 @@ Seed `STATE.md` from the approved unit list, then loop:
 
 | Sub-step | Agent | Input | Output |
 | --- | --- | --- | --- |
-| pending → specced | `localagent-spec-architect` | the unit's PLAN entry + prior units' STATE interface lines + the unit templates' paths | `units/U<N>/spec.md` + `contract.md` |
-| specced → tests-red | `localagent-test-author` | `spec.md` + `contract.md` | test files, confirmed failing |
-| tests-red → impl | `localagent-implementer` | `spec.md` + `contract.md` **(never the tests)** | production code |
-| impl → verified | `localagent-verifier` | the unit's tests + implicated src + prior `done` units' test paths (regression set) | verdict + failure report |
+| pending → specced | `localagent-spec-architect` | the unit's PLAN entry + prior units' STATE interface lines + the paths of `templates/unit-stub.md` and `templates/unit-spec.md` | stub files (typechecking) + `units/U<N>/spec.md` |
+| specced → tests-red | `localagent-test-author` | `spec.md` + the stub paths | test files, confirmed failing |
+| tests-red → done | `localagent-implementer` | `spec.md` + the stub paths + the test command **(never the test files)** | filled-in code, whole suite green |
 
-3. **Update** `STATE.md` from the agent's status line: advance the unit, or rework per the table
-   below. On `done`, append its interface line and reset `Attempts`. Re-read, continue.
+3. **Check, then update.** On the implementer's `DONE`, run the test command yourself and `git diff`
+   the stub and test files — the gate is yours, not the agent's claim. Green and unmodified → `done`:
+   append the unit's interface line, reset `Attempts`. Otherwise rework per the table below. Re-read
+   `STATE.md`, continue.
 4. All units `done` → finalize.
 
 ### Who fixes what
 
-Every failure has one owner, and **the report that reaches them is written in contract terms** — never
-in the other side's source. That is what keeps the wall standing through rework: each half only ever
-sees `contract.md` plus a statement of how its own output departs from it.
+The implementer fixes its own code inside its own turn — a red test is not a round trip. What reaches
+you is only what it decided is *not* its to fix, and **every rework brief you forward is written in
+stub and acceptance-criterion terms** — never in the other side's source. That is what keeps the wall
+standing through rework: each half only ever sees the shared stub plus a statement of how its own
+output departs from it.
 
-| Verifier verdict | Owner gets | Attempt |
+| Implementer verdict | Owner gets | Attempt |
 | --- | --- | --- |
-| `RED` — code misses the contract | **implementer**: expected vs actual + the contract point that failed | counts |
-| `ESCALATE test-mismatch` — a test contradicts it | **test-author**: what the test does vs what the contract says | free |
-| `ESCALATE contract` — the contract is wrong or ambiguous | **spec-architect**: it rewrites `contract.md`, then tests *and* code are re-derived | free, reset `Attempts` |
+| `ESCALATE test-mismatch` — a test contradicts the stub or the spec | **spec-architect**: what the failure demands vs the declaration it contradicts. It judges — repairs the stub/spec, or returns `ESCALATE unfounded`, and then the test-author gets the fix instead | counts |
+| `ESCALATE contract` — the stub or spec cannot be satisfied as written | **spec-architect**: the exact gap. It rewrites, then tests *and* code are re-derived | counts, reset on a rewrite |
 | `ESCALATE toolchain` — runner or build config broken | **scaffold**: the error; not a unit failure at all | free |
+| Your own test run red after a `DONE` | **implementer**: the failing behaviour and the criterion it misses | counts |
+| A stub or test file was modified | revert it, re-dispatch the half that edited it with the breach named | counts |
 
-A conflict that cannot be stated in contract terms is the contract's fault, not the test's — route it
-to the spec-architect rather than letting either half "just check" the other's files. Earlier still,
-the spec-architect may return `ESCALATE too-large`: re-cut that unit in `PLAN.md`, update `STATE.md`,
+The spec-architect owns both shared files, so **both content escalations route there** — with the stub
+compiling, "test vs contract" is decidable by reading it, and one owner beats two. Earlier still, the
+spec-architect may return `ESCALATE too-large`: re-cut that unit in `PLAN.md`, update `STATE.md`,
 dispatch again — a planning correction, cheaper than any row above.
 
-**Wall drop.** On the `RED` path only, at `k ≥ 3` add the unit's test file paths to the implementer's
-brief to break the deadlock. At `k ≥ 5`, escalate the unit.
+**Wall drop.** At `Attempts` ≥ 2 add the unit's test file paths to the implementer's brief to break
+the deadlock. At ≥ 3, escalate the unit.
 
 ## Phase 3 — Finalize
 
@@ -142,8 +154,8 @@ brief to break the deadlock. At `k ≥ 5`, escalate the unit.
 
 ## Escalation
 
-Any `ESCALATE` the table above does not route, a `BLOCKED`, `FIXES_REQUIRED` from e2e, or ~5 failed
-attempts on one unit: write the reason to STATE Blockers, set `Phase: blocked`, **stop the run**, and
+Any `ESCALATE` the table above does not route, a `BLOCKED`, `FIXES_REQUIRED` from e2e, or a unit past
+its attempt budget: write the reason to STATE Blockers, set `Phase: blocked`, **stop the run**, and
 surface the exact blocker to the user. Never route around one — a weak-model run stops early rather
 than grinds.
 
