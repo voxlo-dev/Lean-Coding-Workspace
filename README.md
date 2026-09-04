@@ -42,9 +42,10 @@ Then open the target harness **in that folder** and say:
 > Read `workspace_TEMPLATE/skills/workspace-install/SKILL.md` and follow it. Ask me which targets to install.
 
 The skill is not installed yet, so the first run is read-and-follow by hand. It asks which harnesses
-to install into, then copies the skills once into `~/.agents/skills/` — the Agent Skills standard,
-which Codex, OpenCode, Gemini CLI and Cursor all read and Claude Code is linked into — and per
-harness the rest of `workspace_TEMPLATE/` plus that harness's overlay. Then it detects your system,
+to install into, then copies the workspace once into `~/.agents/` — skills, memory, domains and the
+project scaffold, shared by every harness; `skills/` there is the Agent Skills standard, which Codex,
+OpenCode, Gemini CLI and Cursor all read and Claude Code is linked into. Per harness it installs only
+what that harness reads at a fixed path — the instruction file and the agents — plus its overlay. Then it detects your system,
 interviews you briefly, and verifies each capability actually works rather than merely exists.
 
 **Restart each changed harness afterwards.** New skill folders are only discovered in a fresh session.
@@ -181,7 +182,7 @@ what keeps the whole thing from turning into a swamp.
 A **domain** bundles everything specific to one kind of development — Unity, web frontend, Android —
 as shared conventions, skills, agents, language-server and MCP configuration.
 
-Masters live **inert** in `{home}/domains/{x}-domain/`, so nothing domain-specific loads globally.
+Masters live **inert** in `~/.agents/domains/{x}-domain/`, so nothing domain-specific loads globally.
 `project-initialiser` copies the matching master into a repo, where it loads project-scoped: the
 Unity MCP runs in Unity repos and nowhere else. The manifests that make that work come from the
 harness's overlay.
@@ -191,8 +192,9 @@ No masters ship with this repo — you build the ones you need with `/domain-ini
 ## Memory
 
 Long-term memory is Markdown, curated by `maintain-memory`, in three scopes: **project**, **domain**
-and **global**. The installer wires each the way its target can load it — an import, a config entry,
-or inlining — and reports any scope it cannot load automatically as stored rather than active.
+and **global**. Each file exists once and the installer points every harness at that one path — an
+import or a config entry. Where a harness offers neither, that scope is readable but never loaded
+automatically — a copy pasted into an instruction file goes stale the moment memory is written.
 Machine-bound facts (absolute paths, local installs, personal tool setup) belong in memory;
 system-independent engineering knowledge belongs in `docs/dev.md`. Never both.
 
@@ -213,10 +215,10 @@ The whole workspace is Markdown — fork it and edit. Two things worth knowing:
 ## Repo layout
 
 ```
-workspace_TEMPLATE/        ← harness-neutral, copied into the harness home wholesale
-├── AGENTS.md              ←   shared global instruction file
-├── skills/                ←   workflows and supporting skills — installed to ~/.agents/skills/
-├── agents/                ←   agent definitions, installed flat
+workspace_TEMPLATE/        ← harness-neutral; installs to ~/.agents/ except where noted
+├── AGENTS.md              ←   shared global instruction file — per harness home
+├── agents/                ←   agent definitions, installed flat — per harness home
+├── skills/                ←   workflows and supporting skills
 ├── project_TEMPLATE/      ←   scaffold copied into each new project
 ├── domains/               ←   domain master scaffold
 └── memory/                ←   global memory seed

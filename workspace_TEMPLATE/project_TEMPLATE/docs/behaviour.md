@@ -2,7 +2,7 @@
 
 <!-- CONTRACT (binding — the section layout below is only a suggestion, this header is not.
      Delete this comment once the doc holds real rules; template:
-     `{home}/project_TEMPLATE/docs/behaviour.md`):
+     `~/.agents/project_TEMPLATE/docs/behaviour.md`):
   - PURPOSE: single source of truth for how the *shipped* product behaves — product
     semantics as a rulebook, and the overview of everything the product does.
   - WHO WRITES: `maintain-docs` in sprint-close mode, once per sprint, folding in the deltas

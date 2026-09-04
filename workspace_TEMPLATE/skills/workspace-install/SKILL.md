@@ -35,18 +35,18 @@ Below, `{home}` and `{project-agent-dir}` mean the selected row's values.
 ## 2. Inventory & copy the shared template
 
 - `diff -r --strip-trailing-cr` `{workspace}/workspace_TEMPLATE` against `{home}` (live copies may carry different line endings). Missing → a fresh copy, differing → a merge candidate; the inventory tells you whether this is a bootstrap or a repair. Report it before changing anything.
-- Copy everything missing, leaving existing files untouched (`-n` = no-clobber; run from `{workspace}` or use absolute paths). **Skills go to the shared home once, whatever targets were picked; the rest is per target:**
+- Copy everything missing, leaving existing files untouched (`-n` = no-clobber; run from `{workspace}` or use absolute paths). **Almost everything goes to the shared home once, whatever targets were picked; only the instruction file and the agents are per target:**
 
   ```bash
-  cp -rn {workspace}/workspace_TEMPLATE/skills/. ~/.agents/skills/
-  cp -rn {workspace}/workspace_TEMPLATE/{AGENTS.md,agents,project_TEMPLATE,memory,domains} {home}/
+  cp -rn {workspace}/workspace_TEMPLATE/{skills,memory,domains,project_TEMPLATE} ~/.agents/
+  cp -rn {workspace}/workspace_TEMPLATE/{AGENTS.md,agents} {home}/
   ```
 
   Then link each skill folder into the directory a non-standard target does read — `ln -s ~/.agents/skills/{name} {home}/skills/{name}`, `mklink /J` on Windows. **Per folder, never the `skills/` directory itself**, which the harness writes its own internals into. A real directory where a link belongs is the old duplicated install: diff it against the template, salvage what only it has, replace it.
 
 - **On a repair, `-n` is not enough** — a skill whose template version changed keeps the old installed copy. Two kinds of file:
-  - **workspace-owned** — `~/.agents/skills/`, `agents/`, `project_TEMPLATE/`, `adapter/`: overwrite from the template or the overlay (`cp -r`, no `-n`). A user edit inside the installed copy is lost **by design**; real customisations belong in the workspace repo. Deletions need doing explicitly — a skill or agent renamed, moved or dropped in the template leaves its old copy behind and keeps loading; check for a stale *home* too, not just a stale file.
-  - **user-owned** — `memory/`, `projects/`, `domains/`, and the target's own configuration (`settings.json`, `config.toml`, `opencode.jsonc`, `.mcp.json`): leave them alone. A domain master is generated, not templated (`domain-initialiser` rebuilds one on request).
+  - **workspace-owned** — `~/.agents/{skills,domains/domain_TEMPLATE,project_TEMPLATE}/`, plus `{home}`'s `agents/` and `adapter/`: overwrite from the template or the overlay (`cp -r`, no `-n`). A user edit inside the installed copy is lost **by design**; real customisations belong in the workspace repo. Deletions need doing explicitly — a skill or agent renamed, moved or dropped in the template leaves its old copy behind and keeps loading; check for a stale *home* too, not just a stale file.
+  - **user-owned** — `~/.agents/memory/`, the domain *masters* beside their template, `{home}/projects/`, and the target's own configuration (`settings.json`, `config.toml`, `opencode.jsonc`, `.mcp.json`): leave them alone. A master is generated, not templated (`domain-initialiser` rebuilds one on request).
 - **`AGENTS.md` is always a manual merge:** take the template's structural changes (new sections, reworded rules), keep the user-filled ones — **User Info**, **System Info**, custom **RULES**, **Available masters**.
 - **Agents install flat**, whatever the source layout: OpenCode folds a subfolder into the agent's ID while Claude Code keys off `name:`, so a nested copy answers to a different name in each. Convert rather than skip where the format differs, one file per agent ID. Nothing else may live in `agents/` — a stray file is scanned as an agent.
 - New skill *folders* are usually discovered only next session — say so rather than claiming they're live.
@@ -71,7 +71,7 @@ That leaves `{home}/adapter/` holding whatever the target needs later, in four f
 A merge keeps keys already present and substitutes any `{x}`. Then finish the two things a copy cannot do:
 
 - **`merge/*`** into `{home}`'s own config — capability entries and the instruction paths it loads.
-- **Wire `{home}/memory/MEMORY.md`** by the lever the row's instruction file offers (`maintain-memory` names all three). Inlining is the fallback, between `<!-- workspace:memory:begin -->` and `<!-- workspace:memory:end -->`, re-synced on every repair. A second target seeds its memory from the **first target's live one**, never the template's empty one — a fresh seed beside a filled store is silent divergence.
+- **Point the target at `~/.agents/memory/MEMORY.md`** — an import in its instruction file, or an entry in its config's instructions list. **Never inline a copy**: it is a cache the next memory write strands, so a target with neither lever gets global memory reported as **read-on-demand, not in context** instead (`maintain-memory` owns the rule).
 
 For Claude Code specifically, `{home}/CLAUDE.md` may already exist. It is a shim, so a conflict means the user put rules in the wrong file: move them into `AGENTS.md` rather than keeping two homes.
 
@@ -87,7 +87,7 @@ Ask in plain chat — **not** the question tool — so the user can answer freel
 
 ## 6. Install the required capabilities
 
-Only the ones not already working, and only where the target can host them. Memory is **native Markdown, no plugin** — step 2 seeded `{home}/memory/MEMORY.md` and step 3 wired it. See `maintain-memory`.
+Only the ones not already working, and only where the target can host them. Memory is **native Markdown, no plugin** — step 2 seeded `~/.agents/memory/MEMORY.md` and step 3 pointed the target at it or declared it missing. See `maintain-memory`.
 
 - **Claude Code** — **codegraph** from https://github.com/colbymchenry/codegraph; **superpowers**, **context7**, **plugin-dev** from the `claude-plugins-official` marketplace (add via `/plugin`).
 - **Codex** — the same marketplace works, as `[marketplaces.claude-plugins-official]` with `source_type = "git"`, then one `[plugins."{name}@claude-plugins-official"]` block each. codegraph goes in as an `mcp_servers` entry, not as a plugin.

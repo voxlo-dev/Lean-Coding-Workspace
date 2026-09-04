@@ -26,8 +26,8 @@ MD syntax and commits. Work directly: read the file, discuss, edit, commit.
 
 ## Never touch the live workspace
 
-A harness home (`~/.claude`, `~/.codex`, `~/.config/opencode`) is an **installed** copy and off
-limits to any work done here. Never `cp`, never edit a file there to "try something", never repair
+The shared home `~/.agents/` and every harness home (`~/.claude`, `~/.codex`, `~/.config/opencode`)
+are an **installed** copy and off limits to any work done here. Never `cp`, never edit a file there to "try something", never repair
 it by hand.
 
 - Source of truth is `workspace_TEMPLATE/` in this repo. Change it here.
@@ -35,8 +35,8 @@ it by hand.
   the user starts it (the skill is `disable-model-invocation`). It is also the repair path.
 - Consequence: a change made here is not live until the user syncs and restarts that harness.
   Say that when handing work over — don't imply an edit took effect.
-- A selected home may legitimately differ in `memory/`, `projects/`, `domains/` and configuration;
-  those are user-owned. A diff there is not automatically a bug.
+- An install may legitimately differ in `~/.agents/memory/`, the domain masters, `{home}/projects/`
+  and configuration; those are user-owned. A diff there is not automatically a bug.
 
 The live workspace is readable — comparing against it to answer "what would sync change?" is fine.
 Writing to it is not.
@@ -44,10 +44,10 @@ Writing to it is not.
 ## Repo layout
 
 ```
-workspace_TEMPLATE/            ← harness-neutral; copied into {home} wholesale
-├── AGENTS.md                  ←   the always-loaded global instruction file — token budget ~2.3k
+workspace_TEMPLATE/            ← harness-neutral; installs to ~/.agents/ except where noted
+├── AGENTS.md                  ←   the always-loaded global instruction file — per {home}; budget ~2.3k
+├── agents/{group}/*.md        ←   agent definitions — per {home}, harness-registered, so not a skill
 ├── skills/{name}/SKILL.md     ←   one folder per skill; templates/ and references/ beside it
-├── agents/{group}/*.md        ←   agent definitions — harness-registered, so they cannot live in a skill
 ├── project_TEMPLATE/          ←   scaffold copied into each initialised project
 ├── domains/domain_TEMPLATE/   ←   domain master scaffold
 └── memory/MEMORY.md           ←   global memory seed

@@ -13,7 +13,7 @@ Onboard a repo end-to-end. Owns the **initial** doc creation (it does the deep e
 
 2. **Inventory what exists** — code, tests, docs, template files, an already-present domain bundle. This decides what to scaffold vs. merge; flag docs on a different or older layout for step 7.
 
-3. **Detect the domain** — identify it, then check `{home}/domains/{x}-domain/`. A usable master contains shared skills plus a complete recipe, not only `Domain-Recipe.md`. Folder missing or incomplete → ask whether to run `domain-initialiser` first.
+3. **Detect the domain** — identify it, then check `~/.agents/domains/{x}-domain/`. A usable master contains shared skills plus a complete recipe, not only `Domain-Recipe.md`. Folder missing or incomplete → ask whether to run `domain-initialiser` first.
 
 4. **Choose optional docs** — one checkbox question, skipping any that exist. Explain the lifespan split once: `docs/` holds durable truth, `artefacts/` (created on first use) holds process history, live for its sprint and frozen once that sprint closes.
    - **behaviour doc?** `docs/behaviour.md` — product semantics as a rulebook, the whole-product overview `plan` reads and each sprint folds its deltas back into. **Recommend for anything with user interaction.**
@@ -31,7 +31,7 @@ Onboard a repo end-to-end. Owns the **initial** doc creation (it does the deep e
 6. **Install domain (project-scoped), frameworks & test framework**
 
    ```bash
-   cp -r {home}/domains/{x}-domain {repo}/.agents/skills/{x}-domain
+   cp -r ~/.agents/domains/{x}-domain {repo}/.agents/skills/{x}-domain
    ```
 
    - `.agents/skills/` is the shared skills home: most targets scan it natively, and one that does not gets a **link** at `{repo}/{project-agent-dir}/skills/{x}-domain` rather than a second copy (`workspace-install` set the same links up globally).
@@ -39,7 +39,7 @@ Onboard a repo end-to-end. Owns the **initial** doc creation (it does the deep e
    - Install the project's frameworks and runtime packages, then the unit + UI test framework named in `{x}-domain/Domain-Recipe.md`.
    - **Audit the git tree before anything is staged** — `git status`, and make `.gitignore` exclude installed packages (`node_modules/`, `.venv/`, `vendor/`), build output (`dist/`, `build/`, `target/`), logs, caches, local env files. Untrack anything already tracked (`git rm --cached`).
 
-7. **Scaffold docs** — copy all of `{home}/project_TEMPLATE/*` in one pass (`cp -rn`, no-clobber), then **delete the optional docs the user didn't choose**; copy-then-prune costs fewer tool calls than selective copying. `behaviour.md`, `decisions.md`, `architecture.md`, `dev.md` and `product/index.md` are filled in place — **each one you fill loses its `CONTRACT` comment**, keeping the pointer line to its template; an unfilled seed keeps it. **`backlog/backlog.md` always stays**, empty, with its `Next ticket` counter at `T-001`. **On-demand artifacts stay unscaffolded**: tickets (`plan/templates/TICKET_TEMPLATE.md`), the styleguide (step 11) and every run artifact under `artefacts/{sprint}/` are seeded from their own skill's `templates/` when first produced, so `backlog/` holds only its index while `docs/design/` and `artefacts/` start absent. Fill `AGENTS.md` (domain, outline, code style — single source) and **trim its Doc map to the docs that remain**.
+7. **Scaffold docs** — copy all of `~/.agents/project_TEMPLATE/*` in one pass (`cp -rn`, no-clobber), then **delete the optional docs the user didn't choose**; copy-then-prune costs fewer tool calls than selective copying. `behaviour.md`, `decisions.md`, `architecture.md`, `dev.md` and `product/index.md` are filled in place — **each one you fill loses its `CONTRACT` comment**, keeping the pointer line to its template; an unfilled seed keeps it. **`backlog/backlog.md` always stays**, empty, with its `Next ticket` counter at `T-001`. **On-demand artifacts stay unscaffolded**: tickets (`plan/templates/TICKET_TEMPLATE.md`), the styleguide (step 11) and every run artifact under `artefacts/{sprint}/` are seeded from their own skill's `templates/` when first produced, so `backlog/` holds only its index while `docs/design/` and `artefacts/` start absent. Fill `AGENTS.md` (domain, outline, code style — single source) and **trim its Doc map to the docs that remain**.
 
    **Then install the instruction shim**, or on some targets none of the above is loaded: `cp -n {home}/adapter/project/. {repo}/` and fill what lands. It is what imports `AGENTS.md`, `CHECKPOINT.local.md` and (domain projects only) `DOMAIN-MEMORY.md`. **No `{home}/adapter/project/` means the target reads `AGENTS.md` itself and needs no shim** — but check whether it resolves imports at all, and where it doesn't, say plainly that domain memory and the checkpoint are manual rather than assuming they load.
 

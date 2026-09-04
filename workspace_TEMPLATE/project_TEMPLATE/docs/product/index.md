@@ -1,7 +1,7 @@
 # {project name} — Product Docs
 
 <!-- CONTRACT (binding — delete this comment once the page holds real content; template:
-     `{home}/project_TEMPLATE/docs/product/index.md`):
+     `~/.agents/project_TEMPLATE/docs/product/index.md`):
   - PURPOSE: end-user documentation, and the single source for it — publish by syncing this
     folder to a wiki or docs site from CI (mechanism set per project), so the target stays
     generated rather than hand-edited and drifting.

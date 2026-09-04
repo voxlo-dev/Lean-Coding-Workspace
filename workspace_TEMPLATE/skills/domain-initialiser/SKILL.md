@@ -5,7 +5,7 @@ description: "Use to create or rebuild a domain master bundle when project-initi
 
 # Domain Initialiser
 
-Turn a recipe into a self-contained **master domain bundle** at `{home}/domains/{x}-domain/`. The master stays inert there; `project-initialiser` copies it whole into a repo's project skills directory, where it activates project-scoped.
+Turn a recipe into a self-contained **master domain bundle** at `~/.agents/domains/{x}-domain/`. The master stays inert there; `project-initialiser` copies it whole into a repo's project skills directory, where it activates project-scoped.
 
 ## 1. Recipe — skip if `Domain-Recipe.md` already exists
 
