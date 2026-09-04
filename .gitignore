@@ -1,6 +1,8 @@
 .claude
 .codex
 .opencode
-.agents
+.agents/*
+!.agents/skills
+.agents/skills/*-domain/
 .tokensave
 .serena

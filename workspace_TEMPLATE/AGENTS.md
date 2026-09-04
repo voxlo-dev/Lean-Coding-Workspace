@@ -59,7 +59,7 @@ Available masters: {}. Create one with the `domain-initialiser` skill.
 Native Markdown, no plugin. `maintain-memory` curates it and **prunes stale entries** at each workflow's memory step. Three scopes, pick the narrowest:
 
 - **Project** — `{home}/projects/<repo>/memory/`, the one scope a harness stores itself, so it exists only where that harness has it.
-- **Domain** — the repo's `.agents/skills/{x}-domain/DOMAIN-MEMORY.md`, wired per project by `project-initialiser`.
+- **Domain** — `~/.agents/domains/{x}-domain/DOMAIN-MEMORY.md` in the master, pointed at per project by `project-initialiser` — **never the repo's copy of the domain**, which is disposable, so a fact written there would never reach a sibling project.
 - **Global** — `~/.agents/memory/MEMORY.md`, wired once by `workspace-install`.
 
 Wiring means **pointing** a harness at the one file — an import or an instructions list; never inlining a copy, which is a cache the next write strands. Where a harness offers neither lever the file is **readable but not loaded**: open it yourself before relying on memory, and say that it wasn't in context rather than that there was none. Domain and global memory load in full — keep them lean. **Memory vs. docs — one home, never both:** machine-bound facts (absolute paths, local installs, personal tool setup, this-machine-only quirks) → **memory**; system-independent, generally true engineering knowledge → **`docs/dev.md`**. In doubt, ask whether it would still be true on someone else's machine.
