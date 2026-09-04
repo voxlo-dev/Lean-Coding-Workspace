@@ -12,10 +12,10 @@ The workspace uses Markdown memory, not a required plugin. `workspace-install` e
 | Scope | Lives in | Loaded | Use for |
 | --- | --- | --- | --- |
 | **Project** | `{home}/projects/<repo>/memory/` | native, auto, every session where the target has one | facts true only for this repo |
-| **Domain** | `{home}/domains/{x}-domain/DOMAIN-MEMORY.md` | imported per project by `project-initialiser` | facts true for every project of this domain |
-| **Global** | `{home}/memory/MEMORY.md` | wired once by `workspace-install` | facts true everywhere |
+| **Domain** | the repo's `.agents/skills/{x}-domain/DOMAIN-MEMORY.md` | pointed at per project by `project-initialiser` | facts true for every project of this domain |
+| **Global** | `~/.agents/memory/MEMORY.md` | pointed at once by `workspace-install` | facts true everywhere |
 
-The files stay shared; only the wiring differs, and a harness offers exactly one of three levers — an **import** in the instruction file (Claude Code's `@`), an **instructions list** in the config (OpenCode's), or **inlining** where there is neither (Codex). `workspace-install` picks one per target, `project-initialiser` repeats it per repo. Inlining competes for an instruction-size budget that truncates silently, so keep it lean.
+Each file exists **once** and every harness is pointed at that one path — by an **import** in the instruction file (Claude Code's `@`) or an **instructions list** in the config (OpenCode's). A harness with neither lever still reaches the file by path, it just never has it in context — `workspace-install` reports that scope as read-on-demand rather than inlining a copy the next write would strand. So: **write to the file, never to an instruction file**, and never chase a second copy.
 
 Default to **project**; promote only once a learning is clearly that broad. When scope becomes clearer later, **move** the entry.
 
@@ -41,6 +41,6 @@ Default to **project**; promote only once a learning is clearly that broad. When
 
 ## Spin off a skill — if a reusable procedure emerged
 
-Create it with superpowers' **skill-creator** and place it by scope: global → `~/.agents/skills/{skill-name}/` · domain → the domain master under `{home}/domains/{x}-domain/` · project → the repo's `.agents/skills/`. It must be a **direct** child of `skills/` — grouping subfolders aren't discovered.
+Create it with superpowers' **skill-creator** and place it by scope: global → `~/.agents/skills/{skill-name}/` · domain → the domain master under `~/.agents/domains/{x}-domain/` · project → the repo's `.agents/skills/`. It must be a **direct** child of `skills/` — grouping subfolders aren't discovered.
 
 A brand-new skill *folder* is usually discovered only on the next session — flag this to the user, as with a brand-new domain/global memory file: that only enters context once the target's adapter wires it (`domain-initialiser` / `workspace-install` do this) and the session restarts. Project memory needs no wiring where the target has it natively.

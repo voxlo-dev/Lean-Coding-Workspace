@@ -2,7 +2,7 @@
 
 <!-- CONTRACT (binding — the STATUS mechanic is protocol between skills, keep it exact; the
      section layout is only a suggestion. Delete this comment once the doc holds real
-     subsystems; template: `{home}/project_TEMPLATE/docs/architecture.md`):
+     subsystems; template: `~/.agents/project_TEMPLATE/docs/architecture.md`):
   - PURPOSE: the planned/implemented software *structure* — where things live and how the
     pieces connect. Optimised as agent context: "where does X live", boundaries, entry points.
   - WHO WRITES: seeded as `draft` by `project-initialiser`; `maintain-docs` fills subsystems

@@ -1,7 +1,7 @@
 # Developer Docs — {project name}
 
 <!-- CONTRACT (binding — sections are suggestions, this header is not. Delete this comment
-     once the doc holds real content; template: `{home}/project_TEMPLATE/docs/dev.md`):
+     once the doc holds real content; template: `~/.agents/project_TEMPLATE/docs/dev.md`):
   - PURPOSE: the engineering knowledge that code, tests and codegraph DON'T capture — setup,
     environment, non-obvious build/debug workflows, external-dependency quirks. Whatever the
     code, the tests or (in an indexed repo) codegraph already state gets a link instead of a

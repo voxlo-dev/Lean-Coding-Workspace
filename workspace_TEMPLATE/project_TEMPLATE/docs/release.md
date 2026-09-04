@@ -1,7 +1,7 @@
 # Release Runbook — {project name}
 
 <!-- CONTRACT (binding — sections are suggestions, this header is not. Delete this comment
-     once the doc holds real content; template: `{home}/project_TEMPLATE/docs/release.md`):
+     once the doc holds real content; template: `~/.agents/project_TEMPLATE/docs/release.md`):
   - PURPOSE: everything `release` needs and cannot derive. The skill STOPS if this doc is missing.
   - DOMAIN FIRST: with a domain installed, its `Domain-Recipe.md` → Release holds the stack's
     rules (version carriers, audit command, build, publication). Record only what this project

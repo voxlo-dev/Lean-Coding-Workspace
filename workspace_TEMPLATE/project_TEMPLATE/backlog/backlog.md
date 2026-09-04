@@ -2,7 +2,7 @@
 
 <!-- CONTRACT (binding — delete this comment once the file holds real tickets, keeping the
      pointer line below):
-  - Template: `{home}/project_TEMPLATE/backlog/backlog.md`.
+  - Template: `~/.agents/project_TEMPLATE/backlog/backlog.md`.
   - Index of every ticket NOT yet pulled into a sprint. The column IS the status:
     Draft = captured, not ready · Backlog = refined, ready to pull.
   - A pulled ticket is indexed on the sprint board instead — one board at a time.

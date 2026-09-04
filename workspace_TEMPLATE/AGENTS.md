@@ -1,6 +1,6 @@
 # Global Lean Agile Coding Workspace
 
-Always loaded. Says *when* something applies and *where* the rest lives — never what a skill does, that's the skill's own description. "{ }" marks placeholders substituted by skills or by demand. Three are fixed: **`{home}`** = this harness's workspace home (`~/.claude` · `~/.codex` · `~/.config/opencode`), **`{project-agent-dir}`** = its per-repo directory (`.claude/` · `.codex/` · `.opencode/`), and skills — not per-harness at all — live at `~/.agents/skills/`, per repo `.agents/skills/`.
+Always loaded. Says *when* something applies and *where* the rest lives — never what a skill does, that's the skill's own description. "{ }" marks placeholders substituted by skills or by demand. Three are fixed: **`{home}`** = this harness's workspace home (`~/.claude` · `~/.codex` · `~/.config/opencode`), **`{project-agent-dir}`** = its per-repo directory (`.claude/` · `.codex/` · `.opencode/`), and **`~/.agents/`** = the workspace's own home, harness-neutral and shared by all of them: `skills/` (per repo `.agents/skills/`), `memory/`, `domains/`, `project_TEMPLATE/`. `{home}` keeps only what its harness reads at a fixed path — the instruction file, `agents/`, `adapter/`. **Anything the workspace owns lives once, in `~/.agents/`**; a second copy under a `{home}` is drift waiting to happen.
 
 **Mantra:** *Workflows are life, skills & tools are your friends & helpers, context clutter is death*
 
@@ -50,7 +50,7 @@ Assume the user is capable, but lazy with words, because he can't type as fast a
 
 ## Domains
 
-Master domains live **inert** in `{home}/domains/{x}-domain/` — not a skills directory, so nothing domain-specific ever loads globally. `project-initialiser` copies the matching master into a repo's `.agents/skills/{x}-domain/`, where it loads **project-scoped**, MCP servers included (so e.g. the Unity MCP runs only in Unity repos). `domain-initialiser` builds the master from `{home}/adapter/domain/`'s manifests. Both skills own the mechanics.
+Master domains live **inert** in `~/.agents/domains/{x}-domain/` — not a skills directory, so nothing domain-specific ever loads globally. `project-initialiser` copies the matching master into a repo's `.agents/skills/{x}-domain/`, where it loads **project-scoped**, MCP servers included (so e.g. the Unity MCP runs only in Unity repos). `domain-initialiser` builds the master from `{home}/adapter/domain/`'s manifests. Both skills own the mechanics.
 
 Available masters: {}. Create one with the `domain-initialiser` skill.
 
@@ -58,11 +58,11 @@ Available masters: {}. Create one with the `domain-initialiser` skill.
 
 Native Markdown, no plugin. `maintain-memory` curates it and **prunes stale entries** at each workflow's memory step. Three scopes, pick the narrowest:
 
-- **Project** — `{home}/projects/<repo>/memory/`, loaded natively.
-- **Domain** — `{home}/domains/{x}-domain/DOMAIN-MEMORY.md`, wired per project by `project-initialiser`.
-- **Global** — `{home}/memory/MEMORY.md`, wired once by `workspace-install`.
+- **Project** — `{home}/projects/<repo>/memory/`, the one scope a harness stores itself, so it exists only where that harness has it.
+- **Domain** — the repo's `.agents/skills/{x}-domain/DOMAIN-MEMORY.md`, wired per project by `project-initialiser`.
+- **Global** — `~/.agents/memory/MEMORY.md`, wired once by `workspace-install`.
 
-**A scope a target cannot load automatically is stored, not active** — say so rather than treating the file as context. Domain and global memory load in full — keep them lean. **Memory vs. docs — one home, never both:** machine-bound facts (absolute paths, local installs, personal tool setup, this-machine-only quirks) → **memory**; system-independent, generally true engineering knowledge → **`docs/dev.md`**. In doubt, ask whether it would still be true on someone else's machine.
+Wiring means **pointing** a harness at the one file — an import or an instructions list; never inlining a copy, which is a cache the next write strands. Where a harness offers neither lever the file is **readable but not loaded**: open it yourself before relying on memory, and say that it wasn't in context rather than that there was none. Domain and global memory load in full — keep them lean. **Memory vs. docs — one home, never both:** machine-bound facts (absolute paths, local installs, personal tool setup, this-machine-only quirks) → **memory**; system-independent, generally true engineering knowledge → **`docs/dev.md`**. In doubt, ask whether it would still be true on someone else's machine.
 
 ## Work items — the markdown kanban
 
