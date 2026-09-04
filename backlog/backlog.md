@@ -1,6 +1,6 @@
-# Backlog — Claude Workspace
+# Backlog — Agent Workspace
 
-Ticket index · template: `.claude_TEMPLATE/skills/plan/templates/TICKET_TEMPLATE.md`
+Ticket index · template: `workspace_TEMPLATE/skills/plan/templates/TICKET_TEMPLATE.md`
 
 **Next ticket: `T-005`**
 
