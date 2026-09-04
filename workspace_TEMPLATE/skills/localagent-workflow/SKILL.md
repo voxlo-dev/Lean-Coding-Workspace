@@ -36,9 +36,11 @@ convenience; the filename must be unique. Nothing else may live there — a stra
 agent, which is why `templates/` stays with this skill and the orchestrator passes its paths in the
 brief.
 
-**Check the target first.** No agent directory in `{home}` means it registers none.
-Codex has no confirmed agent directory: there is nothing to dispatch to, so this workflow does not
-run there — use `dynamic-workflow` instead rather than letting one context do every step.
+**Check the target first**, and check by dispatching, not by looking: no agent directory in `{home}`
+means it registers none, and a directory is not proof the harness reaches what is in it. Some want
+another format — Codex takes TOML with the prompt under `developer_instructions`, which
+`workspace-install` converts — and there the conversion is worth one live dispatch before trusting
+it. Cannot dispatch → use `dynamic-workflow` rather than letting one context do every step.
 
 `localagent-orchestrator` is the **primary** agent: run the workflow as that session through the
 selected harness; the other six are subagents.

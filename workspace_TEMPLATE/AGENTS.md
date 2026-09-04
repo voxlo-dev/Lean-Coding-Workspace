@@ -62,7 +62,7 @@ Native Markdown, no plugin. `maintain-memory` curates it and **prunes stale entr
 - **Domain** — `{home}/domains/{x}-domain/DOMAIN-MEMORY.md`, wired per project by `project-initialiser`.
 - **Global** — `{home}/memory/MEMORY.md`, wired once by `workspace-install`.
 
-The wiring came in with the target overlay at install time, so it is already right or already absent: where the instruction file resolves imports both are loaded by reference, otherwise the global index is inlined into it. **A scope a target cannot load automatically is stored, not active** — say so rather than treating the file as context. Imported (domain/global) memory loads in full — keep it lean. **Memory vs. docs — one home, never both:** machine-bound facts (absolute paths, local installs, personal tool setup, this-machine-only quirks) → **memory**; system-independent, generally true engineering knowledge → **`docs/dev.md`**. In doubt, ask whether it would still be true on someone else's machine.
+Each is pulled into context by one of three levers — an import in the instruction file, an entry in the config's instructions list, or inlining where there is neither — chosen once per target at install. **A scope a target cannot load automatically is stored, not active** — say so rather than treating the file as context. Imported (domain/global) memory loads in full — keep it lean. **Memory vs. docs — one home, never both:** machine-bound facts (absolute paths, local installs, personal tool setup, this-machine-only quirks) → **memory**; system-independent, generally true engineering knowledge → **`docs/dev.md`**. In doubt, ask whether it would still be true on someone else's machine.
 
 ## Work items — the markdown kanban
 
