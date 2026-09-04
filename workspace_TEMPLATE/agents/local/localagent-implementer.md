@@ -74,14 +74,17 @@ overwhelmingly common one:
 2. **The test contradicts the stub or the spec.** It expects a signature the stub does not declare, a
    behaviour the spec puts out of scope, or something no code satisfying the spec could produce.
    → `ESCALATE test-mismatch <what the failure demands vs the declaration or acceptance criterion it
-   contradicts>`.
+   contradicts>`. **Cannot point at the criterion a failure is asking for? Then it is this case**, not
+   a harder version of case 1 — trying variants until one passes fits your code to a test you were
+   never allowed to read.
 3. **The stub or the spec cannot be satisfied as written** — a missing declaration, an ambiguity, two
    criteria that conflict. → `ESCALATE contract <the exact gap>`.
 4. **The toolchain is broken** — the runner cannot collect the tests, a dependency is missing, a build
    config is invalid. Not a unit failure. → `ESCALATE toolchain <the error>`.
 
-**Bound your own loop.** Three failed fix attempts at the *same* failing behaviour and you stop
-guessing: escalate with what you tried and what the failure says.
+**Bound your own loop, hard.** Two failed fix attempts at the *same* failing behaviour and you stop:
+escalate with what you tried and what the failure says. Early is cheap — the orchestrator routes it to
+whoever owns the file; a third try is a breach, not diligence.
 
 ## Rules
 
