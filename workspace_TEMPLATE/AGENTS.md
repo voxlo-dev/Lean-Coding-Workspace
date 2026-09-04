@@ -1,6 +1,6 @@
 # Global Agent Workspace
 
-Always loaded. Says *when* something applies and *where* the rest lives — never what a skill does, that's the skill's own description. "{ }" marks placeholders substituted by skills or by demand. Two are fixed: **`{home}`** = this harness's workspace home (Claude Code `~/.claude` · Codex `~/.codex` · OpenCode `~/.config/opencode`), **`{project-agent-dir}`** = its per-repo directory (`.claude/` · `.codex/` · `.opencode/`). **Skills are not per-harness:** they live once at `~/.agents/skills/`, per repo at `.agents/skills/`, and a harness that cannot read that is linked there rather than given a copy.
+Always loaded. Says *when* something applies and *where* the rest lives — never what a skill does, that's the skill's own description. "{ }" marks placeholders substituted by skills or by demand. Three are fixed: **`{home}`** = this harness's workspace home (`~/.claude` · `~/.codex` · `~/.config/opencode`), **`{project-agent-dir}`** = its per-repo directory (`.claude/` · `.codex/` · `.opencode/`), and skills — not per-harness at all — live at `~/.agents/skills/`, per repo `.agents/skills/`.
 
 **Mantra:** *Workflows are life, skills & tools are your friends & helpers, context clutter is death*
 
@@ -50,7 +50,7 @@ Assume the user is capable, but lazy with words, because he can't type as fast a
 
 ## Domains
 
-Master domains live **inert** in `{home}/domains/{x}-domain/` — not a skills directory, so nothing domain-specific ever loads globally. `project-initialiser` copies the matching master into a repo's `.agents/skills/{x}-domain/`, where it loads **project-scoped**, MCP servers included (so e.g. the Unity MCP runs only in Unity repos). `domain-initialiser` builds the master, taking the manifests that activate it from `{home}/adapter/domain/`. Both skills own the mechanics.
+Master domains live **inert** in `{home}/domains/{x}-domain/` — not a skills directory, so nothing domain-specific ever loads globally. `project-initialiser` copies the matching master into a repo's `.agents/skills/{x}-domain/`, where it loads **project-scoped**, MCP servers included (so e.g. the Unity MCP runs only in Unity repos). `domain-initialiser` builds the master from `{home}/adapter/domain/`'s manifests. Both skills own the mechanics.
 
 Available masters: {}. Create one with the `domain-initialiser` skill.
 
@@ -58,11 +58,11 @@ Available masters: {}. Create one with the `domain-initialiser` skill.
 
 Native Markdown, no plugin. `maintain-memory` curates it and **prunes stale entries** at each workflow's memory step. Three scopes, pick the narrowest:
 
-- **Project** — `{home}/projects/<repo>/memory/`, where the target loads it natively.
+- **Project** — `{home}/projects/<repo>/memory/`, loaded natively.
 - **Domain** — `{home}/domains/{x}-domain/DOMAIN-MEMORY.md`, wired per project by `project-initialiser`.
 - **Global** — `{home}/memory/MEMORY.md`, wired once by `workspace-install`.
 
-Each is pulled into context by one of three levers — an import in the instruction file, an entry in the config's instructions list, or inlining where there is neither — chosen once per target at install. **A scope a target cannot load automatically is stored, not active** — say so rather than treating the file as context. Imported (domain/global) memory loads in full — keep it lean. **Memory vs. docs — one home, never both:** machine-bound facts (absolute paths, local installs, personal tool setup, this-machine-only quirks) → **memory**; system-independent, generally true engineering knowledge → **`docs/dev.md`**. In doubt, ask whether it would still be true on someone else's machine.
+**A scope a target cannot load automatically is stored, not active** — say so rather than treating the file as context. Domain and global memory load in full — keep them lean. **Memory vs. docs — one home, never both:** machine-bound facts (absolute paths, local installs, personal tool setup, this-machine-only quirks) → **memory**; system-independent, generally true engineering knowledge → **`docs/dev.md`**. In doubt, ask whether it would still be true on someone else's machine.
 
 ## Work items — the markdown kanban
 

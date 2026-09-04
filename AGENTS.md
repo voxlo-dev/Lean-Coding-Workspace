@@ -63,8 +63,10 @@ Not tracked (see `.gitignore`): `.claude/`, `.codex/`, `.opencode/`, `.agents/`,
 
 ## Authoring conventions
 
-- **Skills are discovered only at `skills/<name>/SKILL.md`** — direct children of `skills/`, and their one home is `~/.agents/skills/` (repo: `.agents/skills/`), the Agent Skills standard. Claude Code reads only `.claude/skills/`, so it gets a **link per skill folder**, never a copy — a copy is what let the installed skills drift into two mangled versions.
-  Grouping subfolders silently break discovery.
+- **Skills are discovered only at `skills/<name>/SKILL.md`** — direct children of `skills/`; grouping
+  subfolders silently break discovery. Installed, their one home is `~/.agents/skills/` (repo:
+  `.agents/skills/`), the Agent Skills standard; the one harness that reads elsewhere is **linked**
+  there, never given a copy — a copy is what let the installed skills drift into two mangled versions.
 - **Every skill needs frontmatter** `name` + `description`; the description is the *only* thing an
   agent picks by, so it must say when to reach for the skill, not what it contains.
   `disable-model-invocation: true` marks user-only skills (currently `workspace-install`).
@@ -76,13 +78,12 @@ Not tracked (see `.gitignore`): `.claude/`, `.codex/`, `.opencode/`, `.agents/`,
   other's keys — safe: `name` `disallowedTools` `skills` `hooks` (Claude Code), `mode` `permission`
   (OpenCode), `description` (both). **Never a key both define differently** — `model` and `tools`
   each take a different type per harness and make the file invalid in one of them.
-- **Only `adapters/` may name a harness**, and only `workspace-install` may read it. An adapter is a
-  plain **install overlay**: its files sit at the paths they land on in `{home}`, so installing is
-  `cp -r adapters/{target}/. {home}/` with no transform. Everything a *later* skill needs goes under
-  `adapter/` in that overlay, so every other skill says `{home}/adapter/…` and names no harness —
-  and treats an absent folder as "this target needs none". Two corollaries: **an abstraction with no
-  adapter behind it is a hole, not a design** — prose like "the target adapter loads it" is allowed
-  once a file does it; and a capability no adapter implements gets a row saying the target lacks it.
+- **Only `adapters/` may name a harness**, and only `workspace-install` reads it. Each is an **install
+  overlay** — files already at the paths they land on in `{home}`, whatever a *later* skill needs
+  under `adapter/`, so every other skill says `{home}/adapter/…` and an absent folder means that
+  target needs none. Hence: **an abstraction with no adapter behind it is a hole, not a design.**
+  Prose like "the target adapter loads it" is allowed once a file does it, and a capability no
+  adapter implements gets a row saying the target lacks it.
 - **`AGENTS.md` is always loaded, in every session, forever.** It says *when* something applies and
   *where* the rest lives — never what a skill does (that duplicates the skill's description and
   goes stale). Adding a paragraph there is a permanent cost; default to putting it in a skill.

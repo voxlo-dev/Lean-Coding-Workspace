@@ -42,11 +42,10 @@ Then open the target harness **in that folder** and say:
 > Read `workspace_TEMPLATE/skills/workspace-install/SKILL.md` and follow it. Ask me which targets to install.
 
 The skill is not installed yet, so the first run is read-and-follow by hand. It asks which harnesses
-to install into, then copies: the skills once into `~/.agents/skills/` — the Agent Skills standard
-that Codex, OpenCode, Gemini CLI and Cursor all read, with Claude Code linked into it rather than
-given a copy — and per harness the rest of `workspace_TEMPLATE/` plus that harness's overlay from
-`adapters/`. Then it detects your system, interviews you briefly, and verifies that each capability
-actually works rather than merely exists.
+to install into, then copies the skills once into `~/.agents/skills/` — the Agent Skills standard,
+which Codex, OpenCode, Gemini CLI and Cursor all read and Claude Code is linked into — and per
+harness the rest of `workspace_TEMPLATE/` plus that harness's overlay. Then it detects your system,
+interviews you briefly, and verifies each capability actually works rather than merely exists.
 
 **Restart each changed harness afterwards.** New skill folders are only discovered in a fresh session.
 
@@ -183,20 +182,19 @@ A **domain** bundles everything specific to one kind of development — Unity, w
 as shared conventions, skills, agents, language-server and MCP configuration.
 
 Masters live **inert** in `{home}/domains/{x}-domain/`, so nothing domain-specific loads globally.
-`project-initialiser` copies the matching master into a repo, where it loads project-scoped: the Unity
-MCP runs in Unity repos and nowhere else. The manifests that make that work come from
-`workspace_TEMPLATE/adapters/{target}/domain/`.
+`project-initialiser` copies the matching master into a repo, where it loads project-scoped: the
+Unity MCP runs in Unity repos and nowhere else. The manifests that make that work come from the
+harness's overlay.
 
 No masters ship with this repo — you build the ones you need with `/domain-initialiser`.
 
 ## Memory
 
 Long-term memory is Markdown, curated by `maintain-memory`, in three scopes: **project**, **domain**
-and **global**. The installer wires each scope the way the target can load it — Claude Code imports
-them from its `CLAUDE.md` shim, Codex has no imports and gets the global index inlined — and reports
-any scope it cannot load automatically as stored rather than active. Machine-bound facts (absolute
-paths, local installs, personal tool setup) belong in memory; system-independent
-engineering knowledge belongs in `docs/dev.md`. Never both.
+and **global**. The installer wires each the way its target can load it — an import, a config entry,
+or inlining — and reports any scope it cannot load automatically as stored rather than active.
+Machine-bound facts (absolute paths, local installs, personal tool setup) belong in memory;
+system-independent engineering knowledge belongs in `docs/dev.md`. Never both.
 
 ## Making it yours
 
@@ -208,12 +206,9 @@ The whole workspace is Markdown — fork it and edit. Two things worth knowing:
 - **`AGENTS.md` is shared.** Your **User Info**, **System Info** and custom **RULES** survive a
   sync; the structural parts get merged. Keep it lean — it is loaded in every single session, and
   every token here is a token you pay for forever.
-- **Only `adapters/` may name a harness.** Everything else is neutral. Claude Code reads `CLAUDE.md`
-  rather than `AGENTS.md`, so its overlay is a two-line shim that imports the shared file; that
-  asymmetry lives there and nowhere else. Whatever a later skill needs lands under `adapter/` in the
-  harness home, so the skills say `adapter/…` and never a harness name — and a missing folder simply
-  means that harness needs none. A capability no overlay implements is reported as missing, never
-  described as working.
+- **Only `adapters/` may name a harness.** Everything else is neutral — Claude Code reading
+  `CLAUDE.md` instead of `AGENTS.md` is a two-line shim in its overlay, and that asymmetry lives
+  nowhere else. A capability no overlay implements is reported as missing, never as working.
 
 ## Repo layout
 
