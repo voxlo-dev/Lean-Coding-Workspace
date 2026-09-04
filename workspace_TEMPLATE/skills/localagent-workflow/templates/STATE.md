@@ -2,6 +2,8 @@
 
 Plan: localagent/PLAN.md
 Phase: build            # planning | plan-gate | build | finalize | blocked
+Tests: {command}
+E2E: {command} → {the one driver script every e2e run grows}   # or: none
 
 ## Units
 

@@ -8,7 +8,9 @@ description: "Use for a full feature build that must stay robust on a weak/local
 Sequential, context-frugal multi-agent build for a **weak (~30B) local model**. You are the
 **orchestrator**: pure control flow — plan, decompose, delegate, update `STATE.md`, enforce gates.
 Never write specs, stubs, tests or code yourself; catch yourself doing content work → stop and
-dispatch the agent. `STATE.md`, not your context window, is your working memory.
+dispatch the agent. **A failure you could fix in one line is still not yours** — a red test, a broken
+e2e flow, a typo in a stub: name it in a brief and send it back to the half that owns the file, or the
+strongest context in the run is doing unwalled, untracked work. `STATE.md`, not your context window, is your working memory.
 
 **The contract is code, not prose.** `localagent-spec-architect` writes each unit's surface as **stub
 files in the repo's normal tree** — every exposed symbol at its real path with its full signature, a
@@ -47,11 +49,15 @@ selected harness; the other six are subagents.
 
 ## Dispatch
 
-Every agent runs in a **fresh, isolated context**; nothing carries between steps but the files. You
-**call it by name** and hand it a 2–3 line brief plus the path(s) to its declared inputs — never open
-its definition file, its prompt is not yours to read. (An external runner instead sends that file as
-the system prompt and the brief as the turn.) **Pass paths, never inline artifact content**, and never
-pass test files to `localagent-implementer` until the wall drops.
+Every agent runs in a **fresh, isolated context** — no conversation, no earlier step, not even where
+the repo is. You **call it by name**; never open its definition file, its prompt is not yours to read.
+(An external runner instead sends that file as the system prompt and the brief as the turn.)
+
+The brief is four things: the **absolute working directory** · the **standing constraints** that bear
+on this step — what the user's prompt and the project's rules impose (conventions, language, hard
+limits), since no agent can see either · the **task**, one or two lines · the **paths** to its declared
+inputs. Pass paths, never inline artifact content, and never test files to `localagent-implementer`
+until the wall drops.
 
 - **One agent at a time, sequential** — a local model serves one inference at a time; keep that shape
   everywhere so a run behaves the same in every runner.
@@ -101,8 +107,10 @@ indexed (never index it yourself), else a brief scoped look. Headless: derive PL
 run is autonomous. (Headless: pause if a human is reachable, else record auto-approval in STATE.)
 
 **Scaffold, once.** Nothing runnable yet — no manifest, no test runner → dispatch `localagent-scaffold`
-before the first unit; it installs exactly the approved stack and returns the test command every later
-agent needs. An existing project skips this.
+before the first unit; it installs exactly the approved stack, sets up the e2e harness with its one
+empty driver script, and returns the test command, the e2e command and that script's path — record all
+three in `STATE.md`, later agents get them from you. An existing project skips the dispatch, not the
+record: read the three off the repo yourself.
 
 ## Phase 2 — Build loop
 
@@ -151,7 +159,12 @@ the deadlock. At ≥ 3, escalate the unit.
 
 1. **e2e** — dispatch `localagent-e2e` only if a surface exists: browser/UI (a `frontend`/`web`/
    `client` dir, a UI-framework manifest, served HTML) or a meaningful integration one (API,
-   persistence, external service). Neither → skip, note `e2e: no surface` in STATE.
+   persistence, external service). Neither → skip, note `e2e: no surface` in STATE. Its brief carries
+   the e2e command and the driver path from STATE — it grows that script, never a new one.
+   **`FIXES_REQUIRED` routes like any red test:** the owning unit goes back to `tests-red` and its
+   implementer is re-dispatched with the failing step in acceptance-criterion terms — the report's
+   path, never its script source, so the wall holds — then e2e re-runs. Counts as an attempt; no
+   owning unit, or past its budget → escalate.
 2. **docs** — dispatch `localagent-docs`.
 3. **memory** — persist the run's durable decisions and gotchas wherever the project keeps them, and
    prune what went stale.
@@ -159,8 +172,8 @@ the deadlock. At ≥ 3, escalate the unit.
 
 ## Escalation
 
-Any `ESCALATE` the table above does not route, a `BLOCKED`, `FIXES_REQUIRED` from e2e, or a unit past
-its attempt budget: write the reason to STATE Blockers, set `Phase: blocked`, **stop the run**, and
+Any `ESCALATE` the table above does not route, a `BLOCKED`, an e2e `FIXES_REQUIRED` that no unit owns,
+or a unit past its attempt budget: write the reason to STATE Blockers, set `Phase: blocked`, **stop the run**, and
 surface the exact blocker to the user. Never route around one — a weak-model run stops early rather
 than grinds.
 

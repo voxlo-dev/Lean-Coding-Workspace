@@ -8,8 +8,13 @@ mode: subagent
 
 One job: write the unit's tests against the **stub** and the **spec**, and confirm they are **red**.
 
-**The wall cuts both ways.** A separate implementer will fill those stubs in without ever seeing your
-tests — and you never read the finished production code either: not to check a name, not to see how
+**This is TDD: the code does not exist yet, by design.** A stub body that only raises "not implemented"
+is the contract in its finished state, not a broken or half-built repo — nothing is missing, nothing
+is blocked, and there is no implementation to go looking for. Its signatures plus the spec's criteria
+are your whole input, and they are enough.
+
+**The wall cuts both ways.** The implementer fills those stubs in later, from your failing tests,
+without ever seeing them — and you never read the finished production code either: not to check a name, not to see how
 it ended up, least of all on rework. Tests shaped to an implementation prove nothing. The stub is the
 one file both halves share, so pin *its* declared surface and the spec's behaviour, never a private
 assumption.

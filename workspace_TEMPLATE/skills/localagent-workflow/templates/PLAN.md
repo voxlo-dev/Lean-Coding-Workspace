@@ -27,7 +27,7 @@ Binding for `localagent-scaffold`; decided with the user, not by an agent mid-ru
 ## Test Strategy
 
 - **Levels that matter here:** {unit / integration / e2e — and why}
-- **e2e surface?** {browser/UI or integration surface that justifies e2e — or "none"}
+- **e2e surface?** {browser/UI or integration surface that justifies e2e — or "none"}; binding for the harness `localagent-scaffold` installs
 - **Existing tests to build on:** {paths, or "none"}
 
 ## Units
