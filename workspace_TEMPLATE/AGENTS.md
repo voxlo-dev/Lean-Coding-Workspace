@@ -1,4 +1,4 @@
-# Global Agent Workspace
+# Global Lean Agile Coding Workspace
 
 Always loaded. Says *when* something applies and *where* the rest lives — never what a skill does, that's the skill's own description. "{ }" marks placeholders substituted by skills or by demand. Three are fixed: **`{home}`** = this harness's workspace home (`~/.claude` · `~/.codex` · `~/.config/opencode`), **`{project-agent-dir}`** = its per-repo directory (`.claude/` · `.codex/` · `.opencode/`), and skills — not per-harness at all — live at `~/.agents/skills/`, per repo `.agents/skills/`.
 

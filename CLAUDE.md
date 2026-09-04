@@ -1,4 +1,4 @@
-# Claude Workspace — Claude Code
+# Lean Agile Coding Workspace — Claude Code
 
 @./AGENTS.md
 

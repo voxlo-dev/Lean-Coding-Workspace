@@ -1,4 +1,4 @@
-# Agent Workspace
+# Lean Agile Coding Workspace
 
 An opinionated setup for Claude Code, Codex and OpenCode: a global instruction file
 plus a set of skills that turn "ask an AI to code" into a repeatable process — plan, spec,
@@ -23,7 +23,7 @@ questions by reading half the repo. This workspace fixes that with three ideas:
 
 ## Requirements
 
-- A harness: Claude Code (fully supported) · Codex (no subagents, so no `localagent-workflow`) ·
+- A harness: Claude Code (verified) · Codex (agents need a format transform, dispatch unverified) ·
   OpenCode (paths unconfirmed — the installer asks)
 - Git
 - Four plugins, installed for you by the install skill: `superpowers`, `codegraph`, `context7`,
@@ -34,7 +34,7 @@ questions by reading half the repo. This workspace fixes that with three ideas:
 ## Install
 
 ```bash
-git clone <this-repo> agent-workspace
+git clone <this-repo> lean-agile-coding-workspace
 ```
 
 Then open the target harness **in that folder** and say:
