@@ -20,16 +20,17 @@ Install or repair **only the targets the user selects**. Copy what's missing, me
 
 One multi-select question: **Claude Code · Codex · OpenCode**. An unselected target is not touched. Skip any whose home doesn't exist unless the user wants it created — installing a harness the user doesn't have is noise, not service.
 
-| Target | Home | Global instructions | Skills | Agents | Project dir | Status |
-| --- | --- | --- | --- | --- | --- | --- |
-| Claude Code | `~/.claude` | `CLAUDE.md` shim → `AGENTS.md` | `skills/` | `agents/`, ID from `name:` | `.claude/` | verified |
-| Codex | `~/.codex` | `AGENTS.md` (native, no imports) | `skills/` | none found | `.codex/` | partial |
-| OpenCode | `~/.config/opencode` | unconfirmed | reads `~/.claude/skills/` | `agents/`, ID from path | `.opencode/` | unverified |
+| Target | Home | Project config | Global instructions pulled in by | Skills registered by | Agents |
+| --- | --- | --- | --- | --- | --- |
+| Claude Code | `~/.claude` | `.claude/settings.json` | `CLAUDE.md` shim, `@` imports | discovery of `skills/` | `agents/*.md`, ID from `name:` |
+| Codex | `~/.codex` | `.codex/config.toml` *(trusted projects only)* | `AGENTS.md`, no imports | `[[skills.config]] path` | `agents/*.toml`, needs a transform |
+| OpenCode | `~/.config/opencode` | `opencode.json` | `instructions` array in config | `skills.paths` in config | `agents/*.md`, ID from path |
 
-**Never guess a path.** A row marked *partial* or *unverified* gets asked, not assumed, and an existing `adapters/{target}/` folder is the proof a row is real — **no folder, no install**. Two consequences to state out loud rather than work around:
+Every row is implemented in `adapters/{target}/` — **no folder, no install**, and a claim not backed by a file there gets asked rather than assumed. Three consequences to state out loud rather than work around:
 
-- **Codex has no agent directory**, so `localagent-workflow` cannot run there — there is nothing to dispatch to, and one context doing every step is the failure that workflow exists to prevent. It also resolves no `@` imports, which is why its global memory is inlined (step 3) and its per-project domain memory and checkpoint stay manual.
-- **OpenCode is unverified and ships no adapter.** On a machine that also has Claude Code it already reads `~/.claude/skills/` directly, so the skills work with no OpenCode-side copy at all. Offer the target only to ask the user for its paths, record what they confirm in the **workspace repo**, and skip it this run.
+- **Codex agents are TOML, not Markdown.** `~/.codex/agents/{name}.toml` (or `.codex/agents/` per repo) with `name`, `description`, `developer_instructions` carrying the prompt body — so the shared `.md` definitions need converting, not copying, and it is the one place the install is not a plain overlay. Convert on install and say you did; upstream reports custom subagents not always reaching tool-backed sessions, so **verify one dispatch** before telling the user `localagent-workflow` is usable there.
+- **Codex silently truncates instructions at `project_doc_max_bytes` (32 KiB default).** Inlined memory eats that budget with no warning. Check the size after inlining, and raise the key in `config.toml` rather than letting the tail of `AGENTS.md` vanish.
+- **OpenCode needs no copy of the skills** on a machine that also runs Claude Code: it reads `~/.claude/skills/` directly. Prefer pointing `skills.paths` at what is already installed over a second copy that drifts.
 
 Below, `{home}` and `{project-agent-dir}` mean the selected row's values.
 
@@ -46,7 +47,7 @@ Below, `{home}` and `{project-agent-dir}` mean the selected row's values.
   - **workspace-owned** — `skills/`, `agents/`, `project_TEMPLATE/`, `adapter/`: overwrite from the template or the overlay (`cp -r`, no `-n`). A user edit inside the installed copy is lost **by design**; real customisations belong in the workspace repo. Deletions need doing explicitly — a skill or agent renamed, moved or dropped in the template leaves its old copy behind and keeps loading; check for a stale *home* too, not just a stale file.
   - **user-owned** — `memory/`, `projects/`, `domains/`, and the target's own configuration (`settings.json`, `config.toml`, `opencode.jsonc`, `.mcp.json`): leave them alone. A domain master is generated, not templated (`domain-initialiser` rebuilds one on request).
 - **`AGENTS.md` is always a manual merge:** take the template's structural changes (new sections, reworded rules), keep the user-filled ones — **User Info**, **System Info**, custom **RULES**, **Available masters**.
-- **Agents install flat**, whatever the source layout: OpenCode folds a subfolder into the agent's ID while Claude Code keys off `name:`, so a nested copy answers to a different name in each. Nothing else may live in `agents/` — a stray file is scanned as an agent.
+- **Agents install flat**, whatever the source layout: OpenCode folds a subfolder into the agent's ID while Claude Code keys off `name:`, so a nested copy answers to a different name in each. Where the target wants another format (Codex: TOML with `developer_instructions`), convert rather than skip, and keep one file per agent ID. Nothing else may live in `agents/` — a stray file is scanned as an agent.
 - New skill *folders* are usually discovered only next session — say so rather than claiming they're live.
 
 ## 3. Overlay the target's adapter
@@ -57,12 +58,21 @@ Its files already carry the paths they must land on, so this is a copy, not a tr
 cp -r {workspace}/adapters/{target}/. {home}/
 ```
 
-That leaves `{home}/adapter/` holding whatever the target needs later — `project/` for `project-initialiser`, `domain/` for `domain-initialiser` — which is why neither of them names a harness. A target needing nothing there simply has no such folder, and both skills treat that as "no shim required".
+That leaves `{home}/adapter/` holding whatever the target needs later, in three folders named by what happens to them — which is why no later skill names a harness, and why an absent folder simply means "this target needs none":
 
-Two things the overlay cannot do on its own:
+| Folder | Fate | Used by |
+| --- | --- | --- |
+| `project/` | copied into a repo root as-is | `project-initialiser` |
+| `project-merge/` | merged into the repo's **Project config** from the table above | `project-initialiser` |
+| `domain/` | copied into a domain master's root | `domain-initialiser` |
+| `merge/` | merged into `{home}`'s own config | this skill, below |
 
-- **Claude Code** — `{home}/CLAUDE.md` may already exist. It is a shim, so a conflict means the user put rules in the wrong file: move them into `AGENTS.md` rather than keeping two homes.
-- **Codex** — merge `{home}/adapter/config.toml.fragment` into `{home}/config.toml`, keeping existing keys. Then **inline** the global memory index into `{home}/AGENTS.md` between `<!-- workspace:memory:begin -->` and `<!-- workspace:memory:end -->`, since Codex resolves no imports, and re-sync that block on every repair.
+A merge keeps keys already present and substitutes any `{x}`. Then finish the two things a copy cannot do:
+
+- **`merge/*`** into `{home}`'s own config — capability entries, `skills.paths`, the `instructions` array.
+- **Wire the global memory index**, per what the row's instruction file can do: an `@` import needs nothing, an `instructions` array gets the path added, and a target with neither gets `{home}/memory/MEMORY.md` **inlined** into `{home}/AGENTS.md` between `<!-- workspace:memory:begin -->` and `<!-- workspace:memory:end -->` — re-synced on every repair, and size-checked against any instruction-size cap.
+
+For Claude Code specifically, `{home}/CLAUDE.md` may already exist. It is a shim, so a conflict means the user put rules in the wrong file: move them into `AGENTS.md` rather than keeping two homes.
 
 ## 4. Collect system info → `AGENTS.md`
 
@@ -79,8 +89,8 @@ Ask in plain chat — **not** the question tool — so the user can answer freel
 Only the ones not already working, and only where the target can host them. Memory is **native Markdown, no plugin** — step 2 seeded `{home}/memory/MEMORY.md` and step 3 wired it. See `maintain-memory`.
 
 - **Claude Code** — **codegraph** from https://github.com/colbymchenry/codegraph; **superpowers**, **context7**, **plugin-dev** from the `claude-plugins-official` marketplace (add via `/plugin`).
-- **Codex** — the same marketplace works: add it, then the three plugins, via `~/.codex/config.toml`. codegraph goes in as an `mcp_servers` entry, not as a plugin.
-- **OpenCode** — unconfirmed; report as unavailable rather than inventing an install path.
+- **Codex** — the same marketplace works, as `[marketplaces.claude-plugins-official]` with `source_type = "git"`, then one `[plugins."{name}@claude-plugins-official"]` block each. codegraph goes in as an `mcp_servers` entry, not as a plugin.
+- **OpenCode** — its plugin system is JS modules listed in `plugin`, a different thing entirely: install `superpowers` as `"superpowers@git+https://github.com/obra/superpowers.git"`, and everything else through `mcp` and `skills.paths`.
 
 ### GitHub access *(optional — ask, don't assume)*
 

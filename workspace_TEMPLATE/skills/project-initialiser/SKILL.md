@@ -34,7 +34,7 @@ Onboard a repo end-to-end. Owns the **initial** doc creation (it does the deep e
    cp -r {home}/domains/{x}-domain {repo}/{project-agent-dir}/skills/{x}-domain
    ```
 
-   - The master carries its manifests already (`domain-initialiser` took them from `{home}/adapter/domain/`). Pre-approve its MCP where the target wants that up front — Claude Code: `{repo}/.claude/settings.json` with `{ "enableAllProjectMcpServers": true }`, or list servers in `enabledMcpjsonServers`; it loads as `{x}-domain@skills-dir` next session.
+   - The master carries its manifests already (`domain-initialiser` took them from `{home}/adapter/domain/`). **Register it project-scoped:** merge `{home}/adapter/project-merge/*` into this repo's config of the same name, substituting `{x}` — that is what points the target at the domain's skills folder, its MCP servers and its `DOMAIN-MEMORY.md`, and what pre-approves the servers. An empty `project-merge/` means the target discovers the copy by itself. On Claude Code it then loads as `{x}-domain@skills-dir` next session.
    - Install the project's frameworks and runtime packages, then the unit + UI test framework named in `{x}-domain/Domain-Recipe.md`.
    - **Audit the git tree before anything is staged** — `git status`, and make `.gitignore` exclude installed packages (`node_modules/`, `.venv/`, `vendor/`), build output (`dist/`, `build/`, `target/`), logs, caches, local env files. Untrack anything already tracked (`git rm --cached`).
 
