@@ -42,9 +42,11 @@ Then open the target harness **in that folder** and say:
 > Read `workspace_TEMPLATE/skills/workspace-install/SKILL.md` and follow it. Ask me which targets to install.
 
 The skill is not installed yet, so the first run is read-and-follow by hand. It asks which harnesses
-to install into, then does two copies per harness — the neutral `workspace_TEMPLATE/`, and that
-harness's overlay from `adapters/` on top — before detecting your system, interviewing you briefly
-and verifying that each capability actually works rather than merely exists.
+to install into, then copies: the skills once into `~/.agents/skills/` — the Agent Skills standard
+that Codex, OpenCode, Gemini CLI and Cursor all read, with Claude Code linked into it rather than
+given a copy — and per harness the rest of `workspace_TEMPLATE/` plus that harness's overlay from
+`adapters/`. Then it detects your system, interviews you briefly, and verifies that each capability
+actually works rather than merely exists.
 
 **Restart each changed harness afterwards.** New skill folders are only discovered in a fresh session.
 
@@ -218,7 +220,7 @@ The whole workspace is Markdown — fork it and edit. Two things worth knowing:
 ```
 workspace_TEMPLATE/        ← harness-neutral, copied into the harness home wholesale
 ├── AGENTS.md              ←   shared global instruction file
-├── skills/                ←   workflows and supporting skills
+├── skills/                ←   workflows and supporting skills — installed to ~/.agents/skills/
 ├── agents/                ←   agent definitions, installed flat
 ├── project_TEMPLATE/      ←   scaffold copied into each new project
 ├── domains/               ←   domain master scaffold

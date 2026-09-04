@@ -1,6 +1,6 @@
 # Sprint — {slug}
 
-Date: {YYYY-MM-DD} · template: `{home}/skills/plan/templates/SPRINT_TEMPLATE.md`
+Date: {YYYY-MM-DD} · template: `~/.agents/skills/plan/templates/SPRINT_TEMPLATE.md`
 
 <!-- The SPRINT FILE: the frame above, the board below. Written by `plan` (sprint mode),
      opened by `open-sprint`, frozen by `close-sprint` with the sprint. Delete both comments

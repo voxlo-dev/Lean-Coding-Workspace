@@ -12,7 +12,7 @@ Install or repair **only the targets the user selects**. Copy what's missing, me
 
 **`{workspace}`** = the repo holding `workspace_TEMPLATE/` and `adapters/` (usually the cwd). Substitute the real path.
 
-**Two copies, that's the whole install.** `workspace_TEMPLATE/` is harness-neutral and goes in wholesale; `adapters/{target}/` is a plain overlay whose files already sit at the paths they must land on. Everything a target needs later — the project shim, the domain manifests — lands under `{home}/adapter/`, so no other skill ever names a harness.
+**Three copies, that's the whole install.** `workspace_TEMPLATE/` is harness-neutral and goes in wholesale; `adapters/{target}/` is a plain overlay whose files already sit at the paths they must land on. Everything a target needs later — the project shim, the domain manifests — lands under `{home}/adapter/`, so no other skill ever names a harness. Skills are the exception to "per target": they have **one** home, `~/.agents/skills/`, shared by every harness.
 
 **Fresh vs repair:** everything below is idempotent — **skip any step whose result already holds** (file correct, capability working) and act on what's missing or broken. Tell the user which steps you skip and why.
 
@@ -20,31 +20,34 @@ Install or repair **only the targets the user selects**. Copy what's missing, me
 
 One multi-select question: **Claude Code · Codex · OpenCode**. An unselected target is not touched. Skip any whose home doesn't exist unless the user wants it created — installing a harness the user doesn't have is noise, not service.
 
-| Target | Home | Project config | Global instructions pulled in by | Skills registered by | Agents |
+| Target | Home | Project config | Global instructions pulled in by | Reaches `~/.agents/skills/` | Agents |
 | --- | --- | --- | --- | --- | --- |
-| Claude Code | `~/.claude` | `.claude/settings.json` | `CLAUDE.md` shim, `@` imports | discovery of `skills/` | `agents/*.md`, ID from `name:` |
-| Codex | `~/.codex` | `.codex/config.toml` *(trusted projects only)* | `AGENTS.md`, no imports | `[[skills.config]] path` | `agents/*.toml`, needs a transform |
-| OpenCode | `~/.config/opencode` | `opencode.json` | `instructions` array in config | `skills.paths` in config | `agents/*.md`, ID from path |
+| Claude Code | `~/.claude` | `.claude/settings.json` | `CLAUDE.md` shim, `@` imports | **no** — needs per-skill links | `agents/*.md`, ID from `name:` |
+| Codex | `~/.codex` | `.codex/config.toml` *(trusted projects only)* | `AGENTS.md`, no imports | yes, natively | `agents/*.toml`, needs a transform |
+| OpenCode | `~/.config/opencode` | `opencode.json` | `instructions` array in config | yes, natively | `agents/*.md`, ID from path |
 
 Every row is implemented in `adapters/{target}/` — **no folder, no install**, and a claim not backed by a file there gets asked rather than assumed. Three consequences to state out loud rather than work around:
 
 - **Codex agents are TOML, not Markdown.** `~/.codex/agents/{name}.toml` (or `.codex/agents/` per repo) with `name`, `description`, `developer_instructions` carrying the prompt body — so the shared `.md` definitions need converting, not copying, and it is the one place the install is not a plain overlay. Convert on install and say you did; upstream reports custom subagents not always reaching tool-backed sessions, so **verify one dispatch** before telling the user `localagent-workflow` is usable there.
 - **Codex silently truncates instructions at `project_doc_max_bytes` (32 KiB default).** Inlined memory eats that budget with no warning. Check the size after inlining, and raise the key in `config.toml` rather than letting the tail of `AGENTS.md` vanish.
-- **OpenCode needs no copy of the skills** on a machine that also runs Claude Code: it reads `~/.claude/skills/` directly. Prefer pointing `skills.paths` at what is already installed over a second copy that drifts.
+- **Skills have one home for every target: `~/.agents/skills/`** (repo scope: `.agents/skills/`), the Agent Skills standard, read natively by Codex, OpenCode, Gemini CLI, Cursor and others. Claude Code is the holdout and reads only `~/.claude/skills/` — so it gets **links, never a second copy**, per skill folder (`mklink /J` on Windows, `ln -s` elsewhere). A copy is what produced the drift this rule exists to stop; link the folders individually rather than the `skills/` directory itself, which Claude Code writes its own internals into.
 
 Below, `{home}` and `{project-agent-dir}` mean the selected row's values.
 
 ## 2. Inventory & copy the shared template
 
 - `diff -r --strip-trailing-cr` `{workspace}/workspace_TEMPLATE` against `{home}` (live copies may carry different line endings). Missing → a fresh copy, differing → a merge candidate; the inventory tells you whether this is a bootstrap or a repair. Report it before changing anything.
-- Copy everything missing, leaving existing files untouched (`-n` = no-clobber; run from `{workspace}` or use absolute paths):
+- Copy everything missing, leaving existing files untouched (`-n` = no-clobber; run from `{workspace}` or use absolute paths). **Skills go to the shared home once, whatever targets were picked; the rest is per target:**
 
   ```bash
-  cp -rn {workspace}/workspace_TEMPLATE/. {home}/
+  cp -rn {workspace}/workspace_TEMPLATE/skills/. ~/.agents/skills/
+  cp -rn {workspace}/workspace_TEMPLATE/{AGENTS.md,agents,project_TEMPLATE,memory,domains} {home}/
   ```
 
+  Then, for a target that does not read `~/.agents/skills/`, link each skill folder into the one it does read — `ln -s ~/.agents/skills/{name} {home}/skills/{name}`, or `mklink /J` on Windows. Existing folder that is a real directory rather than a link → it is the old duplicated install: diff it against the template first, salvage anything only it has, then replace it with the link.
+
 - **On a repair, `-n` is not enough** — a skill whose template version changed keeps the old installed copy. Two kinds of file:
-  - **workspace-owned** — `skills/`, `agents/`, `project_TEMPLATE/`, `adapter/`: overwrite from the template or the overlay (`cp -r`, no `-n`). A user edit inside the installed copy is lost **by design**; real customisations belong in the workspace repo. Deletions need doing explicitly — a skill or agent renamed, moved or dropped in the template leaves its old copy behind and keeps loading; check for a stale *home* too, not just a stale file.
+  - **workspace-owned** — `~/.agents/skills/`, `agents/`, `project_TEMPLATE/`, `adapter/`: overwrite from the template or the overlay (`cp -r`, no `-n`). A user edit inside the installed copy is lost **by design**; real customisations belong in the workspace repo. Deletions need doing explicitly — a skill or agent renamed, moved or dropped in the template leaves its old copy behind and keeps loading; check for a stale *home* too, not just a stale file.
   - **user-owned** — `memory/`, `projects/`, `domains/`, and the target's own configuration (`settings.json`, `config.toml`, `opencode.jsonc`, `.mcp.json`): leave them alone. A domain master is generated, not templated (`domain-initialiser` rebuilds one on request).
 - **`AGENTS.md` is always a manual merge:** take the template's structural changes (new sections, reworded rules), keep the user-filled ones — **User Info**, **System Info**, custom **RULES**, **Available masters**.
 - **Agents install flat**, whatever the source layout: OpenCode folds a subfolder into the agent's ID while Claude Code keys off `name:`, so a nested copy answers to a different name in each. Where the target wants another format (Codex: TOML with `developer_instructions`), convert rather than skip, and keep one file per agent ID. Nothing else may live in `agents/` — a stray file is scanned as an agent.
@@ -58,7 +61,7 @@ Its files already carry the paths they must land on, so this is a copy, not a tr
 cp -r {workspace}/adapters/{target}/. {home}/
 ```
 
-That leaves `{home}/adapter/` holding whatever the target needs later, in three folders named by what happens to them — which is why no later skill names a harness, and why an absent folder simply means "this target needs none":
+That leaves `{home}/adapter/` holding whatever the target needs later, in four folders named by what happens to them — which is why no later skill names a harness, and why an absent folder simply means "this target needs none":
 
 | Folder | Fate | Used by |
 | --- | --- | --- |

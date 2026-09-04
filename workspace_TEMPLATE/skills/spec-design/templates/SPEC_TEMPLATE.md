@@ -3,7 +3,7 @@
 Date: {YYYY-MM-DD} · Status: {draft | approved | done} · Tickets: {`T-NNN`, … it implements — else —}
 
 Feature spec for `dynamic-workflow` — the *Pflichtenheft*, written by `spec-design`
-(template: `{home}/skills/spec-design/templates/SPEC_TEMPLATE.md`).
+(template: `~/.agents/skills/spec-design/templates/SPEC_TEMPLATE.md`).
 **A throwaway artifact**, live for its sprint: later specs read its Behaviour delta as current
 truth, and at sprint close it graduates — behaviour → `behaviour.md`, structure →
 `architecture.md`, decisions → `decisions.md`. Keep it lean and implementation-facing.

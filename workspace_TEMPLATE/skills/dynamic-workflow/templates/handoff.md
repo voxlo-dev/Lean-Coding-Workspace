@@ -1,7 +1,7 @@
 # Handoff — package {n}: {name}
 
 The dispatch prompt for one implement package (template:
-`{home}/skills/dynamic-workflow/templates/handoff.md`). **Written from the spec, never from
+`~/.agents/skills/dynamic-workflow/templates/handoff.md`). **Written from the spec, never from
 reading the code**, self-contained: the subagent starts blank. Not a file — fill it and send it.
 
 - **Spec:** `artefacts/{sprint}/spec_{feature}.md` — read it; your anchor if you compact

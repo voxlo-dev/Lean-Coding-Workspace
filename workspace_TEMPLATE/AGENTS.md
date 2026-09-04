@@ -1,6 +1,6 @@
 # Global Agent Workspace
 
-Always loaded. Says *when* something applies and *where* the rest lives — never what a skill does, that's the skill's own description. "{ }" marks placeholders substituted by skills or by demand. Two are fixed: **`{home}`** = this harness's workspace home (Claude Code `~/.claude` · Codex `~/.codex` · OpenCode `~/.config/opencode`), **`{project-agent-dir}`** = its per-repo directory (`.claude/` · `.codex/` · `.opencode/`).
+Always loaded. Says *when* something applies and *where* the rest lives — never what a skill does, that's the skill's own description. "{ }" marks placeholders substituted by skills or by demand. Two are fixed: **`{home}`** = this harness's workspace home (Claude Code `~/.claude` · Codex `~/.codex` · OpenCode `~/.config/opencode`), **`{project-agent-dir}`** = its per-repo directory (`.claude/` · `.codex/` · `.opencode/`). **Skills are not per-harness:** they live once at `~/.agents/skills/`, per repo at `.agents/skills/`, and a harness that cannot read that is linked there rather than given a copy.
 
 **Mantra:** *Workflows are life, skills & tools are your friends & helpers, context clutter is death*
 
@@ -50,7 +50,7 @@ Assume the user is capable, but lazy with words, because he can't type as fast a
 
 ## Domains
 
-Master domains live **inert** in `{home}/domains/{x}-domain/` — not a skills directory, so nothing domain-specific ever loads globally. `project-initialiser` copies the matching master into a repo's `{project-agent-dir}/skills/{x}-domain/`, where it loads **project-scoped**, MCP servers included (so e.g. the Unity MCP runs only in Unity repos). `domain-initialiser` builds the master, taking the manifests that activate it from `{home}/adapter/domain/`. Both skills own the mechanics.
+Master domains live **inert** in `{home}/domains/{x}-domain/` — not a skills directory, so nothing domain-specific ever loads globally. `project-initialiser` copies the matching master into a repo's `.agents/skills/{x}-domain/`, where it loads **project-scoped**, MCP servers included (so e.g. the Unity MCP runs only in Unity repos). `domain-initialiser` builds the master, taking the manifests that activate it from `{home}/adapter/domain/`. Both skills own the mechanics.
 
 Available masters: {}. Create one with the `domain-initialiser` skill.
 

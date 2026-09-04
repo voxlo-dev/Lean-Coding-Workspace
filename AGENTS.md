@@ -63,7 +63,7 @@ Not tracked (see `.gitignore`): `.claude/`, `.codex/`, `.opencode/`, `.agents/`,
 
 ## Authoring conventions
 
-- **Skills are discovered only at `skills/<name>/SKILL.md`** — direct children of `skills/`.
+- **Skills are discovered only at `skills/<name>/SKILL.md`** — direct children of `skills/`, and their one home is `~/.agents/skills/` (repo: `.agents/skills/`), the Agent Skills standard. Claude Code reads only `.claude/skills/`, so it gets a **link per skill folder**, never a copy — a copy is what let the installed skills drift into two mangled versions.
   Grouping subfolders silently break discovery.
 - **Every skill needs frontmatter** `name` + `description`; the description is the *only* thing an
   agent picks by, so it must say when to reach for the skill, not what it contains.

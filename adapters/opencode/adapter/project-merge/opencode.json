@@ -1,6 +1,5 @@
 {
   "$schema": "https://opencode.ai/config.json",
-  "instructions": ["./.opencode/skills/{x}-domain/DOMAIN-MEMORY.md"],
-  "skills": { "paths": ["./.opencode/skills/{x}-domain/skills"] },
+  "instructions": ["./.agents/skills/{x}-domain/DOMAIN-MEMORY.md"],
   "mcp": {}
 }

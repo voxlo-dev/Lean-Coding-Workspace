@@ -1,7 +1,7 @@
 # Decisions — sprint {slug}
 
 <!-- CONTRACT (binding — delete this comment with the first decision section; template:
-     `{home}/skills/plan/templates/SPRINT_DECISIONS_TEMPLATE.md`):
+     `~/.agents/skills/plan/templates/SPRINT_DECISIONS_TEMPLATE.md`):
   - The reasoning behind every decision this sprint SETTLED — the detail behind the
     one-liners in `docs/decisions.md`. One `##` section each, ~15 lines, newest at the bottom.
   - Exists only where the project has `docs/decisions.md`; NNNN is the `Next decision` counter

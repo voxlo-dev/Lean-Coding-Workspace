@@ -1,7 +1,7 @@
 # Release {version}
 
 <!-- CONTRACT (binding — delete this comment once the release is filled):
-  - Template: `{home}/skills/release/templates/RELEASE_TEMPLATE.md`.
+  - Template: `~/.agents/skills/release/templates/RELEASE_TEMPLATE.md`.
   - Lives at `artefacts/release-{version}/release.md`. Ephemeral tier: live for the run,
     frozen the moment the release lands or fails.
   - THE STATE TABLE IS THE RESUME CONTRACT. Tick a step only once its effect is real, and
