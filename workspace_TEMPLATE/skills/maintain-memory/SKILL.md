@@ -15,7 +15,7 @@ The workspace uses Markdown memory, not a required plugin. `workspace-install` e
 | **Domain** | `{home}/domains/{x}-domain/DOMAIN-MEMORY.md` | imported per project by `project-initialiser` | facts true for every project of this domain |
 | **Global** | `{home}/memory/MEMORY.md` | wired once by `workspace-install` | facts true everywhere |
 
-Every harness pulls a Markdown file into context by one of three levers, which is why the files themselves stay shared and only the wiring differs: an **import** in the instruction file (Claude Code's `@`), an **instructions list** in the config (OpenCode's `instructions`), or **inlining** where there is neither (Codex). `workspace-install` picks one per target and `project-initialiser` repeats it per repo. **Check before you rely on a scope:** a file a target cannot load is stored, not active — and inlining competes for an instruction-size budget, so it stays lean or it silently truncates.
+The files stay shared; only the wiring differs, and a harness offers exactly one of three levers — an **import** in the instruction file (Claude Code's `@`), an **instructions list** in the config (OpenCode's), or **inlining** where there is neither (Codex). `workspace-install` picks one per target, `project-initialiser` repeats it per repo. Inlining competes for an instruction-size budget that truncates silently, so keep it lean.
 
 Default to **project**; promote only once a learning is clearly that broad. When scope becomes clearer later, **move** the entry.
 

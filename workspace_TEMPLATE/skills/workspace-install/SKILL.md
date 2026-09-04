@@ -12,8 +12,6 @@ Install or repair **only the targets the user selects**. Copy what's missing, me
 
 **`{workspace}`** = the repo holding `workspace_TEMPLATE/` and `adapters/` (usually the cwd). Substitute the real path.
 
-**Three copies, that's the whole install.** `workspace_TEMPLATE/` is harness-neutral and goes in wholesale; `adapters/{target}/` is a plain overlay whose files already sit at the paths they must land on. Everything a target needs later — the project shim, the domain manifests — lands under `{home}/adapter/`, so no other skill ever names a harness. Skills are the exception to "per target": they have **one** home, `~/.agents/skills/`, shared by every harness.
-
 **Fresh vs repair:** everything below is idempotent — **skip any step whose result already holds** (file correct, capability working) and act on what's missing or broken. Tell the user which steps you skip and why.
 
 ## 1. Select targets — ask
@@ -30,7 +28,7 @@ Every row is implemented in `adapters/{target}/` — **no folder, no install**, 
 
 - **Codex agents are TOML, not Markdown.** `~/.codex/agents/{name}.toml` (or `.codex/agents/` per repo) with `name`, `description`, `developer_instructions` carrying the prompt body — so the shared `.md` definitions need converting, not copying, and it is the one place the install is not a plain overlay. Convert on install and say you did; upstream reports custom subagents not always reaching tool-backed sessions, so **verify one dispatch** before telling the user `localagent-workflow` is usable there.
 - **Codex silently truncates instructions at `project_doc_max_bytes` (32 KiB default).** Inlined memory eats that budget with no warning. Check the size after inlining, and raise the key in `config.toml` rather than letting the tail of `AGENTS.md` vanish.
-- **Skills have one home for every target: `~/.agents/skills/`** (repo scope: `.agents/skills/`), the Agent Skills standard, read natively by Codex, OpenCode, Gemini CLI, Cursor and others. Claude Code is the holdout and reads only `~/.claude/skills/` — so it gets **links, never a second copy**, per skill folder (`mklink /J` on Windows, `ln -s` elsewhere). A copy is what produced the drift this rule exists to stop; link the folders individually rather than the `skills/` directory itself, which Claude Code writes its own internals into.
+- **`~/.agents/skills/` is every target's skills home** (repo scope: `.agents/skills/`) — the Agent Skills standard, read natively by Codex, OpenCode, Gemini CLI and Cursor. Claude Code is the holdout, reading only `~/.claude/skills/`, and gets **links, never a second copy**: a copy is what let the installed skills drift into two mangled versions.
 
 Below, `{home}` and `{project-agent-dir}` mean the selected row's values.
 
@@ -44,13 +42,13 @@ Below, `{home}` and `{project-agent-dir}` mean the selected row's values.
   cp -rn {workspace}/workspace_TEMPLATE/{AGENTS.md,agents,project_TEMPLATE,memory,domains} {home}/
   ```
 
-  Then, for a target that does not read `~/.agents/skills/`, link each skill folder into the one it does read — `ln -s ~/.agents/skills/{name} {home}/skills/{name}`, or `mklink /J` on Windows. Existing folder that is a real directory rather than a link → it is the old duplicated install: diff it against the template first, salvage anything only it has, then replace it with the link.
+  Then link each skill folder into the directory a non-standard target does read — `ln -s ~/.agents/skills/{name} {home}/skills/{name}`, `mklink /J` on Windows. **Per folder, never the `skills/` directory itself**, which the harness writes its own internals into. A real directory where a link belongs is the old duplicated install: diff it against the template, salvage what only it has, replace it.
 
 - **On a repair, `-n` is not enough** — a skill whose template version changed keeps the old installed copy. Two kinds of file:
   - **workspace-owned** — `~/.agents/skills/`, `agents/`, `project_TEMPLATE/`, `adapter/`: overwrite from the template or the overlay (`cp -r`, no `-n`). A user edit inside the installed copy is lost **by design**; real customisations belong in the workspace repo. Deletions need doing explicitly — a skill or agent renamed, moved or dropped in the template leaves its old copy behind and keeps loading; check for a stale *home* too, not just a stale file.
   - **user-owned** — `memory/`, `projects/`, `domains/`, and the target's own configuration (`settings.json`, `config.toml`, `opencode.jsonc`, `.mcp.json`): leave them alone. A domain master is generated, not templated (`domain-initialiser` rebuilds one on request).
 - **`AGENTS.md` is always a manual merge:** take the template's structural changes (new sections, reworded rules), keep the user-filled ones — **User Info**, **System Info**, custom **RULES**, **Available masters**.
-- **Agents install flat**, whatever the source layout: OpenCode folds a subfolder into the agent's ID while Claude Code keys off `name:`, so a nested copy answers to a different name in each. Where the target wants another format (Codex: TOML with `developer_instructions`), convert rather than skip, and keep one file per agent ID. Nothing else may live in `agents/` — a stray file is scanned as an agent.
+- **Agents install flat**, whatever the source layout: OpenCode folds a subfolder into the agent's ID while Claude Code keys off `name:`, so a nested copy answers to a different name in each. Convert rather than skip where the format differs, one file per agent ID. Nothing else may live in `agents/` — a stray file is scanned as an agent.
 - New skill *folders* are usually discovered only next session — say so rather than claiming they're live.
 
 ## 3. Overlay the target's adapter
@@ -61,7 +59,7 @@ Its files already carry the paths they must land on, so this is a copy, not a tr
 cp -r {workspace}/adapters/{target}/. {home}/
 ```
 
-That leaves `{home}/adapter/` holding whatever the target needs later, in four folders named by what happens to them — which is why no later skill names a harness, and why an absent folder simply means "this target needs none":
+That leaves `{home}/adapter/` holding whatever the target needs later, in four folders named by what happens to them:
 
 | Folder | Fate | Used by |
 | --- | --- | --- |
@@ -72,8 +70,8 @@ That leaves `{home}/adapter/` holding whatever the target needs later, in four f
 
 A merge keeps keys already present and substitutes any `{x}`. Then finish the two things a copy cannot do:
 
-- **`merge/*`** into `{home}`'s own config — capability entries, `skills.paths`, the `instructions` array.
-- **Wire the global memory index**, per what the row's instruction file can do: an `@` import needs nothing, an `instructions` array gets the path added, and a target with neither gets `{home}/memory/MEMORY.md` **inlined** into `{home}/AGENTS.md` between `<!-- workspace:memory:begin -->` and `<!-- workspace:memory:end -->` — re-synced on every repair, and size-checked against any instruction-size cap.
+- **`merge/*`** into `{home}`'s own config — capability entries and the instruction paths it loads.
+- **Wire `{home}/memory/MEMORY.md`** by the lever the row's instruction file offers (`maintain-memory` names all three). Inlining is the fallback, between `<!-- workspace:memory:begin -->` and `<!-- workspace:memory:end -->`, re-synced on every repair.
 
 For Claude Code specifically, `{home}/CLAUDE.md` may already exist. It is a shim, so a conflict means the user put rules in the wrong file: move them into `AGENTS.md` rather than keeping two homes.
 
@@ -93,7 +91,7 @@ Only the ones not already working, and only where the target can host them. Memo
 
 - **Claude Code** — **codegraph** from https://github.com/colbymchenry/codegraph; **superpowers**, **context7**, **plugin-dev** from the `claude-plugins-official` marketplace (add via `/plugin`).
 - **Codex** — the same marketplace works, as `[marketplaces.claude-plugins-official]` with `source_type = "git"`, then one `[plugins."{name}@claude-plugins-official"]` block each. codegraph goes in as an `mcp_servers` entry, not as a plugin.
-- **OpenCode** — its plugin system is JS modules listed in `plugin`, a different thing entirely: install `superpowers` as `"superpowers@git+https://github.com/obra/superpowers.git"`, and everything else through `mcp` and `skills.paths`.
+- **OpenCode** — its plugin system is JS modules listed in `plugin`, a different thing entirely: install `superpowers` as `"superpowers@git+https://github.com/obra/superpowers.git"`, and everything else through `mcp`.
 
 ### GitHub access *(optional — ask, don't assume)*
 
@@ -108,11 +106,9 @@ Needed by `release` and any project on the PR flow; skip for a user working pure
 
 ## 8. Verify each target independently
 
-Per selected target, confirm each capability is actually **working**, not merely present: global instructions load, skills are discoverable this session, agents register where the target supports them, MCP/plugin entry points run (no failing hook, no error on invoke), memory references resolve, and domains stay inert until `project-initialiser` installs one.
+Per selected target, confirm each capability is actually **working**, not merely present — **never that a scope is loaded because its file exists**: global instructions load, skills are discoverable this session, agents dispatch where the target supports them, MCP/plugin entry points run (no failing hook, no error on invoke), memory resolves or is reported as stored and manual, and domains stay inert until `project-initialiser` installs one.
 
 Report each target as **passed · skipped · failed**. For any failure propose a brief troubleshooting plan and **get the user's OK before any tool calls**. Two traps behind a capability that is "installed" yet silently exposes nothing: an orphaned or dependency-incomplete cache directory shadowing the working one, and a remote MCP server whose credential is missing — `enabledPlugins: true` in `settings.json` says nothing about either. For **github** specifically, `get_me` returning your account is the proof; `gh auth status` is the separate one.
-
-**Never report a scope as loaded because its file exists.** Where a target cannot load memory automatically, say the file is stored and manual.
 
 ## 9. Offer to capture working rules → `AGENTS.md` (optional)
 
