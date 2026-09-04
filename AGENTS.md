@@ -59,7 +59,10 @@ README.md                      ← end-user facing: what this is, install, how i
 AGENTS.md                      ← this file
 ```
 
-Not tracked (see `.gitignore`): `.claude/`, `.codex/`, `.opencode/`, `.agents/`, `.serena/`, `.tokensave`.
+`.agents/skills/` holds this repo's **own** skills (`compress`), tracked, with `.claude/skills/{name}`
+junctioned to each — the project-scope form of the same one-home rule. Not tracked (see
+`.gitignore`): the harness dirs `.claude/`, `.codex/`, `.opencode/`, any `.agents/skills/*-domain/`
+(a sync of a global master), `.serena/`, `.tokensave`.
 
 ## Authoring conventions
 
