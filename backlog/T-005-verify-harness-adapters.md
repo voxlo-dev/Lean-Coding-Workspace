@@ -1,6 +1,6 @@
-# T-005 — Verify the Codex and OpenCode adapters on live installs
+# T-005 — Prove a converted Codex agent dispatches
 
-- **Summary:** run `/workspace-install` against Codex and OpenCode and confirm each adapter's claims by dispatching, not by looking
+- **Summary:** the one adapter claim still unproven — that `~/.codex/agents/*.toml` reaches a normal Codex session — needs a real dispatch, and the evidence so far says it does not
 - **Category:** feature
 - **Importance:** medium
 - **Effort:** S
@@ -8,26 +8,29 @@
 
 ## Why
 
-Every path in `adapters/codex/` and `adapters/opencode/` comes from the harnesses' own documentation
-and from a live `~/.codex` — real sources, but none of it has been exercised end to end. The two
-claims that matter most are also the two least certain: that a converted Codex agent is reachable
-from a normal session, and that OpenCode's `skills.paths` picks up the workspace skills.
+Everything else in `adapters/` was exercised on a live install (see below). This one could not be:
+the Codex account was at its usage limit, and a dispatch is the only thing no offline lever answers.
+`workspace-install` currently tells the user to convert the agents and verify one dispatch before
+calling `localagent-workflow` usable on Codex — a claim the install cannot yet stand behind.
 
 ## What
 
-Per target, install and then prove each row of `workspace-install`'s table:
+On a Codex account with quota, from a trusted project:
 
-- **Codex** — `~/.codex/AGENTS.md` loads · the inlined memory block survives `project_doc_max_bytes`
-  (raise it if the file is near 32 KiB; truncation is silent) · `[[skills.config]] path` registers a
-  skill outside `~/.codex/skills/` · **dispatch one converted `agents/*.toml` agent and check the
-  answer comes from its prompt** — upstream reports custom subagents not reaching tool-backed
-  sessions ([#15250](https://github.com/openai/codex/issues/15250)) · a domain activates from
-  `.codex/config.toml` in a trusted project.
-- **OpenCode** — `instructions` pulls in `AGENTS.md` and the memory index · `skills.paths` finds the
-  skills, ideally pointed at `~/.claude/skills/` rather than a second copy · a project `opencode.json`
-  scopes a domain's skills and MCP · agents dispatch by name.
+1. Dispatch `localagent-spec-architect` and check the answer comes from *its* prompt, not a generic
+   sub-agent role-playing it — the failure mode already observed on OpenCode, where an orchestrator
+   cannot tell the two apart.
+2. If it does not reach: try declaring the agents in `config.toml` rather than as files, then decide
+   between fixing `adapters/codex/` and giving the target a row that says it lacks named agents.
+   Either way `workspace-install`'s Codex bullet and its table's **Agents** column change.
 
-Then flip whatever fails into a fix, and record what holds where it is claimed.
+## Evidence against, from `codex debug prompt-input` (0.153.0, `gpt-5.6-terra`)
+
+Codex's subagent model is `spawn_agent` — the prompt describes creating generic sub-agents "equally
+intelligent and capable, [with] the same set of tools", and names no agent from `~/.codex/agents/`.
+Consistent with upstream reporting custom subagents not reaching tool-backed sessions
+([#15250](https://github.com/openai/codex/issues/15250)). Not conclusive: `prompt-input` renders
+input items, not tool schemas, so a named-agent parameter could still exist at runtime.
 
 ## Dispatching custom agents in OpenCode — observed
 
@@ -44,21 +47,18 @@ on the second attempt. So the restricted `task` permission, not the enum, is the
 recurs: restart OpenCode fully (agents load at startup, `/new` is not enough) before suspecting the
 enum, and only then try declaring the agents in `opencode.json`.
 
-## The shared skills home — the reason this ticket exists
+## Settled on the 2026-09-04 install
 
-`~/.agents/skills/` and `.agents/skills/` are the Agent Skills standard, read natively by Codex,
-OpenCode, Gemini CLI, Cursor and others; Claude Code reads only `.claude/skills/`
-([#66352](https://github.com/anthropics/claude-code/issues/66352),
-[#31005](https://github.com/anthropics/claude-code/issues/31005)). The install therefore links
-Claude Code into the shared home per skill folder rather than copying, and **that link is the one
-thing here nobody has watched Claude Code actually load.** Linking the whole `skills/` directory is
-reported to fail because Claude Code writes its own internals into it, which is why the links are
-per folder — verify a linked skill is discovered before trusting the layout.
-
-Junctions were confirmed to work unprivileged on Windows 11 (`mklink /J`); the open question is
-discovery, not creation.
-
-**On this machine the drift already happened**, which is what the shared home prevents: a
-search-and-replaced copy of all sixteen skills sits in `~/.agents/skills/`, mangled — "Codex's
-native file memory", paths rewritten to a `~/.Codex/` that does not exist. Codex CLI reads it. The
-first repair run must delete that copy rather than merge it.
+- **The shared skills home holds.** Codex resolves `~/.agents/skills` as a native skill root (`r0` in
+  `prompt-input`'s root map) with all 16 skills catalogued and no `skills.config` entry; OpenCode
+  lists all 16 from the same path with no `skills.paths` entry, so both adapters are right to carry
+  none. Claude Code discovers a skill through a per-folder `mklink /J` junction and re-lists it
+  mid-session — the layout's one untested link works.
+- **Codex instructions and memory load.** `~/.codex/AGENTS.md` reaches the prompt whole, inlined
+  memory block included; at ~12.5 KiB it clears `project_doc_max_bytes` without help, but the install
+  now raises the key anyway because a project `AGENTS.md` shares that budget.
+- **OpenCode instructions, agents and MCP load.** `instructions` resolves both paths, a flat
+  `agent/*.md` (singular directory) resolves by bare name at `mode: subagent`, and both MCP servers
+  connect.
+- **Codex's `github` plugin is unauthenticated** — a session emits `AuthRequired` against
+  `api.githubcopilot.com`. Separate from `gh` and from Claude Code's github MCP, both of which work.

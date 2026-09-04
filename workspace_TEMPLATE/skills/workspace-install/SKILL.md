@@ -22,7 +22,7 @@ One multi-select question: **Claude Code · Codex · OpenCode**. An unselected t
 | --- | --- | --- | --- | --- | --- |
 | Claude Code | `~/.claude` | `.claude/settings.json` | `CLAUDE.md` shim, `@` imports | **no** — needs per-skill links | `agents/*.md`, ID from `name:` |
 | Codex | `~/.codex` | `.codex/config.toml` *(trusted projects only)* | `AGENTS.md`, no imports | yes, natively | `agents/*.toml`, needs a transform |
-| OpenCode | `~/.config/opencode` | `opencode.json` | `instructions` array in config | yes, natively | `agents/*.md`, ID from path |
+| OpenCode | `~/.config/opencode` | `opencode.json` | `instructions` array in config | yes, natively | `agent/*.md` — singular — ID from path |
 
 Every row is implemented in `adapters/{target}/` — **no folder, no install**, and a claim not backed by a file there gets asked rather than assumed. Three consequences to state out loud rather than work around:
 
@@ -71,7 +71,7 @@ That leaves `{home}/adapter/` holding whatever the target needs later, in four f
 A merge keeps keys already present and substitutes any `{x}`. Then finish the two things a copy cannot do:
 
 - **`merge/*`** into `{home}`'s own config — capability entries and the instruction paths it loads.
-- **Wire `{home}/memory/MEMORY.md`** by the lever the row's instruction file offers (`maintain-memory` names all three). Inlining is the fallback, between `<!-- workspace:memory:begin -->` and `<!-- workspace:memory:end -->`, re-synced on every repair.
+- **Wire `{home}/memory/MEMORY.md`** by the lever the row's instruction file offers (`maintain-memory` names all three). Inlining is the fallback, between `<!-- workspace:memory:begin -->` and `<!-- workspace:memory:end -->`, re-synced on every repair. A second target seeds its memory from the **first target's live one**, never the template's empty one — a fresh seed beside a filled store is silent divergence.
 
 For Claude Code specifically, `{home}/CLAUDE.md` may already exist. It is a shim, so a conflict means the user put rules in the wrong file: move them into `AGENTS.md` rather than keeping two homes.
 
@@ -107,6 +107,8 @@ Needed by `release` and any project on the PR flow; skip for a user working pure
 ## 8. Verify each target independently
 
 Per selected target, confirm each capability is actually **working**, not merely present — **never that a scope is loaded because its file exists**: global instructions load, skills are discoverable this session, agents dispatch where the target supports them, MCP/plugin entry points run (no failing hook, no error on invoke), memory resolves or is reported as stored and manual, and domains stay inert until `project-initialiser` installs one.
+
+Each target has levers that answer this without a model call, and they cost nothing — reach for them before spending a run: **Codex** `codex debug prompt-input` renders the model-visible prompt, so the instruction file, the inlined memory block and the skill catalog with its `r0…rN` root map are all readable in one dump, and `codex doctor` confirms `config.toml` parses; **OpenCode** `opencode debug skill` lists every skill with its resolved path, `opencode debug agent <name>` one agent's resolved config, `opencode debug config` the merged config, `opencode mcp list` which servers actually connect; **Claude Code** re-lists its skills mid-session, so a description that flips to the template's wording is the proof a link resolved. Only **agent dispatch** still needs a real run.
 
 Report each target as **passed · skipped · failed**. For any failure propose a brief troubleshooting plan and **get the user's OK before any tool calls**. Two traps behind a capability that is "installed" yet silently exposes nothing: an orphaned or dependency-incomplete cache directory shadowing the working one, and a remote MCP server whose credential is missing — `enabledPlugins: true` in `settings.json` says nothing about either. For **github** specifically, `get_me` returning your account is the proof; `gh auth status` is the separate one.
 
