@@ -1,11 +1,11 @@
-# Claude Workspace
+# Agent Workspace
 
-An opinionated setup for [Claude Code](https://claude.com/claude-code): a global instruction file
+An opinionated setup for Claude Code, Codex and OpenCode: a global instruction file
 plus a set of skills that turn "ask an AI to code" into a repeatable process — plan, spec,
 implement, test, document, ship.
 
 It is **plain Markdown**. Nothing to build, no runtime, no lock-in. You install it once into
-`~/.claude/`, and from then on every project you work on follows the same workflow.
+the selected harness home, and from then on every project you work on follows the same workflow.
 
 ## Why
 
@@ -23,7 +23,8 @@ questions by reading half the repo. This workspace fixes that with three ideas:
 
 ## Requirements
 
-- Claude Code (CLI, desktop, or IDE extension)
+- A harness: Claude Code (fully supported) · Codex (no subagents, so no `localagent-workflow`) ·
+  OpenCode (paths unconfirmed — the installer asks)
 - Git
 - Four plugins, installed for you by the install skill: `superpowers`, `codegraph`, `context7`,
   `plugin-dev`
@@ -33,23 +34,23 @@ questions by reading half the repo. This workspace fixes that with three ideas:
 ## Install
 
 ```bash
-git clone <this-repo> claude-workspace
+git clone <this-repo> agent-workspace
 ```
 
-Then open Claude Code **in that folder** and say:
+Then open the target harness **in that folder** and say:
 
-> Read `.claude_TEMPLATE/skills/workspace-install/SKILL.md` and follow it.
+> Read `workspace_TEMPLATE/skills/workspace-install/SKILL.md` and follow it. Ask me which targets to install.
 
-The skill isn't in `~/.claude/` yet, so this first run is read-and-follow by hand — that's
-expected. It copies the template into `~/.claude/`, detects your system, interviews you briefly
-(role, languages, preferred conversation language), installs the plugins, and verifies they
-actually work rather than merely exist.
+The skill is not installed yet, so the first run is read-and-follow by hand. It asks which harnesses
+to install into, then does two copies per harness — the neutral `workspace_TEMPLATE/`, and that
+harness's overlay from `adapters/` on top — before detecting your system, interviewing you briefly
+and verifying that each capability actually works rather than merely exists.
 
-**Restart Claude Code afterwards.** New skill folders are only discovered in a fresh session.
+**Restart each changed harness afterwards.** New skill folders are only discovered in a fresh session.
 
-Re-running `/workspace-install` later is also the **repair and sync path**: it overwrites what the
-workspace owns (`skills/`, `project_TEMPLATE/`), merges `CLAUDE.md` section by section, and never
-touches `memory/`, `projects/`, `domains/` or your settings.
+Re-running `/workspace-install` is the **repair and sync path**: it overwrites workspace-owned
+skills, agents and project scaffolding, merges shared instructions and preserves user-owned memory,
+projects, domains and configuration.
 
 ## How a session goes
 
@@ -57,7 +58,7 @@ touches `memory/`, `projects/`, `domains/` or your settings.
   <img src="assets/session-flow.svg" alt="A repo is initialised once, then sprints repeat: open-sprint cuts the branch, many runs happen inside it (spec, implement, e2e, docs and memory, commit), and close-sprint distils and merges before the next sprint opens. Release branches off close-sprint once several sprints add up to a version." width="880">
 </p>
 
-Concretely, at the start of a chat Claude picks up any checkpoint the previous chat left, checks
+Concretely, at the start of a chat the agent picks up any checkpoint the previous chat left, checks
 the project's memory, then asks which workflow to use and recommends one. Before it starts it runs
 a short preflight: is the project initialised, which sprint are we in, is the git tree clean.
 
@@ -177,40 +178,50 @@ what keeps the whole thing from turning into a swamp.
 ## Domains
 
 A **domain** bundles everything specific to one kind of development — Unity, web frontend, Android —
-as its own plugin: conventions, skills, agents, language server and MCP config.
+as shared conventions, skills, agents, language-server and MCP configuration.
 
-Masters live **inert** in `~/.claude/domains/{x}-domain/`, so nothing domain-specific loads
-globally. `project-initialiser` copies the matching master into a repo's
-`.claude/skills/{x}-domain/`, where it loads project-scoped: the Unity MCP runs in Unity repos and
-nowhere else.
+Masters live **inert** in `{home}/domains/{x}-domain/`, so nothing domain-specific loads globally.
+`project-initialiser` copies the matching master into a repo, where it loads project-scoped: the Unity
+MCP runs in Unity repos and nowhere else. The manifests that make that work come from
+`workspace_TEMPLATE/adapters/{target}/domain/`.
 
 No masters ship with this repo — you build the ones you need with `/domain-initialiser`.
 
 ## Memory
 
-Long-term memory is native Markdown, curated by `maintain-memory`, in three scopes: **project**
-(auto-loaded per repo), **domain**, and **global**. The rule that keeps it useful: machine-bound
-facts (absolute paths, local installs, personal tool setup) belong in memory; system-independent
+Long-term memory is Markdown, curated by `maintain-memory`, in three scopes: **project**, **domain**
+and **global**. The installer wires each scope the way the target can load it — Claude Code imports
+them from its `CLAUDE.md` shim, Codex has no imports and gets the global index inlined — and reports
+any scope it cannot load automatically as stored rather than active. Machine-bound facts (absolute
+paths, local installs, personal tool setup) belong in memory; system-independent
 engineering knowledge belongs in `docs/dev.md`. Never both.
 
 ## Making it yours
 
 The whole workspace is Markdown — fork it and edit. Two things worth knowing:
 
-- **Edit the template, not the install.** `skills/` and `project_TEMPLATE/` in `~/.claude/` are
-  overwritten on every sync. Change `.claude_TEMPLATE/` in the repo, then re-run
+- **Edit the template, not an install.** Installed skills, agents and project scaffolding are
+  overwritten on every sync. Change `workspace_TEMPLATE/` in the repo, then re-run
   `/workspace-install`.
-- **`CLAUDE.md` is shared.** Your **User Info**, **System Info** and custom **RULES** survive a
+- **`AGENTS.md` is shared.** Your **User Info**, **System Info** and custom **RULES** survive a
   sync; the structural parts get merged. Keep it lean — it is loaded in every single session, and
   every token here is a token you pay for forever.
+- **Only `adapters/` may name a harness.** Everything else is neutral. Claude Code reads `CLAUDE.md`
+  rather than `AGENTS.md`, so its overlay is a two-line shim that imports the shared file; that
+  asymmetry lives there and nowhere else. Whatever a later skill needs lands under `adapter/` in the
+  harness home, so the skills say `adapter/…` and never a harness name — and a missing folder simply
+  means that harness needs none. A capability no overlay implements is reported as missing, never
+  described as working.
 
 ## Repo layout
 
 ```
-.claude_TEMPLATE/          ← the source of truth, mirrored into ~/.claude/ by workspace-install
-├── CLAUDE.md              ←   the always-loaded global instruction file
+workspace_TEMPLATE/        ← harness-neutral, copied into the harness home wholesale
+├── AGENTS.md              ←   shared global instruction file
 ├── skills/                ←   workflows and supporting skills
+├── agents/                ←   agent definitions, installed flat
 ├── project_TEMPLATE/      ←   scaffold copied into each new project
 ├── domains/               ←   domain master scaffold
 └── memory/                ←   global memory seed
+adapters/{harness}/        ← install overlay: the few files that differ, at the paths they land on
 ```

@@ -5,12 +5,12 @@ file is for whoever (human or agent) works *on* it.
 
 ## Domain
 
-Meta: authoring a Claude Code workspace. The product is **plain Markdown** — instruction files,
+Meta: authoring an agent-agnostic workspace. The product is **plain Markdown** — instruction files,
 skills, templates. No build, no runtime, no tests, no dependencies. Editing prose *is* the work.
 
 ## The one rule that shapes everything else
 
-**This repo is not governed by its own content.** Everything under `.claude_TEMPLATE/` is the
+**This repo is not governed by its own content.** Everything under `workspace_TEMPLATE/` is the
 artifact being authored — it describes how *other* projects are run, and it does not apply here.
 Concretely, in this repo there is:
 
@@ -18,23 +18,25 @@ Concretely, in this repo there is:
   `/dynamic-workflow`, `spec-design`, `maintain-docs`, …
 - no sprint, no `artefacts/`, no `docs/` tier system — `backlog/` is the one borrowed convention,
   a plain ticket index for work not being done now, with no board and no sprint above it
-- no `project-initialiser` run, no domain, no `CLAUDE.md` scaffold
+- no `project-initialiser` run, no domain, no scaffolded instruction file — the root `AGENTS.md`
+  here is hand-written, not an installed copy
 
-**Only this root `AGENTS.md` applies**, plus the user's global `~/.claude/CLAUDE.md` rules on
-language, MD syntax and commits. Work directly: read the file, discuss, edit, commit.
+**Only this root `AGENTS.md` applies**, plus the user's selected global workspace rules on language,
+MD syntax and commits. Work directly: read the file, discuss, edit, commit.
 
 ## Never touch the live workspace
 
-`~/.claude/` is the **installed** copy and is off limits to any work done here. Never `cp`, never
-edit a file there to "try something", never repair it by hand.
+A harness home (`~/.claude`, `~/.codex`, `~/.config/opencode`) is an **installed** copy and off
+limits to any work done here. Never `cp`, never edit a file there to "try something", never repair
+it by hand.
 
-- Source of truth is `.claude_TEMPLATE/` in this repo. Change it here.
-- Syncing into `~/.claude/` happens **only** when the user runs `/workspace-install`, and only the
-  user starts it (the skill is `disable-model-invocation`). It is also the repair path.
-- Consequence: a change made here is not live until the user syncs *and restarts* Claude Code.
+- Source of truth is `workspace_TEMPLATE/` in this repo. Change it here.
+- Syncing into a selected harness happens **only** when the user runs `/workspace-install`, and only
+  the user starts it (the skill is `disable-model-invocation`). It is also the repair path.
+- Consequence: a change made here is not live until the user syncs and restarts that harness.
   Say that when handing work over — don't imply an edit took effect.
-- `~/.claude/` may legitimately differ from the template: `memory/`, `projects/`, `domains/`,
-  `settings.json` are user-owned and never overwritten. A diff there is not automatically a bug.
+- A selected home may legitimately differ in `memory/`, `projects/`, `domains/` and configuration;
+  those are user-owned. A diff there is not automatically a bug.
 
 The live workspace is readable — comparing against it to answer "what would sync change?" is fine.
 Writing to it is not.
@@ -42,20 +44,22 @@ Writing to it is not.
 ## Repo layout
 
 ```
-.claude_TEMPLATE/              ← the product; mirrored into ~/.claude/ by workspace-install
-├── CLAUDE.md                  ←   the always-loaded global instruction file — token budget ~2.3k
+workspace_TEMPLATE/            ← harness-neutral; copied into {home} wholesale
+├── AGENTS.md                  ←   the always-loaded global instruction file — token budget ~2.3k
 ├── skills/{name}/SKILL.md     ←   one folder per skill; templates/ and references/ beside it
 ├── agents/{group}/*.md        ←   agent definitions — harness-registered, so they cannot live in a skill
 ├── project_TEMPLATE/          ←   scaffold copied into each initialised project
 ├── domains/domain_TEMPLATE/   ←   domain master scaffold
 └── memory/MEMORY.md           ←   global memory seed
+adapters/{target}/             ← install overlay, one per harness; the ONLY place a harness is named
+└── {paths as they land in {home}}
 backlog/                       ← tickets for this repo's own work (`T-NNN-{slug}.md` + `backlog.md`)
 assets/*.svg                   ← README diagrams (session flow, skill/doc map)
 README.md                      ← end-user facing: what this is, install, how it fits together
 AGENTS.md                      ← this file
 ```
 
-Not tracked (see `.gitignore`): `.claude/`, `.serena/`, `.tokensave`.
+Not tracked (see `.gitignore`): `.claude/`, `.codex/`, `.opencode/`, `.agents/`, `.serena/`, `.tokensave`.
 
 ## Authoring conventions
 
@@ -67,12 +71,19 @@ Not tracked (see `.gitignore`): `.claude/`, `.serena/`, `.tokensave`.
 - **A skill's helper files** (`templates/`, `references/`) live inside its own folder and are
   referenced from `SKILL.md` — they load on demand, which is the whole point. **Agent definitions are
   the exception:** a harness registers them from its own agents directory and scans that directory
-  recursively, so they live in `.claude_TEMPLATE/agents/{group}/` and must install flat. Their
+  recursively, so they live in `workspace_TEMPLATE/agents/{group}/` and must install flat. Their
   frontmatter serves both harnesses at once, which holds only because each dialect ignores the
   other's keys — safe: `name` `disallowedTools` `skills` `hooks` (Claude Code), `mode` `permission`
   (OpenCode), `description` (both). **Never a key both define differently** — `model` and `tools`
   each take a different type per harness and make the file invalid in one of them.
-- **`CLAUDE.md` is always loaded, in every session, forever.** It says *when* something applies and
+- **Only `adapters/` may name a harness**, and only `workspace-install` may read it. An adapter is a
+  plain **install overlay**: its files sit at the paths they land on in `{home}`, so installing is
+  `cp -r adapters/{target}/. {home}/` with no transform. Everything a *later* skill needs goes under
+  `adapter/` in that overlay, so every other skill says `{home}/adapter/…` and names no harness —
+  and treats an absent folder as "this target needs none". Two corollaries: **an abstraction with no
+  adapter behind it is a hole, not a design** — prose like "the target adapter loads it" is allowed
+  once a file does it; and a capability no adapter implements gets a row saying the target lacks it.
+- **`AGENTS.md` is always loaded, in every session, forever.** It says *when* something applies and
   *where* the rest lives — never what a skill does (that duplicates the skill's description and
   goes stale). Adding a paragraph there is a permanent cost; default to putting it in a skill.
 - **Placeholders** are `{...}` — substituted by a skill or by the user at install time.
@@ -85,7 +96,7 @@ Not tracked (see `.gitignore`): `.claude/`, `.serena/`, `.tokensave`.
   a new rule joins the existing list or sentence in the existing voice, never as its own section.
   A reader who can tell which lines are new, because they explain more or sit in a fresh block,
   is looking at a bad edit.
-- **One home per fact.** The same rule stated in `CLAUDE.md` and a skill will drift. Reference it.
+- **One home per fact.** The same rule stated in `AGENTS.md` and a skill will drift. Reference it.
 - **MD syntax** per the global rules: `-` bullets, Unicode trees with aligned `←` comments,
   unpadded pipe tables.
 - **README and template stay in sync.** Renaming a skill, changing the kanban semantics or the doc
@@ -96,11 +107,12 @@ Not tracked (see `.gitignore`): `.claude/`, `.serena/`, `.tokensave`.
 Changes here are cheap to write and expensive to get wrong — they propagate into every project the
 user runs. Before editing:
 
-- Ask which of the three layers it belongs to: always-loaded (`CLAUDE.md`), on-demand (`skills/`),
-  or per-project (`project_TEMPLATE/`). Pushing a rule down a layer is almost always right.
+- Ask which of the four layers it belongs to: always-loaded (`AGENTS.md`), on-demand (`skills/`),
+  per-project (`project_TEMPLATE/`), or per-harness (`adapters/`, outside the template). Pushing a
+  rule down a layer is almost always right; a rule that names a harness has only one legal layer.
 - Grep the template for the concept being changed — the workflow skills cross-reference each other
   heavily, and a renamed status token or file path usually has 5–10 call sites.
-- Structural changes to work items, doc tiers or sprint semantics touch `CLAUDE.md`,
+- Structural changes to work items, doc tiers or sprint semantics touch `AGENTS.md`,
   `project_TEMPLATE/AGENTS.md`, the workflow skills *and* `README.md`. Treat that set as one edit.
 
 The `plugin-dev` and `superpowers:writing-skills` skills are the reference for skill mechanics.

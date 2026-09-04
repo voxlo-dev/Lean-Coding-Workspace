@@ -1,6 +1,6 @@
-# T-004 — Multi-harness install targets
+# T-004 — Multi-harness workspace install
 
-- **Summary:** `workspace-install` also writes the harness-specific targets OpenCode needs — agent definitions today, whatever the next harness needs later
+- **Summary:** verify the OpenCode adapter on a live install and fill `adapters/opencode/`, the one target still shipped empty
 - **Category:** feature
 - **Importance:** medium
 - **Effort:** S
@@ -8,42 +8,34 @@
 
 ## Why
 
-The workspace is Claude-Code-shaped by install, not by content. OpenCode already reads
-`~/.claude/skills/<name>/SKILL.md` directly, so every skill works there unchanged — but **agent
-definitions do not carry over**: OpenCode looks in `~/.config/opencode/agents/` and never in
-`~/.claude/agents/`. `localagent-workflow` is the first skill whose agents must be registered with
-the harness to work at all; unregistered there is nothing to dispatch and the model runs every step
-in one context, which is exactly the failure the workflow exists to prevent.
+The template is neutral and `adapters/{target}/` carries the wiring; Claude Code is verified and
+Codex is verified except for agent registration. **OpenCode is unverified**, so `workspace-install`
+currently offers it only to ask the user for its paths and then skips it.
 
-Copying seven files by hand per machine is the kind of step that silently rots — an agent gets
-edited in the template and the OpenCode copy keeps running the old prompt, with no signal that the
-two diverged.
+`localagent-workflow` is the skill that needs this most: its agents must be *registered* with the
+harness or there is nothing to dispatch and one context does every step — the failure the workflow
+exists to prevent. Copying those files by hand per machine is also the kind of step that silently
+rots: an agent gets edited in the template and the OpenCode copy keeps running the old prompt, with
+no signal that the two diverged.
 
 ## What
 
-`workspace-install` gains a second install target, so one run leaves both harnesses consistent:
+On a machine with OpenCode installed, confirm and then record in `adapters/opencode/`:
 
-- Agent definitions from `.claude_TEMPLATE/agents/` land in `~/.claude/agents/` **and**
-  `~/.config/opencode/agents/`, **flattened** — the group folders are a repo convenience, and a nested
-  install changes the agent's id in OpenCode. The files are already dual-dialect — merged frontmatter
-  that each harness reads its own keys from, so this is a copy and not a transform.
-- Skip the OpenCode target when that config directory does not exist; installing a harness the user
-  does not have is noise, not service.
-- Same repair semantics as the rest of the skill: re-running syncs and reports what changed, and
-  never touches user-owned files.
+- Global instruction file — path, and whether it resolves imports (Claude Code does, Codex does not;
+  this decides how global memory is wired).
+- Skills — whether it has a home of its own, or only reads `~/.claude/skills/`. If the latter, the
+  adapter installs no skills at all and says so.
+- Agents — path confirmed, installed flat. The ID comes from the path below `agents/`, unlike Claude
+  Code which keys off `name:`, which is why flat is the only layout that serves both.
+- Domain manifests — whether an equivalent of `plugin.json` / `.mcp.json` exists. Without one,
+  `domain-initialiser` reports that OpenCode cannot host domains.
+- Plugins/MCP — whether the `claude-plugins-official` marketplace is reachable, as it is in Codex.
 
-Then say so where it matters: `README.md` currently presents the workspace as Claude Code only, and
-that stops being true here.
+Then flip its row in `workspace-install` step 1 from **unverified** to **verified**.
 
-## Open questions
-
-- Which skills beyond `localagent-workflow` ever ship agents? While it is the only group, the flat
-  copy needs no name-collision rule; a second group would want one.
-
-**Answered:** OpenCode scans its agents directory recursively **but the path below `agents/` becomes
-the agent ID** (`agents/team/reviewer.md` → `team/reviewer`), while Claude Code scans recursively and
-keys off the `name:` frontmatter instead. So the two harnesses would disagree on an agent's name in
-any nested install. **Install flat in both**, whatever the source layout is.
+**Codex agents are the second open question:** there is no `~/.codex/agents/`. Either find the
+registration mechanism or keep `localagent-workflow` marked unavailable there.
 
 ## Dispatching custom agents in OpenCode — observed
 
