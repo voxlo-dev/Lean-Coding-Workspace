@@ -43,3 +43,22 @@ on the second attempt. So the restricted `task` permission, not the enum, is the
 `task: { "localagent-*": allow, "*": ask }` map appears to interfere with dispatching by name. If it
 recurs: restart OpenCode fully (agents load at startup, `/new` is not enough) before suspecting the
 enum, and only then try declaring the agents in `opencode.json`.
+
+## The shared skills home — the reason this ticket exists
+
+`~/.agents/skills/` and `.agents/skills/` are the Agent Skills standard, read natively by Codex,
+OpenCode, Gemini CLI, Cursor and others; Claude Code reads only `.claude/skills/`
+([#66352](https://github.com/anthropics/claude-code/issues/66352),
+[#31005](https://github.com/anthropics/claude-code/issues/31005)). The install therefore links
+Claude Code into the shared home per skill folder rather than copying, and **that link is the one
+thing here nobody has watched Claude Code actually load.** Linking the whole `skills/` directory is
+reported to fail because Claude Code writes its own internals into it, which is why the links are
+per folder — verify a linked skill is discovered before trusting the layout.
+
+Junctions were confirmed to work unprivileged on Windows 11 (`mklink /J`); the open question is
+discovery, not creation.
+
+**On this machine the drift already happened**, which is what the shared home prevents: a
+search-and-replaced copy of all sixteen skills sits in `~/.agents/skills/`, mangled — "Codex's
+native file memory", paths rewritten to a `~/.Codex/` that does not exist. Codex CLI reads it. The
+first repair run must delete that copy rather than merge it.

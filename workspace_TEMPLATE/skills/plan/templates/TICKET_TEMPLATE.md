@@ -1,7 +1,7 @@
 # T-NNN — {title}
 
 <!-- CONTRACT (binding — delete this comment once the ticket is filled):
-  - Template: `{home}/skills/plan/templates/TICKET_TEMPLATE.md`.
+  - Template: `~/.agents/skills/plan/templates/TICKET_TEMPLATE.md`.
   - One unit of work: the *what* and the *why*, ~1 page. Solution design belongs to a spec in
     `artefacts/{sprint}/`.
   - LIVE, not frozen: sharpen it whenever understanding improves; the number stays. Only the

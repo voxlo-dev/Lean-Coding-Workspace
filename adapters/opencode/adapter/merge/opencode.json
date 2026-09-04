@@ -1,5 +1,4 @@
 {
   "$schema": "https://opencode.ai/config.json",
-  "instructions": ["~/.config/opencode/AGENTS.md", "~/.config/opencode/memory/MEMORY.md"],
-  "skills": { "paths": ["~/.config/opencode/skills"] }
+  "instructions": ["~/.config/opencode/AGENTS.md", "~/.config/opencode/memory/MEMORY.md"]
 }

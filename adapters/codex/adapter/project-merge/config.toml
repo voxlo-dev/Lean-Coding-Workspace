@@ -1,8 +1,4 @@
 # Merged into a repo's .codex/config.toml by project-initialiser (Codex loads it only in a
-# trusted project). Registers the domain's skills folder and its MCP servers, project-scoped.
-
-[[skills.config]]
-path = ".codex/skills/{x}-domain/skills"
-enabled = true
+# trusted project). The domain's skills need no entry — Codex scans .agents/skills natively.
 
 # [mcp_servers.{name}] — one block per server from the domain's recipe

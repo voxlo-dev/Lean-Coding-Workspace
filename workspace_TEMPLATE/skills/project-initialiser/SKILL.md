@@ -31,10 +31,11 @@ Onboard a repo end-to-end. Owns the **initial** doc creation (it does the deep e
 6. **Install domain (project-scoped), frameworks & test framework**
 
    ```bash
-   cp -r {home}/domains/{x}-domain {repo}/{project-agent-dir}/skills/{x}-domain
+   cp -r {home}/domains/{x}-domain {repo}/.agents/skills/{x}-domain
    ```
 
-   - The master carries its manifests already (`domain-initialiser` took them from `{home}/adapter/domain/`). **Register it project-scoped:** merge `{home}/adapter/project-merge/*` into this repo's config of the same name, substituting `{x}` — that is what points the target at the domain's skills folder, its MCP servers and its `DOMAIN-MEMORY.md`, and what pre-approves the servers. An empty `project-merge/` means the target discovers the copy by itself. On Claude Code it then loads as `{x}-domain@skills-dir` next session.
+   - `.agents/skills/` is the shared skills home: most targets scan it natively, and one that does not gets a **link** at `{repo}/{project-agent-dir}/skills/{x}-domain` rather than a second copy (`workspace-install` set the same links up globally).
+   - The master carries its manifests already (`domain-initialiser` took them from `{home}/adapter/domain/`). **Register what the scan cannot reach:** merge `{home}/adapter/project-merge/*` into this repo's config of the same name, substituting `{x}` — the MCP servers, their pre-approval, and `DOMAIN-MEMORY.md` where the target loads instructions from a list. An empty `project-merge/` means the target needs none of it.
    - Install the project's frameworks and runtime packages, then the unit + UI test framework named in `{x}-domain/Domain-Recipe.md`.
    - **Audit the git tree before anything is staged** — `git status`, and make `.gitignore` exclude installed packages (`node_modules/`, `.venv/`, `vendor/`), build output (`dist/`, `build/`, `target/`), logs, caches, local env files. Untrack anything already tracked (`git rm --cached`).
 

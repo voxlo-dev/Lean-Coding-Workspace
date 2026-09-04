@@ -15,7 +15,7 @@
   - A fix done on the spot needs no ticket — capture only what isn't being done now.
 -->
 
-Ticket index · template: `{home}/skills/plan/templates/TICKET_TEMPLATE.md`
+Ticket index · template: `~/.agents/skills/plan/templates/TICKET_TEMPLATE.md`
 
 **Next ticket: `T-001`**
 
