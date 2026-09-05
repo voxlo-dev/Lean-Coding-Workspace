@@ -24,8 +24,8 @@ subagents by tool name only). So the bridge is not a model bridge: **dispatch th
 already has one.** No MCP server, no inner tool sandbox, no transcript plumbing to own — the three
 expensive parts of the previous shape.
 
-Verified on 2026-09-05 against OpenCode 1.18.23 and Unsloth Studio 2026.8.22, by dispatching a
-purpose-built probe agent at a local Qwen3.5-9B GGUF:
+Verified on 2026-09-05 against OpenCode 1.18.23–1.18.29 (it self-updated mid-session) and Unsloth
+Studio 2026.8.22, by dispatching a purpose-built probe agent at a local Qwen3.5-9B GGUF:
 
 | Claim | Status |
 | --- | --- |
@@ -71,20 +71,39 @@ table references the resulting IDs and knows nothing about how a provider was de
 
 **The table carries model IDs and nothing else.** Load-time parameters — context length, quant,
 sampling, GPU placement — belong to the connector, keyed per model on its own side: Unsloth Studio
-stores them as per-model overrides and applies them when a request loads that model. So a role
-switching models does not mean a table entry carrying launch flags, and it does not mean one server
-per role. **Its one hard requirement is context:** OpenCode's system prompt alone is ~16k tokens, so
-any model in the table must be loaded at 32k or more or the dispatch dies before reading its brief.
+stores them as per-model overrides and applies them when a request loads that model — keyed by model
+*and quant*, so an override written without the quant suffix silently becomes a catch-all across every
+quant of that model, and one written for a quant that is not the one being loaded silently does
+nothing. So a role switching models does not mean a table entry carrying launch flags, and it does not
+mean one server per role. **Its one hard requirement is context:** OpenCode's system prompt alone is
+~16k tokens, so any model in the table must be loaded at 32k or more or the dispatch dies before
+reading its brief.
+
+**Per-request parameters are a third home, and the harness owns it.** Load-time settings belong to
+the connector, but what the harness puts in each request body beats every server-side default,
+because an explicit field always wins. In OpenCode that is the provider's per-model entry: `limit.output`
+becomes the request's `max_tokens`, and reasoning effort reaches the model **only** as
+`options.reasoningEffort` — camelCase, which OpenCode translates to `reasoning_effort` in the body.
+A model-level `effort` key, `options.reasoning_effort` in snake_case, and the `--variant` flag are all
+dropped in silence; the model-entry schema is `additionalProperties: false`, yet an unknown key
+loads without a warning. So the three homes are: **the table** names the model, **the connector**
+holds how it loads, **the harness's model entry** holds what every request carries. A dispatch that
+behaves differently than expected is almost always the third one, and only a proxy capture of the
+real request body settles it.
 
 **The report contract.** The agent prompts already end in a status line (`DONE <path>` · `RED <path>`
 · `ESCALATE <reason>` · `BLOCKED <reason>`). A dispatch writes the full transcript to a file and
 returns **only that line plus the transcript path**, so a failed dispatch is inspectable without
 loading it into the orchestrator's context.
 
-**A run is watchable while it happens.** `opencode web` serves a UI over the same session store every
-dispatch writes to, so a detached `opencode run` shows up there live — agent, model, tool calls,
-tokens, cost — with no `--attach` and no change to the dispatch command. The orchestrator still gets
-only the status line; the UI is for the human, and costs the run nothing.
+**Watching a run is half-solved.** Every dispatch lands in OpenCode's shared session store — agent,
+model, tool calls, tokens, cost — and a detached `opencode run` appears there within seconds, while
+it is still going, with no `--attach` and no change to the dispatch command. `/api/session` serves
+all of it. What cannot read it is the shipped web UI: in 1.18.29 its bundle requests `/api/project`,
+a route the server does not implement, so the project list stays empty and the page reports no
+sessions; deep-linking around it fails too, because the server's `/session/{id}` route shadows the
+client route of the same name. The TUI (`opencode attach <url>`) works. The orchestrator is
+unaffected either way — it gets only the status line; a live view is for the human.
 
 **A dead connector is `BLOCKED`, always** — in both workflows, with no fallback to the calling
 harness's own model. Falling back would put the strongest context in the run on unwalled, untracked
@@ -115,6 +134,8 @@ what runs next. Not a model server.
 - What role granularity does `dynamic-workflow` need — one `package` role, or per package type?
 - Does `mode: all` make the six workers appear in OpenCode's primary-agent picker, and is that
   noise worth suppressing?
+- Is a small dispatch monitor over `/api/session` worth owning, or is waiting for the upstream
+  web-UI fix cheaper? The TUI covers the need today.
 
 ## Links
 
