@@ -3,30 +3,31 @@ name: localagent-implementer
 description: "localagent-workflow: fill one unit's stubs from the spec, blind to the test source — run the tests, fix your own code until green, escalate what the contract cannot satisfy. The GREEN half of the wall."
 mode: subagent
 permission:
+  # Broadest first: the last matching rule wins, so a trailing "*": allow would undo every deny.
   read:
+    "*": allow
     "**/*.test.*": deny
     "**/*.spec.*": deny
     "**/*_test.*": deny
     "**/test_*.*": deny
     "**/tests/**": deny
     "**/__tests__/**": deny
-    "*": allow
   glob:
+    "*": allow
     "**/*.test.*": deny
     "**/*.spec.*": deny
     "**/*_test.*": deny
     "**/test_*.*": deny
     "**/tests/**": deny
     "**/__tests__/**": deny
-    "*": allow
   grep:
+    "*": allow
     "**/*.test.*": deny
     "**/*.spec.*": deny
     "**/*_test.*": deny
     "**/test_*.*": deny
     "**/tests/**": deny
     "**/__tests__/**": deny
-    "*": allow
 ---
 
 # Agent: implementer

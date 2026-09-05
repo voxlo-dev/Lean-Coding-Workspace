@@ -24,16 +24,19 @@ subagents by tool name only). So the bridge is not a model bridge: **dispatch th
 already has one.** No MCP server, no inner tool sandbox, no transcript plumbing to own — the three
 expensive parts of the previous shape.
 
-Verified on 2026-09-05, OpenCode 1.18.23:
+Verified on 2026-09-05 against OpenCode 1.18.23 and Unsloth Studio 2026.8.22, by dispatching a
+purpose-built probe agent at a local Qwen3.5-9B GGUF:
 
 | Claim | Status |
 | --- | --- |
-| `opencode run --agent X -m provider/model --dir <abs> --auto "<brief>"` is the dispatch | Confirmed from `run --help` |
-| `--auto` approves only what is not explicitly denied — the wall's `permission.read` denies hold unattended | Confirmed from the flag's contract; not yet observed on a live run |
-| Exit code + stdout carry the report; a failure surfaces as a message and non-zero exit | Confirmed — a dead endpoint returned `Error: Cannot connect to API`, exit 1 |
+| `opencode run --agent X -m provider/model --dir <abs> --auto "<brief>"` is the dispatch | **Confirmed on a live run** — agent and model both resolved, tool calls executed, final line returned |
+| The wall holds under `--auto`: a `permission.read` deny refuses the tool call and the agent sees the refusal | **Confirmed** — the probe was refused and reported `WALL-HELD`; the model did not route around it |
+| **Rule precedence is last-match-wins, not deny-wins** | **Confirmed by counter-example** — with `"*": allow` listed *after* the denies the probe read the forbidden file (`WALL-BREACHED`); moving the allow first restored the deny |
+| Exit code + stdout carry the report | **Confirmed** — the status line is stdout's last line; a dead endpoint gave `Error: Cannot connect to API` and exit 1 |
 | `run --agent` accepts **primary agents only** — a `mode: subagent` name warns and **silently falls back to the default agent** | Confirmed, and the reason `mode: all` is required below |
 | `mode` accepts `subagent \| primary \| all` | Confirmed from `opencode.ai/config.json` |
-| An agent actually completes a task this way | **Unverified** — the only configured provider was offline |
+| OpenCode's own system prompt costs **~16k tokens** before the brief | **Confirmed** — a model loaded at 8192 context aborts with `context_length_exceeded`; 32k is the floor |
+| One endpoint can serve many models, loaded on demand | **Confirmed** — Unsloth Studio's `openai_auto_switch` setting (off by default) makes a request for an unloaded model load it, so a per-role table needs no per-role server |
 
 **Alternatives fail on the two properties this rests on.** Hermes' `delegate_task` delegates only
 inside its own session and exposes no path scoping; Pi ships no subagent tool in core at all. Neither
@@ -65,6 +68,13 @@ both shapes read the same file: the localagent workers, the localagent orchestra
 llama.cpp, unsloth and runpod are one OpenAI-compatible block differing only in `baseURL` and key;
 openrouter is a built-in provider reached through `auth login`. The workspace ships both recipes; the
 table references the resulting IDs and knows nothing about how a provider was defined.
+
+**The table carries model IDs and nothing else.** Load-time parameters — context length, quant,
+sampling, GPU placement — belong to the connector, keyed per model on its own side: Unsloth Studio
+stores them as per-model overrides and applies them when a request loads that model. So a role
+switching models does not mean a table entry carrying launch flags, and it does not mean one server
+per role. **Its one hard requirement is context:** OpenCode's system prompt alone is ~16k tokens, so
+any model in the table must be loaded at 32k or more or the dispatch dies before reading its brief.
 
 **The report contract.** The agent prompts already end in a status line (`DONE <path>` · `RED <path>`
 · `ESCALATE <reason>` · `BLOCKED <reason>`). A dispatch writes the full transcript to a file and
