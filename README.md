@@ -1,4 +1,4 @@
-# Lean Agile Coding Workspace
+# Lean Coding Workspace
 
 An opinionated setup for Claude Code, Codex and OpenCode: a global instruction file
 plus a set of skills that turn "ask an AI to code" into a repeatable process — plan, spec,

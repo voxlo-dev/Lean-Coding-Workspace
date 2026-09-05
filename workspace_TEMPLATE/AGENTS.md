@@ -1,4 +1,4 @@
-# Global Lean Agile Coding Workspace
+# Global Lean Coding Workspace
 
 Always loaded. Says *when* something applies and *where* the rest lives — never what a skill does, that's the skill's own description. "{ }" marks placeholders substituted by skills or by demand. Three are fixed: **`{home}`** = this harness's workspace home (`~/.claude` · `~/.codex` · `~/.config/opencode`), **`{project-agent-dir}`** = its per-repo directory (`.claude/` · `.codex/` · `.opencode/`), and **`~/.agents/`** = the workspace's own home, harness-neutral and shared by all of them: `skills/` (per repo `.agents/skills/`), `memory/`, `domains/`, `project_TEMPLATE/`. `{home}` keeps only what its harness reads at a fixed path — the instruction file, `agents/`, `adapter/`. **Anything the workspace owns lives once, in `~/.agents/`**; a second copy under a `{home}` is drift waiting to happen.
 
@@ -20,7 +20,7 @@ Assume the user is capable, but lazy with words, because he can't type as fast a
 
 **Language:** all Markdown English-only — relaxed only where a crisp term has no English equivalent (*Lastenheft*, *Pflichtenheft*): keep the original rather than pay tokens for a lossy paraphrase. English by default, no asking: **subagent handoffs, briefs and reports** · **code, identifiers and comments**. Only two follow the user: **conversation → their preferred language**, and **user-facing UI strings → their call per project** (ask once, record it in `AGENTS.md`).
 
-**Tool calls:** default to the OS's most capable shell (PowerShell on Windows, bash on Linux); if one doesn't work, use another.
+**Tool calls:** default to the OS's most capable shell (PowerShell on Windows, bash on Linux); if one doesn't work, use another. Writing or editing a **large file** goes through the file tools (`Write`/`Edit`), never a shell heredoc or redirect — quoting and encoding mangle it.
 
 **Version control:** {e.g. solo dev projects (default): compact commits `<type>: <subject & scope>` in very few words · types `feat` `fix` `docs` `refactor` `test` `chore` · one branch per sprint, `<sprint-slug>`, no folders · **merge straight to `main`** at sprint close, no PR or review round unless asked} {e.g. opensource / enterprise: conventional commits `<type>(<scope>): <subject>` · branches `<type>/<short-slug>` · one topic per PR, small and reviewable, tests green before merge, links its spec, reviewed before merge}
 

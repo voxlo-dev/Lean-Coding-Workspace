@@ -42,7 +42,7 @@ Used when the spec's delegation is **delegated**. The point is **context managem
 
 1. **Handoff** — fill `templates/handoff.md`: written from the **spec**, not from reading the code, self-contained, carrying the standing rules the template holds so no dispatch has to restate them. Dispatch one implementer subagent. With `light-tdd` the contract package gets its own subagent — that separation is what makes the tests independent; carry its failing-test list into every later handoff, and never widen an implementer's brief to the tests.
 2. **Report** — the subagent implements, checks its acceptance criteria, commits, and returns a short report (what it did, criteria met, test state, concerns). You read the **report, not the diff**.
-3. **Advance or escalate** — criteria met → mark the package done, next package. **Stuck / blocked → escalate to the user**, rather than taking the implementation over yourself.
+3. **Advance or decide** — criteria met → mark the package done, next package. A **blocked** report is yours to resolve, never the subagent's: re-dispatch with a narrowed brief, capture it as a ticket, or escalate to the user — but do not take the implementation over yourself.
 
 Repeat until every package is done, then the green gate (step 3) delegated the same way, so the orchestrator never loads its context either; docs stay inline per step 5.
 
@@ -50,5 +50,5 @@ Repeat until every package is done, then the green gate (step 3) delegated the s
 
 - **Write handoffs and read reports.** Reaching to open a source file and fix it is the signal to re-dispatch or escalate instead.
 - **Sequential only.** One subagent at a time, each handoff building on the previous report.
-- **Escalate, don't grind.** A blocked subagent goes to the user, not into your context.
+- **Decide, don't grind.** A blocked subagent's obstacle is resolved per step 3, never absorbed into your context.
 - Need per-task spec + code-quality review gates? That's **delegated+review** — `superpowers:subagent-driven-development`.
