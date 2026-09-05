@@ -25,7 +25,7 @@ Read the board in `artefacts/{sprint}/sprint.md`. Every ticket not at **done** n
 Then the scope check — **read-light, and the only thing run is the suite:**
 
 - Every `spec_*` in the sprint folder at **Status: done**?
-- Tests green: the unit suite passes, and the **whole e2e suite** runs once here — every flow in the index, the sprint's only full pass since each `e2e` run drove just its own change's flows. Red is a step-2 finding, never papered over with an earlier green `e2e-report_*`.
+- Tests green: the unit suite passes, and the **whole e2e suite** runs once here — the suite command `docs/dev.md` names, every flow in the index, the sprint's only full pass since each `e2e` run drove just its own change's flows. Red is a step-2 finding, never papered over with an earlier green `e2e-report_*`.
 - Every spec's **Behaviour delta** filled where the project has a `behaviour.md`? That is what step 4 folds into the rulebook, so a spec that shipped behaviour without recording it is the gap to catch here.
 
 **Anything missing → STOP.** List exactly what's open and hand the fix back as a recommendation ("spec-X still draft → `dynamic-workflow`", "spec-Y ships behaviour but records no delta → back to the run that wrote it").

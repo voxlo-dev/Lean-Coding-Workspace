@@ -8,6 +8,8 @@ Result of validating `e2e_{feature}.md`. Written by `e2e` to
 
 - Date: {YYYY-MM-DD} · Env: {device / emulator / browser · build}
 - Driver: {framework + invocation, or `agent` / `user`}
+- Context: {this flow in isolation | full suite} — an isolated run cannot see order dependence, so
+  its green says nothing about the suite
 - Script: {path in the test tree — committed · `test-dump/{name}` — temporary · none}
 
 ## Steps
