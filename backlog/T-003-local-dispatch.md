@@ -81,6 +81,11 @@ any model in the table must be loaded at 32k or more or the dispatch dies before
 returns **only that line plus the transcript path**, so a failed dispatch is inspectable without
 loading it into the orchestrator's context.
 
+**A run is watchable while it happens.** `opencode web` serves a UI over the same session store every
+dispatch writes to, so a detached `opencode run` shows up there live — agent, model, tool calls,
+tokens, cost — with no `--attach` and no change to the dispatch command. The orchestrator still gets
+only the status line; the UI is for the human, and costs the run nothing.
+
 **A dead connector is `BLOCKED`, always** — in both workflows, with no fallback to the calling
 harness's own model. Falling back would put the strongest context in the run on unwalled, untracked
 work, which is the exact failure `localagent-workflow` exists to prevent; and a `dynamic-workflow`
