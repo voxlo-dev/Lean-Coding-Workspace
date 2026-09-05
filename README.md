@@ -26,15 +26,14 @@ questions by reading half the repo. This workspace fixes that with three ideas:
 - A harness: Claude Code (verified) · Codex (agents need a format transform, dispatch unverified) ·
   OpenCode (paths unconfirmed — the installer asks)
 - Git
-- Four plugins, installed for you by the install skill: `superpowers`, `codegraph`, `context7`,
-  `plugin-dev`
+- Three plugins, installed for you by the install skill: `superpowers`, `codegraph`, `context7`
 - Optional, offered during install: the `github` plugin and the `gh` CLI — needed for the PR flow
   and for releases, skippable if you only work locally
 
 ## Install
 
 ```bash
-git clone <this-repo> lean-agile-coding-workspace
+git clone <this-repo> lean-coding-workspace
 ```
 
 Then open the target harness **in that folder** and say:
