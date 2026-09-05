@@ -60,9 +60,11 @@ AGENTS.md                      ← this file
 ```
 
 `.agents/skills/` holds this repo's **own** skills (`compress`), tracked, with `.claude/skills/{name}`
-junctioned to each — the project-scope form of the same one-home rule. Not tracked (see
-`.gitignore`): the harness dirs `.claude/`, `.codex/`, `.opencode/`, any `.agents/skills/*-domain/`
-(a sync of a global master), `.serena/`, `.tokensave`.
+junctioned to each — the project-scope form of the same one-home rule. `.claude/settings.json` is
+tracked as the one exception: it enables the `plugin-dev` plugin **for this repo only**, since
+authoring skills, agents and hooks is this repo's domain and nowhere else's. Not tracked (see
+`.gitignore`): the rest of the harness dirs `.claude/`, `.codex/`, `.opencode/`, any
+`.agents/skills/*-domain/` (a sync of a global master), `.serena/`, `.tokensave`.
 
 ## Authoring conventions
 
@@ -119,7 +121,8 @@ user runs. Before editing:
 - Structural changes to work items, doc tiers or sprint semantics touch `AGENTS.md`,
   `project_TEMPLATE/AGENTS.md`, the workflow skills *and* `README.md`. Treat that set as one edit.
 
-The `plugin-dev` and `superpowers:writing-skills` skills are the reference for skill mechanics.
+The `plugin-dev` and `superpowers:writing-skills` skills are the reference for skill mechanics —
+`plugin-dev` is project-scoped here, so it is available in this repo and in no other.
 
 ## Version control
 

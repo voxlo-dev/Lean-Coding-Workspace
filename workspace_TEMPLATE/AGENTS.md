@@ -46,7 +46,6 @@ Assume the user is capable, but lazy with words, because he can't type as fast a
 | codegraph | Every structural / "how does X work" / impact question in an **indexed** project — it *replaces* file-reading exploration, so never spawn an Explore subagent for what the graph knows. Self-describes via its MCP server |
 | context7 | The default source for **upstream** docs (libraries, frameworks, SDKs, APIs) at implementation time — over recall, over WebSearch. No overlap with codegraph (*your* code) or maintain-docs (*your* docs) |
 | github *(optional)* | PRs, reviews, issues, repo search, secret scanning; dead without its token (`workspace-install` sets it up with `gh`). **No Actions, no release creation** — those, tagging and local git are `gh` |
-| plugin-dev | Building or refactoring workspace skills, domains, plugins, agents, hooks |
 
 ## Domains
 
