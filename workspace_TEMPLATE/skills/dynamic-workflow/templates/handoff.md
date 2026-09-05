@@ -22,10 +22,14 @@ reading the code**, self-contained: the subagent starts blank. Not a file — fi
   the code never is.
 - **Stay in the package** — anything worth doing outside it goes into the report, not the diff.
 - Reuse the existing abstraction over adding a parallel one.
-- ~5 failed attempts on the same obstacle → return blocked. Do not grind.
+- **~5 failed attempts on the same obstacle → return blocked, immediately.** An attempt is any run
+  that fails the same way, a rerun of a flaky test included. Do not grind, do not keep retrying to
+  see whether it passes this time. **Never resolve it yourself** — no ticket, no task, no note, no
+  suggestion: the orchestrator alone decides retry-or-ticket, and only a returned report reaches it.
 
 ## Return
 
 Commit the package, then report in a few lines: what you did · each acceptance criterion met or not ·
-test state · concerns and anything the orchestrator must decide. **The report is all that gets read —
+test state · concerns and anything the orchestrator must decide. Blocked → report all the same,
+naming the obstacle, what was tried and what you need. **The report is all that gets read —
 no diffs.**

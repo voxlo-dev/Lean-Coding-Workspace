@@ -1,4 +1,4 @@
-# Backlog — Lean Agile Coding Workspace
+# Backlog — Lean Coding Workspace
 
 Ticket index · template: `workspace_TEMPLATE/skills/plan/templates/TICKET_TEMPLATE.md`
 
