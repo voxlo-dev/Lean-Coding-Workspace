@@ -18,8 +18,9 @@ expired, an agent that fell back to `mode: subagent` after a sync — each one t
 that looks like it worked. The probe is cheap and the failure is not, so the skill exists to make
 re-running it cheaper than auditing the file.
 
-**It also removes work from [`T-006`](T-006-generated-adapters.md):** with the guide holding the
-launch command, adapters need no per-harness dispatch recipe to generate.
+**It keeps the launch command out of the adapters.** The guide carries it per machine, so no
+harness overlay needs a dispatch recipe and [`T-006`](T-006-generated-adapters.md) has one surface
+less to generate.
 
 ## What
 
@@ -63,6 +64,5 @@ vendor; it reports what is missing. Not a benchmark harness. Not a dispatcher.
 
 - `workspace_TEMPLATE/dispatch-guide_TEMPLATE.md` — the file this skill fills; its CONTRACT block
   holds the fill rules
-- [`T-003`](T-003-local-dispatch.md) — established that the mechanism is model-independent and that
-  the agents must be primary-capable; this ticket configures what that mechanism uses
-- [`T-006`](T-006-generated-adapters.md) — no longer needs to generate a dispatch recipe per harness
+- [`dispatch-bench.md`](dispatch-bench.md) — the measurements the mechanism rests on: one unchanged
+  command across nine models and four connector types, and the wall enforced at the tool layer

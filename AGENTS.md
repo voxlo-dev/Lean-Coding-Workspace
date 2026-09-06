@@ -50,7 +50,8 @@ workspace_TEMPLATE/            ← harness-neutral; installs to ~/.agents/ excep
 ├── skills/{name}/SKILL.md     ←   one folder per skill; templates/ and references/ beside it
 ├── project_TEMPLATE/          ←   scaffold copied into each initialised project
 ├── domains/domain_TEMPLATE/   ←   domain master scaffold
-└── memory/MEMORY.md           ←   global memory seed
+├── memory/MEMORY.md           ←   global memory seed
+└── dispatch-guide_TEMPLATE.md ←   filled per machine into ~/.agents/, never copied by the installer
 adapters/{target}/             ← install overlay, one per harness; the ONLY place a harness is named
 └── {paths as they land in {home}}
 backlog/                       ← tickets for this repo's own work (`T-NNN-{slug}.md` + `backlog.md`)
