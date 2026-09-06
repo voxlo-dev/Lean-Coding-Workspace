@@ -223,6 +223,6 @@ workspace_TEMPLATE/            ← harness-neutral; installs to ~/.agents/ excep
 ├── project_TEMPLATE/          ←   scaffold copied into each new project
 ├── domains/                   ←   domain master scaffold
 ├── memory/                    ←   global memory seed
-└── dispatch-guide_TEMPLATE.md ←   per-machine dispatch config, filled live, not installed
+└── DISPATCH-GUIDE_TEMPLATE.md ←   per-machine dispatch config, filled live, not installed
 adapters/{harness}/            ← install overlay: the few files that differ, at the paths they land on
 ```
