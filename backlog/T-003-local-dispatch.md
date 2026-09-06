@@ -139,6 +139,8 @@ what runs next. Not a model server.
 
 ## Links
 
+- [`T-003-bench.md`](T-003-bench.md) — the measurements: nine models, four connector types, all
+  passing on one unchanged command; local Qwen3.5-9B ties the fastest hosted route
 - [`T-001`](T-001-sprint-orchestrator.md) — consumes thick dispatch as its delegation primitive
 - [`T-005`](T-005-verify-harness-adapters.md) — the same "prove a dispatch actually runs" gap, for Codex
 - [`T-006`](T-006-generated-adapters.md) — would generate the per-harness dispatch recipe rather than ship three
