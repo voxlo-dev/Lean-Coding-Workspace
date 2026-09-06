@@ -1,9 +1,10 @@
-# T-003 — dispatch bench, free inference
+# Dispatch bench — free inference, 2026-09-06
 
-Measurements behind [`T-003`](T-003-local-dispatch.md). Nine models across four connector types, one
-identical task, on free tiers and local hardware. **Latency figures are a snapshot of free-tier
-queues on 2026-09-06, not a judgement of the models** — a paid key would reorder most of this table.
-What is durable is the mechanism result: every model passed, and none needed a different command.
+Nine models across four connector types, one identical task, on free tiers and local hardware.
+**Latency figures are a snapshot of free-tier queues, not a judgement of the models** — a paid key
+would reorder most of this table. What is durable is the mechanism result: every model passed, and
+none needed a different command. Which model actually runs which role is
+`~/.agents/DISPATCH-GUIDE.md`, per machine.
 
 ## Method
 
@@ -53,7 +54,7 @@ Every run: exit 0, cost 0.
 
 **The dispatch interface is model-independent.** From a 9B GGUF to a 2.8T hosted model, only the
 `-m` string changed — same agent, same flags, same status line, same enforced wall. That is the
-assumption `~/.agents/dispatch.json` rests on, and it held across every connector type: an
+assumption a per-role model table rests on, and it held across every connector type: an
 OpenAI-compatible local endpoint, a direct vendor API, and an aggregator.
 
 **The wall holds regardless of model strength.** No model attempted a shell workaround after the
@@ -105,7 +106,7 @@ Large models remain interesting only for thick dispatch — one call per phase �
 The probe is two tool calls and a status line. It says nothing about **model quality**, and nothing
 about whether a model survives real agentic work: multi-step tool chains, context pressure across a
 long unit, rate limits under sustained load, or recovery from a genuine error. A run of an actual
-`localagent-*` agent is the next measurement, and it needs `mode: all` on the workers first.
+`localagent-*` agent is the next measurement.
 
 ## Reproducing
 

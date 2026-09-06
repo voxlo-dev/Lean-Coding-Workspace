@@ -216,12 +216,13 @@ The whole workspace is Markdown — fork it and edit. Two things worth knowing:
 ## Repo layout
 
 ```
-workspace_TEMPLATE/        ← harness-neutral; installs to ~/.agents/ except where noted
-├── AGENTS.md              ←   shared global instruction file — per harness home
-├── agents/                ←   agent definitions, installed flat — per harness home
-├── skills/                ←   workflows and supporting skills
-├── project_TEMPLATE/      ←   scaffold copied into each new project
-├── domains/               ←   domain master scaffold
-└── memory/                ←   global memory seed
-adapters/{harness}/        ← install overlay: the few files that differ, at the paths they land on
+workspace_TEMPLATE/            ← harness-neutral; installs to ~/.agents/ except where noted
+├── AGENTS.md                  ←   shared global instruction file — per harness home
+├── agents/                    ←   agent definitions, installed flat — per harness home
+├── skills/                    ←   workflows and supporting skills
+├── project_TEMPLATE/          ←   scaffold copied into each new project
+├── domains/                   ←   domain master scaffold
+├── memory/                    ←   global memory seed
+└── dispatch-guide_TEMPLATE.md ←   per-machine dispatch config, filled live, not installed
+adapters/{harness}/            ← install overlay: the few files that differ, at the paths they land on
 ```
