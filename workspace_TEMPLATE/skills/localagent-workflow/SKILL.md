@@ -58,10 +58,8 @@ the repo is. You **call it by name**; never open its definition file, its prompt
 **This harness rarely sells the model this workflow is for, so read `~/.agents/DISPATCH-GUIDE.md`
 before the first dispatch** — it holds the launch command, which model each role gets, and the rules
 for sending work out of process. A dispatched agent runs by the same name and returns the same
-status line, so everything below is unchanged by it: the brief, the sequencing, the gate. Only its
-delivery differs — the brief travels as `.temp/dispatch/{unit}/brief.md` and the command carries the
-path, never the text. No guide, or no role for a step → that step runs on this harness, and the wall
-is prompt-only.
+status line, so everything below is unchanged by it: the brief, the sequencing, the gate. No guide,
+or no role for a step → that step runs on this harness, and the wall is prompt-only.
 
 The brief is four things: the **absolute working directory** · the **standing constraints** that bear
 on this step — what the user's prompt and the project's rules impose (conventions, language, hard
