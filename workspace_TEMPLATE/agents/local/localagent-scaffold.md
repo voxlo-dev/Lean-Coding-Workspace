@@ -1,7 +1,7 @@
 ---
 name: localagent-scaffold
 description: "localagent-workflow: create the runnable project skeleton the plan calls for — package manager, test runner, config, directory layout — once, before the build loop."
-mode: subagent
+mode: all
 ---
 
 # Agent: scaffold

@@ -36,7 +36,7 @@ Red between packages is expected; step 3's green gate closes it.
 
 Used when the spec's delegation is **delegated**. The point is **context management**: over many packages an inline thread fills with read files and loses the spec across compactions. The caller stays a pure **coordinator** — its context holds only the spec, the package list and the reports; every read/write/test happens in fresh subagents, discarded after each package.
 
-**Models:** orchestrate on a capable model (Opus/Fable); dispatch **Sonnet-class** subagents for the work (e2e can be a browser agent).
+**Models:** orchestrate on a capable model (Opus/Fable); dispatch **Sonnet-class** subagents for the work (e2e can be a browser agent). A package that should run one class cheaper than this harness sells goes through the `dispatch` skill under the `package` role — same handoff, same report, another process; a dead connector there is `BLOCKED`, never a silent fallback to your own model.
 
 **The loop — one package at a time, sequentially:**
 
