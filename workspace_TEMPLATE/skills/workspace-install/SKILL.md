@@ -39,19 +39,18 @@ Below, `{home}` and `{project-agent-dir}` mean the selected row's values.
 
   ```bash
   cp -rn {workspace}/workspace_TEMPLATE/{skills,memory,domains,project_TEMPLATE} ~/.agents/
-  cp -n  {workspace}/workspace_TEMPLATE/skills/dispatch/templates/dispatch.json ~/.agents/
   cp -rn {workspace}/workspace_TEMPLATE/{AGENTS.md,agents} {home}/
   ```
 
-  `dispatch.json` is **seeded once and never overwritten** — its placeholders are the user's to fill
-  with real `provider/model` IDs, and a repair that replaced it would silently kill every dispatch.
-  Left unfilled it is inert: the `dispatch` skill reports `BLOCKED` rather than guessing a model.
+  `dispatch-guide_TEMPLATE.md` is **not** copied: it describes one machine, so `dispatch-configurator`
+  writes `~/.agents/DISPATCH-GUIDE.md` from a live probe instead. Absent = no dispatch configured,
+  a valid state the workflows handle.
 
   Then link each skill folder into the directory a non-standard target does read — `ln -s ~/.agents/skills/{name} {home}/skills/{name}`, `mklink /J` on Windows. **Per folder, never the `skills/` directory itself**, which the harness writes its own internals into. A real directory where a link belongs is the old duplicated install: diff it against the template, salvage what only it has, replace it.
 
 - **On a repair, `-n` is not enough** — a skill whose template version changed keeps the old installed copy. Two kinds of file:
   - **workspace-owned** — `~/.agents/{skills,domains/domain_TEMPLATE,project_TEMPLATE}/`, plus `{home}`'s `agents/` and `adapter/`: overwrite from the template or the overlay (`cp -r`, no `-n`). A user edit inside the installed copy is lost **by design**; real customisations belong in the workspace repo. Deletions need doing explicitly — a skill or agent renamed, moved or dropped in the template leaves its old copy behind and keeps loading; check for a stale *home* too, not just a stale file.
-  - **user-owned** — `~/.agents/memory/`, `~/.agents/dispatch.json`, the domain *masters* beside their template, `{home}/projects/`, and the target's own configuration (`settings.json`, `config.toml`, `opencode.jsonc`, `.mcp.json`): leave them alone. A master is generated, not templated (`domain-initialiser` rebuilds one on request).
+  - **user-owned** — `~/.agents/memory/`, `~/.agents/DISPATCH-GUIDE.md`, the domain *masters* beside their template, `{home}/projects/`, and the target's own configuration (`settings.json`, `config.toml`, `opencode.jsonc`, `.mcp.json`): leave them alone. A master is generated, not templated (`domain-initialiser` rebuilds one on request).
 - **`AGENTS.md` is always a manual merge:** take the template's structural changes (new sections, reworded rules), keep the user-filled ones — **User Info**, **System Info**, custom **RULES**, **Available masters**.
 - **Agents install flat**, whatever the source layout: OpenCode folds a subfolder into the agent's ID while Claude Code keys off `name:`, so a nested copy answers to a different name in each. Convert rather than skip where the format differs, one file per agent ID. Nothing else may live in `agents/` — a stray file is scanned as an agent.
 - New skill *folders* are usually discovered only next session — say so rather than claiming they're live.
@@ -72,10 +71,9 @@ That leaves `{home}/adapter/` holding whatever the target needs later, in four f
 | `project-merge/` | merged into the repo's **Project config** from the table above | `project-initialiser` |
 | `domain/` | copied into a domain master's root | `domain-initialiser` |
 | `merge/` | merged into `{home}`'s own config | this skill, below |
-| `dispatch/` | read where it lies, each time a dispatch fires | `dispatch` |
 
-A folder absent from a target's adapter means that target lacks the capability — for `dispatch/`, that
-the harness cannot delegate out; report it as missing rather than inventing a command. A merge keeps keys already present and substitutes any `{x}`. Then finish the two things a copy cannot do:
+A folder absent from a target's adapter means that target lacks that capability; report it as
+missing rather than working around it. A merge keeps keys already present and substitutes any `{x}`. Then finish the two things a copy cannot do:
 
 - **`merge/*`** into `{home}`'s own config — capability entries and the instruction paths it loads.
 - **Point the target at `~/.agents/memory/MEMORY.md`** — an import in its instruction file, or an entry in its config's instructions list. **Never inline a copy**: it is a cache the next memory write strands, so a target with neither lever gets global memory reported as **read-on-demand, not in context** instead (`maintain-memory` owns the rule).
@@ -115,10 +113,7 @@ Needed by `release` and any project on the PR flow; skip for a user working pure
 
 Per selected target, confirm each capability is actually **working**, not merely present — **never that a scope is loaded because its file exists**: global instructions load, skills are discoverable this session, agents dispatch where the target supports them, MCP/plugin entry points run (no failing hook, no error on invoke), memory resolves or is reported as stored and manual, and domains stay inert until `project-initialiser` installs one.
 
-Each target has levers that answer this without a model call, and they cost nothing — reach for them before spending a run: **Codex** `codex debug prompt-input` renders the model-visible prompt, so the instruction file, the inlined memory block and the skill catalog with its `r0…rN` root map are all readable in one dump, and `codex doctor` confirms `config.toml` parses; **OpenCode** `opencode debug skill` lists every skill with its resolved path, `opencode debug agent <name>` one agent's resolved config, `opencode debug config` the merged config, `opencode mcp list` which servers actually connect; **Claude Code** re-lists its skills mid-session, so a description that flips to the template's wording is the proof a link resolved. Only **agent dispatch** still needs a real run. Where the user filled `~/.agents/dispatch.json`, that
-includes one **out-of-harness** dispatch per shelling target — a single small agent, checked for the
-right agent name in the transcript header and a status line at the end; an unfilled table is reported
-as dispatch-not-configured, which is a fine state, not a failure.
+Each target has levers that answer this without a model call, and they cost nothing — reach for them before spending a run: **Codex** `codex debug prompt-input` renders the model-visible prompt, so the instruction file, the inlined memory block and the skill catalog with its `r0…rN` root map are all readable in one dump, and `codex doctor` confirms `config.toml` parses; **OpenCode** `opencode debug skill` lists every skill with its resolved path, `opencode debug agent <name>` one agent's resolved config, `opencode debug config` the merged config, `opencode mcp list` which servers actually connect; **Claude Code** re-lists its skills mid-session, so a description that flips to the template's wording is the proof a link resolved. Only **agent dispatch** still needs a real run.
 
 Report each target as **passed · skipped · failed**. For any failure propose a brief troubleshooting plan and **get the user's OK before any tool calls**. Two traps behind a capability that is "installed" yet silently exposes nothing: an orphaned or dependency-incomplete cache directory shadowing the working one, and a remote MCP server whose credential is missing — `enabledPlugins: true` in `settings.json` says nothing about either. For **github** specifically, `get_me` returning your account is the proof; `gh auth status` is the separate one.
 

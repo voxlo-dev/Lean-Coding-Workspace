@@ -46,9 +46,8 @@ it. Cannot dispatch at all → use `dynamic-workflow` rather than letting one co
 
 `localagent-orchestrator` is the **primary** agent: run the workflow as that session through the
 selected harness. The six workers are `mode: all` — dispatchable as subagents *and* addressable by
-name from outside, which is what lets the `dispatch` skill run one on a model this harness cannot
-reach. A worker demoted to `mode: subagent` is silently replaced by the default agent on an external
-dispatch, wall and all.
+name from outside, which is what lets one run on a model this harness cannot reach. A worker demoted
+to `mode: subagent` is silently replaced by the default agent on an external dispatch, wall and all.
 
 ## Dispatch
 
@@ -56,10 +55,11 @@ Every agent runs in a **fresh, isolated context** — no conversation, no earlie
 the repo is. You **call it by name**; never open its definition file, its prompt is not yours to read.
 (An external runner instead sends that file as the system prompt and the brief as the turn.)
 
-**Where the harness cannot reach the model this workflow is for, invoke the `dispatch` skill** — it
-runs the same agent, by the same name, on the model its role gets from `~/.agents/dispatch.json`, and
-returns the same status line. That is also the only way to get the wall where the calling harness has
-no path scoping. Everything below is unchanged by it: the brief, the sequencing, the gate.
+**This harness rarely sells the model this workflow is for, so read `~/.agents/DISPATCH-GUIDE.md`
+before the first dispatch** — it holds the launch command, which model each role gets, and the rules
+for sending work out of process. A dispatched agent runs by the same name and returns the same
+status line, so everything below is unchanged by it: the brief, the sequencing, the gate. No guide,
+or no role for a step → that step runs on this harness, and the wall is prompt-only.
 
 The brief is four things: the **absolute working directory** · the **standing constraints** that bear
 on this step — what the user's prompt and the project's rules impose (conventions, language, hard
