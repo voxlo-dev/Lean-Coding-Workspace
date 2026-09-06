@@ -41,7 +41,7 @@ Used when the spec's delegation is **delegated**. The point is **context managem
 **The loop — one package at a time, sequentially:**
 
 1. **Handoff** — fill `templates/handoff.md`: written from the **spec**, not from reading the code, self-contained, carrying the standing rules the template holds so no dispatch has to restate them. Dispatch one implementer subagent. With `light-tdd` the contract package gets its own subagent — that separation is what makes the tests independent; carry its failing-test list into every later handoff, and never widen an implementer's brief to the tests.
-2. **Report** — the subagent implements, checks its acceptance criteria, commits, and returns a short report (what it did, criteria met, test state, concerns). You read the **report, not the diff**.
+2. **Report** — the subagent implements, checks its acceptance criteria, commits, and returns a short report (what it did, criteria met, test state, concerns). You read the **report, not the diff**. Under dispatch mode the handoff is written to `.temp/dispatch/{package}/brief.md` and the report comes back as `report.md` beside it — the command carries only the pointer, and the run's last line is the verdict. Everything else about the loop is unchanged.
 3. **Advance or decide** — criteria met → mark the package done, next package. A **blocked** report is yours to resolve, never the subagent's: re-dispatch with a narrowed brief, capture it as a ticket, or escalate to the user — but do not take the implementation over yourself.
 
 Repeat until every package is done, then the green gate (step 3) delegated the same way, so the orchestrator never loads its context either; docs stay inline per step 5.

@@ -21,8 +21,9 @@ Desktop.ini
 # Logs
 *.log
 
-# Test output (`e2e` skill): screenshots, videos, traces, framework reports, throwaway scripts
-test-dump/
+# Disposable working files: e2e output (screenshots, traces, throwaway scripts) and dispatch
+# briefs, reports and transcripts. Cleared at close-sprint; safe to delete at any time.
+.temp/
 
 # Headroom
 .tokensave
