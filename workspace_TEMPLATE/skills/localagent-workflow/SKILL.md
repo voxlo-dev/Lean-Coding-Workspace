@@ -42,16 +42,24 @@ brief.
 means it registers none, and a directory is not proof the harness reaches what is in it. Some want
 another format — Codex takes TOML with the prompt under `developer_instructions`, which
 `workspace-install` converts — and there the conversion is worth one live dispatch before trusting
-it. Cannot dispatch → use `dynamic-workflow` rather than letting one context do every step.
+it. Cannot dispatch at all → use `dynamic-workflow` rather than letting one context do every step.
 
 `localagent-orchestrator` is the **primary** agent: run the workflow as that session through the
-selected harness; the other six are subagents.
+selected harness. The six workers are `mode: all` — dispatchable as subagents *and* addressable by
+name from outside, which is what lets the `dispatch` skill run one on a model this harness cannot
+reach. A worker demoted to `mode: subagent` is silently replaced by the default agent on an external
+dispatch, wall and all.
 
 ## Dispatch
 
 Every agent runs in a **fresh, isolated context** — no conversation, no earlier step, not even where
 the repo is. You **call it by name**; never open its definition file, its prompt is not yours to read.
 (An external runner instead sends that file as the system prompt and the brief as the turn.)
+
+**Where the harness cannot reach the model this workflow is for, invoke the `dispatch` skill** — it
+runs the same agent, by the same name, on the model its role gets from `~/.agents/dispatch.json`, and
+returns the same status line. That is also the only way to get the wall where the calling harness has
+no path scoping. Everything below is unchanged by it: the brief, the sequencing, the gate.
 
 The brief is four things: the **absolute working directory** · the **standing constraints** that bear
 on this step — what the user's prompt and the project's rules impose (conventions, language, hard
@@ -71,8 +79,9 @@ until the wall drops.
   small model holds a prompt well but loses the thread the moment a tool call is refused, so a scope
   narrow enough to trip it costs more than it protects.
 - **No frontmatter names a model or a tool list.** Both harnesses define those keys with different
-  types, so either one makes the file invalid somewhere. The prompts are written for a ~30B local
-  model; don't loosen them for a stronger one.
+  types, so either one makes the file invalid somewhere — which is why the model comes from the
+  role table instead. The prompts are written for a ~30B local model; don't loosen them for a
+  stronger one.
 
 ## Artifacts
 

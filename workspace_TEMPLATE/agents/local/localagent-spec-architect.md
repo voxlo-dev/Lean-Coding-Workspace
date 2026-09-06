@@ -1,7 +1,7 @@
 ---
 name: localagent-spec-architect
 description: "localagent-workflow: turn one unit's PLAN entry into its stub files (the contract, as compiling code) + spec.md (behaviour) — the shared source both blind halves derive from."
-mode: subagent
+mode: all
 ---
 
 # Agent: spec-architect

@@ -29,6 +29,8 @@ questions by reading half the repo. This workspace fixes that with three ideas:
 - Three plugins, installed for you by the install skill: `superpowers`, `codegraph`, `context7`
 - Optional, offered during install: the `github` plugin and the `gh` CLI — needed for the PR flow
   and for releases, skippable if you only work locally
+- Optional, for `/dispatch`: OpenCode plus a model endpoint (a local server, a vendor key, an
+  aggregator). Only needed to run a step on a model your harness does not sell
 
 ## Install
 
@@ -86,6 +88,7 @@ Supporting skills, mostly invoked by the workflows rather than by you:
 | `e2e` | optional end-to-end validation stage; grows a driver script step by step, driving by agent only where a script can't reach |
 | `ui-design` | look and feel — colors, typography, layout, mockups, design system |
 | `maintain-docs` · `maintain-memory` | the docs and memory steps; both prune as well as write |
+| `dispatch` | run one step on a model this harness cannot reach — a local GGUF, a free tier — with per-agent path scoping; one status line back |
 | `/checkpoint` | end a chat at a phase boundary: a short untracked handout the next chat reads and deletes |
 | `/domain-initialiser` | build a domain master (see below) |
 | `/workspace-install` | install, repair, sync |

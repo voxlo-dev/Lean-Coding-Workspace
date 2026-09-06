@@ -1,0 +1,10 @@
+{
+  "$doc": "Routing table for the `dispatch` skill. Yours to edit; workspace-install seeds it once and never overwrites it. Values are `provider/model` strings the target harness resolves — an ID and nothing else; how a model loads and what each request carries live in the connector and the harness model entry (see the skill's references/connectors.md). Every model listed must be loaded at >=32k context or the dispatch dies before reading its brief. Lookup is most-specific-first: agents -> roles -> default.",
+  "default": "{provider/model}",
+  "roles": {
+    "localagent-worker": "{provider/model}",
+    "localagent-orchestrator": "{provider/model}",
+    "package": "{provider/model}"
+  },
+  "agents": {}
+}

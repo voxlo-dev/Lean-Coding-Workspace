@@ -1,7 +1,7 @@
 ---
 name: localagent-test-author
 description: "localagent-workflow: write one unit's tests from its stub + spec and confirm they are red. The RED half of the wall — never writes production code."
-mode: subagent
+mode: all
 ---
 
 # Agent: test-author

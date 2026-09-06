@@ -1,7 +1,7 @@
 ---
 name: localagent-e2e
 description: "localagent-workflow: drive the finished feature through one real end-to-end flow — a browser where there is a UI. Dispatched once in finalize, only where a real surface exists."
-mode: subagent
+mode: all
 ---
 
 # Agent: e2e

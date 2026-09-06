@@ -1,7 +1,7 @@
 ---
 name: localagent-docs
 description: "localagent-workflow: bring the project's own documentation in line with what the run built. Dispatched once in finalize; the cheapest step."
-mode: subagent
+mode: all
 ---
 
 # Agent: docs

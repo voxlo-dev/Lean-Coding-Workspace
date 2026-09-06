@@ -1,7 +1,7 @@
 ---
 name: localagent-implementer
 description: "localagent-workflow: fill one unit's stubs from the spec, blind to the test source — run the tests, fix your own code until green, escalate what the contract cannot satisfy. The GREEN half of the wall."
-mode: subagent
+mode: all
 permission:
   # Broadest first: the last matching rule wins, so a trailing "*": allow would undo every deny.
   read:
