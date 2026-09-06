@@ -11,7 +11,7 @@ Empty guide = no dispatch configured here. That is a valid state: say so and run
 -->
 
 Machine-local dispatch configuration for {this PC}. Template:
-`workspace_TEMPLATE/dispatch-guide_TEMPLATE.md` in the workspace repo.
+`workspace_TEMPLATE/DISPATCH-GUIDE_TEMPLATE.md` in the workspace repo.
 
 ## Rules
 

@@ -42,7 +42,7 @@ Below, `{home}` and `{project-agent-dir}` mean the selected row's values.
   cp -rn {workspace}/workspace_TEMPLATE/{AGENTS.md,agents} {home}/
   ```
 
-  `dispatch-guide_TEMPLATE.md` is **not** copied: it describes one machine, so `dispatch-configurator`
+  `DISPATCH-GUIDE_TEMPLATE.md` is **not** copied: it describes one machine, so `dispatch-configurator`
   writes `~/.agents/DISPATCH-GUIDE.md` from a live probe instead. Absent = no dispatch configured,
   a valid state the workflows handle.
 
