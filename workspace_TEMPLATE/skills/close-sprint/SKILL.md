@@ -59,6 +59,8 @@ Invoke **`maintain-docs` in sprint-close mode**: `docs/behaviour.md` first — f
 
 The frozen sprint folder *is* the record of what shipped — no separate summary doc. `release` composes the changelog from it when the version is cut.
 
+**Then empty `.temp/`** — e2e output and dispatch briefs, reports and transcripts, all of it, no age rule. Anything in there that still matters at a sprint boundary is misfiled: a report belongs in `artefacts/{sprint}/`, a flow worth keeping in the test tree. A project that runs without sprints never reaches this step, so say plainly that the folder is disposable at any time rather than treating this as its only cleaner.
+
 ## 6. Release? *(optional, and usually not now)*
 
 Only where the project publishes. Does this sprint complete a **version's** worth of scope? Yes → `release` · no → sprints accumulate on `main` until one does. Never publishes: skip, don't ask.

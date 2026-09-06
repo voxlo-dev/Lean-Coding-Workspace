@@ -2,14 +2,14 @@
 
 Result of validating `e2e_{feature}.md`. Written by `e2e` to
 `artefacts/{sprint}/e2e-report_{feature}.md`, frozen by `close-sprint`. Stands on its own:
-`test-dump/` paths may be referenced, never relied on.
+`.temp/e2e/` paths may be referenced, never relied on.
 
 ## Run
 
 - Date: {YYYY-MM-DD} · Env: {device / emulator / browser · build}
 - Driver: {framework + invocation, or `agent` / `user`}
 - Context: {this flow alone | full suite} — an isolated green cannot see order dependence
-- Script: {path in the test tree — committed · `test-dump/{name}` — temporary · none}
+- Script: {path in the test tree — committed · `.temp/e2e/{name}` — temporary · none}
 
 ## Steps
 

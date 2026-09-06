@@ -23,11 +23,17 @@ Machine-local dispatch configuration for {this PC}. Template:
 - **Only primary-capable agents** (`mode: all` / `mode: primary`). A subagent-only name is accepted,
   warned about, and silently replaced by the default agent — which runs your brief with no wall.
   An unexpected agent in the transcript header is a failed dispatch, not a result.
-- **The brief is four parts**, because the agent sees nothing else: absolute working directory ·
-  standing constraints from the user and the project · the task in one or two lines · paths to its
-  inputs. Pass paths, never inlined content.
-- **Back comes one status line plus the transcript path**, nothing else. Read the transcript only
-  when you are about to act on it.
+- **The command carries a pointer, not the payload.** Write the brief to
+  `.temp/dispatch/{id}/brief.md` under the working directory and name that path in the command: a
+  handoff of any size survives it, a quoted one does not — shells cap an argument long before a real
+  handoff ends. It has to live **inside** the working directory, because path scoping is what stops
+  the agent reading anywhere else, the OS temp dir included.
+- **The brief's shape belongs to the calling workflow**; these four parts are its floor, because the
+  agent sees nothing else: absolute working directory · standing constraints from the user and the
+  project · the task · paths to its inputs. Pass paths, never inlined content.
+- **The last line of stdout is the verdict and nothing else.** Anything longer — a report, criteria
+  met, concerns — goes to `report.md` beside the brief, and the workflow that asked for it reads it
+  there. Redirect the run's own output to `transcript.md` in the same folder.
 - **Sequential, one dispatch at a time.** A local endpoint serves one inference at a time; a free
   tier measures its queue.
 - **≥64k context on any model listed below** — the target harness's own system prompt costs ~16k
@@ -37,7 +43,9 @@ Machine-local dispatch configuration for {this PC}. Template:
 
 ### {harness — name only, no version}
 
-- **Launch:** `{command with placeholders for agent, model, absolute dir, brief}`
+- **Launch:** `{command with placeholders for agent, model, absolute dir, and the pointer text —
+  read `.temp/dispatch/<id>/brief.md`, write `report.md` beside it, print the status token as the
+  last line}`
 - **Providers:** {which of the entries below this harness resolves}
 - **Agents:** {which agent set is registered here — a dispatch to a name it lacks is BLOCKED}
 - **Notes:** {"verified on v{x}" — never the version in the heading, or it drifts at the next
