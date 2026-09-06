@@ -1,7 +1,7 @@
 ---
 name: e2e-runner
 description: "dynamic-workflow's e2e stage: drive one feature's e2e test case to a verdict — run or grow the driver script, report pass/fail. Dispatched only for what an inline run of the existing automation could not settle."
-mode: subagent
+mode: all
 skills:
   - e2e
 disallowedTools:
