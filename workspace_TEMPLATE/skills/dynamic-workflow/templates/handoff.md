@@ -2,9 +2,8 @@
 
 The dispatch prompt for one implement package (template:
 `~/.agents/skills/dynamic-workflow/templates/handoff.md`). **Written from the spec, never from
-reading the code**, self-contained: the subagent starts blank. In-harness it is filled and sent as
-the prompt; dispatched out of process it is written to `.temp/dispatch/{package}/brief.md` and the
-command names that path — same content either way.
+reading the code**, self-contained: the subagent starts blank. Sent as the prompt in-harness, written
+to the brief file the dispatch names out of process — same content either way.
 
 - **Spec:** `artefacts/{sprint}/spec_{feature}.md` — read it; your anchor if you compact
 - **Ticket:** {`T-NNN` this package serves}
@@ -33,5 +32,4 @@ command names that path — same content either way.
 Commit the package, then report in a few lines: what you did · each acceptance criterion met or not ·
 test state · concerns and anything the orchestrator must decide. Blocked → report all the same,
 naming the obstacle, what was tried and what you need. **The report is all that gets read —
-no diffs.** Dispatched out of process, it goes to the `report.md` this brief names, and the run's
-last line is the verdict alone.
+no diffs.** Dispatched, it goes to `report.md` beside this brief and your last line is the verdict alone.
