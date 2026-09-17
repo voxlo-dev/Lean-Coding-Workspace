@@ -17,7 +17,7 @@ One run = one **published version**: everything on `main` since the last release
 
 ## 0. Preflight — all of it, before anything is written
 
-- **Runbook** `docs/release.md`. Missing → **STOP**, offer to write it; with a domain installed its `Domain-Recipe.md` → **Release** supplies the stack's defaults and the runbook holds only what deviates.
+- **Runbook** `docs/release.md` — the authority, whatever domains are installed; theirs only seeded it at init. Missing → **STOP**, offer to write it, pulling the stack's defaults from each recipe's engineering section.
 - **Auth** — `gh auth status` *and* one MCP call (`get_me`). Here, not at step 4.
 - **Tree** — on `main`, clean, level with the remote, no unmerged sprint branch.
 - **Scope** — last tag (`get_latest_release`, else `list_tags`) → `git log <tag>..main`. No tag → first release, whole history.
@@ -32,7 +32,7 @@ Lives in the release artefact, the PR body and the GitHub release — **never as
 
 ## 2. Version & release artefact
 
-**Source:** `AGENTS.md` → Build/test/run names every file and field; the domain's release rules cover its stack. Semver `major.minor.patch`, no padding or leading zeros (`1.02.3` is invalid).
+**Source:** `AGENTS.md` → Build/test/run names every file and field; `docs/release.md` covers the stack. Semver `major.minor.patch`, no padding or leading zeros (`1.02.3` is invalid).
 
 Propose the bump from step 1 — breaking → major · new capability → minor · fixes only → patch — and **get the user's confirmation**. **Bump every carrier in one commit** (`chore: release {version}` on `main`); where the platform has a separate build number it must increase strictly, and a rejected upload still burns it.
 
@@ -73,7 +73,7 @@ Targets from `docs/release.md`, more than one may apply; a gap there is a runboo
 
 - **CI pipeline** — trigger and watch only. `gh workflow run <file>` for manual dispatch, else the tag or merge fires it; `gh run watch`, then `gh run view --log-failed`. Suspect an unconfigured secret or environment before the code.
 - **Build & GitHub release** — build and verify the artifacts exist, then `gh release create v{version} --notes-file <changelog> <artifacts...>`, which **creates the tag too** — never tag separately. `--prerelease` for rc/beta, `--draft` where the artifacts want eyeballing. The MCP can only *read* releases.
-- **Domain-specific** (store, registry) — **the domain's release rules first**: signing, metadata and tracks are its business. **Staged by default**, never straight to production. Record the submission ID so a resumed run checks its status instead of re-submitting. A rejection is not retryable: read it, fix, bump the build number, resubmit.
+- **Stack-specific** (store, registry) — signing, metadata and tracks per the runbook. **Staged by default**, never straight to production. Record the submission ID so a resumed run checks its status instead of re-submitting. A rejection is not retryable: read it, fix, bump the build number, resubmit.
 
 ## 8. Land
 

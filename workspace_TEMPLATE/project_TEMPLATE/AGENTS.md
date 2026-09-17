@@ -2,9 +2,14 @@
 
 Agent-agnostic project guide — the single source for domain, structure and code style. `README.md` is for users, this file for contributors and AI agents.
 
-## Domain
+## Domains
 
-{domain of this project}
+{Installed domains, one row each — master plus mode is the whole projection, so this table is what
+another machine rebuilds it from (`project-initialiser`). Delete the section for a project with none.}
+
+| Domain | Skills mode | Covers |
+| --- | --- | --- |
+| {`~/.agents/domains/{x}/`} | {link \| copy} | {the part of this repo it speaks for} |
 
 ## Project outline
 
@@ -23,7 +28,7 @@ Agent-agnostic project guide — the single source for domain, structure and cod
 
 ### Code style
 
-{conventions — default to domain conventions}
+{conventions — default to those of the domains above}
 
 ## Workflow settings
 
@@ -47,7 +52,7 @@ Rows in `{}` are optional and exist only where the project opted in — drop the
 | {`docs/decisions.md`} | durable | one line per settled decision, newest on top — the cheap read for "what is already decided here?", so agents skip re-litigating. Carries the `Next decision` counter. The rationale lives in the sprint that settled it (`artefacts/{sprint}/sprint-decisions.md`), linked per line — the one durable doc that may point into `artefacts/` |
 | {`docs/architecture.md`} | durable | planned/implemented software structure: big picture, systems, subsystems |
 | {`docs/dev.md`} | durable | engineering knowledge code/tests/codegraph miss: setup, env, build/debug workflows, dependency quirks (bugs & todos become tickets) |
-| {`docs/release.md`} | durable | release runbook: version carriers, build & publish targets, the security gate and its waivers — what this project does *differently* from its domain's release rules, plus its own workflow names and secrets. `release` stops without it (only with releases) |
+| {`docs/release.md`} | durable | release runbook and the authority on shipping: version carriers, build & publish targets, workflow names and secrets, the security gate and its waivers. Seeded from the domains at init, owned here afterwards. `release` stops without it (only with releases) |
 | {`docs/product/`} | durable | end-user docs (Diátaxis); single source for the wiki/docs-site, published from CI |
 | {`docs/design/`} | durable | `Styleguide.html`, the design system (per-feature mockups live with their specs) |
 | {`ASSETS.md`} | — | asset inventory — consult it before searching the asset tree |

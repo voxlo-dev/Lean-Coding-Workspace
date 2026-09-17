@@ -13,7 +13,7 @@ Onboard a repo end-to-end. Owns the **initial** doc creation (it does the deep e
 
 2. **Inventory what exists** — code, tests, docs, template files, an already-present domain bundle. This decides what to scaffold vs. merge; flag docs on a different or older layout for step 7.
 
-3. **Detect the domain** — identify it, then check `~/.agents/domains/{x}-domain/`. A usable master contains shared skills plus a complete recipe, not only `Domain-Recipe.md`. Folder missing or incomplete → ask whether to run `domain-initialiser` first.
+3. **Detect the domains** — **several may apply** (a frontend and a backend in one tree), and a project with none is valid. Per candidate, check `~/.agents/domains/{x}/`: a usable master contains skills plus a complete recipe, not only `Domain-Recipe.md`. Missing or incomplete → ask whether to run `domain-initialiser` first.
 
 4. **Choose optional docs** — one checkbox question, skipping any that exist. Explain the lifespan split once: `docs/` holds durable truth, `artefacts/` (created on first use) holds process history, live for its sprint and frozen once that sprint closes.
    - **behaviour doc?** `docs/behaviour.md` — product semantics as a rulebook, the whole-product overview `plan` reads and each sprint folds its deltas back into. **Recommend for anything with user interaction.**
@@ -28,16 +28,24 @@ Onboard a repo end-to-end. Owns the **initial** doc creation (it does the deep e
 
 5. **Plan & pause** — present the plan (domain, scaffold vs. merge, optional docs, test framework), get feedback, proceed only after approval.
 
-6. **Install domain (project-scoped), frameworks & test framework**
+6. **Project the domains, install frameworks & test framework**
 
-   ```bash
-   cp -r ~/.agents/domains/{x}-domain {repo}/.agents/skills/{x}-domain
-   ```
+   A master is **never copied whole** — that nests its skills a level too deep for any harness to discover them. Each part goes onto the path the target already scans:
 
-   - `.agents/skills/` is the repo's one skills home — the domain above and every skill the project writes for itself. Most targets scan it natively; one that does not gets a **link per skill folder** at `{repo}/{project-agent-dir}/skills/{name}` (`mklink /J` on Windows), never a second copy, and never a link to `skills/` itself, which a harness writes its own internals into. `workspace-sync` does the same globally, and a real directory where a link belongs is the drift this prevents: diff it against `.agents/skills/`, salvage what only it has, replace it.
-   - **Track the repo's own skills, gitignore the domain copy** (`.agents/skills/{x}-domain/`) — it is a sync of the master and would otherwise become its second home. So the domain's *memory* stays in the master too: point the repo at `~/.agents/domains/{x}-domain/DOMAIN-MEMORY.md`, never at the copy's, or a fact learned here never reaches a sibling project.
-   - The master carries its manifests already (`domain-initialiser` took them from `{home}/adapter/domain/`). **Register what the scan cannot reach:** merge `{home}/adapter/project-merge/*` into this repo's config of the same name, substituting `{x}` — the MCP servers, their pre-approval, and `DOMAIN-MEMORY.md` where the target loads instructions from a list. An empty `project-merge/` means the target needs none of it.
-   - Install the project's frameworks and runtime packages, then the unit + UI test framework named in `{x}-domain/Domain-Recipe.md`.
+   | Part of the master | Lands at |
+   | --- | --- |
+   | `skills/{name}/` | `.agents/skills/{name}` |
+   | `agents/{name}.md` | the target's agents directory, flat, converted where its format differs |
+   | `mcp.json` | one entry per server in the repo's project config |
+   | `DOMAIN-MEMORY.md` | an import or instructions entry pointing **into the master** |
+
+   - **The mode is a question about skills only.** Ask once: **`link`** — a junction per folder on the master (`mklink /J` on Windows), gitignored: one home, and a master edit lands in every project at once. **`copy`** — a real copy, tracked: a clone has the domain without the workspace, at the price of a second home to refresh. Everything else is harness plumbing whose shape depends on which harnesses this machine runs, so it stays local and gitignored and is re-projected rather than shared.
+   - `.agents/skills/` is the repo's one skills home — the projected domains and every skill the project writes for itself. Most targets scan it natively; one that does not gets a **link per skill folder** at `{repo}/{project-agent-dir}/skills/{name}`, pointing at the same source, never at the other link and never at `skills/` itself, which a harness writes its own internals into. `workspace-sync` does the same globally, and a real directory where a link belongs is the drift this prevents: diff it against its source, salvage what only it has, replace it.
+   - **Several domains project as a union.** A colliding skill folder name → ask which wins or have one renamed in its master; never auto-prefix, it falsifies the description agents pick by. A colliding MCP server name → stop, that is a recipe bug.
+   - **Register what a scan cannot reach:** merge `{home}/adapter/project-merge/*` into this repo's config of the same name — the MCP servers from `mcp.json`, their pre-approval, and `DOMAIN-MEMORY.md` where the target loads instructions from a list. An empty `project-merge/` means the target needs none of it.
+   - **Record it in `AGENTS.md` → Domains**: one row per domain with its mode. Master plus mode determines the whole projection, so that table is all another machine needs to rebuild it — no separate ledger.
+   - **Seed the docs from each recipe's engineering section, then let go**: test and build knowledge into `docs/dev.md`, shipping rules into `docs/release.md` where the project publishes. The docs are the authority from then on — that is what lets two domains coexist and what lets a domain have no engineering section at all.
+   - Install the project's frameworks and runtime packages, then the unit + UI test framework each recipe names.
    - **Audit the git tree before anything is staged** — `git status`, and make `.gitignore` exclude installed packages (`node_modules/`, `.venv/`, `vendor/`), build output (`dist/`, `build/`, `target/`), logs, caches, local env files. Untrack anything already tracked (`git rm --cached`).
 
 7. **Scaffold docs** — copy all of `~/.agents/project_TEMPLATE/*` in one pass (`cp -rn`, no-clobber), then **delete the optional docs the user didn't choose**; copy-then-prune costs fewer tool calls than selective copying. `behaviour.md`, `decisions.md`, `architecture.md`, `dev.md` and `product/index.md` are filled in place — **each one you fill loses its `CONTRACT` comment**, keeping the pointer line to its template; an unfilled seed keeps it. **`backlog/backlog.md` always stays**, empty, with its `Next ticket` counter at `T-001`. **On-demand artifacts stay unscaffolded**: tickets (`plan/templates/TICKET_TEMPLATE.md`), the styleguide (step 11) and every run artifact under `artefacts/{sprint}/` are seeded from their own skill's `templates/` when first produced, so `backlog/` holds only its index while `docs/design/` and `artefacts/` start absent. Fill `AGENTS.md` (domain, outline, code style — single source) and **trim its Doc map to the docs that remain**.

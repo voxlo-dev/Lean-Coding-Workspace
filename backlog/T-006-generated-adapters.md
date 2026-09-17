@@ -4,7 +4,7 @@
 - **Category:** feature
 - **Importance:** high
 - **Effort:** L
-- **Depends on:** `T-005` and `T-008` (its projection table is a manifest input), plus a clean run of the verification below
+- **Depends on:** `T-005`, plus a clean run of the verification below
 
 ## Why
 
@@ -151,6 +151,25 @@ Verified on 2026-09-04 unless marked. Treat every version-bound line as a fact w
 - `CLAUDE.md` is a shim resolving `@` imports, and `@~/…` absolute home paths resolve.
 - Agents flat in `~/.claude/agents/`, ID from `name:`. A dropped agent keeps loading until its file
   is deleted explicitly.
+
+### Projection targets — verified 2026-09-17, the domain system's inputs
+
+Docs plus string dumps of the installed builds; the junction probe was run in this repo and removed.
+A manifest has to answer these per harness, because `project-initialiser` writes to every one of them.
+
+| Harness | Skill roots (project) | Agents | MCP |
+| --- | --- | --- | --- |
+| Codex | `.agents/skills/`, `.codex/skills/`, cwd → repo root | `.codex/agents/*.toml` | `.codex/config.toml`, trusted only |
+| OpenCode | `.agents/skills/`, `.claude/skills/`, `.opencode/skills/`, cwd upwards | `.opencode/agent/*.md` | `opencode.json` `mcp` |
+| Claude Code | `.claude/skills/` only | `.claude/agents/*.md`, recursive | `.mcp.json` + `enableAllProjectMcpServers` |
+
+- `grep -a '\.agents' claude.exe` returns nothing: Claude Code reads no `.agents` path at any scope,
+  so the per-skill link is the only bridge — and the reason a manifest needs a *link mechanism* row.
+- **Junctions resolve in all three.** A throwaway skill junctioned into this repo's `.agents/skills/`:
+  `opencode debug skill` lists it under the *link* path, `codex debug prompt-input` carries it under
+  skill root `r8`. This is what lets a domain be projected rather than copied.
+- OpenCode's `skills.paths` would add a root without any link; Codex and Claude Code have no
+  equivalent. One of three is a hole — the manifest records it as such rather than as a strategy.
 
 ### Cross-harness
 

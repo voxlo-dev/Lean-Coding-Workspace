@@ -49,7 +49,7 @@ Assume the user is capable, but lazy with words, because he can't type as fast a
 
 ## Domains
 
-Master domains live **inert** in `~/.agents/domains/{x}-domain/` — not a skills directory, so nothing domain-specific ever loads globally. `project-initialiser` copies the matching master into a repo's `.agents/skills/{x}-domain/`, where it loads **project-scoped**, MCP servers included (so e.g. the Unity MCP runs only in Unity repos). `domain-initialiser` builds the master from `{home}/adapter/domain/`'s manifests. Both skills own the mechanics.
+A domain is a **capability bundle** — skills, agents, MCP servers, memory, doc sources — and nothing beyond: it never changes a workflow, and its engineering rules are seed for the project's docs, not authority over them. Masters live **inert** in `~/.agents/domains/{x}/`, so nothing domain-specific ever loads globally. `project-initialiser` **projects** one into a repo, each part onto the path its harness already scans (so e.g. the Unity MCP runs only in Unity repos). **Several per project, as peers** — the projection is their union, and a colliding name is asked about, never merged. `domain-initialiser` builds a master. Both skills own the mechanics.
 
 Available masters: {}. Create one with the `domain-initialiser` skill.
 
@@ -58,7 +58,7 @@ Available masters: {}. Create one with the `domain-initialiser` skill.
 Native Markdown, no plugin. `maintain-memory` curates it and **prunes stale entries** at each workflow's memory step. Three scopes, pick the narrowest:
 
 - **Project** — `{home}/projects/<repo>/memory/`, the one scope a harness stores itself, so it exists only where that harness has it.
-- **Domain** — `~/.agents/domains/{x}-domain/DOMAIN-MEMORY.md` in the master, pointed at per project by `project-initialiser` — **never the repo's copy of the domain**, which is disposable, so a fact written there would never reach a sibling project.
+- **Domain** — `~/.agents/domains/{x}/DOMAIN-MEMORY.md` in the master, pointed at per project by `project-initialiser`, once per installed domain — **never a projected copy**, which is disposable, so a fact written there would never reach a sibling project.
 - **Global** — `~/.agents/memory/MEMORY.md`, wired once by `workspace-sync`.
 
 Wiring means **pointing** a harness at the one file — an import or an instructions list; never inlining a copy, which is a cache the next write strands. Where a harness offers neither lever the file is **readable but not loaded**: open it yourself before relying on memory, and say that it wasn't in context rather than that there was none. Domain and global memory load in full — keep them lean. **Memory vs. docs — one home, never both:** machine-bound facts (absolute paths, local installs, personal tool setup, this-machine-only quirks) → **memory**; system-independent, generally true engineering knowledge → **`docs/dev.md`**. In doubt, ask whether it would still be true on someone else's machine.

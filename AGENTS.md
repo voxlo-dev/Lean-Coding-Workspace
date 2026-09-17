@@ -69,8 +69,8 @@ AGENTS.md                      ← this file
 junctioned to each — the project-scope form of the same one-home rule. `.claude/settings.json` is
 tracked as the one exception: it enables the `plugin-dev` plugin **for this repo only**, since
 authoring skills, agents and hooks is this repo's domain and nowhere else's. Not tracked (see
-`.gitignore`): the rest of the harness dirs `.claude/`, `.codex/`, `.opencode/`, any
-`.agents/skills/*-domain/` (a sync of a global master), `.serena/`, `.tokensave`.
+`.gitignore`): the rest of the harness dirs `.claude/`, `.codex/`, `.opencode/`, `.serena/`,
+`.tokensave`.
 
 ## Authoring conventions
 

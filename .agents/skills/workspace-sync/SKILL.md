@@ -60,13 +60,12 @@ Its files already carry the paths they must land on, so this is a copy, not a tr
 cp -r {workspace}/adapters/{target}/. {home}/
 ```
 
-That leaves `{home}/adapter/` holding whatever the target needs later, in four folders named by what happens to them:
+That leaves `{home}/adapter/` holding whatever the target needs later, in three folders named by what happens to them:
 
 | Folder | Fate | Used by |
 | --- | --- | --- |
 | `project/` | copied into a repo root as-is | `project-initialiser` |
 | `project-merge/` | merged into the repo's **Project config** from the table above | `project-initialiser` |
-| `domain/` | copied into a domain master's root | `domain-initialiser` |
 | `merge/` | merged into `{home}`'s own config | this skill, below |
 
 A folder absent from a target's adapter means that target lacks that capability; report it as
@@ -98,7 +97,7 @@ Needed by `release` and any project on the PR flow; skip for a user working pure
 
 ## 6. Verify each target independently
 
-Per selected target, confirm each capability is actually **working**, not merely present — **never that a scope is loaded because its file exists**: global instructions load, skills are discoverable this session, agents dispatch where the target supports them, MCP/plugin entry points run (no failing hook, no error on invoke), memory resolves or is reported as stored and manual, and domains stay inert until `project-initialiser` installs one.
+Per selected target, confirm each capability is actually **working**, not merely present — **never that a scope is loaded because its file exists**: global instructions load, skills are discoverable this session, agents dispatch where the target supports them, MCP/plugin entry points run (no failing hook, no error on invoke), memory resolves or is reported as stored and manual, and domains stay inert until `project-initialiser` projects one.
 
 Each target has levers that answer this without a model call, and they cost nothing — reach for them before spending a run: **Codex** `codex debug prompt-input` renders the model-visible prompt, so the instruction file, the inlined memory block and the skill catalog with its `r0…rN` root map are all readable in one dump, and `codex doctor` confirms `config.toml` parses; **OpenCode** `opencode debug skill` lists every skill with its resolved path, `opencode debug agent <name>` one agent's resolved config, `opencode debug config` the merged config, `opencode mcp list` which servers actually connect; **Claude Code** re-lists its skills mid-session, so a description that flips to the template's wording is the proof a link resolved. Only **agent dispatch** still needs a real run.
 
