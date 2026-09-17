@@ -5,7 +5,6 @@
     </marker>
   </defs>
 
-  <rect x="0" y="0" width="1190" height="640" rx="12" fill="#fbfbfd"/>
   <text x="16" y="26" font-size="10.5" fill="#64748b">Read each column top-down: the skill on top writes the files beneath it.</text>
 
   <!-- lifespan bands -->
@@ -14,13 +13,13 @@
   <rect x="112" y="368" width="1062" height="120" rx="10" fill="#eff6ff"/>
   <rect x="112" y="502" width="1062" height="64" rx="10" fill="#fdf4ff"/>
 
-  <text x="102" y="152" text-anchor="end" font-size="10" font-weight="700" fill="#065f46">LIVING</text>
-  <text x="102" y="166" text-anchor="end" font-size="9.5" fill="#059669">open work</text>
-  <text x="102" y="279" text-anchor="end" font-size="10" font-weight="700" fill="#7c2d12">EPHEMERAL</text>
-  <text x="102" y="293" text-anchor="end" font-size="9.5" fill="#c2410c">process history</text>
-  <text x="102" y="421" text-anchor="end" font-size="10" font-weight="700" fill="#1e3a8a">DURABLE</text>
-  <text x="102" y="435" text-anchor="end" font-size="9.5" fill="#2563eb">versioned truth</text>
-  <text x="102" y="538" text-anchor="end" font-size="10" font-weight="700" fill="#581c87">MEMORY</text>
+  <text x="102" y="152" text-anchor="end" font-size="10" font-weight="700" fill="#10b981">LIVING</text>
+  <text x="102" y="166" text-anchor="end" font-size="9.5" fill="#10b981">open work</text>
+  <text x="102" y="279" text-anchor="end" font-size="10" font-weight="700" fill="#f97316">EPHEMERAL</text>
+  <text x="102" y="293" text-anchor="end" font-size="9.5" fill="#f97316">process history</text>
+  <text x="102" y="421" text-anchor="end" font-size="10" font-weight="700" fill="#3b82f6">DURABLE</text>
+  <text x="102" y="435" text-anchor="end" font-size="9.5" fill="#3b82f6">versioned truth</text>
+  <text x="102" y="538" text-anchor="end" font-size="10" font-weight="700" fill="#a855f7">MEMORY</text>
 
   <!-- skills row -->
   <g>
@@ -99,7 +98,7 @@
   <text x="949" y="329" text-anchor="middle" font-size="9" fill="#d97706">why it was decided</text>
 
   <path d="M1000,346 C1040,360 1060,364 1088,378" stroke="#94a3b8" stroke-width="1.4" fill="none" marker-end="url(#a2)"/>
-  <text x="1022" y="370" font-size="9" fill="#64748b">indexed</text>
+  <text x="994" y="364" text-anchor="end" font-size="9" fill="#64748b">indexed</text>
 
   <!-- durable -->
   <rect x="272" y="382" width="138" height="52" rx="6" fill="#ffffff" stroke="#3b82f6"/>
