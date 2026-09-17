@@ -4,7 +4,7 @@
 - **Category:** feature
 - **Importance:** high
 - **Effort:** L
-- **Depends on:** `T-005`, plus a clean run of the verification below
+- **Depends on:** `T-005` and `T-008` (its projection table is a manifest input), plus a clean run of the verification below
 
 ## Why
 
