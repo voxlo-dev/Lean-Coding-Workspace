@@ -4,6 +4,5 @@
 .opencode
 .agents/*
 !.agents/skills
-.agents/skills/*-domain/
 .tokensave
 .serena

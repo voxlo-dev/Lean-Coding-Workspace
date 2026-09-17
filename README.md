@@ -180,13 +180,19 @@ what keeps the whole thing from turning into a swamp.
 
 ## Domains
 
-A **domain** bundles everything specific to one kind of development — Unity, web frontend, Android —
-as shared conventions, skills, agents, language-server and MCP configuration.
+A **domain** bundles everything specific to one kind of work — Unity, web frontend, Android, or a
+non-coding craft like academic writing — as skills, agents, MCP servers, its own memory and the doc
+sources they cite. It is capability and nothing else: no domain changes how a workflow runs, and the
+build and release knowledge it carries only *seeds* a project's docs, which own it afterwards.
 
-Masters live **inert** in `~/.agents/domains/{x}-domain/`, so nothing domain-specific loads globally.
-`project-initialiser` copies the matching master into a repo, where it loads project-scoped: the
-Unity MCP runs in Unity repos and nowhere else. The manifests that make that work come from the
-harness's overlay.
+Masters live **inert** in `~/.agents/domains/{x}/`, so nothing domain-specific loads globally. The
+bundle is harness-neutral; `project-initialiser` **projects** it into a repo, each part onto the path
+that harness already scans — skills as a link (or a copy, if you want them in the repo), agents and
+MCP servers into the harness's own directories, memory pointed back at the master. So the Unity MCP
+runs in Unity repos and nowhere else.
+
+**A project can install several**, as peers — a frontend and a backend domain in one tree project
+into the same directories, and a name collision is raised rather than merged.
 
 No masters ship with this repo — you build the ones you need with `/domain-initialiser`.
 

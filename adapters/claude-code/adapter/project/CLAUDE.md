@@ -6,7 +6,7 @@
 `AGENTS.md` is the agent-agnostic source of truth. `CHECKPOINT.local.md`, where one exists, is the
 previous chat's handout: untracked, deleted once used (`checkpoint`).
 
-{@~/.agents/domains/{x}-domain/DOMAIN-MEMORY.md — domain projects only; delete the line otherwise}
+{@~/.agents/domains/{x}/DOMAIN-MEMORY.md — one line per installed domain; delete if there are none}
 
 ## Claude-Code-specific overrides
 

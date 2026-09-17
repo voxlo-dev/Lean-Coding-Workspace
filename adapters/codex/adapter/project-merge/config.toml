@@ -1,4 +1,4 @@
 # Merged into a repo's .codex/config.toml by project-initialiser (Codex loads it only in a
-# trusted project). The domain's skills need no entry — Codex scans .agents/skills natively.
+# trusted project). Projected skills need no entry — Codex scans .agents/skills natively.
 
-# [mcp_servers.{name}] — one block per server from the domain's recipe
+# [mcp_servers.{name}] — one block per server from each installed domain's mcp.json

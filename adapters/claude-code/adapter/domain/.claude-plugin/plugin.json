@@ -1,6 +1,0 @@
-{
-  "name": "{x}-domain",
-  "version": "0.1.0",
-  "description": "{X} domain master. Built by domain-initialiser from Domain-Recipe.md; inert until project-initialiser copies it into a repo.",
-  "author": { "name": "Claude" }
-}
