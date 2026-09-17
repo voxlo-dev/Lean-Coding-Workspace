@@ -1,0 +1,215 @@
+<svg viewBox="0 0 1000 690" xmlns="http://www.w3.org/2000/svg" font-family="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arw" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#94a3b8"/>
+    </marker>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#ef4444"/>
+    </marker>
+  </defs>
+
+  <text x="24" y="30" font-size="15" font-weight="700" fill="#6366f1">localagent-workflow</text>
+  <text x="24" y="46" font-size="10.5" fill="#64748b">orchestrator = pure control flow · every content step is a subagent in a fresh context</text>
+
+  <!-- phase 1: plan -->
+  <text x="776" y="66" text-anchor="end" font-size="11" font-weight="600" fill="#64748b">1 · Plan</text>
+
+  <rect x="24" y="78" width="160" height="56" rx="8" fill="#f8fafc" stroke="#cbd5e1"/>
+  <text x="104" y="101" text-anchor="middle" font-size="11.5" font-weight="600" fill="#334155">Plan with the user</text>
+  <text x="104" y="119" text-anchor="middle" font-size="10" fill="#64748b">PLAN.md — stack + units</text>
+
+  <path d="M184,106 H206" stroke="#94a3b8" stroke-width="1.4" fill="none" marker-end="url(#arw)"/>
+
+  <rect x="208" y="78" width="150" height="56" rx="8" fill="#fffbeb" stroke="#f59e0b"/>
+  <text x="283" y="101" text-anchor="middle" font-size="11.5" font-weight="600" fill="#78350f">Plan gate</text>
+  <text x="283" y="119" text-anchor="middle" font-size="10" fill="#b45309">explicit approval · only pause</text>
+
+  <path d="M283,78 V64 H244 M144,64 H104 V76" stroke="#94a3b8" stroke-width="1.4" fill="none" stroke-dasharray="5 4" marker-end="url(#arw)"/>
+  <text x="194" y="62" text-anchor="middle" font-size="9.5" fill="#64748b">changes → revise</text>
+
+  <path d="M358,106 H380" stroke="#94a3b8" stroke-width="1.4" fill="none" marker-end="url(#arw)"/>
+
+  <rect x="382" y="78" width="180" height="56" rx="8" fill="#eef2ff" stroke="#6366f1" stroke-dasharray="5 4"/>
+  <text x="472" y="101" text-anchor="middle" font-size="11" font-weight="600" fill="#312e81">localagent-scaffold</text>
+  <text x="472" y="119" text-anchor="middle" font-size="10" fill="#4f46e5">only if nothing runnable yet</text>
+
+  <path d="M562,106 H584" stroke="#94a3b8" stroke-width="1.4" fill="none" marker-end="url(#arw)"/>
+
+  <rect x="586" y="78" width="190" height="56" rx="8" fill="#f8fafc" stroke="#cbd5e1"/>
+  <text x="681" y="101" text-anchor="middle" font-size="11.5" font-weight="600" fill="#334155">Seed STATE.md</text>
+  <text x="681" y="119" text-anchor="middle" font-size="10" fill="#64748b">units · test / e2e cmd · driver</text>
+
+  <path d="M776,106 H810" stroke="#94a3b8" stroke-width="1.4" fill="none" stroke-dasharray="2 3" marker-end="url(#arw)"/>
+  <path d="M681,134 V152 H96 V204" stroke="#94a3b8" stroke-width="1.4" fill="none" marker-end="url(#arw)"/>
+
+  <!-- phase 2: build loop -->
+  <rect x="16" y="170" width="780" height="366" rx="12" fill="none" stroke="#cbd5e1" stroke-dasharray="5 4"/>
+  <text x="180" y="190" font-size="11" font-weight="600" fill="#64748b">2 · Build loop — per unit, one agent at a time</text>
+
+  <rect x="36" y="206" width="120" height="56" rx="8" fill="#f8fafc" stroke="#cbd5e1"/>
+  <text x="96" y="229" text-anchor="middle" font-size="11.5" font-weight="600" fill="#334155">Pick unit</text>
+  <text x="96" y="247" text-anchor="middle" font-size="10" fill="#64748b">deps all done</text>
+
+  <path d="M156,238 H178" stroke="#94a3b8" stroke-width="1.4" fill="none" marker-end="url(#arw)"/>
+
+  <rect x="180" y="206" width="170" height="64" rx="8" fill="#eef2ff" stroke="#6366f1"/>
+  <text x="265" y="226" text-anchor="middle" font-size="11" font-weight="600" fill="#312e81">localagent-spec-architect</text>
+  <text x="265" y="243" text-anchor="middle" font-size="10" fill="#4f46e5">stub files + spec.md</text>
+  <text x="265" y="259" text-anchor="middle" font-size="9.5" fill="#6366f1">pending → specced</text>
+
+  <path d="M350,238 H372" stroke="#94a3b8" stroke-width="1.4" fill="none" marker-end="url(#arw)"/>
+
+  <rect x="374" y="206" width="170" height="64" rx="8" fill="#eef2ff" stroke="#6366f1"/>
+  <text x="459" y="226" text-anchor="middle" font-size="11" font-weight="600" fill="#312e81">localagent-test-author</text>
+  <text x="459" y="243" text-anchor="middle" font-size="10" fill="#4f46e5">tests, confirmed red</text>
+  <text x="459" y="259" text-anchor="middle" font-size="9.5" fill="#6366f1">specced → tests-red</text>
+
+  <path d="M544,238 H578" stroke="#94a3b8" stroke-width="1.4" fill="none" marker-end="url(#arw)"/>
+
+  <!-- visibility wall -->
+  <path d="M562,198 V282" stroke="#ef4444" stroke-width="2" stroke-dasharray="6 4"/>
+  <text x="562" y="190" text-anchor="middle" font-size="9.5" font-weight="600" fill="#ef4444">visibility wall · source, not evidence</text>
+
+  <rect x="580" y="206" width="196" height="64" rx="8" fill="#eef2ff" stroke="#6366f1"/>
+  <text x="678" y="226" text-anchor="middle" font-size="11" font-weight="600" fill="#312e81">localagent-implementer</text>
+  <text x="678" y="243" text-anchor="middle" font-size="10" fill="#4f46e5">blind to tests · runs them · fixes</text>
+  <text x="678" y="259" text-anchor="middle" font-size="9.5" fill="#6366f1">tests-red → done</text>
+
+  <path d="M678,270 V298" stroke="#94a3b8" stroke-width="1.4" fill="none" marker-end="url(#arw)"/>
+  <text x="686" y="288" font-size="9.5" fill="#64748b">DONE</text>
+
+  <rect x="580" y="300" width="196" height="56" rx="8" fill="#fffbeb" stroke="#f59e0b"/>
+  <text x="678" y="323" text-anchor="middle" font-size="11.5" font-weight="600" fill="#78350f">Orchestrator check</text>
+  <text x="678" y="341" text-anchor="middle" font-size="10" fill="#b45309">run tests · git diff stub + tests</text>
+
+  <path d="M580,328 H526" stroke="#94a3b8" stroke-width="1.4" fill="none" marker-end="url(#arw)"/>
+  <text x="553" y="322" text-anchor="middle" font-size="9.5" fill="#64748b">green</text>
+
+  <rect x="374" y="300" width="150" height="56" rx="8" fill="#ecfdf5" stroke="#10b981"/>
+  <text x="449" y="323" text-anchor="middle" font-size="11.5" font-weight="600" fill="#065f46">unit done</text>
+  <text x="449" y="341" text-anchor="middle" font-size="10" fill="#047857">interface line → STATE</text>
+
+  <path d="M374,328 H126 V264" stroke="#94a3b8" stroke-width="1.4" fill="none" stroke-dasharray="5 4" marker-end="url(#arw)"/>
+  <text x="250" y="322" text-anchor="middle" font-size="10" fill="#64748b">next unit</text>
+
+  <path d="M66,262 V564" stroke="#94a3b8" stroke-width="1.4" fill="none" marker-end="url(#arw)"/>
+  <text x="74" y="384" font-size="10" fill="#64748b">all units</text>
+  <text x="74" y="397" font-size="10" fill="#64748b">done</text>
+
+  <path d="M678,356 V372" stroke="#ef4444" stroke-width="1.4" fill="none" stroke-dasharray="4 3" marker-end="url(#arr)"/>
+  <text x="686" y="369" font-size="9.5" fill="#ef4444">not green · ESCALATE</text>
+
+  <!-- rework routing -->
+  <rect x="150" y="376" width="626" height="146" rx="6" fill="#fef2f2" stroke="#fca5a5"/>
+  <text x="166" y="394" font-size="10.5" font-weight="600" fill="#7f1d1d">Rework — briefed in stub &amp; criterion terms, never the other side's source</text>
+  <path d="M166,402 H760" stroke="#fca5a5"/>
+  <g font-size="10" fill="#334155">
+    <text x="330" y="418">spec-architect judges — repairs, or unfounded → test-author</text>
+    <text x="330" y="433">spec-architect rewrites → tests + code re-derived</text>
+    <text x="330" y="448">scaffold fixes runner / build config</text>
+    <text x="330" y="463">implementer, with failing behaviour + criterion</text>
+    <text x="330" y="478">revert, re-dispatch the half that edited it</text>
+    <text x="330" y="493">re-cut the unit in PLAN.md, dispatch again</text>
+    <text x="330" y="508">wall drops: test paths to implementer · ≥ 3 → escalate</text>
+  </g>
+  <g font-size="9.5" fill="#7f1d1d" font-family="ui-monospace, 'Cascadia Code', Consolas, monospace">
+    <text x="166" y="418">ESCALATE test-mismatch</text>
+    <text x="166" y="433">ESCALATE contract</text>
+    <text x="166" y="448">ESCALATE toolchain</text>
+    <text x="166" y="463">red after DONE</text>
+    <text x="166" y="478">stub / test edited</text>
+    <text x="166" y="493">ESCALATE too-large</text>
+    <text x="166" y="508">Attempts ≥ 2</text>
+  </g>
+  <g font-size="9.5" fill="#b91c1c" text-anchor="end">
+    <text x="764" y="418">counts</text>
+    <text x="764" y="433">reset on rewrite</text>
+    <text x="764" y="448">free</text>
+    <text x="764" y="463">counts</text>
+    <text x="764" y="478">counts</text>
+    <text x="764" y="493">—</text>
+  </g>
+
+  <path d="M776,449 H810" stroke="#ef4444" stroke-width="1.4" fill="none" stroke-dasharray="4 3" marker-end="url(#arr)"/>
+
+  <!-- phase 3: finalize -->
+  <text x="776" y="556" text-anchor="end" font-size="11" font-weight="600" fill="#64748b">3 · Finalize</text>
+
+  <path d="M196,566 V540" stroke="#ef4444" stroke-width="1.4" fill="none" stroke-dasharray="4 3" marker-end="url(#arr)"/>
+  <text x="206" y="556" font-size="9.5" fill="#ef4444">FIXES_REQUIRED → owning unit back to tests-red</text>
+
+  <rect x="36" y="566" width="190" height="60" rx="8" fill="#eef2ff" stroke="#6366f1" stroke-dasharray="5 4"/>
+  <text x="131" y="591" text-anchor="middle" font-size="11" font-weight="600" fill="#312e81">localagent-e2e</text>
+  <text x="131" y="609" text-anchor="middle" font-size="10" fill="#4f46e5">only if a surface exists</text>
+
+  <path d="M226,596 H248" stroke="#94a3b8" stroke-width="1.4" fill="none" marker-end="url(#arw)"/>
+
+  <rect x="250" y="566" width="160" height="60" rx="8" fill="#eef2ff" stroke="#6366f1"/>
+  <text x="330" y="591" text-anchor="middle" font-size="11" font-weight="600" fill="#312e81">localagent-docs</text>
+  <text x="330" y="609" text-anchor="middle" font-size="10" fill="#4f46e5">docs updated in place</text>
+
+  <path d="M410,596 H432" stroke="#94a3b8" stroke-width="1.4" fill="none" marker-end="url(#arw)"/>
+
+  <rect x="434" y="566" width="150" height="60" rx="8" fill="#f8fafc" stroke="#cbd5e1"/>
+  <text x="509" y="591" text-anchor="middle" font-size="11.5" font-weight="600" fill="#334155">memory</text>
+  <text x="509" y="609" text-anchor="middle" font-size="10" fill="#64748b">decisions · gotchas · prune</text>
+
+  <path d="M584,596 H606" stroke="#94a3b8" stroke-width="1.4" fill="none" marker-end="url(#arw)"/>
+
+  <rect x="608" y="566" width="168" height="60" rx="8" fill="#f8fafc" stroke="#cbd5e1"/>
+  <text x="692" y="591" text-anchor="middle" font-size="11.5" font-weight="600" fill="#334155">commit / PR</text>
+  <text x="692" y="609" text-anchor="middle" font-size="10" fill="#64748b">work tracking updated</text>
+
+  <!-- right column: ledger, escalation, legend -->
+  <rect x="812" y="78" width="164" height="278" rx="8" fill="#f8fafc" stroke="#94a3b8"/>
+  <text x="826" y="100" font-size="11.5" font-weight="700" fill="#0f172a">STATE.md</text>
+  <text x="826" y="115" font-size="10" fill="#64748b">the ledger, not the context</text>
+  <path d="M826,124 H962" stroke="#e2e8f0"/>
+  <g font-size="10" fill="#334155">
+    <text x="826" y="142">written after every step</text>
+    <text x="826" y="157">re-read every round</text>
+    <text x="826" y="172">survives a context reset</text>
+  </g>
+  <text x="826" y="198" font-size="10" font-weight="600" fill="#334155">status ladder</text>
+  <g font-size="9.5" fill="#475569" font-family="ui-monospace, 'Cascadia Code', Consolas, monospace">
+    <text x="826" y="214">pending</text>
+    <text x="826" y="228">→ specced</text>
+    <text x="826" y="242">→ tests-red</text>
+    <text x="826" y="256">→ done</text>
+  </g>
+  <text x="826" y="282" font-size="10" font-weight="600" fill="#334155">per unit</text>
+  <g font-size="10" fill="#334155">
+    <text x="826" y="297">Attempts counter</text>
+    <text x="826" y="312">interface lines</text>
+    <text x="826" y="327">test · e2e cmd · driver</text>
+    <text x="826" y="342">Blockers · Phase</text>
+  </g>
+
+  <rect x="812" y="380" width="164" height="142" rx="8" fill="#fef2f2" stroke="#ef4444"/>
+  <text x="826" y="401" font-size="11.5" font-weight="700" fill="#7f1d1d">Escalation</text>
+  <g font-size="10" fill="#7f1d1d">
+    <text x="826" y="419">unrouted ESCALATE</text>
+    <text x="826" y="433">BLOCKED dispatch</text>
+    <text x="826" y="447">unowned e2e fix</text>
+    <text x="826" y="461">past attempt budget</text>
+  </g>
+  <path d="M826,470 H962" stroke="#fca5a5"/>
+  <g font-size="10" fill="#b91c1c">
+    <text x="826" y="486">→ STATE Blockers</text>
+    <text x="826" y="500">→ Phase: blocked</text>
+    <text x="826" y="514">→ stop, surface to user</text>
+  </g>
+
+  <g font-size="9.5" fill="#64748b">
+    <rect x="812" y="554" width="18" height="11" rx="2" fill="#eef2ff" stroke="#6366f1"/>
+    <text x="838" y="563">subagent</text>
+    <rect x="812" y="572" width="18" height="11" rx="2" fill="#fffbeb" stroke="#f59e0b"/>
+    <text x="838" y="581">orchestrator gate</text>
+    <rect x="812" y="590" width="18" height="11" rx="2" fill="#f8fafc" stroke="#94a3b8" stroke-dasharray="3 2"/>
+    <text x="838" y="599">conditional step</text>
+    <path d="M812,614 H830" stroke="#ef4444" stroke-width="2" stroke-dasharray="4 3"/>
+    <text x="838" y="617">wall · rework path</text>
+  </g>
+
+  <text x="24" y="664" font-size="10" fill="#64748b">Every agent: fresh context, called by name, one at a time · brief = working dir · constraints · task · input paths, never content</text>
+</svg>

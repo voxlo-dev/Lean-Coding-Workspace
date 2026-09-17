@@ -5,8 +5,6 @@
     </marker>
   </defs>
 
-  <rect x="0" y="0" width="980" height="450" rx="12" fill="#fbfbfd"/>
-
   <!-- setup -->
   <rect x="24" y="180" width="150" height="64" rx="8" fill="#eef2ff" stroke="#6366f1"/>
   <text x="99" y="206" text-anchor="middle" font-size="11.5" font-weight="600" fill="#312e81">/project-initialiser</text>
@@ -54,8 +52,7 @@
   <text x="888" y="342" text-anchor="middle" font-size="9.5" fill="#4f46e5">a version</text>
 
   <!-- loop back -->
-  <path d="M800,244 V404 Q800,416 788,416 H296 Q284,416 284,404 V250"
+  <path d="M800,244 V404 Q800,416 788,416 H670 M480,416 H296 Q284,416 284,404 V250"
         stroke="#94a3b8" stroke-width="1.4" fill="none" stroke-dasharray="5 4" marker-end="url(#arw)"/>
-  <rect x="486" y="404" width="178" height="20" rx="4" fill="#fbfbfd"/>
   <text x="575" y="418" text-anchor="middle" font-size="10" fill="#64748b">sprint done → next sprint</text>
 </svg>
