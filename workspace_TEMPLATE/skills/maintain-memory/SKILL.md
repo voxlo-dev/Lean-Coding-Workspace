@@ -5,7 +5,7 @@ description: "Use at the memory step of the minimal and dynamic workflows, or wh
 
 # Maintain Memory
 
-The workspace uses Markdown memory, not a required plugin. `workspace-install` enables each scope only where the selected harness can load it. Curate the right fact, keep the index lean and **remove what's no longer true**.
+The workspace uses Markdown memory, not a required plugin. `workspace-sync` enables each scope only where the selected harness can load it. Curate the right fact, keep the index lean and **remove what's no longer true**.
 
 ## The three scopes — pick the narrowest that fits
 
@@ -13,9 +13,9 @@ The workspace uses Markdown memory, not a required plugin. `workspace-install` e
 | --- | --- | --- | --- |
 | **Project** | `{home}/projects/<repo>/memory/` | native, auto, every session where the target has one | facts true only for this repo |
 | **Domain** | `~/.agents/domains/{x}-domain/DOMAIN-MEMORY.md` — the master, never the repo's copy | pointed at per project by `project-initialiser` | facts true for every project of this domain |
-| **Global** | `~/.agents/memory/MEMORY.md` | pointed at once by `workspace-install` | facts true everywhere |
+| **Global** | `~/.agents/memory/MEMORY.md` | pointed at once by `workspace-sync` | facts true everywhere |
 
-Each file exists **once** and every harness is pointed at that one path — by an **import** in the instruction file (Claude Code's `@`) or an **instructions list** in the config (OpenCode's). A harness with neither lever still reaches the file by path, it just never has it in context — `workspace-install` reports that scope as read-on-demand rather than inlining a copy the next write would strand. So: **write to the file, never to an instruction file**, and never chase a second copy.
+Each file exists **once** and every harness is pointed at that one path — by an **import** in the instruction file (Claude Code's `@`) or an **instructions list** in the config (OpenCode's). A harness with neither lever still reaches the file by path, it just never has it in context — `workspace-sync` reports that scope as read-on-demand rather than inlining a copy the next write would strand. So: **write to the file, never to an instruction file**, and never chase a second copy.
 
 Default to **project**; promote only once a learning is clearly that broad. When scope becomes clearer later, **move** the entry.
 
@@ -43,4 +43,4 @@ Default to **project**; promote only once a learning is clearly that broad. When
 
 Create it with superpowers' **skill-creator** and place it by scope: global → `~/.agents/skills/{skill-name}/` · domain → the domain master under `~/.agents/domains/{x}-domain/` · project → the repo's `.agents/skills/`. It must be a **direct** child of `skills/` — grouping subfolders aren't discovered — and a target that doesn't scan there is **linked** to the folder, never given a copy (`project-initialiser` owns the mechanics).
 
-A brand-new skill *folder* is usually discovered only on the next session — flag this to the user, as with a brand-new domain/global memory file: that only enters context once the target's adapter wires it (`domain-initialiser` / `workspace-install` do this) and the session restarts. Project memory needs no wiring where the target has it natively.
+A brand-new skill *folder* is usually discovered only on the next session — flag this to the user, as with a brand-new domain/global memory file: that only enters context once the target's adapter wires it (`domain-initialiser` / `workspace-sync` do this) and the session restarts. Project memory needs no wiring where the target has it natively.

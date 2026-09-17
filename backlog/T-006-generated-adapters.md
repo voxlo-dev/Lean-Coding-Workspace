@@ -1,6 +1,6 @@
 # T-006 — Generate adapters per harness instead of shipping three
 
-- **Summary:** replace the three hand-authored `adapters/` with a probe-and-generate flow, so onboarding any harness is a documented procedure rather than an author's favour, and split `workspace-install` along the line where that procedure actually divides
+- **Summary:** replace the three hand-authored `adapters/` with a probe-and-generate flow, so onboarding any harness is a documented procedure rather than an author's favour, and split `workspace-sync` along the line where that procedure actually divides
 - **Category:** feature
 - **Importance:** high
 - **Effort:** L
@@ -14,7 +14,7 @@ Cursor, whatever comes next — means hand-authoring an overlay from scratch, wh
 invisible: `adapters/opencode/` is four short files, and nothing in them says that the agents
 directory is singular, that `skills.paths` would be redundant, or how either was established.
 
-`workspace-install` has meanwhile grown two jobs with different lifecycles. Learning what a harness
+`workspace-sync` has meanwhile grown two jobs with different lifecycles. Learning what a harness
 needs is rare, expensive and needs the user. Applying what is already known is frequent, mechanical
 and should be boring. One skill doing both is why the current one is ten steps long and why a repair
 run re-reads research it does not need.
@@ -52,11 +52,15 @@ Recommended cut is **by the lifecycle of a harness**, not by first-run vs re-run
 - **onboard a harness** — probe, fill the manifest, generate the overlay, verify. Once per harness,
   ever. A second machine running the same harnesses never touches it.
 - **sync the workspace** — copy the shared home, apply each known overlay, merge config, install
-  capabilities, verify. Every install and every repair, identical either way.
+  capabilities, verify. Every install and every repair, identical either way. **This half exists:**
+  `workspace-sync` in `.agents/skills/`, with the bootstrap and the once-only personalisation split
+  off into `INSTALL.md` — prose rather than a skill, so a fresh machine can follow it before
+  anything is cloned. What is left for this ticket is the **onboard** half.
 
-An init/update split was the first instinct but cuts the wrong way: a fresh install on a machine
-whose harnesses are already known needs no research, while adding a fourth harness to a long-running
-workspace does. The expensive part follows the harness, not the calendar.
+An init/update split cuts the wrong way for the *skills*: a fresh install on a machine whose
+harnesses are already known needs no research, while adding a fourth harness to a long-running
+workspace does. The expensive part follows the harness, not the calendar. It does hold for the
+**entry point**, which is why `INSTALL.md` is a document and not a third skill.
 
 ## The open decision: are generated adapters tracked?
 

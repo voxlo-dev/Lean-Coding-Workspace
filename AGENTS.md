@@ -31,8 +31,10 @@ are an **installed** copy and off limits to any work done here. Never `cp`, neve
 it by hand.
 
 - Source of truth is `workspace_TEMPLATE/` in this repo. Change it here.
-- Syncing into a selected harness happens **only** when the user runs `/workspace-install`, and only
-  the user starts it (the skill is `disable-model-invocation`). It is also the repair path.
+- Syncing into a selected harness happens **only** when the user runs `workspace-sync`, and only the
+  user starts it (`disable-model-invocation`). It is also the repair path, and it lives in this
+  repo's `.agents/skills/` because its inputs are `workspace_TEMPLATE/` and `adapters/`. A fresh
+  machine comes through `INSTALL.md`, which owns the clone and the once-only personalisation.
 - Consequence: a change made here is not live until the user syncs and restarts that harness.
   Say that when handing work over — don't imply an edit took effect.
 - An install may legitimately differ in `~/.agents/memory/`, the domain masters, `{home}/projects/`
@@ -54,13 +56,16 @@ workspace_TEMPLATE/            ← harness-neutral; installs to ~/.agents/ excep
 └── DISPATCH-GUIDE_TEMPLATE.md ←   filled per machine into ~/.agents/, never copied by the installer
 adapters/{target}/             ← install overlay, one per harness; the ONLY place a harness is named
 └── {paths as they land in {home}}
+.agents/skills/                ← this repo's own skills, incl. `workspace-sync` — it reads the two
+                                 directories above, so it ships with them, not with the template
+INSTALL.md                     ← the install guide: prose, no skill, fetchable before anything exists
 backlog/                       ← tickets for this repo's own work (`T-NNN-{slug}.md` + `backlog.md`)
 assets/*.svg                   ← README diagrams (session flow, skill/doc map)
 README.md                      ← end-user facing: what this is, install, how it fits together
 AGENTS.md                      ← this file
 ```
 
-`.agents/skills/` holds this repo's **own** skills (`compress`), tracked, with `.claude/skills/{name}`
+`.agents/skills/` holds this repo's **own** skills (`compress`, `workspace-sync`), tracked, with `.claude/skills/{name}`
 junctioned to each — the project-scope form of the same one-home rule. `.claude/settings.json` is
 tracked as the one exception: it enables the `plugin-dev` plugin **for this repo only**, since
 authoring skills, agents and hooks is this repo's domain and nowhere else's. Not tracked (see
@@ -75,7 +80,7 @@ authoring skills, agents and hooks is this repo's domain and nowhere else's. Not
   there, never given a copy — a copy is what let the installed skills drift into two mangled versions.
 - **Every skill needs frontmatter** `name` + `description`; the description is the *only* thing an
   agent picks by, so it must say when to reach for the skill, not what it contains.
-  `disable-model-invocation: true` marks user-only skills (currently `workspace-install`).
+  `disable-model-invocation: true` marks user-only skills (currently `workspace-sync`).
 - **A skill's helper files** (`templates/`, `references/`) live inside its own folder and are
   referenced from `SKILL.md` — they load on demand, which is the whole point. **Agent definitions are
   the exception:** a harness registers them from its own agents directory and scans that directory
@@ -84,7 +89,7 @@ authoring skills, agents and hooks is this repo's domain and nowhere else's. Not
   other's keys — safe: `name` `disallowedTools` `skills` `hooks` (Claude Code), `mode` `permission`
   (OpenCode), `description` (both). **Never a key both define differently** — `model` and `tools`
   each take a different type per harness and make the file invalid in one of them.
-- **Only `adapters/` may name a harness**, and only `workspace-install` reads it. Each is an **install
+- **Only `adapters/` may name a harness**, and only `workspace-sync` reads it. Each is an **install
   overlay** — files already at the paths they land on in `{home}`, whatever a *later* skill needs
   under `adapter/`, so every other skill says `{home}/adapter/…` and an absent folder means that
   target needs none. Hence: **an abstraction with no adapter behind it is a hole, not a design.**

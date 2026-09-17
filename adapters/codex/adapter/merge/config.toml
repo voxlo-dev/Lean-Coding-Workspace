@@ -1,4 +1,4 @@
-# Merged into ~/.codex/config.toml by workspace-install. Keys already present stay as they are.
+# Merged into ~/.codex/config.toml by workspace-sync. Keys already present stay as they are.
 
 [marketplaces.claude-plugins-official]
 # set by `codex` when the marketplace is added; listed here so a repair can detect its absence

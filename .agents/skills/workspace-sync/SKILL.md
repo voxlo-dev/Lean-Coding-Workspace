@@ -1,18 +1,16 @@
 ---
-name: workspace-install
-description: "Use to bootstrap or repair the global workspace in one or more harnesses: copy the shared template, apply the target's adapter, collect system + user info into AGENTS.md, install the required capabilities, verify them. Explicit-invoke."
+name: workspace-sync
+description: "Use to sync or repair the global workspace in one or more harnesses: copy the shared template, apply the target's adapter, install the required capabilities, verify them. Runs from the workspace repo; the first install on a machine comes through INSTALL.md. Explicit-invoke."
 disable-model-invocation: true
 ---
 
-# Workspace Install
+# Workspace Sync
 
-Install or repair **only the targets the user selects**. Copy what's missing, merge instructions, never touch user-owned state. Pause where the user must act (steps 6, 8).
+Sync **only the targets the user selects**. Copy what's missing, merge instructions, never touch user-owned state. Pause where the user must act (steps 4, 5).
 
-**Bootstrap note:** on a fresh machine this skill isn't installed yet, so the first run is Read from the workspace and followed by hand. That's expected.
+Its inputs are `workspace_TEMPLATE/` and `adapters/`, so it runs from the workspace repo and nowhere else. **`{workspace}`** = that clone (usually the cwd). Substitute the real path.
 
-**`{workspace}`** = the repo holding `workspace_TEMPLATE/` and `adapters/` (usually the cwd). Substitute the real path.
-
-**Fresh vs repair:** everything below is idempotent — **skip any step whose result already holds** (file correct, capability working) and act on what's missing or broken. Tell the user which steps you skip and why.
+**Fresh vs repair is not a mode** — everything below is idempotent: **skip any step whose result already holds** (file correct, capability working), act on what's missing or broken, and say which steps you skipped. The once-only half of a first install — system info, the user interview, the optional rules — belongs to `{workspace}/INSTALL.md`: a target with unfilled **User Info** or **System Info** gets pointed back there, never interviewed here.
 
 ## 1. Select targets — ask
 
@@ -46,8 +44,7 @@ Below, `{home}` and `{project-agent-dir}` mean the selected row's values.
   writes `~/.agents/DISPATCH-GUIDE.md` from a live probe instead. Absent = no dispatch configured,
   a valid state the workflows handle.
 
-  Then link each skill folder into the directory a non-standard target does read — `ln -s ~/.agents/skills/{name} {home}/skills/{name}`, `mklink /J` on Windows. **Per folder, never the `skills/` directory itself**, which the harness writes its own internals into. A real directory where a link belongs is the old duplicated install: diff it against the template, salvage what only it has, replace it.
-
+- Then link each skill folder into the directory a non-standard target does read — `ln -s ~/.agents/skills/{name} {home}/skills/{name}`, `mklink /J` on Windows. **Per folder, never the `skills/` directory itself**, which the harness writes its own internals into. A real directory where a link belongs is the old duplicated install: diff it against the template, salvage what only it has, replace it.
 - **On a repair, `-n` is not enough** — a skill whose template version changed keeps the old installed copy. Two kinds of file:
   - **workspace-owned** — `~/.agents/{skills,domains/domain_TEMPLATE,project_TEMPLATE}/`, plus `{home}`'s `agents/` and `adapter/`: overwrite from the template or the overlay (`cp -r`, no `-n`). A user edit inside the installed copy is lost **by design**; real customisations belong in the workspace repo. Deletions need doing explicitly — a skill or agent renamed, moved or dropped in the template leaves its old copy behind and keeps loading; check for a stale *home* too, not just a stale file.
   - **user-owned** — `~/.agents/memory/`, `~/.agents/DISPATCH-GUIDE.md`, the domain *masters* beside their template, `{home}/projects/`, and the target's own configuration (`settings.json`, `config.toml`, `opencode.jsonc`, `.mcp.json`): leave them alone. A master is generated, not templated (`domain-initialiser` rebuilds one on request).
@@ -80,17 +77,7 @@ missing rather than working around it. A merge keeps keys already present and su
 
 For Claude Code specifically, `{home}/CLAUDE.md` may already exist. It is a shim, so a conflict means the user put rules in the wrong file: move them into `AGENTS.md` rather than keeping two homes.
 
-## 4. Collect system info → `AGENTS.md`
-
-Detect OS + version, CPU/RAM/GPU, and the default dev environment (shells, installed languages/runtimes, editors). Write a short summary into **System Info**. (Repair: only if stale.)
-
-## 5. Interview the user → `AGENTS.md`
-
-Ask in plain chat — **not** the question tool — so the user can answer freely or skip. One short message covering: preferred spoken language · role / job · experience level and strong areas · favourite languages, frameworks, tools.
-
-**"No answer" is always fine.** Pause for the reply, then write what they gave into **User Info**, skipping anything declined. (Repair: skip if already filled.)
-
-## 6. Install the required capabilities
+## 4. Install the required capabilities
 
 Only the ones not already working, and only where the target can host them. Memory is **native Markdown, no plugin** — step 2 seeded `~/.agents/memory/MEMORY.md` and step 3 pointed the target at it or declared it missing. See `maintain-memory`.
 
@@ -105,11 +92,11 @@ Needed by `release` and any project on the PR flow; skip for a user working pure
 - **`gh` CLI** — `winget install --id GitHub.cli` / `brew install gh` / per distro. Then **the user runs `gh auth login`**: interactive and browser-based, so pause here.
 - **`github` plugin** — a wrapper around a remote MCP server authenticating via `GITHUB_PERSONAL_ACCESS_TOKEN`. **Without that variable it silently exposes zero tools.** Cheapest source is the login just done: `setx GITHUB_PERSONAL_ACCESS_TOKEN "$(gh auth token)"` / shell-profile equivalent. Say plainly it lands in the environment in clear text; offer a scoped PAT instead.
 
-## 7. Restart — pause
+## 5. Restart — pause
 
-**Only if step 6 changed anything.** Ask the user to restart each affected harness (and the terminal), then resume; **stop here** until they confirm. A new environment variable needs the restart too, or the MCP server starts unauthenticated. Nothing changed → say so and skip.
+**Only if step 4 changed anything.** Ask the user to restart each affected harness (and the terminal), then resume; **stop here** until they confirm. A new environment variable needs the restart too, or the MCP server starts unauthenticated. Nothing changed → say so and skip.
 
-## 8. Verify each target independently
+## 6. Verify each target independently
 
 Per selected target, confirm each capability is actually **working**, not merely present — **never that a scope is loaded because its file exists**: global instructions load, skills are discoverable this session, agents dispatch where the target supports them, MCP/plugin entry points run (no failing hook, no error on invoke), memory resolves or is reported as stored and manual, and domains stay inert until `project-initialiser` installs one.
 
@@ -117,10 +104,6 @@ Each target has levers that answer this without a model call, and they cost noth
 
 Report each target as **passed · skipped · failed**. For any failure propose a brief troubleshooting plan and **get the user's OK before any tool calls**. Two traps behind a capability that is "installed" yet silently exposes nothing: an orphaned or dependency-incomplete cache directory shadowing the working one, and a remote MCP server whose credential is missing — `enabledPlugins: true` in `settings.json` says nothing about either. For **github** specifically, `get_me` returning your account is the proof; `gh auth status` is the separate one.
 
-## 9. Offer to capture working rules → `AGENTS.md` (optional)
+## 7. Done — pause for review
 
-The install is essentially complete. **Ask whether the user wants further rules** on language, version control (commit/branch/PR style), and code style. Yes → collect them in plain chat and fill the matching **RULES** subsections. No → keep the template defaults.
-
-## 10. Done — pause for review
-
-Summarise per target what was installed/changed and what was written into `AGENTS.md`. Ask the user to review and adjust before first use.
+Summarise per target what was synced or changed. A first install continues at `INSTALL.md`'s personalisation step; otherwise ask the user to review before further use.
