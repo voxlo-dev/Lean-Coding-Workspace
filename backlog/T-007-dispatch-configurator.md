@@ -11,7 +11,7 @@
 **The dispatch configuration is machine-local and the repo must not carry it.** Which harnesses are
 installed, which providers hold credit, which models fit the GPU: all of it differs per machine and
 none of it survives a copy. The workspace therefore ships `workspace_TEMPLATE/DISPATCH-GUIDE_TEMPLATE.md`
-and nothing else; the filled guide is user-owned, `workspace-install` never writes or overwrites it.
+and nothing else; the filled guide is user-owned, `workspace-sync` never writes or overwrites it.
 
 **Written by hand it goes stale silently.** A model dropped from the local server, a credential that
 expired, an agent that fell back to `mode: subagent` after a sync — each one turns into a dispatch

@@ -26,7 +26,7 @@ questions by reading half the repo. This workspace fixes that with three ideas:
 - A harness: Claude Code (verified) · Codex (agents need a format transform, dispatch unverified) ·
   OpenCode (paths unconfirmed — the installer asks)
 - Git
-- Three plugins, installed for you by the install skill: `superpowers`, `codegraph`, `context7`
+- Three plugins, installed for you by the sync: `superpowers`, `codegraph`, `context7`
 - Optional, offered during install: the `github` plugin and the `gh` CLI — needed for the PR flow
   and for releases, skippable if you only work locally
 - Optional, for dispatch: OpenCode plus a model endpoint (a local server, a vendor key, an
@@ -34,26 +34,26 @@ questions by reading half the repo. This workspace fixes that with three ideas:
 
 ## Install
 
-```bash
-git clone <this-repo> lean-coding-workspace
-```
+Open your harness anywhere and say:
 
-Then open the target harness **in that folder** and say:
+> Fetch https://raw.githubusercontent.com/voxlo-dev/Lean-Coding-Workspace/main/INSTALL.md and follow it.
 
-> Read `workspace_TEMPLATE/skills/workspace-install/SKILL.md` and follow it. Ask me which targets to install.
+One that would rather not fetch: clone this repo and point it at [`INSTALL.md`](INSTALL.md) on disk.
+The guide clones, runs the `workspace-sync` skill, then fills in who you are and what your machine
+is — plain prose rather than a skill, so an agent *or* a human can follow it before anything exists.
 
-The skill is not installed yet, so the first run is read-and-follow by hand. It asks which harnesses
-to install into, then copies the workspace once into `~/.agents/` — skills, memory, domains and the
-project scaffold, shared by every harness; `skills/` there is the Agent Skills standard, which Codex,
+The sync copies the workspace once into `~/.agents/` — skills, memory, domains and the project
+scaffold, shared by every harness; `skills/` there is the Agent Skills standard, which Codex,
 OpenCode, Gemini CLI and Cursor all read and Claude Code is linked into. Per harness it installs only
-what that harness reads at a fixed path — the instruction file and the agents — plus its overlay. Then it detects your system,
-interviews you briefly, and verifies each capability actually works rather than merely exists.
+what that harness reads at a fixed path — the instruction file and the agents — plus its overlay, and
+verifies each capability actually works rather than merely exists.
 
 **Restart each changed harness afterwards.** New skill folders are only discovered in a fresh session.
 
-Re-running `/workspace-install` is the **repair and sync path**: it overwrites workspace-owned
+Re-running `workspace-sync` from the clone is the **repair path**: it overwrites workspace-owned
 skills, agents and project scaffolding, merges shared instructions and preserves user-owned memory,
-projects, domains and configuration.
+projects, domains and configuration. It lives in the repo rather than in the installed workspace,
+because the template it copies from lives there too.
 
 ## How a session goes
 
@@ -90,7 +90,7 @@ Supporting skills, mostly invoked by the workflows rather than by you:
 | `maintain-docs` · `maintain-memory` | the docs and memory steps; both prune as well as write |
 | `/checkpoint` | end a chat at a phase boundary: a short untracked handout the next chat reads and deletes |
 | `/domain-initialiser` | build a domain master (see below) |
-| `/workspace-install` | install, repair, sync |
+| `workspace-sync` | sync and repair an install (in this repo, not the workspace) |
 
 ## Work items — the Markdown kanban
 
@@ -204,8 +204,8 @@ system-independent engineering knowledge belongs in `docs/dev.md`. Never both.
 The whole workspace is Markdown — fork it and edit. Two things worth knowing:
 
 - **Edit the template, not an install.** Installed skills, agents and project scaffolding are
-  overwritten on every sync. Change `workspace_TEMPLATE/` in the repo, then re-run
-  `/workspace-install`.
+  overwritten on every sync. Change `workspace_TEMPLATE/` in the repo, then re-run `workspace-sync`
+  from it.
 - **`AGENTS.md` is shared.** Your **User Info**, **System Info** and custom **RULES** survive a
   sync; the structural parts get merged. Keep it lean — it is loaded in every single session, and
   every token here is a token you pay for forever.
@@ -225,4 +225,6 @@ workspace_TEMPLATE/            ← harness-neutral; installs to ~/.agents/ excep
 ├── memory/                    ←   global memory seed
 └── DISPATCH-GUIDE_TEMPLATE.md ←   per-machine dispatch config, filled live, not installed
 adapters/{harness}/            ← install overlay: the few files that differ, at the paths they land on
+.agents/skills/workspace-sync/ ← the sync skill: it reads the two directories above, so it lives here
+INSTALL.md                     ← the install guide, followable before any of this is installed
 ```
