@@ -7,11 +7,11 @@ Always loaded. Says *when* something applies and *where* the rest lives — neve
 ## User Info
 
 Assume the user is capable, but lazy with words, because he can't type as fast as you.
-{More collected by `workspace-install` skill}
+{More collected by `INSTALL.md`'s personalisation step}
 
 ## System Info
 
-{Collected by `workspace-install` skill}
+{Collected by `INSTALL.md`'s personalisation step}
 
 ## RULES
 
@@ -38,14 +38,14 @@ Assume the user is capable, but lazy with words, because he can't type as fast a
 
 ## Required capabilities
 
-`workspace-install` installs these per target — the install path differs, the capability does not. One it cannot provide stays **visible as missing**, never silently becomes an instruction.
+`workspace-sync` installs these per target — the install path differs, the capability does not. One it cannot provide stays **visible as missing**, never silently becomes an instruction.
 
 | Capability | Reach for it |
 | --- | --- |
-| superpowers | Brainstorm & spec phases; authoring any new reusable skill |
+| superpowers | Brainstorm & spec phases; authoring any new reusable skill. **`systematic-debugging` only where a real bug's cause is unclear** — a cause you already understand is fixed directly |
 | codegraph | Every structural / "how does X work" / impact question in an **indexed** project — it *replaces* file-reading exploration, so never spawn an Explore subagent for what the graph knows. Self-describes via its MCP server |
 | context7 | The default source for **upstream** docs (libraries, frameworks, SDKs, APIs) at implementation time — over recall, over WebSearch. No overlap with codegraph (*your* code) or maintain-docs (*your* docs) |
-| github *(optional)* | PRs, reviews, issues, repo search, secret scanning; dead without its token (`workspace-install` sets it up with `gh`). **No Actions, no release creation** — those, tagging and local git are `gh` |
+| github *(optional)* | PRs, reviews, issues, repo search, secret scanning; dead without its token (`workspace-sync` sets it up with `gh`). **No Actions, no release creation** — those, tagging and local git are `gh` |
 
 ## Domains
 
@@ -59,7 +59,7 @@ Native Markdown, no plugin. `maintain-memory` curates it and **prunes stale entr
 
 - **Project** — `{home}/projects/<repo>/memory/`, the one scope a harness stores itself, so it exists only where that harness has it.
 - **Domain** — `~/.agents/domains/{x}-domain/DOMAIN-MEMORY.md` in the master, pointed at per project by `project-initialiser` — **never the repo's copy of the domain**, which is disposable, so a fact written there would never reach a sibling project.
-- **Global** — `~/.agents/memory/MEMORY.md`, wired once by `workspace-install`.
+- **Global** — `~/.agents/memory/MEMORY.md`, wired once by `workspace-sync`.
 
 Wiring means **pointing** a harness at the one file — an import or an instructions list; never inlining a copy, which is a cache the next write strands. Where a harness offers neither lever the file is **readable but not loaded**: open it yourself before relying on memory, and say that it wasn't in context rather than that there was none. Domain and global memory load in full — keep them lean. **Memory vs. docs — one home, never both:** machine-bound facts (absolute paths, local installs, personal tool setup, this-machine-only quirks) → **memory**; system-independent, generally true engineering knowledge → **`docs/dev.md`**. In doubt, ask whether it would still be true on someone else's machine.
 
@@ -78,7 +78,7 @@ Moves: `plan` and any run capture → Draft/Backlog · `open-sprint` pulls → t
 
 ## Workflows (skills — invoke, don't read files)
 
-An agent may invoke these when the user names one; the user can also run them with `/name` where supported. Each skill's own description says what it does — pick by it, don't re-derive. Only `workspace-install` is user-only: it writes to the global workspace and is also the repair/sync path, so never copy the template over a live workspace by hand. Bringing an already-initialised *project* onto the current structure is `project-initialiser`'s docs-migration step — individual work, with the user, never a fixed recipe.
+An agent may invoke these when the user names one; the user can also run them with `/name` where supported. Each skill's own description says what it does — pick by it, don't re-derive. Installing or repairing the workspace itself is not among them: that is `INSTALL.md` and the `workspace-sync` skill, both living in the workspace repo and started by the user alone — so never copy the template over a live workspace by hand. Bringing an already-initialised *project* onto the current structure is `project-initialiser`'s docs-migration step — individual work, with the user, never a fixed recipe.
 
 **The workflow gate applies only to software development** — building or changing code, features, bugfixes. Non-dev work (writing, research, general questions, one-off shell tasks) skips it: act directly, with these rules relaxed to fit the task. For development it is **mandatory**.
 

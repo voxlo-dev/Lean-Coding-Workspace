@@ -10,6 +10,7 @@ Result of validating `e2e_{feature}.md`. Written by `e2e` to
 - Driver: {framework + invocation, or `agent` / `user`}
 - Context: {this flow alone | full suite} — an isolated green cannot see order dependence
 - Script: {path in the test tree — committed · `.temp/e2e/{name}` — temporary · none}
+- UI pass: {screens reviewed against {mockup} + styleguide — what deviated · `n/a` where this run designed no UI}
 
 ## Steps
 

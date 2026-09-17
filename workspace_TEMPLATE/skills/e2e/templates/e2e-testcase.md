@@ -11,6 +11,7 @@ purely visual judgement).
 - **Validates:** {the user-facing flow this exercises}
 - **Env:** {target the flow runs on, and the command that gets a build onto it}
 - **Preconditions:** {state the flow starts from — fresh install / seeded data / known clock}
+- **Mockup:** {path/link, where the feature was designed — `e2e` checks the screenshots against it · drop the line otherwise}
 
 ## Steps
 
