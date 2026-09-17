@@ -49,7 +49,7 @@ Assume the user is capable, but lazy with words, because he can't type as fast a
 
 ## Domains
 
-A domain is a **capability bundle** — skills, agents, MCP servers, memory, doc sources — and nothing beyond: it never changes a workflow, and its engineering rules are seed for the project's docs, not authority over them. Masters live **inert** in `~/.agents/domains/{x}/`, so nothing domain-specific ever loads globally. `project-initialiser` **projects** one into a repo, each part onto the path its harness already scans (so e.g. the Unity MCP runs only in Unity repos). **Several per project, as peers** — the projection is their union, and a colliding name is asked about, never merged. `domain-initialiser` builds a master. Both skills own the mechanics.
+A domain is a **capability bundle** — skills, agents, MCP servers, memory, doc sources — and nothing beyond: it never changes a workflow, and its engineering rules seed the project's docs rather than governing them. Masters live **inert** in `~/.agents/domains/{x}/`, so nothing domain-specific ever loads globally; `project-initialiser` **projects** one into a repo, part by part onto the paths that harness already scans (so e.g. the Unity MCP runs only in Unity repos), and **several per project, as peers**. `domain-initialiser` builds a master. Both skills own the mechanics.
 
 Available masters: {}. Create one with the `domain-initialiser` skill.
 

@@ -189,10 +189,8 @@ Masters live **inert** in `~/.agents/domains/{x}/`, so nothing domain-specific l
 bundle is harness-neutral; `project-initialiser` **projects** it into a repo, each part onto the path
 that harness already scans — skills as a link (or a copy, if you want them in the repo), agents and
 MCP servers into the harness's own directories, memory pointed back at the master. So the Unity MCP
-runs in Unity repos and nowhere else.
-
-**A project can install several**, as peers — a frontend and a backend domain in one tree project
-into the same directories, and a name collision is raised rather than merged.
+runs in Unity repos and nowhere else. **A project can install several**, as peers: a frontend and a
+backend domain project into the same directories.
 
 No masters ship with this repo — you build the ones you need with `/domain-initialiser`.
 
