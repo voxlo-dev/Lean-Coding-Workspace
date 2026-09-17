@@ -30,7 +30,7 @@ Onboard a repo end-to-end. Owns the **initial** doc creation (it does the deep e
 
 6. **Project the domains, install frameworks & test framework**
 
-   A master is **never copied whole** — that nests its skills a level too deep for any harness to discover them. Each part goes onto the path the target already scans:
+   A master is **never copied whole** — that nests its skills a level too deep to be discovered. Each part goes onto the path the target already scans:
 
    | Part of the master | Lands at |
    | --- | --- |
@@ -39,12 +39,12 @@ Onboard a repo end-to-end. Owns the **initial** doc creation (it does the deep e
    | `mcp.json` | one entry per server in the repo's project config |
    | `DOMAIN-MEMORY.md` | an import or instructions entry pointing **into the master** |
 
-   - **The mode is a question about skills only.** Ask once: **`link`** — a junction per folder on the master (`mklink /J` on Windows), gitignored: one home, and a master edit lands in every project at once. **`copy`** — a real copy, tracked: a clone has the domain without the workspace, at the price of a second home to refresh. Everything else is harness plumbing whose shape depends on which harnesses this machine runs, so it stays local and gitignored and is re-projected rather than shared.
-   - `.agents/skills/` is the repo's one skills home — the projected domains and every skill the project writes for itself. Most targets scan it natively; one that does not gets a **link per skill folder** at `{repo}/{project-agent-dir}/skills/{name}`, pointing at the same source, never at the other link and never at `skills/` itself, which a harness writes its own internals into. `workspace-sync` does the same globally, and a real directory where a link belongs is the drift this prevents: diff it against its source, salvage what only it has, replace it.
+   - **Mode — skills only.** Ask once: **`link`**, a junction per folder on the master (`mklink /J` on Windows), gitignored — one home, and a master edit lands in every project at once · **`copy`**, tracked — a clone has the domain without the workspace, at the price of a second home to refresh. Everything else is plumbing shaped by which harnesses this machine runs: local, gitignored, re-projected rather than shared.
+   - `.agents/skills/` is the repo's one skills home — the projected domains and every skill the project writes for itself. Most targets scan it natively; one that does not gets a **link per skill folder** at `{repo}/{project-agent-dir}/skills/{name}`, on the same source rather than on the other link, and never on `skills/` itself, which a harness writes its own internals into. `workspace-sync` does the same globally, and a real directory where a link belongs is the drift this prevents: diff it against its source, salvage what only it has, replace it.
    - **Several domains project as a union.** A colliding skill folder name → ask which wins or have one renamed in its master; never auto-prefix, it falsifies the description agents pick by. A colliding MCP server name → stop, that is a recipe bug.
    - **Register what a scan cannot reach:** merge `{home}/adapter/project-merge/*` into this repo's config of the same name — the MCP servers from `mcp.json`, their pre-approval, and `DOMAIN-MEMORY.md` where the target loads instructions from a list. An empty `project-merge/` means the target needs none of it.
-   - **Record it in `AGENTS.md` → Domains**: one row per domain with its mode. Master plus mode determines the whole projection, so that table is all another machine needs to rebuild it — no separate ledger.
-   - **Seed the docs from each recipe's engineering section, then let go**: test and build knowledge into `docs/dev.md`, shipping rules into `docs/release.md` where the project publishes. The docs are the authority from then on — that is what lets two domains coexist and what lets a domain have no engineering section at all.
+   - **Record it in `AGENTS.md` → Domains**: one row per domain with its mode — master plus mode is the whole projection, so that table is all another machine needs to rebuild it.
+   - **Seed the docs from each recipe's engineering section, then let go**: test and build knowledge into `docs/dev.md`, shipping rules into `docs/release.md` where the project publishes. Those docs are the authority from then on.
    - Install the project's frameworks and runtime packages, then the unit + UI test framework each recipe names.
    - **Audit the git tree before anything is staged** — `git status`, and make `.gitignore` exclude installed packages (`node_modules/`, `.venv/`, `vendor/`), build output (`dist/`, `build/`, `target/`), logs, caches, local env files. Untrack anything already tracked (`git rm --cached`).
 

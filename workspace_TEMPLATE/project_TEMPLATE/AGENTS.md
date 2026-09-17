@@ -4,8 +4,8 @@ Agent-agnostic project guide — the single source for domain, structure and cod
 
 ## Domains
 
-{Installed domains, one row each — master plus mode is the whole projection, so this table is what
-another machine rebuilds it from (`project-initialiser`). Delete the section for a project with none.}
+{Installed domains, one row each — what `project-initialiser` rebuilds the projection from.
+Delete the section for a project with none.}
 
 | Domain | Skills mode | Covers |
 | --- | --- | --- |
