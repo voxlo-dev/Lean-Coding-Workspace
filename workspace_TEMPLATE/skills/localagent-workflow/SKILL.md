@@ -41,7 +41,7 @@ brief.
 **Check the target first**, and check by dispatching, not by looking: no agent directory in `{home}`
 means it registers none, and a directory is not proof the harness reaches what is in it. Some want
 another format — Codex takes TOML with the prompt under `developer_instructions`, which
-`workspace-install` converts — and there the conversion is worth one live dispatch before trusting
+`workspace-sync` converts — and there the conversion is worth one live dispatch before trusting
 it. Cannot dispatch at all → use `dynamic-workflow` rather than letting one context do every step.
 
 `localagent-orchestrator` is the **primary** agent: run the workflow as that session through the
@@ -55,9 +55,10 @@ Every agent runs in a **fresh, isolated context** — no conversation, no earlie
 the repo is. You **call it by name**; never open its definition file, its prompt is not yours to read.
 (An external runner instead sends that file as the system prompt and the brief as the turn.)
 
-**This harness rarely sells the model this workflow is for, so read `~/.agents/DISPATCH-GUIDE.md`
-before the first dispatch** — it holds the launch command, which model each role gets, and the rules
-for sending work out of process. A dispatched agent runs by the same name and returns the same
+**This harness rarely sells the model this workflow is for, so decide first whether the run goes out
+of process, and only then read `~/.agents/DISPATCH-GUIDE.md`** — an in-harness run never opens it.
+It holds the launch command, which model each role gets, and the rules for sending work out of
+process. A dispatched agent runs by the same name and returns the same
 status line, so everything below is unchanged by it: the brief, the sequencing, the gate. No guide,
 or no role for a step → that step runs on this harness, and the wall is prompt-only.
 
@@ -65,7 +66,8 @@ The brief is four things: the **absolute working directory** · the **standing c
 on this step — what the user's prompt and the project's rules impose (conventions, language, hard
 limits), since no agent can see either · the **task**, one or two lines · the **paths** to its declared
 inputs. Pass paths, never inline artifact content, and never test files to `localagent-implementer`
-until the wall drops.
+until the wall drops. **In-harness the brief is the dispatch prompt and the status line the return —
+neither touches disk**; `.temp/dispatch/{id}/` exists only for a run sent out of process.
 
 - **One agent at a time, sequential** — a local model serves one inference at a time; keep that shape
   everywhere so a run behaves the same in every runner.

@@ -19,6 +19,8 @@ procedure — invoke it and follow it.
 - The brief: sprint, feature, the test case path, what the caller's inline run already produced.
 - `artefacts/{sprint}/e2e_{feature}.md` — the case. Missing → `BLOCKED case missing`.
 - `docs/dev.md` (driver invocation) and the flow index it points at.
+- The feature's mockup (spec UI section · `docs/design/mockups/`), where the run designed one — the
+  skill's UI pass needs it.
 
 ## Non-negotiables
 
@@ -27,7 +29,7 @@ procedure — invoke it and follow it.
 - **You validate; the product is not yours to repair.** Script bugs you fix, product bugs you report.
 - **Stay in the stage:** no dispatching, no feature work, no docs beyond the invocation the skill
   makes you record.
-- ~5 failed attempts on the same obstacle → `BLOCKED`, never grind.
+- **3 failed attempts on the same obstacle → `BLOCKED`**, never a fourth.
 
 ## Return
 
