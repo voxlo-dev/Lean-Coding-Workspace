@@ -43,7 +43,7 @@ Surveyed 2026-09-23.
 | frontend-design | anthropics/claude-plugins-official | helper skill | `plugins/frontend-design/skills/frontend-design` | `frontend-design` | distinctive UI craft; `ui-design` uses it where installed |
 | feature-dev | anthropics/claude-plugins-official | workflow, one harness | plugin install | `/feature-dev` | explore → architect → build → review |
 | agency-agents | msitarzewski/agency-agents | agents | `engineering/*`, `testing/*` via its `scripts/install.sh --tool {target}` | — | specialist persona subagents for review and testing |
-| openspec | Fission-AI/OpenSpec | workflow | `skills/openspec-{explore,propose,apply-change,update-change,sync-specs,archive-change}`; needs the npm `openspec` CLI, `openspec init` per project | `openspec-propose` | brownfield changes with living specs: propose → apply → archive
+| openspec | Fission-AI/OpenSpec | workflow | `skills/openspec-{explore,propose,apply-change,update-change,sync-specs,archive-change}`; needs the npm `openspec` CLI, `openspec init` per project | `openspec-propose` | brownfield changes with living specs: propose → apply → archive |
 | bmad | bmad-code-org/BMAD-METHOD | workflow | a core subset of `skills/*` (never `web-bundles/`, `tools/tests/`); needs `uv`, `bmad setup` per project | `bmad` | greenfield product work: PRD, architecture, epics, persona roles |
 
 Excluded: `github/spec-kit` (no skill folders — CLI-generated, `.specify/` constitution competes with `AGENTS.md`) · `affaan-m/ECC` (hooks on six lifecycle events, always-loaded rules, clashes with `e2e-runner`) · `ComposioHQ/awesome-claude-skills` (link list, no license) · `shanraisshan/claude-code-best-practice` (guide) · `Shubhamsaboo/awesome-llm-apps` (tutorials).
