@@ -3,7 +3,6 @@
 [marketplaces.claude-plugins-official]
 # set by `codex` when the marketplace is added; listed here so a repair can detect its absence
 
-[plugins."superpowers@claude-plugins-official"]
 [plugins."context7@claude-plugins-official"]
 [plugins."plugin-dev@claude-plugins-official"]
 # [plugins."github@claude-plugins-official"]   # optional — needs GITHUB_PERSONAL_ACCESS_TOKEN

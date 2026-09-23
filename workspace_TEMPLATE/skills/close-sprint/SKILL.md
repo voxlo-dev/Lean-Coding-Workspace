@@ -35,7 +35,7 @@ Then the scope check — **read-light, and the only thing run is the suite:**
 The one place the sprint gets judged **as a whole**; individual runs only ever saw their own package. **Solo project: off, and don't ask** — run it only on request. Where the rules prescribe review before merge, run it whenever the sprint shipped real feature work or touched shared/core code.
 
 - **Scope:** the cumulative diff against `main` (`main...<sprint-branch>`), not the last commit.
-- **How:** the repo's review command (`/code-review`) or `superpowers:requesting-code-review`. Nothing available → review the diff yourself, prioritised: cross-package seams and duplication first (the classic sprint-level defect per-run reviews can't see), then correctness, then the workspace code-style rules.
+- **How:** the repo's review command (`/code-review`). Nothing available → review the diff yourself, prioritised: cross-package seams and duplication first (the classic sprint-level defect per-run reviews can't see), then correctness, then the workspace code-style rules.
 - **Report, don't repair.** Findings ranked by severity, the user decides. Anything to fix leaves this skill — `minimal-workflow` for a small fix, `dynamic-workflow` if it needs a spec — then come back.
 
 ## 3. Distil, then dissolve the board

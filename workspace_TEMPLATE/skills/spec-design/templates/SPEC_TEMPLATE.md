@@ -46,7 +46,7 @@ Decided by `spec-design`; the pipeline follows it without re-deciding.
 - **Testing:** {none | smoke | core | light-tdd | strict-tdd} · **e2e:** {yes | no}
 - **Test scope:** {which modules / components the tests must cover — not concrete tests}
 - **Smoke script:** {if smoke — path of the committed smoke script the package writes & the happy path it covers, e.g. `scripts/smoke/{feature}.*`; else —}
-- **Delegation:** {inline | delegated | delegated+review}
+- **Delegation:** {inline | delegated}
 - **e2e test case:** {if e2e, link the handoff file `artefacts/{sprint}/e2e_{feature}.md`}
 
 ## Implement packages

@@ -42,7 +42,7 @@ Vendor everything **into the master's folder** so it is self-contained, keeping 
 1. **Skills**, by source kind:
    - **Real marketplace skill** (folder has its own `SKILL.md`, incl. `fullstack-dev-skills` entries) → verify the `SKILL.md` is actually there, then copy the folder into `skills/`. **Trim** it to the domain's need and add a one-line source note at the top so its provenance stays traceable.
    - **Config-only plugin** (LSP/MCP, no `SKILL.md`) → it is not a skill: its server goes into `mcp.json` below, its language server into the recipe's conventions.
-   - **Custom** → author `skills/{name}/SKILL.md` (use superpowers' skill-creator), grounded in the recipe's cited docs.
+   - **Custom** → author `skills/{name}/SKILL.md` (with skill-creator where installed), grounded in the recipe's cited docs.
 
    Keep the recipe's folder names — `project-initialiser` projects several domains into one root.
 2. **MCP servers** — one entry each in `mcp.json`, and install the package it needs. `project-initialiser` translates that neutral shape per target and owns approval.
