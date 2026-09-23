@@ -17,7 +17,8 @@ Concretely, in this repo there is:
 - no workflow gate, no preflight, no autonomy question — no `/plan`, `/open-sprint`,
   `/dynamic-workflow`, `spec-design`, `maintain-docs`, …
 - no sprint, no `artefacts/`, no `docs/` tier system — `backlog/` is the one borrowed convention,
-  a plain ticket index for work not being done now, with no board and no sprint above it
+  a plain ticket index for work not being done now, with no board and no sprint above it; `docs/`
+  is flat research the template's decisions rest on — read it before re-deciding what it settles
 - no `project-initialiser` run, no domain, no scaffolded instruction file — the root `AGENTS.md`
   here is hand-written, not an installed copy
 
@@ -60,6 +61,10 @@ adapters/{target}/             ← install overlay, one per harness; the ONLY pl
                                  directories above, so it ships with them, not with the template
 INSTALL.md                     ← the install guide: prose, no skill, fetchable before anything exists
 backlog/                       ← tickets for this repo's own work (`T-NNN-{slug}.md` + `backlog.md`)
+docs/                          ← research behind template decisions, dated
+├── repo-survey.md             ←   41 coding-agent repos judged; source of the bundle catalog
+├── token-savers.md            ←   token savers in depth; settles headroom
+└── dispatch-bench.md          ←   nine models, four connectors, one unchanged dispatch command
 assets/*.svg                   ← README diagrams (session flow, skill/doc map)
 README.md                      ← end-user facing: what this is, install, how it fits together
 AGENTS.md                      ← this file

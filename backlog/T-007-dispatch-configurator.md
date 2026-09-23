@@ -64,5 +64,5 @@ vendor; it reports what is missing. Not a benchmark harness. Not a dispatcher.
 
 - `workspace_TEMPLATE/DISPATCH-GUIDE_TEMPLATE.md` — the file this skill fills; its CONTRACT block
   holds the fill rules
-- [`dispatch-bench.md`](dispatch-bench.md) — the measurements the mechanism rests on: one unchanged
+- [`dispatch-bench.md`](../docs/dispatch-bench.md) — the measurements the mechanism rests on: one unchanged
   command across nine models and four connector types, and the wall enforced at the tool layer
