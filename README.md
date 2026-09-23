@@ -27,6 +27,9 @@ questions by reading half the repo. This workspace fixes that with three ideas:
   OpenCode (paths unconfirmed — the installer asks)
 - Git
 - Two plugins, installed for you by the sync: `codegraph`, `context7`
+- Optional, offered by the sync: third-party skill bundles from a curated catalog
+  ([`bundles.md`](.agents/skills/workspace-sync/references/bundles.md)) — alternative workflows
+  beside `dynamic-workflow`, or helper skills and agents. The workspace never depends on one
 - Optional, offered during install: the `github` plugin and the `gh` CLI — needed for the PR flow
   and for releases, skippable if you only work locally
 - Optional, for dispatch: OpenCode plus a model endpoint (a local server, a vendor key, an
@@ -228,6 +231,6 @@ workspace_TEMPLATE/            ← harness-neutral; installs to ~/.agents/ excep
 ├── memory/                    ←   global memory seed
 └── DISPATCH-GUIDE_TEMPLATE.md ←   per-machine dispatch config, filled live, not installed
 adapters/{harness}/            ← install overlay: the few files that differ, at the paths they land on
-.agents/skills/workspace-sync/ ← the sync skill: it reads the two directories above, so it lives here
+.agents/skills/workspace-sync/ ← the sync skill and its bundle catalog: it reads the two directories above, so it lives here
 INSTALL.md                     ← the install guide, followable before any of this is installed
 ```
