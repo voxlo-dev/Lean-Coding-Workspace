@@ -1,12 +1,12 @@
 ---
 name: workspace-sync
-description: "Use to sync or repair the global workspace in one or more harnesses: copy the shared template, apply the target's adapter, install the required capabilities, verify them. Runs from the workspace repo; the first install on a machine comes through INSTALL.md. Explicit-invoke."
+description: "Use to sync or repair the global workspace in one or more harnesses: copy the shared template, apply the target's adapter, install the required capabilities and the picked skill bundles, verify them. Runs from the workspace repo; the first install on a machine comes through INSTALL.md. Explicit-invoke."
 disable-model-invocation: true
 ---
 
 # Workspace Sync
 
-Sync **only the targets the user selects**. Copy what's missing, merge instructions, never touch user-owned state. Pause where the user must act (steps 4, 5).
+Sync **only the targets the user selects**. Copy what's missing, merge instructions, never touch user-owned state. Pause where the user must act (steps 4–6).
 
 Its inputs are `workspace_TEMPLATE/` and `adapters/`, so it runs from the workspace repo and nowhere else. **`{workspace}`** = that clone (usually the cwd). Substitute the real path.
 
@@ -46,9 +46,9 @@ Below, `{home}` and `{project-agent-dir}` mean the selected row's values.
 
 - Then link each skill folder into the directory a non-standard target does read — `ln -s ~/.agents/skills/{name} {home}/skills/{name}`, `mklink /J` on Windows. **Per folder, never the `skills/` directory itself**, which the harness writes its own internals into. A real directory where a link belongs is the old duplicated install: diff it against the template, salvage what only it has, replace it.
 - **On a repair, `-n` is not enough** — a skill whose template version changed keeps the old installed copy. Two kinds of file:
-  - **workspace-owned** — `~/.agents/{skills,domains/domain_TEMPLATE,project_TEMPLATE}/`, plus `{home}`'s `agents/` and `adapter/`: overwrite from the template or the overlay (`cp -r`, no `-n`). A user edit inside the installed copy is lost **by design**; real customisations belong in the workspace repo. Deletions need doing explicitly — a skill or agent renamed, moved or dropped in the template leaves its old copy behind and keeps loading; check for a stale *home* too, not just a stale file.
-  - **user-owned** — `~/.agents/memory/`, `~/.agents/DISPATCH-GUIDE.md`, the domain *masters* beside their template, `{home}/projects/`, and the target's own configuration (`settings.json`, `config.toml`, `opencode.jsonc`, `.mcp.json`): leave them alone. A master is generated, not templated (`domain-initialiser` rebuilds one on request).
-- **`AGENTS.md` is always a manual merge:** take the template's structural changes (new sections, reworded rules), keep the user-filled ones — **User Info**, **System Info**, custom **RULES**, **Available masters**.
+  - **workspace-owned** — `~/.agents/{skills,domains/domain_TEMPLATE,project_TEMPLATE}/`, plus `{home}`'s `agents/` and `adapter/`: overwrite from the template or the overlay (`cp -r`, no `-n`). A user edit inside the installed copy is lost **by design**; real customisations belong in the workspace repo. Deletions need doing explicitly — a skill or agent renamed, moved or dropped in the template leaves its old copy behind and keeps loading; check for a stale *home* too, not just a stale file. A name `BUNDLES.md` records is step 5's, never stale here.
+  - **user-owned** — `~/.agents/memory/`, `~/.agents/DISPATCH-GUIDE.md`, `~/.agents/BUNDLES.md`, the domain *masters* beside their template, `{home}/projects/`, and the target's own configuration (`settings.json`, `config.toml`, `opencode.jsonc`, `.mcp.json`): leave them alone. A master is generated, not templated (`domain-initialiser` rebuilds one on request).
+- **`AGENTS.md` is always a manual merge:** take the template's structural changes (new sections, reworded rules), keep the user-filled ones — **User Info**, **System Info**, custom **RULES**, **Available masters** — the bundle rows are step 5's.
 - **Agents install flat**, whatever the source layout: OpenCode folds a subfolder into the agent's ID while Claude Code keys off `name:`, so a nested copy answers to a different name in each. Convert rather than skip where the format differs, one file per agent ID. Nothing else may live in `agents/` — a stray file is scanned as an agent.
 - New skill *folders* are usually discovered only next session — say so rather than claiming they're live.
 
@@ -91,11 +91,22 @@ Needed by `release` and any project on the PR flow; skip for a user working pure
 - **`gh` CLI** — `winget install --id GitHub.cli` / `brew install gh` / per distro. Then **the user runs `gh auth login`**: interactive and browser-based, so pause here.
 - **`github` plugin** — a wrapper around a remote MCP server authenticating via `GITHUB_PERSONAL_ACCESS_TOKEN`. **Without that variable it silently exposes zero tools.** Cheapest source is the login just done: `setx GITHUB_PERSONAL_ACCESS_TOKEN "$(gh auth token)"` / shell-profile equivalent. Say plainly it lands in the environment in clear text; offer a scoped PAT instead.
 
-## 5. Restart — pause
+## 5. Skill bundles *(optional)*
 
-**Only if step 4 changed anything.** Ask the user to restart each affected harness (and the terminal), then resume; **stop here** until they confirm. A new environment variable needs the restart too, or the MCP server starts unauthenticated. Nothing changed → say so and skip.
+Third-party skill sets, peers of the workspace: **no workspace skill ever invokes one**, so any can be dropped. Catalog: `references/bundles.md` beside this skill. The user's pick: `~/.agents/BUNDLES.md`, user-owned — `| id | source | kind | ref | installed |`, no rows = declined.
 
-## 6. Verify each target independently
+- **Pick** — manifest missing, or the user asks to change it → one multi-select question from the catalog rows (`id` — *pick when*), "Other" taking any repo URL; write the manifest. Otherwise take it as it stands, and skip an entry whose `ref` equals the source's current HEAD.
+- **Fetch** the source shallow into scratch and install **only the row's *take***: skill folders flat into `~/.agents/skills/`, linked like step 2's; agents flat per step 2's conversion rules; a `plugin` row through the target's plugin mechanism, reported missing on a target without one. **Never** hooks, commands, rules, plugin manifests, or a skill whose description loads it every session — always-loaded context overrides the workflow gate. An "Other" source gets the same filter, its *take* agreed with the user first.
+- **Collisions** — a name a workspace skill or agent, another entry or a harness built-in command already holds → ask: skip, or install as `{id}-{name}`. Never overwrite.
+- **Needs** → install with the user's OK; declined → report the entry as installed but inert. Per-project setup stays with the bundle's entry skill, never run here.
+- **Record** the fetched `ref` and every installed name. An entry dropped from the manifest → delete exactly its recorded names, links included.
+- **Gate rows** — each `workflow` entry gets `| {entry} | {pick when} ({id} bundle) |` at the `{bundle workflows}` row of each target's `AGENTS.md`; none → drop that row.
+
+## 6. Restart — pause
+
+**Only if step 4 or 5 changed anything.** Ask the user to restart each affected harness (and the terminal), then resume; **stop here** until they confirm. A new environment variable needs the restart too, or the MCP server starts unauthenticated. Nothing changed → say so and skip.
+
+## 7. Verify each target independently
 
 Per selected target, confirm each capability is actually **working**, not merely present — **never that a scope is loaded because its file exists**: global instructions load, skills are discoverable this session, agents dispatch where the target supports them, MCP/plugin entry points run (no failing hook, no error on invoke), memory resolves or is reported as stored and manual, and domains stay inert until `project-initialiser` projects one.
 
@@ -103,6 +114,6 @@ Each target has levers that answer this without a model call, and they cost noth
 
 Report each target as **passed · skipped · failed**. For any failure propose a brief troubleshooting plan and **get the user's OK before any tool calls**. Two traps behind a capability that is "installed" yet silently exposes nothing: an orphaned or dependency-incomplete cache directory shadowing the working one, and a remote MCP server whose credential is missing — `enabledPlugins: true` in `settings.json` says nothing about either. For **github** specifically, `get_me` returning your account is the proof; `gh auth status` is the separate one.
 
-## 7. Done — pause for review
+## 8. Done — pause for review
 
 Summarise per target what was synced or changed. A first install continues at `INSTALL.md`'s personalisation step; otherwise ask the user to review before further use.

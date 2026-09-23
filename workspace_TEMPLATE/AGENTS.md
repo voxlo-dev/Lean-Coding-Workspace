@@ -89,6 +89,7 @@ An agent may invoke these when the user names one; the user can also run them wi
 | --- | --- |
 | minimal-workflow | one small, well-scoped change or bugfix |
 | dynamic-workflow | feature work needing a spec — the default for real features |
+| {bundle workflows} | {one row per workflow bundle in `~/.agents/BUNDLES.md`, written by `workspace-sync`} |
 | no workflow | none of these; relax the rules and work freely |
 | plan | **first**, whenever a fuzzy idea, draft or brainstorm transcript has to become concrete work |
 | close-sprint → open-sprint | at a sprint boundary, in that order |
