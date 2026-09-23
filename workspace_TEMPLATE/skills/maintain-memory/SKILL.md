@@ -41,6 +41,6 @@ Default to **project**; promote only once a learning is clearly that broad. When
 
 ## Spin off a skill — if a reusable procedure emerged
 
-Create it with superpowers' **skill-creator** and place it by scope: global → `~/.agents/skills/{skill-name}/` · domain → the domain master under `~/.agents/domains/{x}/` · project → the repo's `.agents/skills/`. It must be a **direct** child of `skills/` — grouping subfolders aren't discovered — and a target that doesn't scan there is **linked** to the folder, never given a copy (`project-initialiser` owns the mechanics).
+Create it with **skill-creator** where installed and place it by scope: global → `~/.agents/skills/{skill-name}/` · domain → the domain master under `~/.agents/domains/{x}/` · project → the repo's `.agents/skills/`. It must be a **direct** child of `skills/` — grouping subfolders aren't discovered — and a target that doesn't scan there is **linked** to the folder, never given a copy (`project-initialiser` owns the mechanics).
 
 A brand-new skill *folder* is usually discovered only on the next session — flag this to the user, as with a brand-new domain/global memory file: that only enters context once the target's adapter wires it (`domain-initialiser` / `workspace-sync` do this) and the session restarts. Project memory needs no wiring where the target has it natively.

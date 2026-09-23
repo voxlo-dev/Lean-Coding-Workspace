@@ -42,7 +42,6 @@ Assume the user is capable, but lazy with words, because he can't type as fast a
 
 | Capability | Reach for it |
 | --- | --- |
-| superpowers | Brainstorm & spec phases; authoring any new reusable skill. **`systematic-debugging` only where a real bug's cause is unclear** — a cause you already understand is fixed directly |
 | codegraph | Every structural / "how does X work" / impact question in an **indexed** project — it *replaces* file-reading exploration, so never spawn an Explore subagent for what the graph knows. Self-describes via its MCP server |
 | context7 | The default source for **upstream** docs (libraries, frameworks, SDKs, APIs) at implementation time — over recall, over WebSearch. No overlap with codegraph (*your* code) or maintain-docs (*your* docs) |
 | github *(optional)* | PRs, reviews, issues, repo search, secret scanning; dead without its token (`workspace-sync` sets it up with `gh`). **No Actions, no release creation** — those, tagging and local git are `gh` |
@@ -90,7 +89,6 @@ An agent may invoke these when the user names one; the user can also run them wi
 | --- | --- |
 | minimal-workflow | one small, well-scoped change or bugfix |
 | dynamic-workflow | feature work needing a spec — the default for real features |
-| superpowers | the full brainstorm → plan → implement framework (`superpowers/using-superpowers`) |
 | no workflow | none of these; relax the rules and work freely |
 | plan | **first**, whenever a fuzzy idea, draft or brainstorm transcript has to become concrete work |
 | close-sprint → open-sprint | at a sprint boundary, in that order |

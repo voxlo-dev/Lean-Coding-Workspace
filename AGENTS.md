@@ -127,7 +127,7 @@ user runs. Before editing:
 - Structural changes to work items, doc tiers or sprint semantics touch `AGENTS.md`,
   `project_TEMPLATE/AGENTS.md`, the workflow skills *and* `README.md`. Treat that set as one edit.
 
-The `plugin-dev` and `superpowers:writing-skills` skills are the reference for skill mechanics —
+The `plugin-dev` skills are the reference for skill mechanics —
 `plugin-dev` is project-scoped here, so it is available in this repo and in no other.
 
 ## Version control

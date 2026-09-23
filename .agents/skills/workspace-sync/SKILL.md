@@ -80,9 +80,9 @@ For Claude Code specifically, `{home}/CLAUDE.md` may already exist. It is a shim
 
 Only the ones not already working, and only where the target can host them. Memory is **native Markdown, no plugin** — step 2 seeded `~/.agents/memory/MEMORY.md` and step 3 pointed the target at it or declared it missing. See `maintain-memory`.
 
-- **Claude Code** — **codegraph** from https://github.com/colbymchenry/codegraph; **superpowers**, **context7** from the `claude-plugins-official` marketplace (add via `/plugin`).
+- **Claude Code** — **codegraph** from https://github.com/colbymchenry/codegraph; **context7** from the `claude-plugins-official` marketplace (add via `/plugin`).
 - **Codex** — the same marketplace works, as `[marketplaces.claude-plugins-official]` with `source_type = "git"`, then one `[plugins."{name}@claude-plugins-official"]` block each. codegraph goes in as an `mcp_servers` entry, not as a plugin.
-- **OpenCode** — its plugin system is JS modules listed in `plugin`, a different thing entirely: install `superpowers` as `"superpowers@git+https://github.com/obra/superpowers.git"`, and everything else through `mcp`.
+- **OpenCode** — everything through `mcp`; its `plugin` list is JS modules, a different thing entirely.
 
 ### GitHub access *(optional — ask, don't assume)*
 

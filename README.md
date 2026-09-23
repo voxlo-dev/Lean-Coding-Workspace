@@ -26,7 +26,7 @@ questions by reading half the repo. This workspace fixes that with three ideas:
 - A harness: Claude Code (verified) · Codex (agents need a format transform, dispatch unverified) ·
   OpenCode (paths unconfirmed — the installer asks)
 - Git
-- Three plugins, installed for you by the sync: `superpowers`, `codegraph`, `context7`
+- Two plugins, installed for you by the sync: `codegraph`, `context7`
 - Optional, offered during install: the `github` plugin and the `gh` CLI — needed for the PR flow
   and for releases, skippable if you only work locally
 - Optional, for dispatch: OpenCode plus a model endpoint (a local server, a vendor key, an

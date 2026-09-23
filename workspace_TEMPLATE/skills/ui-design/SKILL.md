@@ -24,11 +24,11 @@ Dialogue the look and feel into shape, covering what the stage needs — at styl
 
 - Ask **one question at a time**, multiple-choice where possible: brand/tone, palette, theme(s), typography, spacing/density, key layout patterns, component style, references the user likes.
 - Apply **YAGNI**.
-- For genuinely **visual** questions (layout options, style directions, side-by-side comparisons) reach for the **Visual Companion** below so the user *sees* the choice; conceptual questions stay in the terminal.
+- For genuinely **visual** questions (layout options, style directions, side-by-side comparisons) show the options as throwaway HTML so the user *sees* the choice — in the harness's built-in browser where it has one (desktop apps do; screenshot it yourself before asking), else a file the user opens. Conceptual questions stay in the chat.
 
 ## 3b. Everything else → build mockups directly
 
-Explore directions in the **Visual Companion** while the choice is open; once it's settled build the durable mockup here — the companion explores, `layout.html` is the artifact that lands in the spec.
+Once step 2's option screens have settled a direction, build the durable mockup here — the options explore, `layout.html` is the artifact that lands in the spec.
 
 - Seed from `templates/layout.html` — self-contained HTML, no build step, phone and desktop frames (delete the one you don't need), viewable in any browser regardless of the real stack.
 - Simple UI → embed the snippet in the spec's UI section. Sophisticated UI → files under `docs/design/mockups/`, linked from the spec.
@@ -47,12 +47,3 @@ When the frontend is written in the project's real stack (Svelte, React, plain H
 - **Styleguide** — `docs/design/Styleguide.html` is the durable, project-wide system; seed it from `templates/styleguide.html` the first time, then edit in place. Built-in light/dark toggle — fill the dark tokens or drop them. Every feature designs against it; `maintain-docs` extends it later.
 - **Mockups** are per-feature: they live in the spec (or `docs/design/mockups/`) so the implement package builds against them, while the styleguide stays free of concrete layouts.
 - **Pause for user review**, then **commit** the styleguide and any mockups.
-
-## Visual Companion
-
-An interactive browser tool for the **visual** parts of the brainstorm and a live pre-step to the finished mockup: you write HTML wireframes / option screens, the user sees them in a browser and clicks to choose, you read the selection and iterate. It reuses superpowers' companion server — no separate install:
-
-- **Scripts:** the `superpowers` companion server, under its plugin cache — Claude Code: newest version dir under `{home}/plugins/cache/claude-plugins-official/superpowers/*/skills/brainstorming/scripts/`; elsewhere, the same path under that target's plugin cache. Start with `start-server.sh --project-dir <repo>`; on Windows set `run_in_background: true` and read `$STATE_DIR/server-info` next turn for the URL.
-- **Full loop & CSS classes:** read `visual-companion.md` next to those scripts before driving it.
-- **Consent:** offer it once before first use (opens a local URL, token-intensive), then decide per question.
-- **Converge:** the moment a direction is picked, build the durable mockup from `templates/layout.html`. That mockup — not the companion screens — is what lands in the spec.
