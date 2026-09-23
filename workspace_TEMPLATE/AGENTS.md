@@ -90,7 +90,6 @@ An agent may invoke these when the user names one; the user can also run them wi
 | --- | --- |
 | minimal-workflow | one small, well-scoped change or bugfix |
 | dynamic-workflow | feature work needing a spec — the default for real features |
-| localagent-workflow | (experimental) a build that must stay robust on a weak/local (~30B) model |
 | superpowers | the full brainstorm → plan → implement framework (`superpowers/using-superpowers`) |
 | no workflow | none of these; relax the rules and work freely |
 | plan | **first**, whenever a fuzzy idea, draft or brainstorm transcript has to become concrete work |
