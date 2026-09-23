@@ -60,7 +60,6 @@ Rows in `{}` are optional and exist only where the project opted in — drop the
 | `artefacts/{sprint}/` | ephemeral | every workflow run artifact, bound to its sprint — type as filename prefix (`spec_` `user-stories_` `e2e_` `e2e-report_` `impl-report_` `handover_`), committed with its run and **correctable until `close-sprint` freezes the whole folder**. Its live core: `sprint.md` (frame with **Behaviour context** + board, one line per ticket with an `open`/`active`/`to test`/`done` token), `sprint-decisions.md` (reasoning per decision settled this sprint, indexed one line each in `docs/decisions.md`) and the `spec_*` behaviour deltas the next spec grounds on |
 | {`artefacts/release-{version}/`} | ephemeral | one `release.md` per published version: scope, the composed changelog, gate results, the step state that makes a resumed run safe. Spans the sprints since the last tag, so it sits beside them rather than inside one |
 | `.temp/` | ephemeral | the one gitignored scratch root, cleared at `close-sprint` and safe to delete at any time: `e2e/` holds test output — screenshots, videos, traces, framework reports, logs, throwaway scripts — and `dispatch/{id}/` the brief, report and transcript of one out-of-process dispatch. Expendable by definition: nothing durable may point into it |
-| {`localagent/`} | ephemeral | localagent-workflow run records (PLAN/STATE/units) — frozen with the sprint |
 
 ## Current sprint
 

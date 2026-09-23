@@ -11,13 +11,13 @@
 Everything else in `adapters/` was exercised on a live install (see below). This one could not be:
 the Codex account was at its usage limit, and a dispatch is the only thing no offline lever answers.
 `workspace-sync` currently tells the user to convert the agents and verify one dispatch before
-calling `localagent-workflow` usable on Codex — a claim the install cannot yet stand behind.
+calling agents usable on Codex — a claim the install cannot yet stand behind.
 
 ## What
 
 On a Codex account with quota, from a trusted project:
 
-1. Dispatch `localagent-spec-architect` and check the answer comes from *its* prompt, not a generic
+1. Dispatch `e2e-runner` and check the answer comes from *its* prompt, not a generic
    sub-agent role-playing it — the failure mode already observed on OpenCode, where an orchestrator
    cannot tell the two apart.
 2. If it does not reach: try declaring the agents in `config.toml` rather than as files, then decide

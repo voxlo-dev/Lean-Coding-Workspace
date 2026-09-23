@@ -43,7 +43,7 @@ For each doc ask "does *this* change affect it?" from what you already know, and
 | `docs/product/` | sprint-close | user-facing interaction changed | read the relevant page first, then edit very targeted |
 | `docs/design/` | never | design system changed | **`ui-design` owns the styleguide and mockups** — leave them to it |
 
-**Not maintained here:** everything else under `artefacts/` — plans, e2e cases, reports, `localagent/` records, `release-{version}/` — belongs to the workflow that wrote it, which corrects it while the sprint runs. `docs/release.md` is the one durable doc owned elsewhere: the user writes it, `release` appends its waivers.
+**Not maintained here:** everything else under `artefacts/` — plans, e2e cases, reports, `release-{version}/` — belongs to the workflow that wrote it, which corrects it while the sprint runs. `docs/release.md` is the one durable doc owned elsewhere: the user writes it, `release` appends its waivers.
 
 ## The distillation rule
 
