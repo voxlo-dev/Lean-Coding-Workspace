@@ -66,15 +66,6 @@ Notes rank fitness for dispatch, not model quality; a paid key reorders every re
 
 Role → what runs it. A role absent here has no dispatch: run it inline.
 
-### localagent-workflow
-
-| Role | Harness | Model | Fallback |
-| --- | --- | --- | --- |
-| orchestrator | {harness} | {model} | {model, else BLOCKED} |
-| spec-architect | {harness} | {model} | {model, else BLOCKED} |
-| e2e agent | {harness} | {model} | {model, else BLOCKED} |
-| other | {harness} | {model} | {model, else BLOCKED} |
-
 ### dynamic-workflow
 
 Optional per run — asked with the autonomy mode, not decided here.
