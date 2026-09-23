@@ -1,9 +1,6 @@
 # Backlog — Lean Coding Workspace
 
 Ticket index · template: `workspace_TEMPLATE/skills/plan/templates/TICKET_TEMPLATE.md`
-Kept beside the tickets: [`dispatch-bench.md`](dispatch-bench.md) — nine models, four connector
-types, one unchanged command · [`token-savers.md`](token-savers.md) — seven tools, three independent
-measurements, headroom settled.
 
 **Next ticket: `T-010`**
 

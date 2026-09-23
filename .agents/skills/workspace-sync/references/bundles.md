@@ -23,8 +23,5 @@ adding a row.
 | karpathy | https://github.com/multica-ai/andrej-karpathy-skills | skills | `skills/karpathy-guidelines` | — | — | four behaviour rules against common LLM coding mistakes |
 | agency-agents | https://github.com/msitarzewski/agency-agents | agents | `engineering/*`, `testing/*`, converted by its `scripts/install.sh --tool {target}` | — | — | specialist persona subagents for review and testing |
 
-Rejected — re-check before re-adding: `affaan-m/ECC` (hooks on six lifecycle events, always-loaded
-rules, its own `e2e-runner`) · `github/spec-kit` (no skill folders, CLI-generated; its `.specify/`
-constitution competes with `AGENTS.md`) · `ComposioHQ/awesome-claude-skills` (link list, no
-license) · `shanraisshan/claude-code-best-practice` (a guide) · `Shubhamsaboo/awesome-llm-apps`
-(tutorials).
+Why each entry is here, and what was rejected: `{workspace}/docs/repo-survey.md` — re-check it
+before adding a row.

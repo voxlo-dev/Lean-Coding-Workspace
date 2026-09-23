@@ -1,9 +1,8 @@
 # Token savers — 2026-09-23
 
-Seven tools that claim to cut what a coding agent spends, surveyed for this workspace. Settles
-headroom (formerly T-002): **not reinstated.** No compression layer is worth wiring in on vendor
-numbers; the one cheap, independently backed win is output-side, and anything heavier waits for a
-measurement. Follow-up: [`T-009`](T-009-caveman-trial.md).
+The token-saver slice of [`repo-survey.md`](repo-survey.md), in depth. Settles headroom:
+**not reinstated.** No compression layer is worth wiring in on vendor numbers; the one cheap,
+independently backed win is output-side, and anything heavier waits for a measurement.
 
 ## Evidence
 
