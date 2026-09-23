@@ -19,6 +19,8 @@ adding a row.
 | feature-dev | https://github.com/anthropics/claude-plugins-official | plugin | plugin `feature-dev` | — | `/feature-dev` | guided explore → architect → build → review |
 | anthropic-skills | https://github.com/anthropics/skills | skills | `skills/{webapp-testing,mcp-builder,skill-creator}` | — | — | web-app testing, MCP servers, skill authoring |
 | frontend-design | https://github.com/anthropics/claude-plugins-official | skills | `plugins/frontend-design/skills/frontend-design` | — | — | distinctive UI craft; `ui-design` uses it where installed |
+| hallmark | https://github.com/Nutlope/hallmark | skills | `skills/hallmark` | — | — | UI generation off the template look; pairs with `ui-design` |
+| karpathy | https://github.com/multica-ai/andrej-karpathy-skills | skills | `skills/karpathy-guidelines` | — | — | four behaviour rules against common LLM coding mistakes |
 | agency-agents | https://github.com/msitarzewski/agency-agents | agents | `engineering/*`, `testing/*`, converted by its `scripts/install.sh --tool {target}` | — | — | specialist persona subagents for review and testing |
 
 Rejected — re-check before re-adding: `affaan-m/ECC` (hooks on six lifecycle events, always-loaded
