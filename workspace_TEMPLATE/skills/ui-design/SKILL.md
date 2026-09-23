@@ -16,7 +16,7 @@ This skill ships two **HTML templates**: `styleguide.html` (the design-system sh
 ## 1. Frame the stage & branch
 
 - **Stage:** project/design level → styleguide only · feature/spec level → a concrete layout for *this* feature, grounded in the existing styleguide.
-- **Branch:** a **web frontend** → build in-repo through `frontend-design` (3a); desktop, game, mobile-native or CLI/TUI → mockups directly (3b).
+- **Branch:** a **web frontend** → build in-repo in the real stack (3a); desktop, game, mobile-native or CLI/TUI → mockups directly (3b).
 
 ## 2. Brainstorm UI/UX
 
@@ -34,9 +34,9 @@ Once step 2's option screens have settled a direction, build the durable mockup 
 - Simple UI → embed the snippet in the spec's UI section. Sophisticated UI → files under `docs/design/mockups/`, linked from the spec.
 - Keep them faithful to the styleguide — paste its tokens into the mockup's `:root`.
 
-## 3a. Web frontend → frontend-design
+## 3a. Web frontend → the real stack
 
-When the frontend is written in the project's real stack (Svelte, React, plain HTML/CSS/JS), invoke `frontend-design` for the code craft. It owns the aesthetic execution — distinctive typography, cohesive palette, motion and spatial composition — that the mockup-only path does not produce.
+When the frontend is written in the project's real stack (Svelte, React, plain HTML/CSS/JS), build it there — through `frontend-design` where installed, which carries the aesthetic craft (distinctive typography, cohesive palette, motion, spatial composition) the mockup-only path does not; else directly, holding that same bar.
 
 - **Ground it in the styleguide** — pass it those tokens so the output stays on-system, not a one-off aesthetic.
 - **No styleguide yet?** Design the system first (steps 2 + 4), *then* execute against it, so the system defines the look rather than one component.
