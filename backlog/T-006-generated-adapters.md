@@ -80,7 +80,9 @@ Settle this first — it changes what the generator is for.
 Do not start while the install is unverified — a generator seeded from facts that were never
 confirmed multiplies the error across every future harness. Required first:
 
-- `T-005`'s open half: a converted Codex agent dispatches, or the row is corrected to say it cannot.
+- A converted Codex agent dispatches, or `workspace-sync`'s Codex row says it cannot: dispatch
+  `e2e-runner` from a trusted project and check the answer comes from *its* prompt, not a generic
+  sub-agent playing it; failing that, try declaring the agents in `config.toml`.
 - Practical use, not a checkup: run a real workflow end to end in **each** harness — a
   `minimal-workflow` change with a memory write and a docs step is enough — and confirm skills load,
   agents dispatch, memory resolves, and a domain stays inert until a project installs one.
@@ -120,7 +122,9 @@ Verified on 2026-09-04 unless marked. Treat every version-bound line as a fact w
 - Agents: `~/.codex/agents/{name}.toml` with `name`, `description`, `developer_instructions`. A
   multi-line **literal** string (`'''`) carries the Markdown body without escaping. Converted, then
   parse-checked with `tomllib`. **Reachability unproven** — the prompt describes a generic
-  `spawn_agent` / `followup_task` / `send_message` model and names no custom agent. See `T-005`.
+  `spawn_agent` / `followup_task` / `send_message` model and names no custom agent, matching
+  upstream [#15250](https://github.com/openai/codex/issues/15250). Not conclusive: `prompt-input`
+  renders input items, not tool schemas.
 - Plugins: the same `claude-plugins-official` marketplace, `[marketplaces.X] source_type = "git"`
   plus `[plugins."name@X"] enabled = true`. codegraph goes in as `[mcp_servers.*]`, not a plugin.
 - Its `github` plugin emits `AuthRequired` against `api.githubcopilot.com` — separate from `gh`.
@@ -136,7 +140,10 @@ Verified on 2026-09-04 unless marked. Treat every version-bound line as a fact w
 - Reads `~/.agents/skills` **natively**; `skills.paths` exists but is redundant, so the adapter
   correctly carries none.
 - Agents live in `agent/` — **singular** — flat, ID from path, `mode: subagent`. A per-agent
-  `permission` block interfered with dispatch by name (earlier finding, see `T-005`).
+  `permission` block interfered with dispatch by name: a built-in `general` subagent played the
+  agent instead, indistinguishable to the caller, until the block was removed. Upstream blames the
+  `task` enum ([#29616](https://github.com/anomalyco/opencode/issues/29616)); if it recurs, restart
+  fully before suspecting it.
 - Plugins are JS modules in `plugin`; everything else arrives through `mcp`
   (`{type: "local", command: [...]}` or `{type: "remote", url}`).
 - Config is not hot-reloaded — restart, `/new` is not enough.
