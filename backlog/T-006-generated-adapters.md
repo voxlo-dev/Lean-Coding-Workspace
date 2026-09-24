@@ -4,7 +4,7 @@
 - **Category:** feature
 - **Importance:** high
 - **Effort:** L
-- **Depends on:** `T-005`, plus a clean run of the verification below
+- **Depends on:** a clean run of the verification below
 
 ## Why
 
@@ -149,6 +149,18 @@ Verified on 2026-09-04 unless marked. Treat every version-bound line as a fact w
 - Config is not hot-reloaded — restart, `/new` is not enough.
 - On PowerShell the binary writes its banner to stderr, which surfaces as `NativeCommandError`
   around perfectly successful runs.
+
+### Pi — 0.85.1, verified 2026-09-24 as a dispatch target only
+
+- Two distinct harnesses on this machine: **bonsai-pi** (pinned by `bonsai-local` in WSL, own agent
+  dir via `PI_CODING_AGENT_DIR`) and plain Pi (`~/.pi/agent`, no binary on PATH). A manifest per
+  install, not per binary.
+- No agent registry: a dispatch hands one session the whole brief. `-p` is headless;
+  `--` must separate flags from the prompt.
+- Dispatched from Windows through `wsl.exe -e bash -lc`, repo under `/mnt/c/…`; the launcher's
+  status lines go to stderr, so stdout's last line stays the verdict.
+- A model reads its own role from the paths it is given: a brief under `.temp/dispatch/` made the
+  `--localagent` orchestrator act as a dispatched worker and skip its pipeline.
 
 ### Claude Code
 
