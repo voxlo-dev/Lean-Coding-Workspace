@@ -153,8 +153,11 @@ Verified on 2026-09-04 unless marked. Treat every version-bound line as a fact w
 ### Pi — 0.85.1, verified 2026-09-24 as a dispatch target only
 
 - Two distinct harnesses on this machine: **bonsai-pi** (pinned by `bonsai-local` in WSL, own agent
-  dir via `PI_CODING_AGENT_DIR`) and plain Pi (`~/.pi/agent`, no binary on PATH). A manifest per
-  install, not per binary.
+  dir via `PI_CODING_AGENT_DIR`) and plain Pi 0.87.1 (`~/.pi/agent`, installed through nvm, so
+  on PATH only once `nvm.sh` is sourced — a login shell alone misses it). A manifest per install,
+  not per binary.
+- Custom providers live in `models.json`; with no `defaultProvider`, `--provider` and `--model`
+  are both required.
 - No agent registry: a dispatch hands one session the whole brief. `-p` is headless;
   `--` must separate flags from the prompt.
 - Dispatched from Windows through `wsl.exe -e bash -lc`, repo under `/mnt/c/…`; the launcher's
