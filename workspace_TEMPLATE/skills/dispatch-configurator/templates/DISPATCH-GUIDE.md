@@ -10,8 +10,8 @@ changes a choice — measurements age, dates drift, and neither survives the nex
 Empty guide = no dispatch configured here. That is a valid state: say so and run inline.
 -->
 
-Machine-local dispatch configuration for {this PC}. Template:
-`workspace_TEMPLATE/DISPATCH-GUIDE_TEMPLATE.md` in the workspace repo.
+Machine-local dispatch configuration for host `{hostname}`, written by `/dispatch-configurator`
+from `~/.agents/skills/dispatch-configurator/templates/DISPATCH-GUIDE.md`.
 
 ## Rules
 
@@ -39,20 +39,22 @@ Machine-local dispatch configuration for {this PC}. Template:
 
 ## Harnesses
 
-### {harness — name only, no version}
+### {harness — name only, no version; a wrapper with its own config is its own entry}
 
-- **Launch:** `{command with placeholders for agent, model, absolute dir, pointer}`
+- **Launch:** `{environment prefix · shell init the binary needs · command with placeholders for agent, model, absolute dir, pointer}`
 - **Providers:** {which of the entries below this harness resolves}
-- **Agents:** {which agent set is registered here — a dispatch to a name it lacks is BLOCKED}
+- **Agents:** {which agent set is registered here — a dispatch to a name it lacks is BLOCKED — or
+  "none — one session takes the whole brief"}
 - **Notes:** {"verified on v{x}" — never the version in the heading, or it drifts at the next
-  update · sandbox/network needs · live-view lever · traps that make a broken run look passing}
+  update · sandbox/network needs · where the transcript lands (live view) · traps that make a
+  broken run look passing}
 
 ## Providers
 
-| Provider | Type | Reached by | Notes |
-| --- | --- | --- | --- |
-| {unsloth} | local | {endpoint} | {load behaviour, hardware ceiling} |
-| {openrouter} | aggregator | {auth} | {cost/limits; same model can cost more here than direct} |
+| Provider | Type | Reached by | Start | Notes |
+| --- | --- | --- | --- | --- |
+| {local provider} | local | {endpoint; config path holding the key} | {detached start command that survives the call, or "by {wrapper}"} | {load behaviour, hardware ceiling, GPU shared with} |
+| {remote provider} | {vendor api · aggregator} | {auth} | — | {cost/limits; same model can cost more here than direct} |
 
 ## Models
 
@@ -60,7 +62,7 @@ Notes rank fitness for dispatch, not model quality; a paid key reorders every re
 
 | Name | Key | Provider | Notes |
 | --- | --- | --- | --- |
-| {Qwen 3.6 35B-A3B} | {provider/model-id} | {unsloth} | {one clause on when to pick it, or "untested" — a reader chooses from this, so relative speed and strength, never benchmark figures} |
+| {model} | {key as the harness resolves it} | {provider} | {one clause on when to pick it, or "untested" — a reader chooses from this, so relative speed and strength, never benchmark figures} |
 
 ## Workflow defaults
 

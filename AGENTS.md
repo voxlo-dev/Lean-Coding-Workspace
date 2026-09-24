@@ -53,8 +53,7 @@ workspace_TEMPLATE/            ← harness-neutral; installs to ~/.agents/ excep
 ├── skills/{name}/SKILL.md     ←   one folder per skill; templates/ and references/ beside it
 ├── project_TEMPLATE/          ←   scaffold copied into each initialised project
 ├── domains/domain_TEMPLATE/   ←   domain master scaffold
-├── memory/MEMORY.md           ←   global memory seed
-└── DISPATCH-GUIDE_TEMPLATE.md ←   filled per machine into ~/.agents/, never copied by the installer
+└── memory/MEMORY.md           ←   global memory seed
 adapters/{target}/             ← install overlay, one per harness; the ONLY place a harness is named
 └── {paths as they land in {home}}
 .agents/skills/                ← this repo's own skills, incl. `workspace-sync` — it reads the two
@@ -85,7 +84,7 @@ authoring skills, agents and hooks is this repo's domain and nowhere else's. Not
   there, never given a copy — a copy is what let the installed skills drift into two mangled versions.
 - **Every skill needs frontmatter** `name` + `description`; the description is the *only* thing an
   agent picks by, so it must say when to reach for the skill, not what it contains.
-  `disable-model-invocation: true` marks user-only skills (currently `workspace-sync`).
+  `disable-model-invocation: true` marks user-only skills (currently `workspace-sync`, `dispatch-configurator`).
 - **A skill's helper files** (`templates/`, `references/`) live inside its own folder and are
   referenced from `SKILL.md` — they load on demand, which is the whole point. **Agent definitions are
   the exception:** a harness registers them from its own agents directory and scans that directory

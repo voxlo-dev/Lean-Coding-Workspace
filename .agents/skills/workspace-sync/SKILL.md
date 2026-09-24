@@ -40,9 +40,9 @@ Below, `{home}` and `{project-agent-dir}` mean the selected row's values.
   cp -rn {workspace}/workspace_TEMPLATE/{AGENTS.md,agents} {home}/
   ```
 
-  `DISPATCH-GUIDE_TEMPLATE.md` is **not** copied: it describes one machine, so `dispatch-configurator`
-  writes `~/.agents/DISPATCH-GUIDE.md` from a live probe instead. Absent = no dispatch configured,
-  a valid state the workflows handle.
+  `~/.agents/DISPATCH-GUIDE.md` is never written here: it describes one machine, so the user runs
+  `/dispatch-configurator` for it. Absent = no dispatch configured, a valid state the workflows
+  handle.
 
 - Then link each skill folder into the directory a non-standard target does read — `ln -s ~/.agents/skills/{name} {home}/skills/{name}`, `mklink /J` on Windows. **Per folder, never the `skills/` directory itself**, which the harness writes its own internals into. A real directory where a link belongs is the old duplicated install: diff it against the template, salvage what only it has, replace it.
 - **On a repair, `-n` is not enough** — a skill whose template version changed keeps the old installed copy. Two kinds of file:
