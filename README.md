@@ -32,8 +32,9 @@ questions by reading half the repo. This workspace fixes that with three ideas:
   beside `dynamic-workflow`, or helper skills and agents. The workspace never depends on one
 - Optional, offered during install: the `github` plugin and the `gh` CLI — needed for the PR flow
   and for releases, skippable if you only work locally
-- Optional, for dispatch: OpenCode plus a model endpoint (a local server, a vendor key, an
-  aggregator). Only needed to run a step on a model your harness does not sell
+- Optional, for dispatch: any agent CLI with a headless mode plus a model endpoint (a local
+  server, a vendor key, an aggregator). Only needed to run a step on a model your harness does not
+  sell; `/dispatch-configurator` probes what the machine has and records it
 
 ## Install
 
@@ -92,6 +93,7 @@ Supporting skills, mostly invoked by the workflows rather than by you:
 | `maintain-docs` · `maintain-memory` | the docs and memory steps; both prune as well as write |
 | `/checkpoint` | end a chat at a phase boundary: a short untracked handout the next chat reads and deletes |
 | `/domain-initialiser` | build a domain master (see below) |
+| `/dispatch-configurator` | probe this machine's harnesses, providers and models and write the dispatch guide; `check` reports drift |
 | `workspace-sync` | sync and repair an install (in this repo, not the workspace) |
 
 ## Work items — the Markdown kanban
@@ -228,8 +230,7 @@ workspace_TEMPLATE/            ← harness-neutral; installs to ~/.agents/ excep
 ├── skills/                    ←   workflows and supporting skills
 ├── project_TEMPLATE/          ←   scaffold copied into each new project
 ├── domains/                   ←   domain master scaffold
-├── memory/                    ←   global memory seed
-└── DISPATCH-GUIDE_TEMPLATE.md ←   per-machine dispatch config, filled live, not installed
+└── memory/                    ←   global memory seed
 adapters/{harness}/            ← install overlay: the few files that differ, at the paths they land on
 .agents/skills/workspace-sync/ ← the sync skill and its bundle catalog: it reads the two directories above, so it lives here
 INSTALL.md                     ← the install guide, followable before any of this is installed
