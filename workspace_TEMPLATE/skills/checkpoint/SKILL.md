@@ -1,11 +1,11 @@
 ---
 name: checkpoint
-description: "Use to end a chat at a phase boundary rather than let compaction hit mid-work: writes CHECKPOINT.local.md, an untracked handout the next chat reads and deletes. Runs at the end of open-sprint, dynamic-workflow, close-sprint and project-initialiser, or on request. Invokable directly or via /checkpoint."
+description: "Use to end a chat at a phase boundary rather than let compaction hit mid-work: writes CHECKPOINT.local.md, an untracked handout the next chat reads and deletes. Runs only at the end of open-sprint, dynamic-workflow and project-initialiser, or on the user's request. Invokable directly or via /checkpoint."
 ---
 
 # Checkpoint
 
-At a phase boundary a context reset is cheap — the next phase reads other files anyway — while compaction hits mid-work and summarises everything generically. So: hand over a few lines, then start a fresh chat.
+At a phase boundary a context reset is cheap — the next phase reads other files anyway — while compaction hits mid-work and summarises everything generically. So: hand over a few lines, then start a fresh chat — at the boundaries the description names or on request, never on your own initiative.
 
 **Write last**, after the phase's final commit: `CHECKPOINT.local.md` in the repo root, overwritten, English. It stays untracked (`project-initialiser` owns the gitignore) and the project's instruction file — the shim `project-initialiser` installs from `{home}/adapter/project/`, where the target needs one — imports it whole into the next session, which is why it stays short.
 

@@ -91,7 +91,7 @@ Supporting skills, mostly invoked by the workflows rather than by you:
 | `e2e` | optional end-to-end validation stage; grows a driver script step by step, driving by agent only where a script can't reach |
 | `ui-design` | look and feel — colors, typography, layout, mockups, design system |
 | `maintain-docs` · `maintain-memory` | the docs and memory steps; both prune as well as write |
-| `/checkpoint` | end a chat at a phase boundary: a short untracked handout the next chat reads and deletes |
+| `/checkpoint` | end a chat after `open-sprint`, a `dynamic-workflow` run or `project-initialiser`, or on request: a short untracked handout the next chat reads and deletes |
 | `/domain-initialiser` | build a domain master (see below) |
 | `/dispatch-configurator` | probe this machine's harnesses, providers and models and write the dispatch guide; `check` reports drift |
 | `workspace-sync` | sync and repair an install (in this repo, not the workspace) |
