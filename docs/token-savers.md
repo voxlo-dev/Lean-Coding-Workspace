@@ -22,7 +22,7 @@ ratio (1–5% is normal). Only three independent measurements exist:
 | --- | --- | --- | --- | --- | --- |
 | headroom | every API request (proxy/wrap), or what is passed to its MCP | yes | vendor walked 60–95% back to 15–20% for coding agents; unmeasured | Apache-2.0 | skip |
 | rtk | Bash tool output, via PreToolUse hook | no | independently negative | Apache-2.0 | skip |
-| caveman skill | the agent's own prose | no | independently positive | MIT | trial |
+| caveman skill | the agent's own prose | no | independently positive | MIT | skip — terse register unwanted |
 | caveman proxy | tool output | yes | own benchmark only | BSL-1.1 | skip |
 | context-mode | tool calls: runs them sandboxed, indexes output in SQLite FTS5, returns the relevant slice | no | vendor only | ELv2 | first candidate if a layer is needed |
 | codegraph | code exploration | no | transparent own benchmark: −62% tokens, −44% cost | MIT | required already |
