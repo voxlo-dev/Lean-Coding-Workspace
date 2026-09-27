@@ -2,9 +2,11 @@
 
 Ticket index · template: `workspace_TEMPLATE/skills/shape/templates/TICKET_TEMPLATE.md`
 
-**Next ticket: `T-010`**
+**Next ticket: `T-011`**
 
 ## Draft
+
+- [`T-010`](T-010-artefacts-naming.md) Settle the `artefacts/` naming — keep, rename+migrate, rename with note, or a new name · decision · low · S–M
 
 ## Backlog
 
