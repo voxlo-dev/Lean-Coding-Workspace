@@ -11,7 +11,7 @@ adding a row.
 
 | id | source | kind | take | needs | entry | pick when |
 | --- | --- | --- | --- | --- | --- | --- |
-| superpowers | https://github.com/obra/superpowers | workflow | `skills/*` minus `using-superpowers`, `diagnosing-superpowers` | per project: `docs/superpowers/` | `brainstorming` | strict brainstorm → plan → subagent TDD, heavyweight |
+| superpowers | https://github.com/obra/superpowers | workflow | `skills/*` minus `using-superpowers`, `diagnosing-superpowers`; strip every `superpowers:` prefix in the copies — their cross-references assume the plugin's namespace; the `superpowers` plugin stays disabled beside it | per project: `docs/superpowers/` | `brainstorming` | strict brainstorm → plan → subagent TDD, heavyweight |
 | mattpocock | https://github.com/mattpocock/skills | workflow | `skills/{engineering,productivity}/*`, flattened | per project: `setup-matt-pocock-skills` first — writes an `AGENTS.md` section, `docs/agents/`, its own issue convention | `grill-with-docs` | small composable skills: grill → spec → tickets |
 | addy-skills | https://github.com/addyosmani/agent-skills | workflow | `skills/*` minus `using-agent-skills`; each `../../references/{file}` a skill cites → copied into that skill's `references/`, path rewritten to `references/{file}` | — | `spec-driven-development` | full lifecycle with web, perf and security checklists |
 | openspec | https://github.com/Fission-AI/OpenSpec | workflow | `skills/openspec-{explore,propose,apply-change,update-change,sync-specs,archive-change}` | `npm i -g @fission-ai/openspec` · per project: `openspec init` → `openspec/` | `openspec-propose` | brownfield changes with living specs: propose → apply → archive |
