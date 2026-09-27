@@ -65,13 +65,9 @@ The frozen sprint folder *is* the record of what shipped — no separate summary
 
 Only where the project publishes. Does this sprint complete a **version's** worth of scope? Yes → `release` · no → sprints accumulate on `main` until one does. Never publishes: skip, don't ask.
 
-## 7. Checkpoint
-
-Invoke `checkpoint`; whatever comes next starts in a fresh chat.
-
 ## Handoff & boundaries
 
 - **The sprint file freezes here** — frame, board *and* `sprint-decisions.md`. Together they are the sprint's archive, and every board line reads `done` (step 1).
 - Produces: the all-done board, the carried-over backlog lines, the dissolved ticket files, any missing entries in `sprint-decisions.md` + `docs/decisions.md`, the batched docs pass, the review findings (if run), the merge/PR to `main`.
-- Then → **`open-sprint`** for the next one, and **`release`** where step 6 said yes. If the user is done for now, leave **Current sprint** as it is; `open-sprint` moves the pointer.
+- Then → **`open-sprint`** for the next one, in a fresh chat but with no `checkpoint` — the close leaves the repo clean, and **`release`** where step 6 said yes. If the user is done for now, leave **Current sprint** as it is; `open-sprint` moves the pointer.
 - Plans, specs, docs and product code belong to `open-sprint`, `spec-design`, `maintain-docs` and the build workflows.
