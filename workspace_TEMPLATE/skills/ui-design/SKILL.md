@@ -5,7 +5,7 @@ description: "Use when designing the look and feel of a UI — colors, themes, t
 
 # UI Design
 
-Design a UI's look and feel, capture it as a durable **design system** (the styleguide) and — when a feature is being built — concrete **mockups**. Invoked from `plan` (styleguide only, new UI project) or `spec-design` (one feature's layout). This skill is for designing; a one-off styling tweak is just done.
+Design a UI's look and feel, capture it as a durable **design system** (the styleguide) and — when a feature is being built — concrete **mockups**. Invoked from `shape` (styleguide only, new UI project) or `spec-design` (one feature's layout). This skill is for designing; a one-off styling tweak is just done.
 
 > **UX first — even for a small feature.** Each time, before wiring anything in: does this hurt the UX, should the layout or grouping be reworked, is every element unambiguous and placed by its relevance, can something be simplified? Prefer the layout change that keeps the experience clean over the minimal one.
 

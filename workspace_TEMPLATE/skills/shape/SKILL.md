@@ -1,9 +1,9 @@
 ---
-name: plan
+name: shape
 description: "Use to turn an idea, a rough draft, or a brainstorming transcript into concrete work: a dialogue that ends in tickets (backlog/), and — in sprint mode, invoked by open-sprint — the sprint file artefacts/{sprint}/sprint.md. Product/UX level by default; may climb to high-level domain & architecture decisions when the scope warrants. Web research optional. Hands its tickets to spec-design or any workflow."
 ---
 
-# Plan
+# Shape
 
 Turn a fuzzy idea into concrete, unambiguous work. **The output is tickets** — a plan that isn't work items rots, and its content would only be duplicated by the tickets cut from it.
 
@@ -18,7 +18,7 @@ Turn a fuzzy idea into concrete, unambiguous work. **The output is tickets** —
 
 - **A draft or complex plan exists** (pasted from a prior chat, a document, an older plan file) → **adopt it** as the basis; confirm, sharpen and challenge it.
 - **A brainstorming transcript** (e.g. audio → text) → **extract the signal**: mine requirements, ideas and pain points out of the mess, discard the filler.
-- **Nothing yet** → run a **plan meeting**: an equal-footing dialogue where you contribute ideas as much as you ask questions. For tech / architecture / domain options switch to the `spec-design` move — 2–3 approaches with trade-offs, lead with a recommendation, one decision at a time.
+- **Nothing yet** → run a **shaping session**: an equal-footing dialogue where you contribute ideas as much as you ask questions. For tech / architecture / domain options switch to the `spec-design` move — 2–3 approaches with trade-offs, lead with a recommendation, one decision at a time.
 
 ## 2. Categorise everything
 

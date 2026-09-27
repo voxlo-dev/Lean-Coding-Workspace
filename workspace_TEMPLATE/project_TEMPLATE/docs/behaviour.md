@@ -8,7 +8,7 @@
   - WHO WRITES: `maintain-docs` in sprint-close mode, once per sprint, folding in the deltas
     the sprint's `spec_*` files recorded. A spec is a throwaway describing one delta; THIS doc
     carries the state.
-  - WHO READS: `plan`, whole — it cuts each sprint's **Behaviour context** from here.
+  - WHO READS: `shape`, whole — it cuts each sprint's **Behaviour context** from here.
     `spec-design` works from that slice, reading a section here only when the slice falls
     short, never wholesale.
   - WHAT GOES IN: declarative rules, invariants, per-screen interaction contracts — present

@@ -14,7 +14,7 @@ skills, templates. No build, no runtime, no tests, no dependencies. Editing pros
 artifact being authored — it describes how *other* projects are run, and it does not apply here.
 Concretely, in this repo there is:
 
-- no workflow gate, no preflight, no autonomy question — no `/plan`, `/open-sprint`,
+- no workflow gate, no preflight, no autonomy question — no `/shape`, `/open-sprint`,
   `/dynamic-workflow`, `spec-design`, `maintain-docs`, …
 - no sprint, no `artefacts/`, no `docs/` tier system — `backlog/` is the one borrowed convention,
   a plain ticket index for work not being done now, with no board and no sprint above it; `docs/`

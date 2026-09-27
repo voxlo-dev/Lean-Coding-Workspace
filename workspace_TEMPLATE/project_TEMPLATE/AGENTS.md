@@ -48,7 +48,7 @@ Rows in `{}` are optional and exist only where the project opted in — drop the
 | --- | --- | --- |
 | `README.md` | — | user-facing entry point |
 | `AGENTS.md` | — | this file: domain, structure, code style, conventions |
-| {`docs/behaviour.md`} | durable | SSOT for how the *shipped* product behaves — rules, invariants, per-screen interaction contracts. The whole-product overview `plan` reads; written once per sprint, at close. During a sprint its working slice is the sprint file's **Behaviour context**, and the specs' deltas against it |
+| {`docs/behaviour.md`} | durable | SSOT for how the *shipped* product behaves — rules, invariants, per-screen interaction contracts. The whole-product overview `shape` reads; written once per sprint, at close. During a sprint its working slice is the sprint file's **Behaviour context**, and the specs' deltas against it |
 | {`docs/decisions.md`} | durable | one line per settled decision, newest on top — the cheap read for "what is already decided here?", so agents skip re-litigating. Carries the `Next decision` counter. The rationale lives in the sprint that settled it (`artefacts/{sprint}/sprint-decisions.md`), linked per line — the one durable doc that may point into `artefacts/` |
 | {`docs/architecture.md`} | durable | planned/implemented software structure: big picture, systems, subsystems |
 | {`docs/dev.md`} | durable | engineering knowledge code/tests/codegraph miss: setup, env, build/debug workflows, dependency quirks (bugs & todos become tickets) |

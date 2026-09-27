@@ -1,6 +1,6 @@
 ---
 name: open-sprint
-description: "Use to plan and open the next sprint via the `plan` skill in sprint-file mode: architecture-aware, optional web research, possible domain switch — then pull tickets from the backlog onto the sprint board, branch, set Current sprint, record decisions. Also the entry point for a brand-new project (nothing to close). Hands off to dynamic-workflow. Invokable directly or via /open-sprint."
+description: "Use to plan and open the next sprint via the `shape` skill in sprint-file mode: architecture-aware, optional web research, possible domain switch — then pull tickets from the backlog onto the sprint board, branch, set Current sprint, record decisions. Also the entry point for a brand-new project (nothing to close). Hands off to dynamic-workflow. Invokable directly or via /open-sprint."
 ---
 
 # Open Sprint
@@ -21,16 +21,16 @@ Read `AGENTS.md` → **Current sprint**.
 
 ## 1. Plan the sprint
 
-Invoke **`plan` in sprint-file mode** — it owns the planning dialogue, the architecture/domain decisions, the optional web research, the ticket cut, and (new project) the styleguide-level `ui-design` call. It writes `artefacts/{sprint}/sprint.md`: theme, architecture decisions, non-goals, and the board underneath.
+Invoke **`shape` in sprint-file mode** — it owns the planning dialogue, the architecture/domain decisions, the optional web research, the ticket cut, and (new project) the styleguide-level `ui-design` call. It writes `artefacts/{sprint}/sprint.md`: theme, architecture decisions, non-goals, and the board underneath.
 
-- **Ground it** for `plan`: **`backlog/backlog.md` first** (what's already open and waiting), then **`docs/behaviour.md` read whole** — the slice it cuts becomes the sprint file's Behaviour context — then codegraph if indexed, `AGENTS.md`, `docs/architecture.md` (draft or filled), `docs/decisions.md` if present, project memory. For a brand-new project note the target instead and plan **wide**.
-- **A plan may already exist** (pasted from a prior chat, a document, tickets already in the backlog) → feed it to `plan` as the basis.
+- **Ground it** for `shape`: **`backlog/backlog.md` first** (what's already open and waiting), then **`docs/behaviour.md` read whole** — the slice it cuts becomes the sprint file's Behaviour context — then codegraph if indexed, `AGENTS.md`, `docs/architecture.md` (draft or filled), `docs/decisions.md` if present, project memory. For a brand-new project note the target instead and plan **wide**.
+- **A plan may already exist** (pasted from a prior chat, a document, tickets already in the backlog) → feed it to `shape` as the basis.
 
 ## 2. Pull the scope onto the board
 
 The sprint scope **is** the board — one list, nowhere else.
 
-- Take from `backlog.md` **Backlog** (Draft first needs refining) plus whatever `plan` just cut, and move those lines onto the sprint board at status `open`. Delete them from `backlog.md` — a ticket is indexed in exactly one place — leaving its `Next ticket` counter alone; numbers only go up. **The ticket files stay in `backlog/`** and the board links them.
+- Take from `backlog.md` **Backlog** (Draft first needs refining) plus whatever `shape` just cut, and move those lines onto the sprint board at status `open`. Delete them from `backlog.md` — a ticket is indexed in exactly one place — leaving its `Next ticket` counter alone; numbers only go up. **The ticket files stay in `backlog/`** and the board links them.
 - **Respect `Depends on`** — pull a ticket only with its dependencies.
 - Size it against the sprint's theme rather than ambition. Anything not pulled stays in the backlog; that's the point of having one.
 
@@ -46,5 +46,5 @@ Then invoke `checkpoint` and hand off **in a fresh chat** to `dynamic-workflow` 
 
 ## Handoff & boundaries
 
-- Produces: the sprint file with its board (via `plan`), the tickets in `backlog/`, `sprint-decisions.md` plus its index lines in `docs/decisions.md`, the branch, the `Current sprint` update.
+- Produces: the sprint file with its board (via `shape`), the tickets in `backlog/`, `sprint-decisions.md` plus its index lines in `docs/decisions.md`, the branch, the `Current sprint` update.
 - The architecture/behaviour docs, specs and product code belong to `maintain-docs`, `spec-design` and the build workflows; `maintain-memory` runs at the workflows' memory step.

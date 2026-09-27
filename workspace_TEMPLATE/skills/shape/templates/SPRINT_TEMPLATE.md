@@ -1,8 +1,8 @@
 # Sprint — {slug}
 
-Date: {YYYY-MM-DD} · template: `~/.agents/skills/plan/templates/SPRINT_TEMPLATE.md`
+Date: {YYYY-MM-DD} · template: `~/.agents/skills/shape/templates/SPRINT_TEMPLATE.md`
 
-<!-- The SPRINT FILE: the frame above, the board below. Written by `plan` (sprint mode),
+<!-- The SPRINT FILE: the frame above, the board below. Written by `shape` (sprint mode),
      opened by `open-sprint`, frozen by `close-sprint` with the sprint. Delete both comments
      in this file once it is filled — the template above keeps the protocol.
      - The frame is written once and approved by the user; only a deliberate re-plan touches it.

@@ -64,14 +64,14 @@ Wiring means **pointing** a harness at the one file — an import or an instruct
 
 ## Work items — the markdown kanban
 
-Every unit of work is a **ticket** in `backlog/` (`T-NNN-{slug}.md`, from the installed `plan` skill's `templates/TICKET_TEMPLATE.md` — capturing one needs no `plan` run): *what* and *why*, category, importance, effort, dependencies. Tickets stay **live**: sharpen one whenever understanding improves. **The file never moves**; boards only *index* it, and a ticket is indexed in exactly one place:
+Every unit of work is a **ticket** in `backlog/` (`T-NNN-{slug}.md`, from the installed `shape` skill's `templates/TICKET_TEMPLATE.md` — capturing one needs no `shape` run): *what* and *why*, category, importance, effort, dependencies. Tickets stay **live**: sharpen one whenever understanding improves. **The file never moves**; boards only *index* it, and a ticket is indexed in exactly one place:
 
 - **`backlog/backlog.md`** — living, survives sprints. Columns **Draft** · **Backlog**: everything not yet pulled. Open *decisions* live here too, as `decision` tickets. Carries the **next free `T-NNN`** at the top.
 - **`artefacts/{sprint}/sprint.md`** — frame + board: every ticket pulled into the sprint, one line each carrying a status token **open · active · to test · done**. The board *is* the sprint scope.
 
 **`artefacts/{sprint}/` stays live until `close-sprint` freezes the sprint** — correct a spec, a report or the board while the sprint runs; only a closed folder is history. Correcting is not annotating: no progress notes, no status commentary, no record of what was tried.
 
-Moves: `plan` and any run capture → Draft/Backlog · `open-sprint` pulls → the board at `open` · the build workflows → `to test` · `e2e`/user → `done` · `close-sprint` distils, then **dissolves** the done tickets (files deleted — that's what keeps `backlog/` bounded) and carries the rest back. **A fix done on the spot needs no ticket** — capture only what isn't being done now.
+Moves: `shape` and any run capture → Draft/Backlog · `open-sprint` pulls → the board at `open` · the build workflows → `to test` · `e2e`/user → `done` · `close-sprint` distils, then **dissolves** the done tickets (files deleted — that's what keeps `backlog/` bounded) and carries the rest back. **A fix done on the spot needs no ticket** — capture only what isn't being done now.
 
 **Decisions** get two homes, written in one move the moment one is settled: the reasoning as a section in `artefacts/{sprint}/sprint-decisions.md`, and one line in `docs/decisions.md` — the flat, append-only index that makes "what is already decided here?" a single read, carrying the **next free `NNNN`** at its top — and the one durable doc allowed to link into `artefacts/`; every other stands on its own.
 
@@ -91,7 +91,7 @@ An agent may invoke these when the user names one; the user can also run them wi
 | dynamic-workflow | feature work needing a spec — the default for real features |
 | {bundle workflows} | {one row per workflow bundle in `~/.agents/BUNDLES.md`, written by `workspace-sync`} |
 | no workflow | none of these; relax the rules and work freely |
-| plan | **first**, whenever a fuzzy idea, draft or brainstorm transcript has to become concrete work |
+| shape | **first**, whenever a fuzzy idea, draft or brainstorm transcript has to become concrete work |
 | close-sprint → open-sprint | at a sprint boundary, in that order |
 | release | a version's worth of scope sits on `main` and the project publishes — after the close, never inside a sprint |
 
