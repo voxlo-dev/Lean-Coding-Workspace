@@ -26,6 +26,8 @@ written to the brief file the dispatch names only out of process. Same content e
 - **~5 failed attempts on the same obstacle → return blocked**, a rerun of a flaky test counting as
   an attempt. Never resolve it yourself — no ticket, no task, no suggestion: only the report reaches
   the orchestrator, who alone decides retry-or-ticket.
+- **Escalation limits: ~300k tokens · 1 h · 100 tool calls.** Reaching any → commit what holds and
+  return a `limit` report (done so far, what's left); the orchestrator decides whether you go on.
 
 ## Return
 

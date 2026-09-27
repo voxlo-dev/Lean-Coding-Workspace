@@ -20,6 +20,8 @@ description: "Use for feature work or any change that warrants a spec. spec-desi
 
 **Weigh every dispatch right before it fires.** A subagent costs a context spin-up plus a handoff, so it pays only where the work is token-hungry, self-contained, or would flood the orchestrator's context; below that bar it runs in the main thread even under `delegated` — a per-run docs pass, a small fix after e2e, a one-file change. Holds for a dispatch a nested skill triggers (`e2e`) too.
 
+**Never wait blind on a dispatch.** While a subagent runs, wake every **30 min**; while a background process runs (an out-of-process dispatch, a long build), every **15 min** — the harness's wakeup or timer, else a poll — so a lost completion notice can't freeze the run. A package worker past the handoff's **escalation limits** without a `limit` report gets stopped and decided per the loop's step 3.
+
 **Stuck? Escalate.** On a technical problem, pause and ask the user after ~5 solution attempts (an attempt = a new approach via a tool call).
 
 ## Light TDD
@@ -42,7 +44,7 @@ Used when the spec's delegation is **delegated**. The point is **context managem
 
 1. **Handoff** — fill `templates/handoff.md`: written from the **spec**, not from reading the code, self-contained, carrying the standing rules the template holds so no dispatch has to restate them. Dispatch one implementer subagent — **in-harness the handoff is the prompt, never a file**. With `light-tdd` the contract package gets its own subagent — that separation is what makes the tests independent; carry its failing-test list into every later handoff, and never widen an implementer's brief to the tests.
 2. **Report** — the subagent implements, checks its acceptance criteria, commits, and returns a short report (what it did, criteria met, test state, concerns). You read the **report, not the diff** — under dispatch mode from the file the handoff named, the loop otherwise unchanged.
-3. **Advance or decide** — criteria met → mark the package done, next package. A **blocked** report is yours to resolve, never the subagent's: re-dispatch with a narrowed brief, capture it as a ticket, or escalate to the user — but do not take the implementation over yourself.
+3. **Advance or decide** — criteria met → mark the package done, next package. A **blocked** or **limit** report is yours to resolve, never the subagent's: let it continue (resume the same agent where the harness can, else re-dispatch with its report as context), re-dispatch with a narrowed brief, capture it as a ticket, or escalate to the user — but do not take the implementation over yourself.
 
 Repeat until every package is done, then the green gate (step 3) delegated the same way, so the orchestrator never loads its context either; docs stay inline per step 5.
 
