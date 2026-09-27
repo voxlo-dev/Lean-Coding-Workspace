@@ -24,7 +24,7 @@
   <!-- skills row -->
   <g>
     <rect x="120" y="44" width="138" height="52" rx="8" fill="#eef2ff" stroke="#6366f1"/>
-    <text x="189" y="68" text-anchor="middle" font-size="11" font-weight="600" fill="#312e81">/plan</text>
+    <text x="189" y="68" text-anchor="middle" font-size="11" font-weight="600" fill="#312e81">/shape</text>
     <text x="189" y="84" text-anchor="middle" font-size="9.5" fill="#4f46e5">idea → tickets</text>
 
     <rect x="272" y="44" width="138" height="52" rx="8" fill="#eef2ff" stroke="#6366f1"/>

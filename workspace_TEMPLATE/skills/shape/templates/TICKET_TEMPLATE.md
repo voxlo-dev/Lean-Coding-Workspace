@@ -1,7 +1,7 @@
 # T-NNN — {title}
 
 <!-- CONTRACT (binding — delete this comment once the ticket is filled):
-  - Template: `~/.agents/skills/plan/templates/TICKET_TEMPLATE.md`.
+  - Template: `~/.agents/skills/shape/templates/TICKET_TEMPLATE.md`.
   - One unit of work: the *what* and the *why*, ~1 page. Solution design belongs to a spec in
     `artefacts/{sprint}/`.
   - LIVE, not frozen: sharpen it whenever understanding improves; the number stays. Only the
@@ -14,7 +14,7 @@
     graduated: decisions → `artefacts/{sprint}/sprint-decisions.md`, behaviour →
     `docs/behaviour.md`. Its board line stays as the record `release` reads for the
     changelog; git history keeps the rest.
-  - Writer: `plan`, or any run that spots something worth capturing.
+  - Writer: `shape`, or any run that spots something worth capturing.
 -->
 
 - **Summary:** {one line — this is what the board and the backlog show}

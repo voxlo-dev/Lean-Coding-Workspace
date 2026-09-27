@@ -1,7 +1,7 @@
 # Lean Coding Workspace
 
 An opinionated setup for Claude Code, Codex and OpenCode: a global instruction file
-plus a set of skills that turn "ask an AI to code" into a repeatable process — plan, spec,
+plus a set of skills that turn "ask an AI to code" into a repeatable process — shape, spec,
 implement, test, document, ship.
 
 It is **plain Markdown**. Nothing to build, no runtime, no lock-in. You install it once into
@@ -78,7 +78,7 @@ gate applies to code only.
 | --- | --- |
 | `/minimal-workflow` | one small, well-scoped change or bugfix — no spec |
 | `/dynamic-workflow` | the default for real features: spec → implement → green suite → optional e2e → docs → memory → board |
-| `/plan` | **first**, whenever a fuzzy idea or brainstorm has to become concrete work. Output is tickets, never a plan file |
+| `/shape` | **first**, whenever a fuzzy idea or brainstorm has to become concrete work. Output is tickets, never a plan file |
 
 Supporting skills, mostly invoked by the workflows rather than by you:
 

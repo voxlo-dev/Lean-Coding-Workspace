@@ -9,13 +9,13 @@
   - Index only: the line is the ticket's Summary verbatim, the detail its file, which stays
     put next to this one in `backlog/`.
   - `Next ticket` is the counter: use it, then increment it. IDs are never reused.
-  - Writers: `plan` and any run that captures something → Draft/Backlog · `open-sprint`
+  - Writers: `shape` and any run that captures something → Draft/Backlog · `open-sprint`
     pulls Backlog → the sprint board · `close-sprint` carries unfinished work back here.
   - Open decisions live here too, as `decision` tickets.
   - A fix done on the spot needs no ticket — capture only what isn't being done now.
 -->
 
-Ticket index · template: `~/.agents/skills/plan/templates/TICKET_TEMPLATE.md`
+Ticket index · template: `~/.agents/skills/shape/templates/TICKET_TEMPLATE.md`
 
 **Next ticket: `T-001`**
 

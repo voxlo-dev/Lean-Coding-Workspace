@@ -21,7 +21,7 @@ a sprint means ~600k tokens spent before any useful work. The skill therefore bu
 
 ## What
 
-A skill that conducts a full sprint end to end — `plan` → `open-sprint` → n × `dynamic-workflow`
+A skill that conducts a full sprint end to end — `shape` → `open-sprint` → n × `dynamic-workflow`
 → `maintain-docs` → optional review/`release` → `close-sprint` — delegating each phase and holding
 minimal state throughout. Success is a sprint completed without uncontrolled compaction of the
 conductor's context.
@@ -37,7 +37,7 @@ Grounded in the capability probes run 2026-08-27:
 
 Shape the design must respect:
 
-- **Interactive phases stay inline.** `plan` and `spec-design` are dialogues; with no user channel
+- **Interactive phases stay inline.** `shape` and `spec-design` are dialogues; with no user channel
   from inside an agent, delegating them means relaying every question through the conductor. Run
   them in the conductor's own context and hand off via file, accepting a controlled context reset
   at the phase boundary rather than a random one later.

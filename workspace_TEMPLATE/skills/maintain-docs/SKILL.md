@@ -33,7 +33,7 @@ For each doc ask "does *this* change affect it?" from what you already know, and
 | --- | --- | --- | --- |
 | `AGENTS.md` → Current sprint | per-run | the sprint pointer moved | keep the one-line pointer correct; also fix code-style/conventions if they changed (single source; the README points here) |
 | `AGENTS.md` → Doc map | per-run | a doc was added or removed | keep the map listing only docs that exist |
-| `artefacts/{sprint}/sprint-decisions.md` | per-run | a decision was **settled** this run — with or without a `decision` ticket | **append a `##` section**, ~15 lines: the forces, what was decided, why over the alternatives. Write it now, not at sprint close, so the rest of the sprint doesn't re-litigate it. Create the file from `plan/templates/SPRINT_DECISIONS_TEMPLATE.md` if missing |
+| `artefacts/{sprint}/sprint-decisions.md` | per-run | a decision was **settled** this run — with or without a `decision` ticket | **append a `##` section**, ~15 lines: the forces, what was decided, why over the alternatives. Write it now, not at sprint close, so the rest of the sprint doesn't re-litigate it. Create the file from `shape/templates/SPRINT_DECISIONS_TEMPLATE.md` if missing |
 | `docs/decisions.md` | per-run | same trigger — **write both in one move** | **append one line**: take `Next decision` from the top and increment it, short description, `accepted`, link to that section. An index, with the rationale kept in the sprint file. To overturn, append the new decision and mark the old line `superseded by NNNN`. A still-open question stays a `decision` ticket |
 | `artefacts/{sprint}/spec_*` | per-run | a spec was implemented this run | update its **Status** (draft → done) and tick the **acceptance criteria** met — only with that context in hand |
 | `docs/behaviour.md` | **sprint-close** | the sprint changed product behaviour, a rule, or a UX invariant | **your first stop at close.** Fold the sprint's behaviour deltas — from its `spec_*` files and the sprint file's Behaviour context — into the rulebook in place, one pass over the whole sprint. Present tense and declarative; rationale lives in `decisions.md` |
@@ -47,7 +47,7 @@ For each doc ask "does *this* change affect it?" from what you already know, and
 
 ## The distillation rule
 
-- **`behaviour.md` is the anti-rot core, and the product overview `plan` reads whole.** Fold the sprint's deltas in at close, one pass, smallest accurate change — that is what makes specs disposable.
+- **`behaviour.md` is the anti-rot core, and the product overview `shape` reads whole.** Fold the sprint's deltas in at close, one pass, smallest accurate change — that is what makes specs disposable.
 - **`architecture.md` draft → filled.** Fill a `planned` subsystem from the real code once it's built, and flip its status from that code — a plan alone leaves it `planned`.
 - **`dev.md` vs. memory — one home, never both.** Would this still be true on another machine? Yes → `docs/dev.md`. No (absolute paths, local installations, personal tool setup, machine-only quirks) → `maintain-memory`.
 - **Split** any durable doc past ~300–500 lines into one file per topic under a same-named folder, keeping the original as the index.
