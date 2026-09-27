@@ -81,8 +81,9 @@ Do not start while the install is unverified — a generator seeded from facts t
 confirmed multiplies the error across every future harness. Required first:
 
 - A converted Codex agent dispatches, or `workspace-sync`'s Codex row says it cannot: dispatch
-  `e2e-runner` from a trusted project and check the answer comes from *its* prompt, not a generic
-  sub-agent playing it; failing that, try declaring the agents in `config.toml`.
+  `e2e-runner` and check the answer comes from *its* prompt, not a generic sub-agent playing it.
+  Registration is proven (below); the run is not. No subscription here, so the route is a local
+  model behind a proxy that flattens `namespace` tools, or an OpenAI API key.
 - Practical use, not a checkup: run a real workflow end to end in **each** harness — a
   `minimal-workflow` change with a memory write and a docs step is enough — and confirm skills load,
   agents dispatch, memory resolves, and a domain stays inert until a project installs one.
@@ -109,7 +110,7 @@ Verified on 2026-09-04 unless marked. Treat every version-bound line as a fact w
 - **Upstream issues are a lead, not a verdict.** They pointed at the right area twice and were the
   wrong explanation once (OpenCode dispatch was the `permission` block, not the `subagent_type` enum).
 
-### Codex — CLI 0.153.0, `gpt-5.6-terra`
+### Codex — CLI 0.153.0, `gpt-5.6-terra`; 0.155.0-alpha where marked
 
 - Not on `PATH`; binary at `%LOCALAPPDATA%\OpenAI\Codex\bin\<hash>\codex.exe`.
 - `~/.codex/AGENTS.md`, no imports. `project_doc_max_bytes` default 32768, truncation silent; the
@@ -121,10 +122,16 @@ Verified on 2026-09-04 unless marked. Treat every version-bound line as a fact w
   and removed: a cache the next memory write strands.
 - Agents: `~/.codex/agents/{name}.toml` with `name`, `description`, `developer_instructions`. A
   multi-line **literal** string (`'''`) carries the Markdown body without escaping. Converted, then
-  parse-checked with `tomllib`. **Reachability unproven** — the prompt describes a generic
-  `spawn_agent` / `followup_task` / `send_message` model and names no custom agent, matching
-  upstream [#15250](https://github.com/openai/codex/issues/15250). Not conclusive: `prompt-input`
-  renders input items, not tool schemas.
+  parse-checked with `tomllib`. **Registered, 0.155.0-alpha, 2026-09-27:** every file in
+  `agents/` is listed under `spawn_agent`'s `agent_type` "Available roles", description included —
+  [#15250](https://github.com/openai/codex/issues/15250) does not apply. `prompt-input` cannot show
+  this (input items, not tool schemas); a capture server as `base_url` can, with no model call.
+- Custom providers: `[model_providers.X]` with `base_url`, `env_key`, `wire_api = "responses"` —
+  `"chat"` is rejected. Agent tools ship as a `type: namespace` tool (`multi_agent_v1`, or
+  `collaboration` under `multi_agent_v2`); `features.multi_agent_v2.tool_namespace` renames it,
+  never removes it. An endpoint without namespace support hides every agent tool — Unsloth Studio
+  does. A non-OpenAI model also needs a `model_catalog_json` entry (schema: `~/.codex/models_cache.json`)
+  with `multi_agent_version`, else fallback metadata and no agent tools at all.
 - Plugins: the same `claude-plugins-official` marketplace, `[marketplaces.X] source_type = "git"`
   plus `[plugins."name@X"] enabled = true`. codegraph goes in as `[mcp_servers.*]`, not a plugin.
 - Its `github` plugin emits `AuthRequired` against `api.githubcopilot.com` — separate from `gh`.
