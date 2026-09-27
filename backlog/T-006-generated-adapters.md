@@ -4,7 +4,7 @@
 - **Category:** feature
 - **Importance:** high
 - **Effort:** L
-- **Depends on:** a clean run of the verification below
+- **Depends on:** —
 
 ## Why
 
@@ -75,18 +75,21 @@ Settle this first — it changes what the generator is for.
 - A middle option exists: track the **manifests** (the facts, which are the expensive part) and
   gitignore the **generated overlay files** (the cheap mechanical part).
 
-## Blocked on the current setup being proven
+## The current setup is proven — 2026-09-27
 
-Do not start while the install is unverified — a generator seeded from facts that were never
-confirmed multiplies the error across every future harness. Required first:
+A generator seeded from unconfirmed facts multiplies the error across every future harness, so the
+install was proven first: one `minimal-workflow` change per harness on a throwaway Node repo, all on
+local Qwen3.6-35B-A3B, tools scoped per run, then an `e2e-runner` dispatch and a memory read.
 
-- A converted Codex agent dispatches, or `workspace-sync`'s Codex row says it cannot: dispatch
-  `e2e-runner` and check the answer comes from *its* prompt, not a generic sub-agent playing it.
-  Registration is proven (below); the run is not. No subscription here, so the route is a local
-  model behind a proxy that flattens `namespace` tools, or an OpenAI API key.
-- Practical use, not a checkup: run a real workflow end to end in **each** harness — a
-  `minimal-workflow` change with a memory write and a docs step is enough — and confirm skills load,
-  agents dispatch, memory resolves, and a domain stays inert until a project installs one.
+| Harness | Skill loads | Docs + commit | `e2e-runner` runs its own prompt | Global memory | Project memory |
+| --- | --- | --- | --- | --- | --- |
+| Claude Code | yes | yes | yes — `Agent`, `subagent_type`; returned `BLOCKED case missing` | in context | targets `~/.claude/projects/<slug>/memory/` |
+| OpenCode | yes | yes | yes — `task`; child session exports as `"agent": "e2e-runner"` | in context | none, reported as such |
+| Codex | — | — | yes — `spawn_agent`; child rollout carries the converted `developer_instructions` | read on demand | none |
+
+Domains inert everywhere: none of the 58 master skills appears in any harness's catalog. Codex's
+blanks are the model, not the install — Qwen3.6 stalls on Codex's PowerShell tooling and ends turns
+early; the child did the same. A full Codex workflow run waits for an OpenAI-class model.
 
 ## What this chat established — the seed for the manifests
 
@@ -100,6 +103,15 @@ Verified on 2026-09-04 unless marked. Treat every version-bound line as a fact w
   `mcp list` do the same for OpenCode. Claude Code re-lists skills mid-session, so a description
   flipping to the template's wording proves a link resolved. Finding these levers should be an
   explicit probe step — they turned an unverifiable install into a checkable one.
+- **A dispatch is proven by the child's record, not the parent's report.** Codex writes a
+  `~/.codex/sessions/**/rollout-*.jsonl` per thread (`agent_role`, the injected instructions);
+  `opencode export <session>` names the child's `agent`. A parent paraphrasing a verdict proves
+  nothing either way.
+- **A local model can drive every harness**, so proving an install costs no subscription: Claude
+  Code via `ANTHROPIC_BASE_URL` + `ANTHROPIC_AUTH_TOKEN` + the `ANTHROPIC_*_MODEL` family against an
+  Anthropic-compatible endpoint (Unsloth Studio's `/v1/messages`), OpenCode via an `OPENCODE_CONFIG`
+  overlay, Codex via `-c model_providers.*`. Scope tools per run instead of bypassing permissions —
+  and a model of Qwen3.6's class proves wiring, not workflow quality.
 - **A file existing proves nothing.** Every real defect this chat found — two mangled skill copies,
   three divergent memory stores, a dead `@~/.claude/domains/` import, an `AGENTS.md` still carrying
   a superseded rule — passed an existence check and failed a lever.
@@ -130,7 +142,8 @@ Verified on 2026-09-04 unless marked. Treat every version-bound line as a fact w
   `"chat"` is rejected. Agent tools ship as a `type: namespace` tool (`multi_agent_v1`, or
   `collaboration` under `multi_agent_v2`); `features.multi_agent_v2.tool_namespace` renames it,
   never removes it. An endpoint without namespace support hides every agent tool — Unsloth Studio
-  does. A non-OpenAI model also needs a `model_catalog_json` entry (schema: `~/.codex/models_cache.json`)
+  does; a proxy flattening them upward and tagging returned `function_call`s with their `namespace`
+  restores dispatch. A non-OpenAI model also needs a `model_catalog_json` entry (schema: `~/.codex/models_cache.json`)
   with `multi_agent_version`, else fallback metadata and no agent tools at all.
 - Plugins: the same `claude-plugins-official` marketplace, `[marketplaces.X] source_type = "git"`
   plus `[plugins."name@X"] enabled = true`. codegraph goes in as `[mcp_servers.*]`, not a plugin.
@@ -154,6 +167,8 @@ Verified on 2026-09-04 unless marked. Treat every version-bound line as a fact w
 - Plugins are JS modules in `plugin`; everything else arrives through `mcp`
   (`{type: "local", command: [...]}` or `{type: "remote", url}`).
 - Config is not hot-reloaded — restart, `/new` is not enough.
+- In `opencode run`, a permission that resolves to `ask` is auto-rejected and **ends the run**;
+  reads outside the project are the `external_directory` permission.
 - On PowerShell the binary writes its banner to stderr, which surfaces as `NativeCommandError`
   around perfectly successful runs.
 

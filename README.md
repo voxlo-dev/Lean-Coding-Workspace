@@ -23,8 +23,8 @@ questions by reading half the repo. This workspace fixes that with three ideas:
 
 ## Requirements
 
-- A harness: Claude Code (verified) · Codex (agents need a format transform, dispatch unverified) ·
-  OpenCode (paths unconfirmed — the installer asks)
+- A harness: Claude Code · Codex (agents need a format transform; dispatch needs a model endpoint
+  that supports namespaced tools, e.g. OpenAI's) · OpenCode — all three verified end to end
 - Git
 - Two plugins, installed for you by the sync: `codegraph`, `context7`
 - Optional, offered by the sync: third-party skill bundles from a curated catalog
