@@ -15,7 +15,7 @@ The planning half of the sprint cycle, and the thinking layer above the build wo
 
 Read `AGENTS.md` → **Current sprint**.
 
-- **Not scaffolded yet** (no `AGENTS.md`) → `project-initialiser` first, then come back for the first sprint.
+- **Not scaffolded yet** (no `AGENTS.md`) → `project-init` first, then come back for the first sprint.
 - **A sprint is still active** → close it first (`close-sprint`), then return.
 - **New project, or no active sprint** → continue. A brand-new project plans **wide** — deep brainstorm + research + domain/stack — and still writes a sprint file rather than an architecture doc.
 

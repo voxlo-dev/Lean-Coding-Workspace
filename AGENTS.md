@@ -19,7 +19,7 @@ Concretely, in this repo there is:
 - no sprint, no `artefacts/`, no `docs/` tier system — `backlog/` is the one borrowed convention,
   a plain ticket index for work not being done now, with no board and no sprint above it; `docs/`
   is flat research the template's decisions rest on — read it before re-deciding what it settles
-- no `project-initialiser` run, no domain, no scaffolded instruction file — the root `AGENTS.md`
+- no `project-init` run, no domain, no scaffolded instruction file — the root `AGENTS.md`
   here is hand-written, not an installed copy
 
 **Only this root `AGENTS.md` applies**, plus the user's selected global workspace rules on language,

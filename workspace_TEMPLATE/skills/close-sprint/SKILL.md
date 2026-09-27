@@ -13,7 +13,7 @@ The wrap-up half of the sprint cycle. One run = one **sprint close**: clear the 
 
 ## 0. Detect the mode
 
-Read `AGENTS.md` → **Current sprint**. No `AGENTS.md` → run `project-initialiser` first · `none` → nothing to close, go to `open-sprint` · active sprint → continue.
+Read `AGENTS.md` → **Current sprint**. No `AGENTS.md` → run `project-init` first · `none` → nothing to close, go to `open-sprint` · active sprint → continue.
 
 ## 1. Clear the board
 

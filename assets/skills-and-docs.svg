@@ -123,6 +123,6 @@
   <text x="949" y="530" text-anchor="middle" font-size="9.5" fill="#581c87">memory/MEMORY.md</text>
   <text x="949" y="545" text-anchor="middle" font-size="9" fill="#9333ea">project · domain · global</text>
 
-  <text x="120" y="596" font-size="9.5" fill="#64748b">/project-initialiser scaffolds every doc above once, before any of this — INSTALL.md + workspace-sync set up the workspace itself.</text>
+  <text x="120" y="596" font-size="9.5" fill="#64748b">/project-init scaffolds every doc above once, before any of this — INSTALL.md + workspace-sync set up the workspace itself.</text>
   <text x="120" y="614" font-size="9.5" fill="#64748b">A ticket stays editable for its whole life; it travels left to right, its status token is where it sits, and /close-sprint dissolves it once its truth has graduated.</text>
 </svg>

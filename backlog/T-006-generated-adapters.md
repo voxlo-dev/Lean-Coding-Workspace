@@ -177,7 +177,7 @@ Verified on 2026-09-04 unless marked. Treat every version-bound line as a fact w
 ### Projection targets — verified 2026-09-17, the domain system's inputs
 
 Docs plus string dumps of the installed builds; the junction probe was run in this repo and removed.
-A manifest has to answer these per harness, because `project-initialiser` writes to every one of them.
+A manifest has to answer these per harness, because `project-init` writes to every one of them.
 
 | Harness | Skill roots (project) | Agents | MCP |
 | --- | --- | --- | --- |

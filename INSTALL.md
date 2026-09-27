@@ -47,7 +47,7 @@ Several harnesses each have their own `AGENTS.md`; write the same content into e
 ## 5. Review
 
 Show the user what landed per harness and what went into `AGENTS.md`, and let them adjust before
-first real use. Then open a project and run `project-initialiser` on it.
+first real use. Then open a project and run `project-init` on it.
 
 ## If something is off
 
