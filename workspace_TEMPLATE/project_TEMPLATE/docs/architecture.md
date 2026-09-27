@@ -5,7 +5,7 @@
      subsystems; template: `~/.agents/project_TEMPLATE/docs/architecture.md`):
   - PURPOSE: the planned/implemented software *structure* — where things live and how the
     pieces connect. Optimised as agent context: "where does X live", boundaries, entry points.
-  - WHO WRITES: seeded as `draft` by `project-initialiser`; `maintain-docs` fills subsystems
+  - WHO WRITES: seeded as `draft` by `project-init`; `maintain-docs` fills subsystems
     from real code as they're built.
   - BOUNDARIES: this doc answers *structure* only. Product behaviour/rules → `behaviour.md`;
     the *why* of a choice → `decisions.md`; API signatures, setup, gotchas → `dev.md`.

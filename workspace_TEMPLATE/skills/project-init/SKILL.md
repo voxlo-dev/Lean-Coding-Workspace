@@ -1,9 +1,9 @@
 ---
-name: project-initialiser
+name: project-init
 description: "Use to onboard a new or existing project: explore, detect the domain, scaffold the template, set up docs (re-homing any that came from an older or different workspace), install frameworks and the test framework, fix the gitignore, and commit."
 ---
 
-# Project Initialiser
+# Project Init
 
 Onboard a repo end-to-end. Owns the **initial** doc creation (it does the deep exploration); `maintain-docs` only updates them afterwards. Small projects need light docs — the user opts in per doc (step 4). **Act only once the user approves the plan (step 5).**
 
@@ -13,7 +13,7 @@ Onboard a repo end-to-end. Owns the **initial** doc creation (it does the deep e
 
 2. **Inventory what exists** — code, tests, docs, template files, an already-present domain bundle. This decides what to scaffold vs. merge; flag docs on a different or older layout for step 7.
 
-3. **Detect the domains** — **several may apply** (a frontend and a backend in one tree), and a project with none is valid. Per candidate, check `~/.agents/domains/{x}/`: a usable master contains skills plus a complete recipe, not only `Domain-Recipe.md`. Missing or incomplete → ask whether to run `domain-initialiser` first.
+3. **Detect the domains** — **several may apply** (a frontend and a backend in one tree), and a project with none is valid. Per candidate, check `~/.agents/domains/{x}/`: a usable master contains skills plus a complete recipe, not only `Domain-Recipe.md`. Missing or incomplete → ask whether to run `domain-init` first.
 
 4. **Choose optional docs** — one checkbox question, skipping any that exist. Explain the lifespan split once: `docs/` holds durable truth, `artefacts/` (created on first use) holds process history, live for its sprint and frozen once that sprint closes.
    - **behaviour doc?** `docs/behaviour.md` — product semantics as a rulebook, the whole-product overview `shape` reads and each sprint folds its deltas back into. **Recommend for anything with user interaction.**

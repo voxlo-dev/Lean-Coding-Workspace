@@ -84,15 +84,15 @@ Supporting skills, mostly invoked by the workflows rather than by you:
 
 | Skill | Role |
 | --- | --- |
-| `/project-initialiser` | onboard a repo: explore, detect domain, scaffold docs, install test framework, migrate existing docs |
+| `/project-init` | onboard a repo: explore, detect domain, scaffold docs, install test framework, migrate existing docs |
 | `/open-sprint` · `/close-sprint` | open and close a sprint (see below); also the entry point for a brand-new project |
 | `/release` | publish a version: changelog, version bump, security gate, PR, CI, audit, ship, tag |
 | `spec-design` | stage 1 of `dynamic-workflow`: brainstorm, design the UI, decide the test + implementation strategy, write the spec |
 | `e2e` | optional end-to-end validation stage; grows a driver script step by step, driving by agent only where a script can't reach |
 | `ui-design` | look and feel — colors, typography, layout, mockups, design system |
 | `maintain-docs` · `maintain-memory` | the docs and memory steps; both prune as well as write |
-| `/checkpoint` | end a chat after `open-sprint`, a `dynamic-workflow` run or `project-initialiser`, or on request: a short untracked handout the next chat reads and deletes |
-| `/domain-initialiser` | build a domain master (see below) |
+| `/checkpoint` | end a chat after `open-sprint`, a `dynamic-workflow` run or `project-init`, or on request: a short untracked handout the next chat reads and deletes |
+| `/domain-init` | build a domain master (see below) |
 | `/dispatch-configurator` | probe this machine's harnesses, providers and models and write the dispatch guide; `check` reports drift |
 | `workspace-sync` | sync and repair an install (in this repo, not the workspace) |
 
@@ -190,13 +190,13 @@ sources they cite. It is capability and nothing else: no domain changes how a wo
 build and release knowledge it carries only *seeds* a project's docs, which own it afterwards.
 
 Masters live **inert** in `~/.agents/domains/{x}/`, so nothing domain-specific loads globally. The
-bundle is harness-neutral; `project-initialiser` **projects** it into a repo, each part onto the path
+bundle is harness-neutral; `project-init` **projects** it into a repo, each part onto the path
 that harness already scans — skills as a link (or a copy, if you want them in the repo), agents and
 MCP servers into the harness's own directories, memory pointed back at the master. So the Unity MCP
 runs in Unity repos and nowhere else. **A project can install several**, as peers: a frontend and a
 backend domain project into the same directories.
 
-No masters ship with this repo — you build the ones you need with `/domain-initialiser`.
+No masters ship with this repo — you build the ones you need with `/domain-init`.
 
 ## Memory
 

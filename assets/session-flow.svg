@@ -7,7 +7,7 @@
 
   <!-- setup -->
   <rect x="24" y="180" width="150" height="64" rx="8" fill="#eef2ff" stroke="#6366f1"/>
-  <text x="99" y="206" text-anchor="middle" font-size="11.5" font-weight="600" fill="#312e81">/project-initialiser</text>
+  <text x="99" y="206" text-anchor="middle" font-size="11.5" font-weight="600" fill="#312e81">/project-init</text>
   <text x="99" y="225" text-anchor="middle" font-size="10" fill="#4f46e5">once per repo</text>
 
   <path d="M174,212 H208" stroke="#94a3b8" stroke-width="1.4" fill="none" marker-end="url(#arw)"/>

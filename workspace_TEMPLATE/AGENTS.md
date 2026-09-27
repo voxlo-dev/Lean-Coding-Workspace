@@ -48,16 +48,16 @@ Assume the user is capable, but lazy with words, because he can't type as fast a
 
 ## Domains
 
-A domain is a **capability bundle** — skills, agents, MCP servers, memory, doc sources — and nothing beyond: it never changes a workflow, and its engineering rules seed the project's docs rather than governing them. Masters live **inert** in `~/.agents/domains/{x}/`, so nothing domain-specific ever loads globally; `project-initialiser` **projects** one into a repo, part by part onto the paths that harness already scans (so e.g. the Unity MCP runs only in Unity repos), and **several per project, as peers**. `domain-initialiser` builds a master. Both skills own the mechanics.
+A domain is a **capability bundle** — skills, agents, MCP servers, memory, doc sources — and nothing beyond: it never changes a workflow, and its engineering rules seed the project's docs rather than governing them. Masters live **inert** in `~/.agents/domains/{x}/`, so nothing domain-specific ever loads globally; `project-init` **projects** one into a repo, part by part onto the paths that harness already scans (so e.g. the Unity MCP runs only in Unity repos), and **several per project, as peers**. `domain-init` builds a master. Both skills own the mechanics.
 
-Available masters: {}. Create one with the `domain-initialiser` skill.
+Available masters: {}. Create one with the `domain-init` skill.
 
 ## Memory
 
 Native Markdown, no plugin. `maintain-memory` curates it and **prunes stale entries** at each workflow's memory step. Three scopes, pick the narrowest:
 
 - **Project** — `{home}/projects/<repo>/memory/`, the one scope a harness stores itself, so it exists only where that harness has it.
-- **Domain** — `~/.agents/domains/{x}/DOMAIN-MEMORY.md` in the master, pointed at per project by `project-initialiser`, once per installed domain — **never a projected copy**, which is disposable, so a fact written there would never reach a sibling project.
+- **Domain** — `~/.agents/domains/{x}/DOMAIN-MEMORY.md` in the master, pointed at per project by `project-init`, once per installed domain — **never a projected copy**, which is disposable, so a fact written there would never reach a sibling project.
 - **Global** — `~/.agents/memory/MEMORY.md`, wired once by `workspace-sync`.
 
 Wiring means **pointing** a harness at the one file — an import or an instructions list; never inlining a copy, which is a cache the next write strands. Where a harness offers neither lever the file is **readable but not loaded**: open it yourself before relying on memory, and say that it wasn't in context rather than that there was none. Domain and global memory load in full — keep them lean. **Memory vs. docs — one home, never both:** machine-bound facts (absolute paths, local installs, personal tool setup, this-machine-only quirks) → **memory**; system-independent, generally true engineering knowledge → **`docs/dev.md`**. In doubt, ask whether it would still be true on someone else's machine.
@@ -77,7 +77,7 @@ Moves: `shape` and any run capture → Draft/Backlog · `open-sprint` pulls → 
 
 ## Workflows (skills — invoke, don't read files)
 
-An agent may invoke these when the user names one; the user can also run them with `/name` where supported. Each skill's own description says what it does — pick by it, don't re-derive. Installing or repairing the workspace itself is not among them: that is `INSTALL.md` and the `workspace-sync` skill, both living in the workspace repo and started by the user alone — so never copy the template over a live workspace by hand. Bringing an already-initialised *project* onto the current structure is `project-initialiser`'s docs-migration step — individual work, with the user, never a fixed recipe.
+An agent may invoke these when the user names one; the user can also run them with `/name` where supported. Each skill's own description says what it does — pick by it, don't re-derive. Installing or repairing the workspace itself is not among them: that is `INSTALL.md` and the `workspace-sync` skill, both living in the workspace repo and started by the user alone — so never copy the template over a live workspace by hand. Bringing an already-initialised *project* onto the current structure is `project-init`'s docs-migration step — individual work, with the user, never a fixed recipe.
 
 **The workflow gate applies only to software development** — building or changing code, features, bugfixes. Non-dev work (writing, research, general questions, one-off shell tasks) skips it: act directly, with these rules relaxed to fit the task. For development it is **mandatory**.
 
@@ -97,6 +97,6 @@ An agent may invoke these when the user names one; the user can also run them wi
 
 **Preflight — before starting any workflow:**
 
-- **Project initialised?** No `AGENTS.md` / template docs → recommend `project-initialiser` first.
+- **Project initialised?** No `AGENTS.md` / template docs → recommend `project-init` first.
 - **Which sprint?** `AGENTS.md` → **Current sprint**; run artifacts land in `artefacts/{sprint}/`. **A sprint is not a run:** it holds many runs, plans and specs — stay in the active one until its scope is done, then `close-sprint` → `open-sprint`. **Nor is it a release:** a version spans as many sprints as it needs, and `release` cuts it from `main` after. A lone fix or maintenance pass needs no sprint.
 - **Clean git tree?** Dirty → surface it and recommend committing, gitignoring or reverting so the run starts clean.

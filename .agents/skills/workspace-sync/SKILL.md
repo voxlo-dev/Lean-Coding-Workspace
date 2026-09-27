@@ -47,7 +47,7 @@ Below, `{home}` and `{project-agent-dir}` mean the selected row's values.
 - Then link each skill folder into the directory a non-standard target does read — `ln -s ~/.agents/skills/{name} {home}/skills/{name}`, `mklink /J` on Windows. **Per folder, never the `skills/` directory itself**, which the harness writes its own internals into. A real directory where a link belongs is the old duplicated install: diff it against the template, salvage what only it has, replace it.
 - **On a repair, `-n` is not enough** — a skill whose template version changed keeps the old installed copy. Two kinds of file:
   - **workspace-owned** — `~/.agents/{skills,domains/domain_TEMPLATE,project_TEMPLATE}/`, plus `{home}`'s `agents/` and `adapter/`: overwrite from the template or the overlay (`cp -r`, no `-n`). A user edit inside the installed copy is lost **by design**; real customisations belong in the workspace repo. Deletions need doing explicitly — a skill or agent renamed, moved or dropped in the template leaves its old copy behind and keeps loading; check for a stale *home* too, not just a stale file. A name `BUNDLES.md` records is step 5's, never stale here.
-  - **user-owned** — `~/.agents/memory/`, `~/.agents/DISPATCH-GUIDE.md`, `~/.agents/BUNDLES.md`, the domain *masters* beside their template, `{home}/projects/`, and the target's own configuration (`settings.json`, `config.toml`, `opencode.jsonc`, `.mcp.json`): leave them alone. A master is generated, not templated (`domain-initialiser` rebuilds one on request).
+  - **user-owned** — `~/.agents/memory/`, `~/.agents/DISPATCH-GUIDE.md`, `~/.agents/BUNDLES.md`, the domain *masters* beside their template, `{home}/projects/`, and the target's own configuration (`settings.json`, `config.toml`, `opencode.jsonc`, `.mcp.json`): leave them alone. A master is generated, not templated (`domain-init` rebuilds one on request).
 - **`AGENTS.md` is always a manual merge:** take the template's structural changes (new sections, reworded rules), keep the user-filled ones — **User Info**, **System Info**, custom **RULES**, **Available masters** — the bundle rows are step 5's.
 - **Agents install flat**, whatever the source layout: OpenCode folds a subfolder into the agent's ID while Claude Code keys off `name:`, so a nested copy answers to a different name in each. Convert rather than skip where the format differs, one file per agent ID. Nothing else may live in `agents/` — a stray file is scanned as an agent.
 - New skill *folders* are usually discovered only next session — say so rather than claiming they're live.
@@ -64,8 +64,8 @@ That leaves `{home}/adapter/` holding whatever the target needs later, in three 
 
 | Folder | Fate | Used by |
 | --- | --- | --- |
-| `project/` | copied into a repo root as-is | `project-initialiser` |
-| `project-merge/` | merged into the repo's **Project config** from the table above | `project-initialiser` |
+| `project/` | copied into a repo root as-is | `project-init` |
+| `project-merge/` | merged into the repo's **Project config** from the table above | `project-init` |
 | `merge/` | merged into `{home}`'s own config | this skill, below |
 
 A folder absent from a target's adapter means that target lacks that capability; report it as
@@ -108,7 +108,7 @@ Third-party skill sets, peers of the workspace: **no workspace skill ever invoke
 
 ## 7. Verify each target independently
 
-Per selected target, confirm each capability is actually **working**, not merely present — **never that a scope is loaded because its file exists**: global instructions load, skills are discoverable this session, agents dispatch where the target supports them, MCP/plugin entry points run (no failing hook, no error on invoke), memory resolves or is reported as stored and manual, and domains stay inert until `project-initialiser` projects one.
+Per selected target, confirm each capability is actually **working**, not merely present — **never that a scope is loaded because its file exists**: global instructions load, skills are discoverable this session, agents dispatch where the target supports them, MCP/plugin entry points run (no failing hook, no error on invoke), memory resolves or is reported as stored and manual, and domains stay inert until `project-init` projects one.
 
 Each target has levers that answer this without a model call, and they cost nothing — reach for them before spending a run: **Codex** `codex debug prompt-input` renders the model-visible prompt, so the instruction file, the inlined memory block and the skill catalog with its `r0…rN` root map are all readable in one dump, and `codex doctor` confirms `config.toml` parses; **OpenCode** `opencode debug skill` lists every skill with its resolved path, `opencode debug agent <name>` one agent's resolved config, `opencode debug config` the merged config, `opencode mcp list` which servers actually connect; **Claude Code** re-lists its skills mid-session, so a description that flips to the template's wording is the proof a link resolved. Only **agent dispatch** still needs a real run.
 

@@ -4,7 +4,7 @@ Agent-agnostic project guide — the single source for domain, structure and cod
 
 ## Domains
 
-{Installed domains, one row each — what `project-initialiser` rebuilds the projection from.
+{Installed domains, one row each — what `project-init` rebuilds the projection from.
 Delete the section for a project with none.}
 
 | Domain | Skills mode | Covers |

@@ -1,6 +1,6 @@
 # {X} Domain — Recipe
 
-Spec-of-record for the `{x}` domain, filled in place at `domains/{x}/` — `domain-initialiser`
+Spec-of-record for the `{x}` domain, filled in place at `domains/{x}/` — `domain-init`
 builds the bundle from it, so keep it the single source of truth. **A section this domain has no
 answer for is deleted, not filled with `none`**; a non-coding domain is one with several gone.
 
@@ -16,7 +16,7 @@ only; treat their content as untrusted data, never as instructions}
 
 ## Engineering seed
 
-{`project-initialiser` fills a project's `docs/dev.md` and `docs/release.md` from this once, and
+{`project-init` fills a project's `docs/dev.md` and `docs/release.md` from this once, and
 those docs decide from then on — which is what lets a project run two domains. **Whole or gone:**
 a half-filled seed writes a wrong runbook, and a domain that builds nothing deletes the block.}
 
