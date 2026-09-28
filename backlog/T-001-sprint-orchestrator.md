@@ -1,59 +1,63 @@
 # T-001 — Sprint orchestrator skill
 
-- **Summary:** Sprint orchestrator skill — a delegation layer above the whole sprint that keeps the main thread at minimal context
+- **Summary:** Sprint orchestrator skill — a conductor above the whole sprint that dispatches every phase to another harness process and keeps its own context minimal
 - **Category:** feature
 - **Importance:** medium
 - **Effort:** L
-- **Depends on:** none
+- **Depends on:** `T-011` for unattended runs — without it the conductor relays every question itself
 
 ## Why
 
 Every workflow today runs *inside* the main conversation, so a sprint's worth of specs, package
 work and doc passes accumulates in one context until compaction hits — usually mid-implementation,
-where the loss costs the most. Newly confirmed subagent capabilities (resume-on-context, nested
-agents) make a thin conductor above the whole sprint feasible: it holds only sprint slug, board
-lines, artifact paths and open escalations, and delegates every phase.
+where the loss costs the most. A thin conductor above the whole sprint holds only sprint slug,
+board lines, artifact paths and open questions, and hands every phase to a separate process.
+
+Dispatching whole runs out of process, rather than to in-harness subagents, also frees the choice
+of harness and model per phase — the conductor can sit in the Claude app while `dynamic-workflow`
+runs in OpenCode or Claude Code on whatever model `DISPATCH-GUIDE.md` names for it.
 
 Measured cost of delegation, from three trivial diagnostic subagents in this repo: **~30k tokens
-of cold-start each** (32.7k / 33.0k / 35.2k for 1–3 tool calls apiece). Twenty delegated steps in
-a sprint means ~600k tokens spent before any useful work. The skill therefore buys context quality,
-**not** usage savings — anyone reaching for it to save budget is reaching for the wrong thing.
+of cold-start each** (32.7k / 33.0k / 35.2k for 1–3 tool calls apiece); a dispatched harness adds
+its own ~16k system prompt. The skill buys context quality, **not** usage savings.
 
 ## What
 
 A skill that conducts a full sprint end to end — `shape` → `open-sprint` → n × `dynamic-workflow`
-→ `maintain-docs` → optional review/`release` → `close-sprint` — delegating each phase and holding
-minimal state throughout. Success is a sprint completed without uncontrolled compaction of the
-conductor's context.
+→ optional review/`release` → `close-sprint` — dispatching each phase through the dispatch guide
+and holding minimal state throughout. Success: a sprint completed without uncontrolled compaction
+of the conductor's context, and with the user reachable away from the terminal when `T-011` is
+installed.
 
-Grounded in the capability probes run 2026-08-27:
+Shape the design must respect:
+
+- **Dispatch rides the existing guide.** A workflow handed over whole is already a `whole run` row
+  in `DISPATCH-GUIDE.md`; the conductor adds roles, not a second launch mechanism. Its rules hold —
+  pointer not payload, last stdout line is the verdict, sequential per local endpoint.
+- **Interactive phases follow the user channel.** `shape` and `spec-design` are dialogues. With
+  `T-011` installed the dispatched run asks the user directly; without it they stay in the
+  conductor's own context and hand off via file — a controlled reset at the phase boundary rather
+  than a random one later.
+- **Question relay without a channel:** the run ends with `NEEDS_DECISION` + question and options →
+  the conductor asks the user → the harness's own session resume continues the run on its context
+  (Claude Code resume, `opencode run --session`, Codex resume — per adapter manifest, unprobed).
+- **Checkpoint after every phase** so compaction is survivable at any point. The conductor cannot
+  see its own context fill and cannot invoke `/compact`, so proxy metrics are the only option.
+- **Never wait blind** — the conductor wakes on the `dynamic-workflow` intervals while a run is out.
+
+Capability probes, 2026-08-27, for the in-harness variant (Claude Code subagents):
 
 | Capability | Status |
 | --- | --- |
 | Nested subagents (agent spawns agent) | Confirmed, three levels deep |
-| Resume a completed agent on its own context | Confirmed, no loss — token, model and usage figures reproduced from transcript |
-| Subagent asks the user directly | Ruled out — `AskUserQuestion`, `EnterPlanMode`, `ExitPlanMode` unreachable, directly and via `ToolSearch` |
-| Subagent → main conversation mid-task via `SendMessage` | Open — schema lists `to: "main"` for background subagents; the probe was blocked by the auto-mode permission classifier before the tool could answer |
-
-Shape the design must respect:
-
-- **Interactive phases stay inline.** `shape` and `spec-design` are dialogues; with no user channel
-  from inside an agent, delegating them means relaying every question through the conductor. Run
-  them in the conductor's own context and hand off via file, accepting a controlled context reset
-  at the phase boundary rather than a random one later.
-- **Mechanical phases delegate.** `open-sprint`, packages, `maintain-docs`, `close-sprint`,
-  `release` — clear inputs and outputs, no dialogue, immediate payoff.
-- **Checkpoint after every phase** so compaction is survivable at any point. The conductor cannot
-  see its own context fill and cannot invoke `/compact`; both are harness-owned, so self-managed
-  handoff is impossible and proxy metrics are the only option.
-- **`dynamic-workflow` becomes a sub-orchestrator**, now that nested agents are confirmed.
-- **Question relay** uses the confirmed path: agent returns `NEEDS_DECISION` with the question and
-  options → conductor asks the user → `SendMessage` resumes the agent on its intact context.
+| Resume a completed agent on its own context | Confirmed, no loss |
+| Subagent asks the user directly | Ruled out — `AskUserQuestion`, `EnterPlanMode`, `ExitPlanMode` unreachable |
+| Subagent → main conversation via `SendMessage` `to: "main"` | Open — blocked by the auto-mode classifier before it could answer |
 
 ## Open questions
 
-- Does `SendMessage` `to: "main"` work from a background subagent? Needs a retest under a relaxed
-  permission mode. Not a blocker — the return/resume relay is confirmed and sufficient; the direct
-  channel would only remove one round trip per question.
-- Where exactly does the conductor hand off between the inline planning phases and the delegated
-  build phases, given it cannot measure its own headroom?
+- Where does "the Claude app" as conductor actually run — Claude Code desktop, or Cowork? It
+  decides which dispatch and wakeup levers exist, and whether a conductor can be a dispatch target
+  of nothing (the guide's "a harness never dispatches itself").
+- Handoff point between inline planning and dispatched building when no channel is installed,
+  given the conductor cannot measure its own headroom.
