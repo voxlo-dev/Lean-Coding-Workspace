@@ -15,7 +15,7 @@ The workspace uses Markdown memory, not a required plugin. `workspace-sync` enab
 | **Domain** | `~/.agents/domains/{x}/DOMAIN-MEMORY.md` — the master, never a projected copy | pointed at per project by `project-init`, once per installed domain | facts true for every project of this domain |
 | **Global** | `~/.agents/memory/MEMORY.md` | pointed at once by `workspace-sync` | facts true everywhere |
 
-Each file exists **once** and every harness is pointed at that one path — by an **import** in the instruction file (Claude Code's `@`) or an **instructions list** in the config (OpenCode's). A harness with neither lever still reaches the file by path, it just never has it in context — `workspace-sync` reports that scope as read-on-demand rather than inlining a copy the next write would strand. So: **write to the file, never to an instruction file**, and never chase a second copy.
+Each file exists **once** and every harness is pointed at that one path — by an **import** in the instruction file or an **instructions list** in the config. A harness with neither lever still reaches the file by path, it just never has it in context — `workspace-sync` reports that scope as read-on-demand rather than inlining a copy the next write would strand. So: **write to the file, never to an instruction file**, and never chase a second copy.
 
 Default to **project**; promote only once a learning is clearly that broad. When scope becomes clearer later, **move** the entry.
 
