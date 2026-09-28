@@ -9,7 +9,8 @@ machine that has never had the workspace.
 
 ## 1. Prerequisites
 
-- `git`, and at least one supported harness installed: **Claude Code** · **Codex** · **OpenCode**.
+- `git`, and at least one harness with a folder in `adapters/`: **Claude Code** · **Codex** · **OpenCode**.
+  Another goes through the repo's `harness-onboard` skill first.
 - Optional, for projects on a PR flow: the `gh` CLI (step 3 installs and authenticates it if asked).
 
 ## 2. Clone

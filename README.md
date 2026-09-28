@@ -24,7 +24,8 @@ questions by reading half the repo. This workspace fixes that with three ideas:
 ## Requirements
 
 - A harness: Claude Code · Codex (agents need a format transform; dispatch needs a model endpoint
-  that supports namespaced tools, e.g. OpenAI's) · OpenCode — all three verified end to end
+  that supports namespaced tools, e.g. OpenAI's) · OpenCode — all three verified end to end. Any
+  other harness gets onboarded once with `harness-onboard`
 - Git
 - Two plugins, installed for you by the sync: `codegraph`, `context7`
 - Optional, offered by the sync: third-party skill bundles from a curated catalog
@@ -95,6 +96,7 @@ Supporting skills, mostly invoked by the workflows rather than by you:
 | `/domain-init` | build a domain master (see below) |
 | `/dispatch-configurator` | probe this machine's harnesses, providers and models and write the dispatch guide; `check` reports drift |
 | `workspace-sync` | sync and repair an install (in this repo, not the workspace) |
+| `harness-onboard` | probe a harness with no adapter yet, record what it verifiably does, derive its overlay (in this repo) |
 
 ## Work items — the Markdown kanban
 
@@ -220,6 +222,8 @@ The whole workspace is Markdown — fork it and edit. Two things worth knowing:
 - **Only `adapters/` may name a harness.** Everything else is neutral — Claude Code reading
   `CLAUDE.md` instead of `AGENTS.md` is a two-line shim in its overlay, and that asymmetry lives
   nowhere else. A capability no overlay implements is reported as missing, never as working.
+- **Another harness is a procedure, not a favour.** `harness-onboard` probes it — its own debug
+  commands first, docs last — into a manifest of verified facts, then derives the overlay from it.
 
 ## Repo layout
 
@@ -231,7 +235,11 @@ workspace_TEMPLATE/            ← harness-neutral; installs to ~/.agents/ excep
 ├── project_TEMPLATE/          ←   scaffold copied into each new project
 ├── domains/                   ←   domain master scaffold
 └── memory/                    ←   global memory seed
-adapters/{harness}/            ← install overlay: the few files that differ, at the paths they land on
-.agents/skills/workspace-sync/ ← the sync skill and its bundle catalog: it reads the two directories above, so it lives here
+adapters/{harness}/            ← one per harness, both tracked
+├── MANIFEST.md                ←   verified facts: paths, levers, gaps, each with version and date
+└── overlay/                   ←   the few files that differ, derived from it, at the paths they land on
+.agents/skills/                ← the repo's own skills — they read the two directories above, so they live here
+├── workspace-sync/            ←   sync and repair, plus the bundle catalog
+└── harness-onboard/           ←   probe a new harness into a manifest and overlay
 INSTALL.md                     ← the install guide, followable before any of this is installed
 ```
