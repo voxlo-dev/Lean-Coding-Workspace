@@ -24,7 +24,7 @@ before its first write, and asks per file — keep, merge, or replace.
 
 ## 1. Prerequisites
 
-- `git`, and at least one harness with a folder in `adapters/`: **Claude Code** · **Codex** · **OpenCode**.
+- `git`, and at least one harness with a folder in `adapters/` — its `MANIFEST.md` says what is verified.
   Another goes through the repo's `harness-onboard` skill first.
 - Optional, for projects on a PR flow: the `gh` CLI (step 3 installs and authenticates it if asked).
 
@@ -46,7 +46,7 @@ discovered on session start, so **restart each harness before relying on them.**
 
 ## 4. Personalise `AGENTS.md` — once per machine
 
-`{home}/AGENTS.md` (`~/.claude` · `~/.codex` · `~/.config/opencode`) is loaded in every session of
+`{home}/AGENTS.md` (`{home}` per the manifest's **Home** row) is loaded in every session of
 that harness. It ships with three sections still empty; fill them once and a later sync preserves
 them. Keep every answer short — this text is paid for in every session, forever.
 

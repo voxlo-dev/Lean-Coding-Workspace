@@ -1,6 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 760" width="1000" height="760" role="img" aria-labelledby="title desc">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1066" width="1000" height="1066" role="img" aria-labelledby="title desc">
 <title id="title">How a session goes</title>
-<desc id="desc">Install once per machine and run project-init once per project. Then sprints repeat: open-sprint plans tickets and opens a branch; every new chat starts by picking a workflow; minimal-workflow handles small fixes, dynamic-workflow takes a feature from spec to tested, documented code; many runs happen per sprint; close-sprint updates the docs and merges. Once a few sprints add up to a version, release ships it — production only after you accept the risks.</desc>
+<desc id="desc">Install once per machine and run project-init once per project. Then sprints repeat: open-sprint plans tickets and opens a branch; every new chat starts by picking a workflow; minimal-workflow handles small fixes, dynamic-workflow takes a feature from an approved spec to tested, documented code. Until the sprint's scope is done, the next run starts in a fresh chat; then close-sprint updates the docs and merges, and the next sprint opens. Once a few sprints add up to a version, release ships it — production only after you accept the risks.</desc>
 <style>
 text{font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif}
 .bg{fill:#161b22}
@@ -37,184 +37,185 @@ text.mono{font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, monospace}
 .red-soft{fill:#3d1316}
 .red-stroke{stroke:#f85149;stroke-width:1.6;fill:none}
 .red-head{fill:#f85149}
+.thick{stroke-width:2.4}
 </style>
 <defs><marker id="h-ahead" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="ahead"/></marker><marker id="h-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="blue-head"/></marker><marker id="h-amber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="amber-head"/></marker><marker id="h-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="green-head"/></marker><marker id="h-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="purple-head"/></marker><marker id="h-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="red-head"/></marker></defs>
-<rect width="1000" height="760" rx="14" class="bg"/>
-<rect x="20" y="20" width="210" height="118" rx="10" class="card" />
+<rect width="1000" height="1066" rx="14" class="bg"/>
+<rect x="20" y="20" width="300" height="118" rx="10" class="card" />
 <rect x="20" y="20" width="5" height="118" rx="2" class="blue-soft" />
 <rect x="20" y="20" width="5" height="118" class="blue"/>
 <circle cx="47" cy="42" r="11" class="blue-box"/>
 <text x="47" y="46" class="blue b" font-size="12" text-anchor="middle">1</text>
 <text x="66" y="47" class="t b" font-size="15" text-anchor="start">Install</text>
 <text x="66" y="65" class="m" font-size="11.5" text-anchor="start">once per machine</text>
-<text x="38" y="88" class="t" font-size="11.5" text-anchor="start">Your agent follows INSTALL.md</text>
-<text x="38" y="105" class="t" font-size="11.5" text-anchor="start">and sets up the workspace in</text>
-<text x="38" y="122" class="t" font-size="11.5" text-anchor="start">Claude Code, Codex or OpenCode.</text>
-<path d="M125,138 L125,168" class="blue-stroke" marker-end="url(#h-blue)"/>
-<rect x="20" y="172" width="210" height="136" rx="10" class="card" />
-<rect x="20" y="172" width="5" height="136" rx="2" class="blue-soft" />
-<rect x="20" y="172" width="5" height="136" class="blue"/>
-<circle cx="47" cy="194" r="11" class="blue-box"/>
-<text x="47" y="198" class="blue b" font-size="12" text-anchor="middle">2</text>
-<text x="66" y="199" class="t b" font-size="15" text-anchor="start">/project-init</text>
-<text x="66" y="217" class="m" font-size="11.5" text-anchor="start">once per project</text>
-<text x="38" y="240" class="t" font-size="11.5" text-anchor="start">Reads your code, sets up the</text>
-<text x="38" y="257" class="t" font-size="11.5" text-anchor="start">docs you pick, a ticket list</text>
-<text x="38" y="274" class="t" font-size="11.5" text-anchor="start">and a test framework.</text>
-<rect x="250" y="20" width="530" height="720" rx="10" class="card" />
-<circle cx="277" cy="45" r="12" class="amber-box"/>
-<text x="277" y="49.5" class="amber b" font-size="12" text-anchor="middle">3</text>
-<text x="298" y="50" class="t b" font-size="17" text-anchor="start">Sprint</text>
-<text x="355" y="50" class="m" font-size="12" text-anchor="start">— a batch of work that ships together. Repeat as often as you like.</text>
-<path d="M230,240 C244,240 244,112 266,112" class="blue-stroke" marker-end="url(#h-blue)"/>
-<rect x="270" y="72" width="490" height="82" rx="10" class="card" />
-<rect x="270" y="72" width="5" height="82" rx="2" class="amber-soft" />
-<rect x="270" y="72" width="5" height="82" class="amber"/>
-<text x="288" y="99" class="t b" font-size="15" text-anchor="start">/open-sprint</text>
-<text x="288" y="120" class="t" font-size="11.5" text-anchor="start">Turn ideas into tickets (/shape), pick the ones for this sprint,</text>
-<text x="288" y="137" class="t" font-size="11.5" text-anchor="start">put them on the board and open a branch.</text>
-<path d="M515,154 L515,176" class="arrow" marker-end="url(#h-ahead)"/>
-<rect x="270" y="180" width="490" height="82" rx="10" class="card" stroke-dasharray="5 4"/>
-<rect x="270" y="180" width="5" height="82" rx="2" class="purple-soft" />
-<rect x="270" y="180" width="5" height="82" class="purple"/>
-<text x="288" y="207" class="t b" font-size="15" text-anchor="start">Every new chat</text>
-<text x="288" y="228" class="t" font-size="11.5" text-anchor="start">Picks up the last chat's handout and memory, checks the project,</text>
-<text x="288" y="245" class="t" font-size="11.5" text-anchor="start">sprint and git — then asks which workflow, and recommends one.</text>
-<path d="M395,262 L395,286" class="arrow" marker-end="url(#h-ahead)"/>
-<path d="M635,262 L635,286" class="arrow" marker-end="url(#h-ahead)"/>
-<rect x="270" y="290" width="220" height="222" rx="10" class="card" />
-<rect x="270" y="290" width="5" height="222" rx="2" class="green-soft" />
-<rect x="270" y="290" width="5" height="222" class="green"/>
-<text x="288" y="317" class="t b" font-size="15" text-anchor="start">/minimal-workflow</text>
-<text x="288" y="335" class="m" font-size="11.5" text-anchor="start">a small fix</text>
-<circle cx="298.0" cy="358" r="8" class="green-box"/>
-<text x="298.0" y="362" class="green b" font-size="10" text-anchor="middle">1</text>
-<text x="314" y="362" class="t" font-size="11.5" text-anchor="start">Find the code</text>
-<circle cx="298.0" cy="381" r="8" class="green-box"/>
-<text x="298.0" y="385" class="green b" font-size="10" text-anchor="middle">2</text>
-<text x="314" y="385" class="t" font-size="11.5" text-anchor="start">Change it</text>
-<circle cx="298.0" cy="404" r="8" class="green-box"/>
-<text x="298.0" y="408" class="green b" font-size="10" text-anchor="middle">3</text>
-<text x="314" y="408" class="t" font-size="11.5" text-anchor="start">Test until green</text>
-<circle cx="298.0" cy="427" r="8" class="green-box"/>
-<text x="298.0" y="431" class="green b" font-size="10" text-anchor="middle">4</text>
-<text x="314" y="431" class="t" font-size="11.5" text-anchor="start">Short docs note</text>
-<circle cx="298.0" cy="450" r="8" class="green-box"/>
-<text x="298.0" y="454" class="green b" font-size="10" text-anchor="middle">5</text>
-<text x="314" y="454" class="t" font-size="11.5" text-anchor="start">Commit</text>
-<circle cx="298.0" cy="473" r="8" class="green-box"/>
-<text x="298.0" y="477" class="green b" font-size="10" text-anchor="middle">6</text>
-<text x="314" y="477" class="t" font-size="11.5" text-anchor="start">Update the board</text>
-<rect x="505" y="290" width="255" height="332" rx="10" class="card" />
-<rect x="505" y="290" width="5" height="332" rx="2" class="green-soft" />
-<rect x="505" y="290" width="5" height="332" class="green"/>
-<text x="523" y="317" class="t b" font-size="15" text-anchor="start">/dynamic-workflow</text>
-<text x="523" y="335" class="m" font-size="11.5" text-anchor="start">a real feature</text>
-<circle cx="533.0" cy="358" r="8" class="green-box"/>
-<text x="533.0" y="362" class="green b" font-size="10" text-anchor="middle">1</text>
-<text x="549" y="362" class="t" font-size="11.5" text-anchor="start">Spec</text>
-<text x="549" y="381" class="m" font-size="10.5" text-anchor="start">you review and approve it</text>
-<circle cx="533.0" cy="400" r="8" class="green-box"/>
-<text x="533.0" y="404" class="green b" font-size="10" text-anchor="middle">2</text>
-<text x="549" y="404" class="t" font-size="11.5" text-anchor="start">Build in packages</text>
-<text x="549" y="423" class="m" font-size="10.5" text-anchor="start">a commit after each</text>
-<circle cx="533.0" cy="442" r="8" class="green-box"/>
-<text x="533.0" y="446" class="green b" font-size="10" text-anchor="middle">3</text>
-<text x="549" y="446" class="t" font-size="11.5" text-anchor="start">All tests green</text>
-<circle cx="533.0" cy="465" r="8" class="green-box"/>
-<text x="533.0" y="469" class="green b" font-size="10" text-anchor="middle">4</text>
-<text x="549" y="469" class="t" font-size="11.5" text-anchor="start">End-to-end test</text>
-<text x="549" y="488" class="m" font-size="10.5" text-anchor="start">optional</text>
-<circle cx="533.0" cy="507" r="8" class="green-box"/>
-<text x="533.0" y="511" class="green b" font-size="10" text-anchor="middle">5</text>
-<text x="549" y="511" class="t" font-size="11.5" text-anchor="start">Update the docs</text>
-<circle cx="533.0" cy="530" r="8" class="green-box"/>
-<text x="533.0" y="534" class="green b" font-size="10" text-anchor="middle">6</text>
-<text x="549" y="534" class="t" font-size="11.5" text-anchor="start">Save learnings to memory</text>
-<circle cx="533.0" cy="553" r="8" class="green-box"/>
-<text x="533.0" y="557" class="green b" font-size="10" text-anchor="middle">7</text>
-<text x="549" y="557" class="t" font-size="11.5" text-anchor="start">Tick the board</text>
-<circle cx="533.0" cy="576" r="8" class="green-box"/>
-<text x="533.0" y="580" class="green b" font-size="10" text-anchor="middle">8</text>
-<text x="549" y="580" class="t" font-size="11.5" text-anchor="start">Handout</text>
-<text x="549" y="599" class="m" font-size="10.5" text-anchor="start">continue in a fresh chat</text>
-<path d="M380,512 L380,586 Q380,596 370,596 L272,596 Q262,596 262,586 L262,231 Q262,221 268,221" class="arrow dash" marker-end="url(#h-ahead)"/>
-<text x="392" y="548" class="m" font-size="11.5" text-anchor="start">many runs per sprint,</text>
-<text x="392" y="564" class="m" font-size="11.5" text-anchor="start">each in a fresh chat</text>
-<path d="M632,622 L632,640" class="arrow" marker-end="url(#h-ahead)"/>
-<rect x="270" y="644" width="490" height="84" rx="10" class="card" />
-<rect x="270" y="644" width="5" height="84" rx="2" class="amber-soft" />
-<rect x="270" y="644" width="5" height="84" class="amber"/>
-<text x="288" y="671" class="t b" font-size="15" text-anchor="start">/close-sprint</text>
-<text x="288" y="692" class="t" font-size="11.5" text-anchor="start">Checks every ticket is done, optional code review, folds what</text>
-<text x="288" y="709" class="t" font-size="11.5" text-anchor="start">shipped into the docs, clears finished tickets, merges into main.</text>
-<path d="M760,660 C772,660 772,660 772,600 L772,130 C772,113 772,113 762,113" class="amber-stroke dash" marker-end="url(#h-amber)"/>
-<text x="784" y="400" class="amber b" font-size="11.5" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" transform="rotate(90 784 400)" text-anchor="middle">next sprint</text>
-<rect x="800" y="20" width="180" height="222" rx="10" class="card" />
-<rect x="800" y="20" width="5" height="222" rx="2" class="purple-soft" />
-<rect x="800" y="20" width="5" height="222" class="purple"/>
-<text x="818" y="47" class="t b" font-size="15" text-anchor="start">You stay in charge</text>
-<circle cx="822" cy="66" r="3.5" class="purple"/>
-<text x="834" y="70" class="t" font-size="11.5" text-anchor="start">You approve every</text>
-<text x="834" y="86" class="t" font-size="11.5" text-anchor="start">plan and spec</text>
-<circle cx="822" cy="110" r="3.5" class="purple"/>
-<text x="834" y="114" class="t" font-size="11.5" text-anchor="start">You pick the workflow</text>
-<text x="834" y="130" class="t" font-size="11.5" text-anchor="start">for each chat</text>
-<circle cx="822" cy="154" r="3.5" class="purple"/>
-<text x="834" y="158" class="t" font-size="11.5" text-anchor="start">Pause before each</text>
-<text x="834" y="174" class="t" font-size="11.5" text-anchor="start">commit — or let it run</text>
-<circle cx="822" cy="198" r="3.5" class="purple"/>
-<text x="834" y="202" class="t" font-size="11.5" text-anchor="start">Nothing ships without</text>
-<text x="834" y="218" class="t" font-size="11.5" text-anchor="start">your go</text>
-<rect x="800" y="262" width="180" height="478" rx="10" class="card" />
-<rect x="800" y="262" width="5" height="478" rx="2" class="red-soft" />
-<rect x="800" y="262" width="5" height="478" class="red"/>
-<circle cx="827" cy="284" r="11" class="red-box"/>
-<text x="827" y="288" class="red b" font-size="12" text-anchor="middle">4</text>
-<text x="846" y="289" class="t b" font-size="15" text-anchor="start">/release</text>
-<text x="818" y="308" class="m" font-size="11.5" text-anchor="start">when a few sprints</text>
-<text x="818" y="324" class="m" font-size="11.5" text-anchor="start">make a version</text>
-<circle cx="826.0" cy="356" r="8" class="red-box"/>
-<text x="826.0" y="360" class="red b" font-size="10" text-anchor="middle">1</text>
-<text x="842" y="360" class="t" font-size="11.5" text-anchor="start">Changelog</text>
-<circle cx="826.0" cy="380" r="8" class="red-box"/>
-<text x="826.0" y="384" class="red b" font-size="10" text-anchor="middle">2</text>
-<text x="842" y="384" class="t" font-size="11.5" text-anchor="start">Version number</text>
-<circle cx="826.0" cy="404" r="8" class="red-box"/>
-<text x="826.0" y="408" class="red b" font-size="10" text-anchor="middle">3</text>
-<text x="842" y="408" class="t" font-size="11.5" text-anchor="start">Safety checks</text>
-<text x="842" y="428" class="m" font-size="10.5" text-anchor="start">security, backup,</text>
-<text x="842" y="448" class="m" font-size="10.5" text-anchor="start">migrations</text>
-<circle cx="826.0" cy="468" r="8" class="red-box"/>
-<text x="826.0" y="472" class="red b" font-size="10" text-anchor="middle">4</text>
-<text x="842" y="472" class="t" font-size="11.5" text-anchor="start">Pull request &amp; CI</text>
-<circle cx="826.0" cy="492" r="8" class="red-box"/>
-<text x="826.0" y="496" class="red b" font-size="10" text-anchor="middle">5</text>
-<text x="842" y="496" class="t" font-size="11.5" text-anchor="start">Final review</text>
-<circle cx="826.0" cy="516" r="8" class="red-box"/>
-<text x="826.0" y="520" class="red b" font-size="10" text-anchor="middle">6</text>
-<text x="842" y="520" class="t" font-size="11.5" text-anchor="start">Ship &amp; tag</text>
-<rect x="812" y="548" width="156" height="80" rx="8" class="red-box" />
-<text x="822" y="569" class="red" font-size="11.5" text-anchor="start">Production only after</text>
-<text x="822" y="586" class="red" font-size="11.5" text-anchor="start">you have seen the risks</text>
-<text x="822" y="603" class="red" font-size="11.5" text-anchor="start">and accepted them.</text>
-<path d="M760,700 L796,700" class="red-stroke" marker-end="url(#h-red)"/>
-<text x="818" y="660" class="m" font-size="11" text-anchor="start">Several sprints can pass</text>
-<text x="818" y="675" class="m" font-size="11" text-anchor="start">between two releases.</text>
-<rect x="20" y="330" width="210" height="150" rx="10" class="card" stroke-dasharray="5 4"/>
-<rect x="20" y="330" width="5" height="150" rx="2" class="purple-soft" />
-<rect x="20" y="330" width="5" height="150" class="purple"/>
-<text x="38" y="357" class="t b" font-size="15" text-anchor="start">Not coding?</text>
-<text x="38" y="378" class="t" font-size="11.5" text-anchor="start">Research, writing or a one-off</text>
-<text x="38" y="395" class="t" font-size="11.5" text-anchor="start">shell task skip all of this —</text>
-<text x="38" y="412" class="t" font-size="11.5" text-anchor="start">no workflow, no sprint, the</text>
-<text x="38" y="429" class="t" font-size="11.5" text-anchor="start">agent simply helps.</text>
-<rect x="20" y="500" width="210" height="136" rx="10" class="card" stroke-dasharray="5 4"/>
-<rect x="20" y="500" width="5" height="136" rx="2" class="purple-soft" />
-<rect x="20" y="500" width="5" height="136" class="purple"/>
-<text x="38" y="527" class="t b" font-size="15" text-anchor="start">A quick fix?</text>
-<text x="38" y="548" class="t" font-size="11.5" text-anchor="start">Needs no ticket and no sprint:</text>
-<text x="38" y="565" class="t" font-size="11.5" text-anchor="start">/minimal-workflow straight</text>
-<text x="38" y="582" class="t" font-size="11.5" text-anchor="start">away. Only work left for later</text>
-<text x="38" y="599" class="t" font-size="11.5" text-anchor="start">becomes a ticket.</text>
+<text x="38" y="92" class="t" font-size="12" text-anchor="start">Your agent follows INSTALL.md and</text>
+<text x="38" y="110" class="t" font-size="12" text-anchor="start">sets up the workspace for itself.</text>
+<path d="M320,79 L374,79" class="blue-stroke thick" marker-end="url(#h-blue)"/>
+<rect x="380" y="20" width="320" height="118" rx="10" class="card" />
+<rect x="380" y="20" width="5" height="118" rx="2" class="blue-soft" />
+<rect x="380" y="20" width="5" height="118" class="blue"/>
+<circle cx="407" cy="42" r="11" class="blue-box"/>
+<text x="407" y="46" class="blue b" font-size="12" text-anchor="middle">2</text>
+<text x="426" y="47" class="t b" font-size="15" text-anchor="start">/project-init</text>
+<text x="426" y="65" class="m" font-size="11.5" text-anchor="start">once per project</text>
+<text x="398" y="92" class="t" font-size="12" text-anchor="start">Reads your code, sets up the docs you pick,</text>
+<text x="398" y="110" class="t" font-size="12" text-anchor="start">a ticket list and a test framework.</text>
+<rect x="20" y="170" width="680" height="876" rx="10" class="card" />
+<circle cx="47" cy="200" r="12" class="amber-box"/>
+<text x="47" y="204.5" class="amber b" font-size="12" text-anchor="middle">3</text>
+<text x="68" y="206" class="t b" font-size="17" text-anchor="start">Sprint</text>
+<text x="126" y="206" class="m" font-size="12" text-anchor="start">— a batch of work that ships together</text>
+<path d="M540,138 L540,224" class="blue-stroke thick" marker-end="url(#h-blue)"/>
+<rect x="60" y="228" width="600" height="84" rx="10" class="card" />
+<rect x="60" y="228" width="5" height="84" rx="2" class="amber-soft" />
+<rect x="60" y="228" width="5" height="84" class="amber"/>
+<text x="78" y="255" class="t b" font-size="15" text-anchor="start">/open-sprint</text>
+<text x="78" y="276" class="t" font-size="12" text-anchor="start">Turn ideas into tickets (/shape), pick the ones for this sprint,</text>
+<text x="78" y="294" class="t" font-size="12" text-anchor="start">put them on the board and open a branch.</text>
+<path d="M360,312 L360,354" class="amber-stroke thick" marker-end="url(#h-amber)"/>
+<rect x="60" y="358" width="600" height="84" rx="10" class="card" stroke-dasharray="5 4"/>
+<rect x="60" y="358" width="5" height="84" rx="2" class="purple-soft" />
+<rect x="60" y="358" width="5" height="84" class="purple"/>
+<text x="78" y="385" class="t b" font-size="15" text-anchor="start">Every new chat</text>
+<text x="78" y="406" class="t" font-size="12" text-anchor="start">Picks up the last chat's handout and memory, checks project, sprint</text>
+<text x="78" y="424" class="t" font-size="12" text-anchor="start">and git — then asks which workflow to run, and recommends one.</text>
+<path d="M200,442 L200,488" class="amber-stroke thick" marker-end="url(#h-amber)"/>
+<path d="M515,442 L515,488" class="amber-stroke thick" marker-end="url(#h-amber)"/>
+<text x="210" y="472" class="m" font-size="11.5" text-anchor="start">small fix</text>
+<text x="525" y="472" class="m" font-size="11.5" text-anchor="start">feature</text>
+<rect x="60" y="492" width="280" height="214" rx="10" class="card" />
+<rect x="60" y="492" width="5" height="214" rx="2" class="green-soft" />
+<rect x="60" y="492" width="5" height="214" class="green"/>
+<text x="78" y="519" class="t b" font-size="15" text-anchor="start">/minimal-workflow</text>
+<text x="78" y="537" class="m" font-size="11.5" text-anchor="start">a small fix</text>
+<circle cx="88.0" cy="562" r="8" class="green-box"/>
+<text x="88.0" y="566" class="green b" font-size="10" text-anchor="middle">1</text>
+<text x="104" y="566" class="t" font-size="12" text-anchor="start">Find the code</text>
+<circle cx="88.0" cy="586" r="8" class="green-box"/>
+<text x="88.0" y="590" class="green b" font-size="10" text-anchor="middle">2</text>
+<text x="104" y="590" class="t" font-size="12" text-anchor="start">Change it</text>
+<circle cx="88.0" cy="610" r="8" class="green-box"/>
+<text x="88.0" y="614" class="green b" font-size="10" text-anchor="middle">3</text>
+<text x="104" y="614" class="t" font-size="12" text-anchor="start">Test until green</text>
+<circle cx="88.0" cy="634" r="8" class="green-box"/>
+<text x="88.0" y="638" class="green b" font-size="10" text-anchor="middle">4</text>
+<text x="104" y="638" class="t" font-size="12" text-anchor="start">Short docs note</text>
+<circle cx="88.0" cy="658" r="8" class="green-box"/>
+<text x="88.0" y="662" class="green b" font-size="10" text-anchor="middle">5</text>
+<text x="104" y="662" class="t" font-size="12" text-anchor="start">Commit</text>
+<circle cx="88.0" cy="682" r="8" class="green-box"/>
+<text x="88.0" y="686" class="green b" font-size="10" text-anchor="middle">6</text>
+<text x="104" y="686" class="t" font-size="12" text-anchor="start">Update the board</text>
+<rect x="370" y="492" width="290" height="346" rx="10" class="card" />
+<rect x="370" y="492" width="5" height="346" rx="2" class="green-soft" />
+<rect x="370" y="492" width="5" height="346" class="green"/>
+<text x="388" y="519" class="t b" font-size="15" text-anchor="start">/dynamic-workflow</text>
+<text x="388" y="537" class="m" font-size="11.5" text-anchor="start">a real feature</text>
+<circle cx="398.0" cy="562" r="8" class="green-box"/>
+<text x="398.0" y="566" class="green b" font-size="10" text-anchor="middle">1</text>
+<text x="414" y="566" class="t" font-size="12" text-anchor="start">Spec</text>
+<text x="414" y="586" class="m" font-size="11" text-anchor="start">you review and approve it</text>
+<circle cx="398.0" cy="606" r="8" class="green-box"/>
+<text x="398.0" y="610" class="green b" font-size="10" text-anchor="middle">2</text>
+<text x="414" y="610" class="t" font-size="12" text-anchor="start">Build in packages</text>
+<text x="414" y="630" class="m" font-size="11" text-anchor="start">a commit after each</text>
+<circle cx="398.0" cy="650" r="8" class="green-box"/>
+<text x="398.0" y="654" class="green b" font-size="10" text-anchor="middle">3</text>
+<text x="414" y="654" class="t" font-size="12" text-anchor="start">All tests green</text>
+<circle cx="398.0" cy="674" r="8" class="green-box"/>
+<text x="398.0" y="678" class="green b" font-size="10" text-anchor="middle">4</text>
+<text x="414" y="678" class="t" font-size="12" text-anchor="start">End-to-end test</text>
+<text x="414" y="698" class="m" font-size="11" text-anchor="start">optional</text>
+<circle cx="398.0" cy="718" r="8" class="green-box"/>
+<text x="398.0" y="722" class="green b" font-size="10" text-anchor="middle">5</text>
+<text x="414" y="722" class="t" font-size="12" text-anchor="start">Update the docs</text>
+<circle cx="398.0" cy="742" r="8" class="green-box"/>
+<text x="398.0" y="746" class="green b" font-size="10" text-anchor="middle">6</text>
+<text x="414" y="746" class="t" font-size="12" text-anchor="start">Save learnings to memory</text>
+<circle cx="398.0" cy="766" r="8" class="green-box"/>
+<text x="398.0" y="770" class="green b" font-size="10" text-anchor="middle">7</text>
+<text x="414" y="770" class="t" font-size="12" text-anchor="start">Tick the board</text>
+<circle cx="398.0" cy="790" r="8" class="green-box"/>
+<text x="398.0" y="794" class="green b" font-size="10" text-anchor="middle">8</text>
+<text x="414" y="794" class="t" font-size="12" text-anchor="start">Handout</text>
+<text x="414" y="814" class="m" font-size="11" text-anchor="start">for the next chat</text>
+<path d="M200,706 L200,852 Q200,858 206,858 L314,858 Q320,858 320,864 L320,870" class="amber-stroke thick" marker-end="url(#h-amber)"/>
+<path d="M515,838 L515,852 Q515,858 509,858 L406,858 Q400,858 400,864 L400,870" class="amber-stroke thick" marker-end="url(#h-amber)"/>
+<rect x="250" y="874" width="220" height="34" rx="17.0" class="amber-box" />
+<text x="360.0" y="895.68" class="amber b" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13" text-anchor="middle">Sprint scope done?</text>
+<path d="M250,891 L58,891 Q46,891 46,879 L46,412 Q46,400 58,400" class="amber-stroke thick dash" marker-end="url(#h-amber)"/>
+<text x="36" y="650" class="amber b" font-size="12" text-anchor="middle" transform="rotate(-90 36 650)">no — next run, in a fresh chat</text>
+<path d="M360,908 L360,946" class="amber-stroke thick" marker-end="url(#h-amber)"/>
+<text x="370" y="932" class="amber b" font-size="12" text-anchor="start">yes</text>
+<rect x="60" y="950" width="600" height="84" rx="10" class="card" />
+<rect x="60" y="950" width="5" height="84" rx="2" class="amber-soft" />
+<rect x="60" y="950" width="5" height="84" class="amber"/>
+<text x="78" y="977" class="t b" font-size="15" text-anchor="start">/close-sprint</text>
+<text x="78" y="998" class="t" font-size="12" text-anchor="start">Checks every ticket is done, optional code review, folds what shipped</text>
+<text x="78" y="1016" class="t" font-size="12" text-anchor="start">into the docs, clears finished tickets, merges into main.</text>
+<path d="M660,975 L674,975 Q684,975 684,965 L684,280 Q684,270 674,270 L664,270" class="amber-stroke thick dash" marker-end="url(#h-amber)"/>
+<text x="694" y="620" class="amber b" font-size="12" text-anchor="middle" transform="rotate(90 694 620)">next sprint</text>
+<path d="M660,1012 L724,1012" class="red-stroke thick" marker-end="url(#h-red)"/>
+<rect x="730" y="20" width="250" height="118" rx="10" class="card" stroke-dasharray="5 4"/>
+<rect x="730" y="20" width="5" height="118" rx="2" class="purple-soft" />
+<rect x="730" y="20" width="5" height="118" class="purple"/>
+<text x="748" y="47" class="t b" font-size="15" text-anchor="start">Not coding?</text>
+<text x="748" y="72" class="t" font-size="12" text-anchor="start">Research, writing or a one-off shell</text>
+<text x="748" y="90" class="t" font-size="12" text-anchor="start">task skip all of this — the agent</text>
+<text x="748" y="108" class="t" font-size="12" text-anchor="start">simply helps.</text>
+<rect x="730" y="170" width="250" height="232" rx="10" class="card" />
+<rect x="730" y="170" width="5" height="232" rx="2" class="purple-soft" />
+<rect x="730" y="170" width="5" height="232" class="purple"/>
+<text x="748" y="197" class="t b" font-size="15" text-anchor="start">You stay in charge</text>
+<circle cx="752" cy="218" r="3.5" class="purple"/>
+<text x="764" y="222" class="t" font-size="12" text-anchor="start">You approve every plan</text>
+<text x="764" y="239" class="t" font-size="12" text-anchor="start">and every spec</text>
+<circle cx="752" cy="264" r="3.5" class="purple"/>
+<text x="764" y="268" class="t" font-size="12" text-anchor="start">You pick the workflow</text>
+<text x="764" y="285" class="t" font-size="12" text-anchor="start">for each chat</text>
+<circle cx="752" cy="310" r="3.5" class="purple"/>
+<text x="764" y="314" class="t" font-size="12" text-anchor="start">Pause before each commit</text>
+<text x="764" y="331" class="t" font-size="12" text-anchor="start">— or let it run</text>
+<circle cx="752" cy="356" r="3.5" class="purple"/>
+<text x="764" y="360" class="t" font-size="12" text-anchor="start">Nothing ships without</text>
+<text x="764" y="377" class="t" font-size="12" text-anchor="start">your go</text>
+<rect x="730" y="422" width="250" height="132" rx="10" class="card" stroke-dasharray="5 4"/>
+<rect x="730" y="422" width="5" height="132" rx="2" class="purple-soft" />
+<rect x="730" y="422" width="5" height="132" class="purple"/>
+<text x="748" y="449" class="t b" font-size="15" text-anchor="start">A quick fix?</text>
+<text x="748" y="474" class="t" font-size="12" text-anchor="start">Needs no ticket and no sprint:</text>
+<text x="748" y="492" class="t" font-size="12" text-anchor="start">run /minimal-workflow directly.</text>
+<text x="748" y="510" class="t" font-size="12" text-anchor="start">Only work left for later</text>
+<text x="748" y="528" class="t" font-size="12" text-anchor="start">becomes a ticket.</text>
+<rect x="730" y="578" width="250" height="468" rx="10" class="card" />
+<rect x="730" y="578" width="5" height="468" rx="2" class="red-soft" />
+<rect x="730" y="578" width="5" height="468" class="red"/>
+<circle cx="757" cy="600" r="11" class="red-box"/>
+<text x="757" y="604" class="red b" font-size="12" text-anchor="middle">4</text>
+<text x="776" y="605" class="t b" font-size="15" text-anchor="start">/release</text>
+<text x="776" y="623" class="m" font-size="11.5" text-anchor="start">when a few sprints make a version</text>
+<circle cx="758.0" cy="660" r="8" class="red-box"/>
+<text x="758.0" y="664" class="red b" font-size="10" text-anchor="middle">1</text>
+<text x="774" y="664" class="t" font-size="12" text-anchor="start">Changelog</text>
+<circle cx="758.0" cy="688" r="8" class="red-box"/>
+<text x="758.0" y="692" class="red b" font-size="10" text-anchor="middle">2</text>
+<text x="774" y="692" class="t" font-size="12" text-anchor="start">Version number</text>
+<circle cx="758.0" cy="716" r="8" class="red-box"/>
+<text x="758.0" y="720" class="red b" font-size="10" text-anchor="middle">3</text>
+<text x="774" y="720" class="t" font-size="12" text-anchor="start">Safety checks</text>
+<text x="774" y="744" class="m" font-size="11" text-anchor="start">security · backup · migrations</text>
+<circle cx="758.0" cy="768" r="8" class="red-box"/>
+<text x="758.0" y="772" class="red b" font-size="10" text-anchor="middle">4</text>
+<text x="774" y="772" class="t" font-size="12" text-anchor="start">Pull request &amp; CI</text>
+<circle cx="758.0" cy="796" r="8" class="red-box"/>
+<text x="758.0" y="800" class="red b" font-size="10" text-anchor="middle">5</text>
+<text x="774" y="800" class="t" font-size="12" text-anchor="start">Final review</text>
+<circle cx="758.0" cy="824" r="8" class="red-box"/>
+<text x="758.0" y="828" class="red b" font-size="10" text-anchor="middle">6</text>
+<text x="774" y="828" class="t" font-size="12" text-anchor="start">Ship &amp; tag</text>
+<rect x="744" y="866" width="222" height="70" rx="8" class="red-box" />
+<text x="758" y="890" class="red" font-size="12" text-anchor="start">Production only after you have</text>
+<text x="758" y="908" class="red" font-size="12" text-anchor="start">seen the risks and accepted them.</text>
+<text x="750" y="978" class="m" font-size="11.5" text-anchor="start">Several sprints can pass</text>
+<text x="750" y="995" class="m" font-size="11.5" text-anchor="start">between two releases.</text>
 </svg>
