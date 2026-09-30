@@ -31,7 +31,10 @@ to answer a simple question. This workspace fixes exactly that:
 ## How a session goes
 
 <p align="center">
-  <img src="assets/session-flow.svg" alt="A repo is initialised once, then sprints repeat: open-sprint cuts the branch, many runs happen inside it (spec, implement, e2e, docs and memory, commit), and close-sprint distils and merges before the next sprint opens. Release branches off close-sprint once several sprints add up to a version." width="880">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="assets/session-flow-dark.svg">
+    <img src="assets/session-flow.svg" alt="Install once per machine and run /project-init once per project. Then sprints repeat: /open-sprint plans tickets and opens a branch; every new chat picks a workflow; /minimal-workflow handles small fixes, /dynamic-workflow takes a feature from an approved spec to tested, documented code; /close-sprint updates the docs and merges. When a few sprints make a version, /release ships it, production only after you accept the risks." width="880">
+  </picture>
 </p>
 
 1. **Set up a project once** with `/project-init` — it explores the code, scaffolds the docs you
@@ -81,7 +84,10 @@ When a sprint closes, finished tickets are deleted once their outcome lives in t
 backlog only ever holds live work.
 
 <p align="center">
-  <img src="assets/skills-and-docs.svg" alt="Skills across the top; beneath them four bands by lifespan: living work items (tickets and backlog), ephemeral process history (the sprint file with its board, specs, reports), durable docs (AGENTS.md, behaviour, architecture, dev, product, decisions, release runbook), and memory." width="1000">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="assets/skills-and-docs-dark.svg">
+    <img src="assets/skills-and-docs.svg" alt="A ticket's journey from idea through Draft and Backlog onto the sprint board (open, active, to test, done), until its outcome moves into the docs and the file is deleted. Below, the four places everything lives: open work in backlog/, the sprint folder, the lasting docs in docs/, and memory, each file labelled with the skill that writes it." width="1000">
+  </picture>
 </p>
 
 ## Domains and memory

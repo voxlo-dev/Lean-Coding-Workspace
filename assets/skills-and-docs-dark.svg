@@ -3,40 +3,40 @@
 <desc id="desc">A ticket's journey: an idea becomes a ticket (Draft, then Backlog), is pulled onto the sprint board (open, active, to test, done), and at sprint close its outcome moves into the docs and the ticket file is deleted; unfinished tickets go back to the backlog. Four places hold everything: open work in backlog/, the sprint folder in artefacts/ (editable while the sprint runs, frozen when it closes), the lasting docs in docs/, and memory at project, domain and global level.</desc>
 <style>
 text{font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif}
-.bg{fill:#f6f8fa}
-.card{fill:#ffffff;stroke:#d1d9e0;stroke-width:1}
-.t{fill:#1f2328;font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif}
-.m{fill:#59636e;font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif}
+.bg{fill:#161b22}
+.card{fill:#0d1117;stroke:#3d444d;stroke-width:1}
+.t{fill:#e6edf3;font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif}
+.m{fill:#9198a1;font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif}
 text.mono{font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, monospace}
 .b{font-weight:600}
-.arrow{stroke:#8c959f;stroke-width:1.6;fill:none}
+.arrow{stroke:#6e7681;stroke-width:1.6;fill:none}
 .dash{stroke-dasharray:5 4}
-.ahead{fill:#8c959f}
-.blue{fill:#0969da}
-.blue-box{fill:#ddf4ff;stroke:#0969da;stroke-width:1.2}
-.blue-soft{fill:#ddf4ff}
-.blue-stroke{stroke:#0969da;stroke-width:1.6;fill:none}
-.blue-head{fill:#0969da}
-.amber{fill:#9a6700}
-.amber-box{fill:#fff8c5;stroke:#9a6700;stroke-width:1.2}
-.amber-soft{fill:#fff8c5}
-.amber-stroke{stroke:#9a6700;stroke-width:1.6;fill:none}
-.amber-head{fill:#9a6700}
-.green{fill:#1a7f37}
-.green-box{fill:#dafbe1;stroke:#1a7f37;stroke-width:1.2}
-.green-soft{fill:#dafbe1}
-.green-stroke{stroke:#1a7f37;stroke-width:1.6;fill:none}
-.green-head{fill:#1a7f37}
-.purple{fill:#8250df}
-.purple-box{fill:#fbefff;stroke:#8250df;stroke-width:1.2}
-.purple-soft{fill:#fbefff}
-.purple-stroke{stroke:#8250df;stroke-width:1.6;fill:none}
-.purple-head{fill:#8250df}
-.red{fill:#cf222e}
-.red-box{fill:#ffebe9;stroke:#cf222e;stroke-width:1.2}
-.red-soft{fill:#ffebe9}
-.red-stroke{stroke:#cf222e;stroke-width:1.6;fill:none}
-.red-head{fill:#cf222e}
+.ahead{fill:#6e7681}
+.blue{fill:#4493f8}
+.blue-box{fill:#0c2d6b;stroke:#4493f8;stroke-width:1.2}
+.blue-soft{fill:#0c2d6b}
+.blue-stroke{stroke:#4493f8;stroke-width:1.6;fill:none}
+.blue-head{fill:#4493f8}
+.amber{fill:#d29922}
+.amber-box{fill:#3b2c05;stroke:#d29922;stroke-width:1.2}
+.amber-soft{fill:#3b2c05}
+.amber-stroke{stroke:#d29922;stroke-width:1.6;fill:none}
+.amber-head{fill:#d29922}
+.green{fill:#3fb950}
+.green-box{fill:#0f2d19;stroke:#3fb950;stroke-width:1.2}
+.green-soft{fill:#0f2d19}
+.green-stroke{stroke:#3fb950;stroke-width:1.6;fill:none}
+.green-head{fill:#3fb950}
+.purple{fill:#ab7df8}
+.purple-box{fill:#2a1a4a;stroke:#ab7df8;stroke-width:1.2}
+.purple-soft{fill:#2a1a4a}
+.purple-stroke{stroke:#ab7df8;stroke-width:1.6;fill:none}
+.purple-head{fill:#ab7df8}
+.red{fill:#f85149}
+.red-box{fill:#3d1316;stroke:#f85149;stroke-width:1.2}
+.red-soft{fill:#3d1316}
+.red-stroke{stroke:#f85149;stroke-width:1.6;fill:none}
+.red-head{fill:#f85149}
 </style>
 <defs><marker id="h-ahead" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="ahead"/></marker><marker id="h-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="blue-head"/></marker><marker id="h-amber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="amber-head"/></marker><marker id="h-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="green-head"/></marker><marker id="h-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="purple-head"/></marker><marker id="h-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="red-head"/></marker></defs>
 <rect width="1120" height="714" rx="14" class="bg"/>

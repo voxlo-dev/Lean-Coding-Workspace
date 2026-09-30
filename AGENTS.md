@@ -65,7 +65,7 @@ docs/                          ← research behind template decisions, dated
 ├── repo-survey.md             ←   41 coding-agent repos judged; source of the bundle catalog
 ├── token-savers.md            ←   token savers in depth; settles headroom
 └── dispatch-bench.md          ←   nine models, four connectors, one unchanged dispatch command
-assets/*.svg                   ← README diagrams (session flow, skill/doc map)
+assets/*.svg                   ← README diagrams, each as `{name}.svg` + `{name}-dark.svg` — edit both
 README.md                      ← end-user facing: what this is, install, how it fits together
 CONTRIBUTING.md · SECURITY.md  ← what gets accepted, how · the risk disclaimer and reporting path
 LICENSE                        ← MIT
