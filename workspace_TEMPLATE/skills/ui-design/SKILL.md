@@ -26,14 +26,6 @@ Dialogue the look and feel into shape, covering what the stage needs — at styl
 - Apply **YAGNI**.
 - For genuinely **visual** questions (layout options, style directions, side-by-side comparisons) show the options as throwaway HTML so the user *sees* the choice — in the harness's built-in browser where it has one (desktop apps do; screenshot it yourself before asking), else a file the user opens. Conceptual questions stay in the chat.
 
-## 3b. Everything else → build mockups directly
-
-Once step 2's option screens have settled a direction, build the durable mockup here — the options explore, `layout.html` is the artifact that lands in the spec.
-
-- Seed from `templates/layout.html` — self-contained HTML, no build step, phone and desktop frames (delete the one you don't need), viewable in any browser regardless of the real stack.
-- Simple UI → embed the snippet in the spec's UI section. Sophisticated UI → files under `docs/design/mockups/`, linked from the spec.
-- Keep them faithful to the styleguide — paste its tokens into the mockup's `:root`.
-
 ## 3a. Web frontend → the real stack
 
 When the frontend is written in the project's real stack (Svelte, React, plain HTML/CSS/JS), build it there — through `frontend-design` where installed, which carries the aesthetic craft (distinctive typography, cohesive palette, motion, spatial composition) the mockup-only path does not; else directly, holding that same bar.
@@ -42,8 +34,16 @@ When the frontend is written in the project's real stack (Svelte, React, plain H
 - **No styleguide yet?** Design the system first (steps 2 + 4), *then* execute against it, so the system defines the look rather than one component.
 - **Still persist (step 4):** the in-repo code is the product, but anything this established or extended in the design system folds back into the styleguide.
 
+## 3b. Everything else → build mockups directly
+
+Once step 2's option screens have settled a direction, build the durable mockup here — the options explore, `layout.html` is the artifact that lands in the spec.
+
+- Seed from `templates/layout.html` — self-contained HTML, no build step, phone and desktop frames (delete the one you don't need), viewable in any browser regardless of the real stack.
+- Simple UI → embed the snippet in the spec's UI section. Sophisticated UI → files under `docs/design/mockups/`, linked from the spec.
+- Keep them faithful to the styleguide — paste its tokens into the mockup's `:root`.
+
 ## 4. Persist & integrate
 
-- **Styleguide** — `docs/design/Styleguide.html` is the durable, project-wide system; seed it from `templates/styleguide.html` the first time, then edit in place. Built-in light/dark toggle — fill the dark tokens or drop them. Every feature designs against it; `maintain-docs` extends it later.
+- **Styleguide** — `docs/design/Styleguide.html` is the durable, project-wide system; seed it from `templates/styleguide.html` the first time, then edit in place. Built-in light/dark toggle — fill the dark tokens or drop them. Every feature designs against it, and only this skill edits it.
 - **Mockups** are per-feature: they live in the spec (or `docs/design/mockups/`) so the implement package builds against them, while the styleguide stays free of concrete layouts.
 - **Pause for user review**, then **commit** the styleguide and any mockups.

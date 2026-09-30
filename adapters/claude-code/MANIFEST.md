@@ -25,10 +25,10 @@ Binary: `claude` · version unrecorded
 
 | Fact | Value | Verified |
 | --- | --- | --- |
-| Project config | `.claude/settings.json` · trust: unknown | — |
+| Project config | `.claude/settings.json` · trust: workspace trust dialog — until accepted, MCP approvals committed to the project config are ignored | 2026-09-30 · docs |
 | Skill roots | `.claude/skills/` only | 2026-09-17 · string dump |
 | Agents | `.claude/agents/*.md`, recursive | 2026-09-17 · docs |
-| MCP | `.mcp.json` + `enableAllProjectMcpServers` in the project config | 2026-09-17 · docs |
+| MCP | `.mcp.json` + `enabledMcpjsonServers` naming each server in the project config — never `enableAllProjectMcpServers`, which approves whatever a later commit adds | 2026-09-30 · docs |
 | Instruction shim | needed — `CLAUDE.md` imports `AGENTS.md`, `CHECKPOINT.local.md`, each installed domain's `DOMAIN-MEMORY.md` | 2026-09-27 · run |
 
 ## Verification levers

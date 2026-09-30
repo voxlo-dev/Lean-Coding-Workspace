@@ -30,7 +30,7 @@ Default to **project**; promote only once a learning is clearly that broad. When
 ## How to write
 
 1. Pick the scope, open its `MEMORY.md`.
-2. Add the fact — short ones inline in a topic file; keep `MEMORY.md` itself a one-line index (`- [Title](file.md) — hook`). The project `MEMORY.md` only auto-loads its first ~200 lines, and domain/global load **in full**, so keep all three lean.
+2. Add the fact — short ones inline in a topic file; keep `MEMORY.md` itself a one-line index (`- [Title](file.md) — hook`). A target may truncate project memory, and domain/global load **in full**, so keep all three lean.
 3. Convert relative dates to absolute.
 
 ## Prune — every pass

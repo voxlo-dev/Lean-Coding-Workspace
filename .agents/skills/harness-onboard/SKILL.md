@@ -47,7 +47,7 @@ Files sit at the exact paths they land on in `{home}`; `overlay/adapter/` holds 
 
 ## 5. Join the enumerations
 
-Grep the repo for an existing target's home path: every hit outside `adapters/` — `workspace_TEMPLATE/AGENTS.md`, `INSTALL.md`, `README.md` — is a list the new target joins.
+Grep the repo for an existing target's home path: every hit outside `adapters/` — `workspace_TEMPLATE/AGENTS.md` — is a list the new target joins. User-facing docs name no harness; they point at `adapters/`.
 
 ## 6. Prove it
 

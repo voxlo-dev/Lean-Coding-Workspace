@@ -1,4 +1,8 @@
 {
   "$schema": "https://opencode.ai/config.json",
-  "instructions": ["~/.config/opencode/AGENTS.md", "~/.agents/memory/MEMORY.md"]
+  "instructions": ["~/.config/opencode/AGENTS.md", "~/.agents/memory/MEMORY.md"],
+  "mcp": {
+    "codegraph": { "type": "local", "command": ["{codegraph binary}", "mcp"] },
+    "context7": { "type": "remote", "url": "https://mcp.context7.com/mcp" }
+  }
 }

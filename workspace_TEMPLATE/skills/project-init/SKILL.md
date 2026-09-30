@@ -11,7 +11,7 @@ Onboard a repo end-to-end. Owns the **initial** doc creation (it does the deep e
 
 1. **Explore & gather context** — existing code → **run `codegraph init -i` now**, required setup rather than optional exploration: index *before* any structural question, then query the graph instead of spawning Explore subagents. New / empty repo → skip it, and note that the user can run `codegraph init` once code exists.
 
-2. **Inventory what exists** — code, tests, docs, template files, an already-present domain bundle. This decides what to scaffold vs. merge; flag docs on a different or older layout for step 7.
+2. **Inventory what exists** — code, tests, docs, template files, an already-present domain bundle. This decides what to scaffold vs. merge; flag docs on a different or older layout for step 7. Another workspace framework's files (its own `CLAUDE.md` rules, `.specify/`, `openspec/`, `_bmad/` …) → name them in the plan as **not compatible** — never delete or rewrite them unasked; the tree must be committed first, so git is the backup.
 
 3. **Detect the domains** — **several may apply** (a frontend and a backend in one tree), and a project with none is valid. Per candidate, check `~/.agents/domains/{x}/`: a usable master contains skills plus a complete recipe, not only `Domain-Recipe.md`. Missing or incomplete → ask whether to run `domain-init` first.
 
@@ -22,7 +22,7 @@ Onboard a repo end-to-end. Owns the **initial** doc creation (it does the deep e
    - developer docs? `docs/dev.md` — setup, env, build/debug workflows, dependency quirks: the engineering knowledge codegraph and tests don't capture.
    - product docs? `docs/product/` — end-user guides / reference, single source for any published site.
    - styleguide / design system? (offer only with a UI)
-   - release runbook? `docs/release.md` — version carriers, build/publish targets, the security gate. **Only where the project publishes, default off**; `release` refuses to run without it. The changelog is not a doc — `release` composes it per version from the sprint archives.
+   - release runbook? `docs/release.md` — version carriers, build/publish targets, environments, backup and migrations, the security gate. **Only where the project publishes, default off**; `release` refuses to run without it. The changelog is not a doc — `release` composes it per version from the sprint archives.
 
    `ASSETS.md` is created **only if** the project has (or will have) a frontend using assets — decide it from the inventory. Record all decisions: they gate scaffolding, the AGENTS.md doc map and `maintain-docs` later — a "no" means `maintain-docs` ignores that doc too.
 

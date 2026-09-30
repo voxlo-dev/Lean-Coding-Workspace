@@ -36,6 +36,22 @@ second number that must increase strictly per upload.}
 {what is specific to *this* project — the listing, review expectations, metadata that has to be
 updated per release. Track order and signing rules belong here too.}
 
+## Environments & data
+
+{every target environment, which one is **production**, and what persistent state each holds
+(databases, volumes, running services). `release` refuses a production target until the user
+accepts the risks.}
+
+### Backup & restore
+
+{the backup command per stateful environment, where backups go, and how a restore is proven on
+a scratch copy.}
+
+### Migrations
+
+{how migrations run, the migration test (forward on a production-like copy · rollback · suite),
+and the rollback path — or `none` for a stateless release.}
+
 ## Security gate
 
 {the dependency-audit command. Only `low` findings pass.}

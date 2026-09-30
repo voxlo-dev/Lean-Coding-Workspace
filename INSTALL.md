@@ -7,9 +7,24 @@ Everything mechanical belongs to the `workspace-sync` skill (step 3); this guide
 the once-only personalisation. Re-syncing later is that skill alone — come back here only for a
 machine that has never had the workspace.
 
+**At your own risk.** The workspace drives agents that run commands, install third-party skills and
+MCP servers, and change files and git state. It ships without warranty (`LICENSE`); review what an
+agent proposes before approving it.
+
+## Compatibility
+
+The workspace **replaces** a harness's global setup rather than sitting beside one. It is not
+compatible with another workspace framework (a hand-grown global `CLAUDE.md` / `AGENTS.md` rule set,
+a workflow plugin with session hooks such as superpowers, BMAD or spec-kit installed whole) nor with
+a project doc layout of its own: `project-init` migrates a project's docs into this workspace's
+`docs/` · `backlog/` · `artefacts/` split, with your OK, and there is no way back but git.
+
+Nothing is overwritten silently: the sync lists every file it did not write, offers a dated backup
+before its first write, and asks per file — keep, merge, or replace.
+
 ## 1. Prerequisites
 
-- `git`, and at least one harness with a folder in `adapters/`: **Claude Code** · **Codex** · **OpenCode**.
+- `git`, and at least one harness with a folder in `adapters/` — its `MANIFEST.md` says what is verified.
   Another goes through the repo's `harness-onboard` skill first.
 - Optional, for projects on a PR flow: the `gh` CLI (step 3 installs and authenticates it if asked).
 
@@ -26,12 +41,12 @@ Already in a clone → skip. Everything below runs **from the clone's root**.
 
 > Read `.agents/skills/workspace-sync/SKILL.md` and follow it.
 
-Stop where it stops: `gh auth login` and the harness restart are the user's to do, and skills are
+Take the backup it offers on a machine with any existing harness setup. Stop where it stops: `gh auth login` and the harness restart are the user's to do, and skills are
 discovered on session start, so **restart each harness before relying on them.**
 
 ## 4. Personalise `AGENTS.md` — once per machine
 
-`{home}/AGENTS.md` (`~/.claude` · `~/.codex` · `~/.config/opencode`) is loaded in every session of
+`{home}/AGENTS.md` (`{home}` per the manifest's **Home** row) is loaded in every session of
 that harness. It ships with three sections still empty; fill them once and a later sync preserves
 them. Keep every answer short — this text is paid for in every session, forever.
 

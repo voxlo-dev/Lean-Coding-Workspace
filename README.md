@@ -1,245 +1,93 @@
 # Lean Coding Workspace
 
-An opinionated setup for Claude Code, Codex and OpenCode: a global instruction file
-plus a set of skills that turn "ask an AI to code" into a repeatable process — shape, spec,
-implement, test, document, ship.
+**Turn your coding agent into a teammate that follows a process.**
 
-It is **plain Markdown**. Nothing to build, no runtime, no lock-in. You install it once into
-the selected harness home, and from then on every project you work on follows the same workflow.
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+![Agent-agnostic](https://img.shields.io/badge/agent-agnostic-6b46c1)
+![Plain Markdown](https://img.shields.io/badge/plain-Markdown-black)
 
-## Why
+A ready-made workspace for your AI coding agent: one lean instruction file plus a set of skills
+that take every change from idea to shipped code the same way — shape, spec, build, test,
+document, release.
 
-Coding agents are strong at writing code and weak at everything around it. Left alone they lose
-the thread across sessions, re-litigate settled decisions, let docs rot, and answer structural
-questions by reading half the repo. This workspace fixes that with three ideas:
+## Quick start
 
-- **Workflows over vibes.** Development work goes through a named pipeline whose steps are fixed.
-  You pick the size of the pipeline, not whether to have one.
-- **Every fact has exactly one home.** Durable truth in `docs/`, open work in `backlog/`, process
-  history in `artefacts/`, machine-specific facts in memory. No fact lives in two places, so
-  nothing silently goes stale.
-- **A lean always-loaded core.** The global instruction file says *when* something applies and
-  *where* the rest lives — about 2.3k tokens. Everything else is a skill, loaded only when used.
+Open your coding agent anywhere and paste:
 
-## Requirements
+```text
+Fetch https://raw.githubusercontent.com/voxlo-dev/Lean-Coding-Workspace/main/INSTALL.md and follow it.
+```
 
-- A harness: Claude Code · Codex (agents need a format transform; dispatch needs a model endpoint
-  that supports namespaced tools, e.g. OpenAI's) · OpenCode — all three verified end to end. Any
-  other harness gets onboarded once with `harness-onboard`
-- Git
-- Two plugins, installed for you by the sync: `codegraph`, `context7`
-- Optional, offered by the sync: third-party skill bundles from a curated catalog
-  ([`bundles.md`](.agents/skills/workspace-sync/references/bundles.md)) — alternative workflows
-  beside `dynamic-workflow`, or helper skills and agents. The workspace never depends on one
-- Optional, offered during install: the `github` plugin and the `gh` CLI — needed for the PR flow
-  and for releases, skippable if you only work locally
-- Optional, for dispatch: any agent CLI with a headless mode plus a model endpoint (a local
-  server, a vendor key, an aggregator). Only needed to run a step on a model your harness does not
-  sell; `/dispatch-configurator` probes what the machine has and records it
+The agent installs everything, asks a few questions about you and your machine, and tells you when
+to restart it. You need Git and an agent tool with a folder in [`adapters/`](adapters/). Prefer
+doing it by hand? Follow [`INSTALL.md`](INSTALL.md). Verified on Windows; Linux and macOS reports welcome.
 
-## Install
+It replaces your agent's global setup and is not compatible with other workspace frameworks or
+project doc layouts ([details](INSTALL.md#compatibility)). **Read [SECURITY.md](SECURITY.md) first.**
 
-Open your harness anywhere and say:
+## Why you want it
 
-> Fetch https://raw.githubusercontent.com/voxlo-dev/Lean-Coding-Workspace/main/INSTALL.md and follow it.
-
-One that would rather not fetch: clone this repo and point it at [`INSTALL.md`](INSTALL.md) on disk.
-The guide clones, runs the `workspace-sync` skill, then fills in who you are and what your machine
-is — plain prose rather than a skill, so an agent *or* a human can follow it before anything exists.
-
-The sync copies the workspace once into `~/.agents/` — skills, memory, domains and the project
-scaffold, shared by every harness; `skills/` there is the Agent Skills standard, which Codex,
-OpenCode, Gemini CLI and Cursor all read and Claude Code is linked into. Per harness it installs only
-what that harness reads at a fixed path — the instruction file and the agents — plus its overlay, and
-verifies each capability actually works rather than merely exists.
-
-**Restart each changed harness afterwards.** New skill folders are only discovered in a fresh session.
-
-Re-running `workspace-sync` from the clone is the **repair path**: it overwrites workspace-owned
-skills, agents and project scaffolding, merges shared instructions and preserves user-owned memory,
-projects, domains and configuration. It lives in the repo rather than in the installed workspace,
-because the template it copies from lives there too.
+- **Plain Markdown, no scripts.** Nothing to build, nothing running in the background — every file
+  is an instruction your agent reads.
+- **A curated toolkit, not a zoo.** Two helpers, picked for the job: [codegraph](https://github.com/colbymchenry/codegraph)
+  answers "how does this work" from a code graph instead of reading half the repo, and
+  [context7](https://github.com/upstash/context7) brings current library docs instead of stale recall.
+- **Your workflow, your choice.** Use the built-in workflows, or add others from a curated
+  [skill catalog](.agents/skills/workspace-sync/references/bundles.md) — superpowers, OpenSpec,
+  BMAD and more install straight into the workspace. Every skill is yours to change.
+- **Agile, the way you know it from work.** Backlog, sprints, a board, reviews and releases — the
+  agent keeps the rhythm, you make the calls.
+- **Nothing gets forgotten.** Knowledge moves up in stages — a short handout between chats, tickets
+  for open work, a folder per sprint, lasting docs for what shipped, memory for the rest.
+- **Domains on demand.** Specialist skills and knowledge for Unity, Android, web or academic writing
+  load only in the projects that need them. Build your own with `/domain-init`.
+- **Light on context — made for the small plan.** About 2.3k tokens are always loaded; everything
+  else loads only when used, so a small subscription goes a long way.
+- **The right model for each step.** Hand single steps — a build package, an end-to-end test — to
+  another agent tool or a local model, while your main chat keeps the overview. `/dispatch-configurator`
+  finds what your machine can run.
+- **Runs in any agent tool.** New tool? The `harness-onboard` skill lets your agent probe it and
+  work out the differences by itself.
+- **Clean split between repo and install.** This repo is the source you fork and edit; the
+  installed workspace holds only what your agent actually reads. No dead weight — every file has a job.
 
 ## How a session goes
 
 <p align="center">
-  <img src="assets/session-flow.svg" alt="A repo is initialised once, then sprints repeat: open-sprint cuts the branch, many runs happen inside it (spec, implement, e2e, docs and memory, commit), and close-sprint distils and merges before the next sprint opens. Release branches off close-sprint once several sprints add up to a version." width="880">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="assets/session-flow-dark.svg">
+    <img src="assets/session-flow.svg" alt="Install once per machine and run /project-init once per project. Then sprints repeat: /open-sprint plans tickets and opens a branch; every new chat picks a workflow; /minimal-workflow handles small fixes, /dynamic-workflow takes a feature from an approved spec to tested, documented code; until the sprint scope is done the next run starts in a fresh chat, then /close-sprint updates the docs and merges. When a few sprints make a version, /release ships it, production only after you accept the risks." width="880">
+  </picture>
 </p>
 
-Concretely, at the start of a chat the agent picks up any checkpoint the previous chat left, checks
-the project's memory, then asks which workflow to use and recommends one. Before it starts it runs
-a short preflight: is the project initialised, which sprint are we in, is the git tree clean.
-
-Non-development work — writing, research, a one-off shell task — skips all of this. The workflow
-gate applies to code only.
-
-## The workflows
-
-| Skill | Reach for it |
-| --- | --- |
-| `/minimal-workflow` | one small, well-scoped change or bugfix — no spec |
-| `/dynamic-workflow` | the default for real features: spec → implement → green suite → optional e2e → docs → memory → board |
-| `/shape` | **first**, whenever a fuzzy idea or brainstorm has to become concrete work. Output is tickets, never a plan file |
-
-Supporting skills, mostly invoked by the workflows rather than by you:
-
-| Skill | Role |
-| --- | --- |
-| `/project-init` | onboard a repo: explore, detect domain, scaffold docs, install test framework, migrate existing docs |
-| `/open-sprint` · `/close-sprint` | open and close a sprint (see below); also the entry point for a brand-new project |
-| `/release` | publish a version: changelog, version bump, security gate, PR, CI, audit, ship, tag |
-| `spec-design` | stage 1 of `dynamic-workflow`: brainstorm, design the UI, decide the test + implementation strategy, write the spec |
-| `e2e` | optional end-to-end validation stage; grows a driver script step by step, driving by agent only where a script can't reach |
-| `ui-design` | look and feel — colors, typography, layout, mockups, design system |
-| `maintain-docs` · `maintain-memory` | the docs and memory steps; both prune as well as write |
-| `/checkpoint` | end a chat after `open-sprint`, a `dynamic-workflow` run or `project-init`, or on request: a short untracked handout the next chat reads and deletes |
-| `/domain-init` | build a domain master (see below) |
-| `/dispatch-configurator` | probe this machine's harnesses, providers and models and write the dispatch guide; `check` reports drift |
-| `workspace-sync` | sync and repair an install (in this repo, not the workspace) |
-| `harness-onboard` | probe a harness with no adapter yet, record what it verifiably does, derive its overlay (in this repo) |
-
-## Work items — the Markdown kanban
-
-Every unit of work is a **ticket** file: `backlog/T-NNN-{slug}.md`, holding *what* and *why*,
-category, importance, effort and dependencies. A ticket stays editable for its whole life — what
-is fixed is its altitude, not its wording.
-
-The file never moves. Boards only *index* it, and it appears on exactly one of them:
-
-- **`backlog/backlog.md`** — living, survives sprints. Columns **Draft** · **Backlog**: everything
-  not yet pulled. Open *decisions* live here too, as `decision` tickets, and the next free ticket
-  number sits at the top so no run has to derive it.
-- **`artefacts/{sprint}/sprint.md`** — the sprint file: plan on top, board underneath. One line per
-  ticket carrying a status token **open · active · to test · done**. That board *is* the sprint
-  scope, and it freezes when the sprint closes.
-
-When a sprint closes, its finished tickets are **dissolved** — the files are deleted once their
-durable truth has graduated into the docs, and git history keeps the rest. So `backlog/` only ever
-holds live work instead of growing forever.
-
-A fix you do on the spot needs no ticket. The board captures what *isn't* being done right now.
-
-Decisions get two homes, written in one move the moment one is settled: the reasoning as a section
-in `artefacts/{sprint}/sprint-decisions.md`, and one line in `docs/decisions.md` — the flat,
-append-only index that keeps "what is already decided here?" a single cheap read.
-
-**A sprint is not a run.** It holds many runs, plans and specs. `/open-sprint` pulls tickets from
-the backlog onto a fresh board and cuts a branch; `/close-sprint` clears the board, distils what
-shipped into the durable docs, and merges. Everything in `artefacts/{sprint}/` stays correctable
-while the sprint runs and freezes only at close — a spec is the sprint's working truth, not an
-archive from the moment it is written.
-
-**A sprint is not a release either.** Sprints integrate into `main`; a published version spans as
-many of them as it needs. `/release` cuts one afterwards: changelog composed from the sprint
-archives since the last tag, version bump, dependency and secret gate, a PR against the `release`
-branch, CI, an audit of the release itself rather than of code already reviewed at each close, then
-ship and tag. The changelog is a **release artifact**, not a repo doc — it lives in the PR body and
-the GitHub release, while the repo keeps the sprint archives and the tag.
-
-## How it all connects
-
-Every skill has a lane, and every file it produces has a lifespan. Read a column top-down: the
-skill on top writes what sits beneath it. Read the board left to right: that's the journey of one
-ticket, and where it sits *is* its status.
+## Where everything lives
 
 <p align="center">
-  <img src="assets/skills-and-docs.svg" alt="Skills across the top; beneath them four bands by lifespan: living work items (tickets and backlog), ephemeral process history (the sprint file with its board, specs, reports), durable docs (AGENTS.md, behaviour, architecture, dev, product, decisions, release runbook), and memory." width="1000">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="assets/skills-and-docs-dark.svg">
+    <img src="assets/skills-and-docs.svg" alt="A ticket's journey from idea through Draft and Backlog onto the sprint board (open, active, to test, done), until its outcome moves into the docs and the file is deleted. Below, the four places everything lives: open work in backlog/, the sprint folder, the lasting docs in docs/, and memory, each file labelled with the skill that writes it." width="1000">
+  </picture>
 </p>
 
-The two directions matter more than the boxes. **Left to right** is how work travels: an idea
-becomes a ticket, gets pulled onto a board, gets a spec, becomes code, and ends up distilled into
-durable docs — with whatever didn't get finished carried back to the backlog. **Top to bottom** is
-ownership: exactly one skill writes each file, which is why nothing here has two versions of the
-same truth.
+## Also in the box
 
-Note what is *not* in the durable band: no skill writes a fact there while the work is still in
-flight. Specs, reports and boards are process history, deliberately frozen and forgotten;
-`maintain-docs` and `close-sprint` distil what survives into `docs/`.
+| Skill | What it does |
+| --- | --- |
+| `/shape` | turns a fuzzy idea or brainstorm into concrete tickets |
+| `spec-design` · `ui-design` | the spec and test strategy · look and feel, styleguide, mockups |
+| `e2e` | end-to-end tests that grow into a reusable script |
+| `maintain-docs` · `maintain-memory` | keep docs and memory current, and prune what's no longer true |
+| `/checkpoint` | ends a chat with a short handout for the next one |
+| `/domain-init` | builds a domain for one kind of work |
 
-## What a project looks like
+## Make it yours
 
-```
-project/
-├── AGENTS.md              ← domain, structure, code style, current sprint (for contributors & agents)
-├── README.md              ← for your users
-├── backlog/               ← LIVING: open work, dissolved once it ships
-│   ├── backlog.md         ←   index of everything not yet pulled + the ticket counter
-│   └── T-NNN-{slug}.md    ←   one file per unit of work
-├── docs/                  ← DURABLE: truth about the shipped system
-│   ├── behaviour.md       ←   how the product behaves, as a rulebook — written at sprint close
-│   ├── decisions.md       ←   settled decisions, one line each + the decision counter
-│   ├── architecture.md    ←   planned/implemented structure
-│   ├── dev.md             ←   setup, env, build/debug, dependency quirks
-│   ├── release.md         ←   release runbook: version carriers, build & publish, the gate
-│   └── product/           ←   end-user docs
-└── artefacts/             ← EPHEMERAL: live while in flight, frozen once closed
-    ├── {sprint}/          ←   one folder per sprint, frozen at its close
-    │   ├── sprint.md      ←     the sprint file: frame, behaviour context, kanban board
-    │   ├── sprint-decisions.md ← the reasoning behind what this sprint settled
-    │   └── spec_*.md …    ←     specs, e2e files, reports
-    └── release-{version}/ ←   one per published version, spanning the sprints since the last tag
-```
+Fork the repo, edit `workspace_TEMPLATE/`, and re-run the `workspace-sync` skill from your clone —
+it also repairs a broken install. Your personal rules in the installed `AGENTS.md` survive every sync.
 
-Docs are split by **lifespan**, and you opt in per doc — a small project doesn't need all of them.
-`docs/` is versioned truth, `backlog/` is open work, `artefacts/` is process history. That split is
-what keeps the whole thing from turning into a swamp.
+## Contributing & license
 
-## Domains
+Fixes, adapters and generally useful improvements are welcome — personalised or niche features are
+not; see [CONTRIBUTING.md](CONTRIBUTING.md). Working *on* the repo starts at [`AGENTS.md`](AGENTS.md).
 
-A **domain** bundles everything specific to one kind of work — Unity, web frontend, Android, or a
-non-coding craft like academic writing — as skills, agents, MCP servers, its own memory and the doc
-sources they cite. It is capability and nothing else: no domain changes how a workflow runs, and the
-build and release knowledge it carries only *seeds* a project's docs, which own it afterwards.
-
-Masters live **inert** in `~/.agents/domains/{x}/`, so nothing domain-specific loads globally. The
-bundle is harness-neutral; `project-init` **projects** it into a repo, each part onto the path
-that harness already scans — skills as a link (or a copy, if you want them in the repo), agents and
-MCP servers into the harness's own directories, memory pointed back at the master. So the Unity MCP
-runs in Unity repos and nowhere else. **A project can install several**, as peers: a frontend and a
-backend domain project into the same directories.
-
-No masters ship with this repo — you build the ones you need with `/domain-init`.
-
-## Memory
-
-Long-term memory is Markdown, curated by `maintain-memory`, in three scopes: **project**, **domain**
-and **global**. Each file exists once and the installer points every harness at that one path — an
-import or a config entry. Where a harness offers neither, that scope is readable but never loaded
-automatically — a copy pasted into an instruction file goes stale the moment memory is written.
-Machine-bound facts (absolute paths, local installs, personal tool setup) belong in memory;
-system-independent engineering knowledge belongs in `docs/dev.md`. Never both.
-
-## Making it yours
-
-The whole workspace is Markdown — fork it and edit. Two things worth knowing:
-
-- **Edit the template, not an install.** Installed skills, agents and project scaffolding are
-  overwritten on every sync. Change `workspace_TEMPLATE/` in the repo, then re-run `workspace-sync`
-  from it.
-- **`AGENTS.md` is shared.** Your **User Info**, **System Info** and custom **RULES** survive a
-  sync; the structural parts get merged. Keep it lean — it is loaded in every single session, and
-  every token here is a token you pay for forever.
-- **Only `adapters/` may name a harness.** Everything else is neutral — Claude Code reading
-  `CLAUDE.md` instead of `AGENTS.md` is a two-line shim in its overlay, and that asymmetry lives
-  nowhere else. A capability no overlay implements is reported as missing, never as working.
-- **Another harness is a procedure, not a favour.** `harness-onboard` probes it — its own debug
-  commands first, docs last — into a manifest of verified facts, then derives the overlay from it.
-
-## Repo layout
-
-```
-workspace_TEMPLATE/            ← harness-neutral; installs to ~/.agents/ except where noted
-├── AGENTS.md                  ←   shared global instruction file — per harness home
-├── agents/                    ←   agent definitions, installed flat — per harness home
-├── skills/                    ←   workflows and supporting skills
-├── project_TEMPLATE/          ←   scaffold copied into each new project
-├── domains/                   ←   domain master scaffold
-└── memory/                    ←   global memory seed
-adapters/{harness}/            ← one per harness, both tracked
-├── MANIFEST.md                ←   verified facts: paths, levers, gaps, each with version and date
-└── overlay/                   ←   the few files that differ, derived from it, at the paths they land on
-.agents/skills/                ← the repo's own skills — they read the two directories above, so they live here
-├── workspace-sync/            ←   sync and repair, plus the bundle catalog
-└── harness-onboard/           ←   probe a new harness into a manifest and overlay
-INSTALL.md                     ← the install guide, followable before any of this is installed
-```
+[MIT](LICENSE) © Leonard Müller
