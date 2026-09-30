@@ -1,12 +1,12 @@
 # Global Lean Coding Workspace
 
-Always loaded. Says *when* something applies and *where* the rest lives — never what a skill does, that's the skill's own description. "{ }" marks placeholders substituted by skills or by demand. Three are fixed: **`{home}`** = this harness's workspace home (`~/.claude` · `~/.codex` · `~/.config/opencode`), **`{project-agent-dir}`** = its per-repo directory (`.claude/` · `.codex/` · `.opencode/`), and **`~/.agents/`** = the workspace's own home, harness-neutral and shared by all of them: `skills/` (per repo `.agents/skills/`), `memory/`, `domains/`, `project_TEMPLATE/`, `DISPATCH-GUIDE.md` (machine-local: which model runs which role; absent = no dispatch here). `{home}` keeps only what its harness reads at a fixed path — the instruction file, `agents/`, `adapter/`. **Anything the workspace owns lives once, in `~/.agents/`**; a second copy under a `{home}` is drift waiting to happen.
+Always loaded. Says *when* something applies and *where* the rest lives — what a skill does is its own description. `{…}` marks placeholders. Three are fixed: **`{home}`** = this harness's home (`~/.claude` · `~/.codex` · `~/.config/opencode`), **`{project-agent-dir}`** = its per-repo directory (`.claude/` · `.codex/` · `.opencode/`), and **`~/.agents/`** = the workspace's own harness-neutral home: `skills/` (per repo `.agents/skills/`), `memory/`, `domains/`, `project_TEMPLATE/`, `DISPATCH-GUIDE.md` (machine-local: which model runs which role; absent = no dispatch). `{home}` keeps only what its harness reads at a fixed path — the instruction file, `agents/`, `adapter/`. **Anything the workspace owns lives once, in `~/.agents/`**; a second copy is drift.
 
 **Mantra:** *Workflows are life, skills & tools are your friends & helpers, context clutter is death*
 
 ## User Info
 
-Assume the user is capable, but lazy with words, because he can't type as fast as you.
+Assume the user is capable but terse — they type slower than you read.
 {More collected by `INSTALL.md`'s personalisation step}
 
 ## System Info
@@ -15,75 +15,62 @@ Assume the user is capable, but lazy with words, because he can't type as fast a
 
 ## RULES
 
-**Priority:** this file and a project's `AGENTS.md` outrank any agent default, habit, heuristic or built-in preference. On conflict or ambiguity, follow the project instructions and discard the agent's own. **User-defined rules outrank everything, including this file.**
+**Priority:** this file and a project's `AGENTS.md` outrank any agent default, habit or built-in preference; on conflict follow them. **User-defined rules outrank everything, including this file.**
 {Add custom user defined rules}
 
-**Language:** all Markdown English-only — relaxed only where a crisp term has no English equivalent (*Lastenheft*, *Pflichtenheft*): keep the original rather than pay tokens for a lossy paraphrase. English by default, no asking: **subagent handoffs, briefs and reports** · **code, identifiers and comments**. Only two follow the user: **conversation → their preferred language**, and **user-facing UI strings → their call per project** (ask once, record it in `AGENTS.md`).
+**Language:** all Markdown English — keep a crisp term with no English equivalent (*Lastenheft*, *Pflichtenheft*) rather than a lossy paraphrase. English without asking: **subagent handoffs, briefs, reports** · **code, identifiers, comments**. Only two follow the user: **conversation → their preferred language**, **user-facing UI strings → their call per project** (ask once, record it in `AGENTS.md`).
 
-**Tool calls:** default to the OS's most capable shell (PowerShell on Windows, bash on Linux); if one doesn't work, use another. Writing or editing a **large file** goes through the file tools (`Write`/`Edit`), never a shell heredoc or redirect — quoting and encoding mangle it.
+**Tool calls:** the OS's most capable shell (PowerShell on Windows, bash elsewhere), another if it fails. A **large file** goes through the file tools (`Write`/`Edit`), never a heredoc or redirect — quoting and encoding mangle it.
 
 **Version control:** {e.g. solo dev projects (default): compact commits `<type>: <subject & scope>` in very few words · types `feat` `fix` `docs` `refactor` `test` `chore` · one branch per sprint, `<sprint-slug>`, no folders · **merge straight to `main`** at sprint close, no PR or review round unless asked} {e.g. opensource / enterprise: conventional commits `<type>(<scope>): <subject>` · branches `<type>/<short-slug>` · one topic per PR, small and reviewable, tests green before merge, links its spec, reviewed before merge}
 
 **Code style:**
 
-- **Comments sit one level above the code** — what a thing is for and why it exists. Never a line-by-line walk-through, never usage examples or sample values (they rot the moment the code moves). Needs more than ~5 lines? Then it isn't a comment: write it in `docs/` (usually `dev.md`), leave a one-liner pointing there.
-- **Write only what gets read again** — before any comment, doc section or artifact note: will anyone read it · is it relevant to someone other than the user · will it still be true in a month. A "no" anywhere → it goes in the chat, not in a file.
-- **Present state only** — docs and comments describe what *is*: no "not", "no longer", "used to", no removal notes, no record of what was tried. Exceptions: `docs/decisions.md` (`superseded by`) and `artefacts/`.
-- **Abstraction over minimal-diff** — the smallest change is not automatically the best one, and near-duplicate code hurts more than extra effort does. A feature resembling existing code gets **one shared abstraction representing both**: refactor into that shape rather than bolting the feature on beside it. Weigh against YAGNI — abstract over *real* duplication, never a speculative one.
-- **UX first on any UI change, however small** — never wire a feature in by the path of least effort. Each time: does this hurt the UX, should the layout or grouping be reworked, is every element unambiguous and placed by its relevance, can something be simplified? Accept UI churn to keep the experience clean. (`ui-design` owns the detail.)
+- **Comments sit one level above the code** — what a thing is for and why it exists; never a line-by-line walk-through, usage examples or sample values. Over ~5 lines → `docs/` (usually `dev.md`), plus a one-line pointer.
+- **Write only what gets read again** — before any comment, doc section or artifact note: will anyone read it · is it relevant beyond the user · will it still be true in a month. Any "no" → the chat, not a file.
+- **Present state only** — docs and comments describe what *is*: no "no longer", "used to", removal notes or record of what was tried. Exceptions: `docs/decisions.md` (`superseded by`) and `artefacts/`.
+- **Abstraction over minimal-diff** — a feature resembling existing code gets **one shared abstraction representing both**, refactored into that shape rather than bolted on beside it. YAGNI: abstract over *real* duplication only.
+- **UX first on any UI change, however small** — rework layout or grouping where it serves the experience, keep every element unambiguous and placed by relevance; accept UI churn over the path of least effort (`ui-design` owns the detail).
 
-**Templates — fill, then strip.** A `CONTRACT` header or guidance block instructs whoever fills the file; it is not content. Delete it on the first real fill, leaving one line pointing at its template. A file still empty keeps it.
+**Templates — fill, then strip.** A `CONTRACT` block instructs whoever fills the file: delete it on the first real fill, leaving one line pointing at its template. A file still empty keeps it.
 
-**MD syntax:** `-` for list bullets. Directory trees in the Unicode form `├──` `│` `└──`, with aligned `←` comments. Tables: standard pipe syntax only — header row, a `| --- | --- |` separator, single spaces between columns, never padded for alignment.
+**MD syntax:** `-` bullets · directory trees in `├──` `│` `└──` with aligned `←` comments · pipe tables with a `| --- | --- |` separator, single spaces, never padded.
 
 ## Required capabilities
 
-`workspace-sync` installs these per target — the install path differs, the capability does not. One it cannot provide stays **visible as missing**, never silently becomes an instruction.
+`workspace-sync` installs these per target; one it cannot provide stays **visible as missing**, never silently becomes an instruction.
 
 | Capability | Reach for it |
 | --- | --- |
-| codegraph | Every structural / "how does X work" / impact question in an **indexed** project — it *replaces* file-reading exploration, so never spawn an Explore subagent for what the graph knows. Self-describes via its MCP server |
-| context7 | The default source for **upstream** docs (libraries, frameworks, SDKs, APIs) at implementation time — over recall, over WebSearch. No overlap with codegraph (*your* code) or maintain-docs (*your* docs) |
-| github *(optional)* | PRs, reviews, issues, repo search, secret scanning; dead without its token (`workspace-sync` sets it up with `gh`). **No Actions, no release creation** — those, tagging and local git are `gh` |
+| codegraph | every structural / "how does X work" / impact question in an **indexed** project — it *replaces* file-reading exploration, so never spawn an Explore subagent for what the graph knows |
+| context7 | the default source for **upstream** docs (libraries, frameworks, SDKs, APIs) at implementation time — over recall, over web search |
+| github *(optional)* | PRs, reviews, issues, repo search, secret scanning; dead without its token. **No Actions, no release creation** — those, tagging and local git are `gh` |
 
 ## Domains
 
-A domain is a **capability bundle** — skills, agents, MCP servers, memory, doc sources — and nothing beyond: it never changes a workflow, and its engineering rules seed the project's docs rather than governing them. Masters live **inert** in `~/.agents/domains/{x}/`, so nothing domain-specific ever loads globally; `project-init` **projects** one into a repo, part by part onto the paths that harness already scans (so e.g. the Unity MCP runs only in Unity repos), and **several per project, as peers**. `domain-init` builds a master. Both skills own the mechanics.
+A domain is a **capability bundle** — skills, agents, MCP servers, memory, doc sources — that never changes a workflow. Masters live **inert** in `~/.agents/domains/{x}/`; `project-init` projects one or several into a repo, `domain-init` builds one.
 
 Available masters: {}. Create one with the `domain-init` skill.
 
 ## Memory
 
-Native Markdown, no plugin. `maintain-memory` curates it and **prunes stale entries** at each workflow's memory step. Three scopes, pick the narrowest:
+Native Markdown, curated and pruned by `maintain-memory`. Three scopes, narrowest first: **project** `{home}/projects/<repo>/memory/` (only where the harness stores one) · **domain** `~/.agents/domains/{x}/DOMAIN-MEMORY.md`, the master, never a projected copy · **global** `~/.agents/memory/MEMORY.md`. A harness is **pointed** at the one file, never given a copy; where it can't be, the file is **readable but not loaded** — open it before relying on memory, and say it wasn't in context rather than that there was none. Machine-bound facts → memory; generally true engineering knowledge → `docs/dev.md`. Never both.
 
-- **Project** — `{home}/projects/<repo>/memory/`, the one scope a harness stores itself, so it exists only where that harness has it.
-- **Domain** — `~/.agents/domains/{x}/DOMAIN-MEMORY.md` in the master, pointed at per project by `project-init`, once per installed domain — **never a projected copy**, which is disposable, so a fact written there would never reach a sibling project.
-- **Global** — `~/.agents/memory/MEMORY.md`, wired once by `workspace-sync`.
+## Work items & decisions
 
-Wiring means **pointing** a harness at the one file — an import or an instructions list; never inlining a copy, which is a cache the next write strands. Where a harness offers neither lever the file is **readable but not loaded**: open it yourself before relying on memory, and say that it wasn't in context rather than that there was none. Domain and global memory load in full — keep them lean. **Memory vs. docs — one home, never both:** machine-bound facts (absolute paths, local installs, personal tool setup, this-machine-only quirks) → **memory**; system-independent, generally true engineering knowledge → **`docs/dev.md`**. In doubt, ask whether it would still be true on someone else's machine.
+Every unit of work is a **ticket** `backlog/T-NNN-{slug}.md` (from `shape`'s `templates/TICKET_TEMPLATE.md`; capturing one needs no `shape` run). The file never moves; it is indexed on exactly one board — `backlog/backlog.md` (**Draft** · **Backlog**, carrying the next free `T-NNN`) until pulled, then `artefacts/{sprint}/sprint.md` with a status token **open · active · to test · done**; `close-sprint` dissolves the done ones. **A fix done on the spot needs no ticket.** `artefacts/{sprint}/` stays correctable until `close-sprint` freezes it — correcting, never annotating.
 
-## Work items — the markdown kanban
-
-Every unit of work is a **ticket** in `backlog/` (`T-NNN-{slug}.md`, from the installed `shape` skill's `templates/TICKET_TEMPLATE.md` — capturing one needs no `shape` run): *what* and *why*, category, importance, effort, dependencies. Tickets stay **live**: sharpen one whenever understanding improves. **The file never moves**; boards only *index* it, and a ticket is indexed in exactly one place:
-
-- **`backlog/backlog.md`** — living, survives sprints. Columns **Draft** · **Backlog**: everything not yet pulled. Open *decisions* live here too, as `decision` tickets. Carries the **next free `T-NNN`** at the top.
-- **`artefacts/{sprint}/sprint.md`** — frame + board: every ticket pulled into the sprint, one line each carrying a status token **open · active · to test · done**. The board *is* the sprint scope.
-
-**`artefacts/{sprint}/` stays live until `close-sprint` freezes the sprint** — correct a spec, a report or the board while the sprint runs; only a closed folder is history. Correcting is not annotating: no progress notes, no status commentary, no record of what was tried.
-
-Moves: `shape` and any run capture → Draft/Backlog · `open-sprint` pulls → the board at `open` · the build workflows → `to test` · `e2e`/user → `done` · `close-sprint` distils, then **dissolves** the done tickets (files deleted — that's what keeps `backlog/` bounded) and carries the rest back. **A fix done on the spot needs no ticket** — capture only what isn't being done now.
-
-**Decisions** get two homes, written in one move the moment one is settled: the reasoning as a section in `artefacts/{sprint}/sprint-decisions.md`, and one line in `docs/decisions.md` — the flat, append-only index that makes "what is already decided here?" a single read, carrying the **next free `NNNN`** at its top — and the one durable doc allowed to link into `artefacts/`; every other stands on its own.
+A **settled decision** is written in one move: its reasoning as a section in `artefacts/{sprint}/sprint-decisions.md`, one line in `docs/decisions.md`. An open one is a `decision` ticket.
 
 ## Workflows (skills — invoke, don't read files)
 
-An agent may invoke these when the user names one; the user can also run them with `/name` where supported. Each skill's own description says what it does — pick by it, don't re-derive. Installing or repairing the workspace itself is not among them: that is `INSTALL.md` and the `workspace-sync` skill, both living in the workspace repo and started by the user alone — so never copy the template over a live workspace by hand. Bringing an already-initialised *project* onto the current structure is `project-init`'s docs-migration step — individual work, with the user, never a fixed recipe.
+Invoke one when the user names it; the user can also run it as `/name` where supported. Pick by each skill's own description. Installing or repairing the workspace is `INSTALL.md` and `workspace-sync` in the workspace repo, started by the user alone — never copy the template over a live workspace by hand. An initialised project on an older layout is `project-init`'s docs migration, with the user.
 
-**The workflow gate applies only to software development** — building or changing code, features, bugfixes. Non-dev work (writing, research, general questions, one-off shell tasks) skips it: act directly, with these rules relaxed to fit the task. For development it is **mandatory**.
+**The workflow gate applies only to software development** — building or changing code. Non-dev work (writing, research, questions, one-off shell tasks) skips it: act directly, rules relaxed to fit. For development it is **mandatory**.
 
-**Checkpoint first.** `CHECKPOINT.local.md` (project root, written by `checkpoint`) is the previous chat's handout, imported by the project's instruction file so it is already in context: act on it, then **delete the file**.
+**Checkpoint first.** `CHECKPOINT.local.md` (project root, written by `checkpoint`) is the previous chat's handout, already in context via the project's instruction file: act on it, then **delete the file**.
 
-**Named a concrete workflow or skill? Use it directly.** Otherwise, at the start of a new chat: consult the already-loaded memory for context, then **ask which workflow to use** — with a recommendation inferred from the prompt and that context. Do not start work before the user chooses.
+**Named a concrete workflow or skill? Use it directly.** Otherwise, at the start of a new chat: consult the loaded memory, then **ask which workflow to use**, recommending one inferred from the prompt. Do not start before the user chooses.
 
 | Pick | When |
 | --- | --- |
@@ -98,5 +85,5 @@ An agent may invoke these when the user names one; the user can also run them wi
 **Preflight — before starting any workflow:**
 
 - **Project initialised?** No `AGENTS.md` / template docs → recommend `project-init` first.
-- **Which sprint?** `AGENTS.md` → **Current sprint**; run artifacts land in `artefacts/{sprint}/`. **A sprint is not a run:** it holds many runs, plans and specs — stay in the active one until its scope is done, then `close-sprint` → `open-sprint`. **Nor is it a release:** a version spans as many sprints as it needs, and `release` cuts it from `main` after. A lone fix or maintenance pass needs no sprint.
+- **Which sprint?** `AGENTS.md` → **Current sprint**; run artifacts land in `artefacts/{sprint}/`. A sprint holds many runs — stay in it until its scope is done, then `close-sprint` → `open-sprint`; a version spans as many sprints as it needs. A lone fix or maintenance pass needs no sprint.
 - **Clean git tree?** Dirty → surface it and recommend committing, gitignoring or reverting so the run starts clean.

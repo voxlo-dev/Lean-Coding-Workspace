@@ -3,7 +3,7 @@
 <!-- CONTRACT (binding — delete this comment once the file holds real decisions, keeping the
      pointer line below):
   - Template: `~/.agents/project_TEMPLATE/docs/decisions.md`.
-  - The flat, append-only INDEX of every settled decision, newest on top — one line each, so
+  - The flat, append-only INDEX of every settled decision, newest at the bottom — one line each, so
     "what is already settled here?" stays a single cheap read and nothing gets re-litigated.
     Follow the link for the reasoning: forces, options and rationale live in the sprint that
     settled it, `artefacts/{sprint}/sprint-decisions.md`. This is the ONE durable doc allowed

@@ -97,7 +97,7 @@ and the lowest input of any remote route. Locally, **Qwen3.5-9B ties it exactly 
 makes the offline path competitive rather than a fallback, and Qwen3.6-35B-A3B is the best
 quality-per-second at 62 s.
 
-Everything above ~500 s is unusable for `localagent-workflow`, where a single unit costs three to
+Everything above ~500 s is unusable for a dispatched build loop, where a single package costs three to
 four dispatches: one build loop on Kimi would run into hours, on DeepSeek into most of a day.
 Large models remain interesting only for thick dispatch — one call per phase — and only on a paid key.
 
@@ -106,7 +106,7 @@ Large models remain interesting only for thick dispatch — one call per phase �
 The probe is two tool calls and a status line. It says nothing about **model quality**, and nothing
 about whether a model survives real agentic work: multi-step tool chains, context pressure across a
 long unit, rate limits under sustained load, or recovery from a genuine error. A run of an actual
-`localagent-*` agent is the next measurement.
+workflow agent is the next measurement.
 
 ## Reproducing
 

@@ -1,6 +1,6 @@
 ---
 name: dynamic-workflow
-description: "Use for feature work or any change that warrants a spec. spec-design picks a testing preset (none · smoke · core · light-tdd · strict-tdd) and a delegation mode once; this pipeline then executes them in a fixed order — implement, optional e2e, docs, memory, PR. From ≥3 packages it delegates work to sequential subagents to keep context clean. Trivial one-liners use minimal-workflow."
+description: "Use for feature work or any change that warrants a spec. spec-design picks a testing preset (none · smoke · core · light-tdd · strict-tdd) and a delegation mode once; this pipeline then executes them in a fixed order — implement, green suite, optional e2e, docs, memory, board. From ≥3 packages it delegates work to sequential subagents to keep context clean. Trivial one-liners use minimal-workflow."
 ---
 
 # Dynamic Workflow
@@ -38,7 +38,7 @@ Red between packages is expected; step 3's green gate closes it.
 
 Used when the spec's delegation is **delegated**. The point is **context management**: over many packages an inline thread fills with read files and loses the spec across compactions. The caller stays a pure **coordinator** — its context holds only the spec, the package list and the reports; every read/write/test happens in fresh subagents, discarded after each package.
 
-**Models:** orchestrate on a capable model (Opus/Fable); dispatch **Sonnet-class** subagents for the work (e2e can be a browser agent). Under **dispatch mode** the work instead leaves the harness: `~/.agents/DISPATCH-GUIDE.md` — opened only once that mode is chosen, never to decide it — holds the launch command, the model per role and the rules — same handoff, same report, another process. A role the guide does not cover runs inline as above.
+**Models:** orchestrate on the strongest model available; dispatch a cheaper **mid-tier** model for the work (e2e can be a browser agent). Under **dispatch mode** the work instead leaves the harness: `~/.agents/DISPATCH-GUIDE.md` — opened only once that mode is chosen, never to decide it — holds the launch command, the model per role and the rules — same handoff, same report, another process. A role the guide does not cover runs inline as above.
 
 **The loop — one package at a time, sequentially:**
 

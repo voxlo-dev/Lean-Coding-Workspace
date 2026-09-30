@@ -23,7 +23,7 @@
 | 0 preflight | {open/done} | {auth ok, tree clean, scope resolved} |
 | 1 changelog | {open/done} | — |
 | 2 version bump | {open/done} | {commit sha} |
-| 3 security gate | {open/done} | {audit result, secret scan result} |
+| 3 security & data gate | {open/done} | {audit, secret scan, backup + restore, migration test} |
 | 4 release PR | {open/done} | {PR url} |
 | 5 CI | {open/done} | {run url} |
 | 6 audit | {open/done} | {review url, blocking findings} |
@@ -46,6 +46,9 @@
 
 - **Dependency audit:** {command, result — only `low` passes}
 - **Secret scan:** {clean, or what was found and how the credential was rotated}
+- **Backup:** {command, where it is stored, restore proven on — or `n/a`, no persistent state}
+- **Migration test:** {forward · rollback · suite on the migrated copy — or `n/a`}
+- **Production go:** {the user's risk acceptance, verbatim and dated — or `n/a`, no production target}
 - **Waivers applied:** {advisory IDs carried from `docs/release.md` — or `none`}
 - **Audit findings:** {blocking ones and how they were resolved — or `none`}
 

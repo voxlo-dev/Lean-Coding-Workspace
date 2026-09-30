@@ -37,7 +37,17 @@ questions by reading half the repo. This workspace fixes that with three ideas:
   server, a vendor key, an aggregator). Only needed to run a step on a model your harness does not
   sell; `/dispatch-configurator` probes what the machine has and records it
 
+Verified on Windows. Linux and macOS commands are in place but unproven — reports welcome.
+
 ## Install
+
+> [!WARNING]
+> **At your own risk, without warranty** ([MIT](LICENSE), [SECURITY.md](SECURITY.md)): the workspace
+> drives agents that run commands, install third-party code and change files, git state and — via
+> `/release` — live environments. It **replaces** a harness's global setup and is **not compatible**
+> with other workspace frameworks or project doc layouts; see
+> [Compatibility](INSTALL.md#compatibility). Nothing existing is overwritten without asking, and the
+> sync offers a backup first.
 
 Open your harness anywhere and say:
 
@@ -87,7 +97,7 @@ Supporting skills, mostly invoked by the workflows rather than by you:
 | --- | --- |
 | `/project-init` | onboard a repo: explore, detect domain, scaffold docs, install test framework, migrate existing docs |
 | `/open-sprint` · `/close-sprint` | open and close a sprint (see below); also the entry point for a brand-new project |
-| `/release` | publish a version: changelog, version bump, security gate, PR, CI, audit, ship, tag |
+| `/release` | publish a version: changelog, version bump, security & data gate (backup, migration test), PR, CI, audit, ship, tag — a production target only after you accept its risks |
 | `spec-design` | stage 1 of `dynamic-workflow`: brainstorm, design the UI, decide the test + implementation strategy, write the spec |
 | `e2e` | optional end-to-end validation stage; grows a driver script step by step, driving by agent only where a script can't reach |
 | `ui-design` | look and feel — colors, typography, layout, mockups, design system |
@@ -131,7 +141,7 @@ archive from the moment it is written.
 
 **A sprint is not a release either.** Sprints integrate into `main`; a published version spans as
 many of them as it needs. `/release` cuts one afterwards: changelog composed from the sprint
-archives since the last tag, version bump, dependency and secret gate, a PR against the `release`
+archives since the last tag, version bump, dependency, secret, backup and migration gate, a PR against the `release`
 branch, CI, an audit of the release itself rather than of code already reviewed at each close, then
 ship and tag. The changelog is a **release artifact**, not a repo doc — it lives in the PR body and
 the GitHub release, while the repo keeps the sprint archives and the tag.
@@ -211,7 +221,7 @@ system-independent engineering knowledge belongs in `docs/dev.md`. Never both.
 
 ## Making it yours
 
-The whole workspace is Markdown — fork it and edit. Two things worth knowing:
+The whole workspace is Markdown — fork it and edit. Worth knowing:
 
 - **Edit the template, not an install.** Installed skills, agents and project scaffolding are
   overwritten on every sync. Change `workspace_TEMPLATE/` in the repo, then re-run `workspace-sync`
@@ -243,3 +253,9 @@ adapters/{harness}/            ← one per harness, both tracked
 └── harness-onboard/           ←   probe a new harness into a manifest and overlay
 INSTALL.md                     ← the install guide, followable before any of this is installed
 ```
+
+## Contributing & license
+
+Fixes, adapters and generally useful improvements are welcome — personalised or niche features are
+not; see [CONTRIBUTING.md](CONTRIBUTING.md). Security notes and reporting: [SECURITY.md](SECURITY.md).
+[MIT](LICENSE) © Leonard Müller.

@@ -86,12 +86,12 @@
   <text x="493" y="329" text-anchor="middle" font-size="9.5" fill="#7c2d12">e2e_*.md (cases)</text>
 
   <rect x="576" y="292" width="138" height="52" rx="6" fill="#ffffff" stroke="#f59e0b"/>
-  <text x="645" y="313" text-anchor="middle" font-size="9.5" fill="#7c2d12">impl-report_*.md</text>
-  <text x="645" y="329" text-anchor="middle" font-size="9.5" fill="#7c2d12">handover_*.md</text>
+  <text x="645" y="313" text-anchor="middle" font-size="9.5" fill="#7c2d12">release-{version}/</text>
+  <text x="645" y="329" text-anchor="middle" font-size="9" fill="#d97706">one per version</text>
 
   <rect x="728" y="292" width="138" height="52" rx="6" fill="#ffffff" stroke="#f59e0b"/>
   <text x="797" y="313" text-anchor="middle" font-size="9.5" fill="#7c2d12">e2e-report_*.md</text>
-  <text x="797" y="329" text-anchor="middle" font-size="9" fill="#d97706">dumps → test-dump/</text>
+  <text x="797" y="329" text-anchor="middle" font-size="9" fill="#d97706">scratch → .temp/</text>
 
   <rect x="880" y="292" width="138" height="52" rx="6" fill="#ffffff" stroke="#f59e0b"/>
   <text x="949" y="313" text-anchor="middle" font-size="9.5" fill="#7c2d12">sprint-decisions.md</text>

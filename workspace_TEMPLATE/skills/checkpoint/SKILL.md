@@ -11,7 +11,7 @@ At a phase boundary a context reset is cheap — the next phase reads other file
 
 ## Content
 
-**Max 25 lines, fewer is better.** Three blocks:
+**Max 25 lines, fewer is better.** Four blocks:
 
 - **Frame** — sprint slug, branch, phase just finished. One line.
 - **Pick up here** — the next action, plus the paths worth opening first.
