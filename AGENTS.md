@@ -67,6 +67,8 @@ docs/                          ← research behind template decisions, dated
 └── dispatch-bench.md          ←   nine models, four connectors, one unchanged dispatch command
 assets/*.svg                   ← README diagrams (session flow, skill/doc map)
 README.md                      ← end-user facing: what this is, install, how it fits together
+CONTRIBUTING.md · SECURITY.md  ← what gets accepted, how · the risk disclaimer and reporting path
+LICENSE                        ← MIT
 AGENTS.md                      ← this file
 ```
 
@@ -139,8 +141,8 @@ The `plugin-dev` skills are the reference for skill mechanics —
 ## Version control
 
 Compact commits `<type>: <subject & scope>` in very few words — `feat` `fix` `docs` `refactor`
-`chore`. Most work here is `docs:` or `refactor:`. Commit on `main`; the user handles anything else.
-No sprint branches in this repo.
+`chore`. Most work here is `docs:` or `refactor:`. The maintainer commits on `main`; outside contributions arrive as PRs per
+`CONTRIBUTING.md`, which also says what is out of scope. No sprint branches in this repo.
 
 ## Verification
 

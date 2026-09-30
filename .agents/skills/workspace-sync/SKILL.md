@@ -6,7 +6,7 @@ disable-model-invocation: true
 
 # Workspace Sync
 
-Sync **only the targets the user selects**. Copy what's missing, merge instructions, never touch user-owned state. Pause where the user must act (steps 4–6).
+Sync **only the targets the user selects**. Copy what's missing, merge instructions, never touch user-owned state, **never overwrite what this workspace did not write**. Pause where the user must act or decide (steps 2, 4–6).
 
 Its inputs are `workspace_TEMPLATE/` and `adapters/`, so it runs from the workspace repo and nowhere else. **`{workspace}`** = that clone (usually the cwd). Substitute the real path.
 
@@ -23,6 +23,7 @@ Read each selected target's `adapters/{target}/MANIFEST.md` whole: **every harne
 ## 2. Inventory & copy the shared template
 
 - `diff -r --strip-trailing-cr` `{workspace}/workspace_TEMPLATE` against `{home}` (live copies may carry different line endings). Missing → a fresh copy, differing → a merge candidate; the inventory tells you whether this is a bootstrap or a repair. Report it before changing anything.
+- **Foreign files** — anything at a path this sync writes that this workspace didn't write: on a first install every file already there (another setup's `AGENTS.md` or `CLAUDE.md`, skills, agents, config), on a repair a file the template doesn't know. List them and **offer a backup before the first write** — a dated copy of each affected `{home}` and `~/.agents/` (`{dir}.bak-{YYYYMMDD}`) — then ask per item: keep beside, merge, or replace. Another workspace framework or doc layout among them → say plainly the two are not compatible (`INSTALL.md` → Compatibility) and let the user decide whether to go on.
 - Copy everything missing, leaving existing files untouched (`-n` = no-clobber; run from `{workspace}` or use absolute paths). **Almost everything goes to the shared home once, whatever targets were picked; only the instruction file and the agents are per target** (agents below):
 
   ```bash
@@ -36,7 +37,7 @@ Read each selected target's `adapters/{target}/MANIFEST.md` whole: **every harne
 
 - Then link each skill folder into the directory a non-native target does read, per its manifest's **Skills** row — `ln -s ~/.agents/skills/{name} {dir}/{name}`, `mklink /J` on Windows. **Per folder, never the `skills/` directory itself**, which the harness writes its own internals into. A real directory where a link belongs is the old duplicated install: diff it against the template, salvage what only it has, replace it.
 - **On a repair, `-n` is not enough** — a skill whose template version changed keeps the old installed copy. Two kinds of file:
-  - **workspace-owned** — `~/.agents/{skills,domains/domain_TEMPLATE,project_TEMPLATE}/`, plus `{home}`'s agents directory and `adapter/`: overwrite from the template or the overlay (`cp -r`, no `-n`). A user edit inside the installed copy is lost **by design**; real customisations belong in the workspace repo. Deletions need doing explicitly — a skill or agent renamed, moved or dropped in the template leaves its old copy behind and keeps loading; check for a stale *home* too, not just a stale file. A name `BUNDLES.md` records is step 5's, never stale here.
+  - **workspace-owned** — `~/.agents/{skills,domains/domain_TEMPLATE,project_TEMPLATE}/`, plus `{home}`'s agents directory and `adapter/`: overwrite from the template or the overlay (`cp -r`, no `-n`) once the diff is shown — a user edit in it → ask first, pointing at the backup; real customisations belong in the workspace repo. Deletions need doing explicitly — a skill or agent renamed, moved or dropped in the template leaves its old copy behind and keeps loading; check for a stale *home* too, not just a stale file. A name `BUNDLES.md` records is step 5's, never stale here.
   - **user-owned** — `~/.agents/memory/`, `~/.agents/DISPATCH-GUIDE.md`, `~/.agents/BUNDLES.md`, the domain *masters* beside their template, `{home}/projects/`, and the target's own configuration files: leave them alone. A master is generated, not templated (`domain-init` rebuilds one on request).
 - **`AGENTS.md` is always a manual merge:** take the template's structural changes (new sections, reworded rules), keep the user-filled ones — **User Info**, **System Info**, custom **RULES**, **Available masters** — the bundle rows are step 5's.
 - **Agents install flat** from `workspace_TEMPLATE/agents/` into the manifest's agents directory, whatever the source layout — one harness folds a subfolder into the ID, another keys off `name:`, so a nested copy answers to a different name in each. Where the manifest names a conversion, convert rather than skip and say you did, **reading and writing UTF-8 explicitly** — a default-codepage read turns every `—` into `â€”`. One file per agent ID; nothing else may live there — a stray file is scanned as an agent.
@@ -47,7 +48,8 @@ Read each selected target's `adapters/{target}/MANIFEST.md` whole: **every harne
 Its files already carry the paths they must land on, so this is a copy, not a transform:
 
 ```bash
-cp -r {workspace}/adapters/{target}/overlay/. {home}/
+cp -r  {workspace}/adapters/{target}/overlay/adapter {home}/   # workspace-owned, refreshed
+cp -rn {workspace}/adapters/{target}/overlay/. {home}/         # the rest never lands over an existing file
 ```
 
 That leaves `{home}/adapter/` holding whatever the target needs later, in three folders named by what happens to them:
@@ -65,7 +67,7 @@ missing rather than working around it. A merge keeps keys already present and su
 - **Point the target at `~/.agents/memory/MEMORY.md`** — an import in its instruction file, or an entry in its config's instructions list. **Never inline a copy**: it is a cache the next memory write strands, so a target with neither lever gets global memory reported as **read-on-demand, not in context** instead (`maintain-memory` owns the rule).
 - **Instruction budget** — where the manifest names one, check the installed instruction files against it and raise the limit rather than let the tail vanish silently.
 
-An overlay shim over `AGENTS.md` that already exists with rules in it means the user put them in the wrong file: move them into `AGENTS.md` rather than keeping two homes.
+An instruction file already where the shim belongs stays: show it, then add the shim's imports to it or move its rules into `AGENTS.md` — the user's call, never a silent replace.
 
 ## 4. Install the required capabilities
 
@@ -74,21 +76,21 @@ Only the ones not already working, and only where the target can host them. Memo
 - **codegraph** — an MCP server, https://github.com/colbymchenry/codegraph.
 - **context7** — a plugin from the `claude-plugins-official` marketplace, else its MCP server.
 
-Each through the mechanism the manifest's **Plugins** and **MCP** rows name, in the shape `overlay/adapter/merge/` already carries.
+Each through the mechanism the manifest's **Plugins** and **MCP** rows name, in the shape `overlay/adapter/merge/` carries where it has one; a row still `unknown` → ask rather than guess.
 
 ### GitHub access *(optional — ask, don't assume)*
 
 Needed by `release` and any project on the PR flow; skip for a user working purely locally. Both halves or neither:
 
 - **`gh` CLI** — `winget install --id GitHub.cli` / `brew install gh` / per distro. Then **the user runs `gh auth login`**: interactive and browser-based, so pause here.
-- **`github` plugin** — a wrapper around a remote MCP server authenticating via `GITHUB_PERSONAL_ACCESS_TOKEN`. **Without that variable it silently exposes zero tools.** Cheapest source is the login just done: `setx GITHUB_PERSONAL_ACCESS_TOKEN "$(gh auth token)"` / shell-profile equivalent. Say plainly it lands in the environment in clear text; offer a scoped PAT instead.
+- **`github` plugin** — a wrapper around a remote MCP server authenticating via `GITHUB_PERSONAL_ACCESS_TOKEN`. **Without that variable it silently exposes zero tools.** Default: a **fine-grained PAT**, limited to the repos and permissions the user names (read-only where that suffices), set via `setx` / shell profile. Say plainly it lands in the environment in clear text, readable by every process. `gh auth token` is the fallback only on the user's explicit choice — it carries the login's full scopes.
 
 ## 5. Skill bundles *(optional)*
 
 Third-party skill sets, peers of the workspace: **no workspace skill ever invokes one**, so any can be dropped. Catalog: `references/bundles.md` beside this skill. The user's pick: `~/.agents/BUNDLES.md`, user-owned — `| id | source | kind | ref | installed |`, no rows = declined.
 
-- **Pick** — manifest missing, or the user asks to change it → one multi-select question from the catalog rows (`id` — *pick when*), "Other" taking any repo URL; write the manifest. Otherwise take it as it stands, and skip an entry whose `ref` equals the source's current HEAD.
-- **Fetch** the source shallow into scratch and install **only the row's *take***: skill folders flat into `~/.agents/skills/`, linked like step 2's; agents flat per step 2's conversion rules; a `plugin` row through the target's plugin mechanism, reported missing on a target without one. **Never** hooks, commands, rules, plugin manifests, or a skill whose description loads it every session — always-loaded context overrides the workflow gate. An "Other" source gets the same filter, its *take* agreed with the user first.
+- **Pick** — manifest missing, or the user asks to change it → one multi-select question from the catalog rows (`id` — *pick when*), "Other" taking any repo URL; write the manifest. Otherwise take it as it stands. **Pinned:** an entry installs at its recorded `ref`; moving it to the source's current HEAD is an update — show the upstream diff since `ref` and install only on the user's OK.
+- **Fetch** the source shallow into scratch and install **only the row's *take***: skill folders flat into `~/.agents/skills/`, linked like step 2's; agents flat per step 2's conversion rules; a `plugin` row through the target's plugin mechanism, reported missing on a target without one. **Never** hooks, commands, rules, plugin manifests, or a skill whose description loads it every session — always-loaded context overrides the workflow gate. An "Other" source gets the same filter, its *take* agreed with the user first. **Never run a source's own script** (installer, converter) before showing it to the user and getting their OK.
 - **Collisions** — a name a workspace skill or agent, another entry or a harness built-in command already holds → ask: skip, or install as `{id}-{name}`. Never overwrite.
 - **Needs** → install with the user's OK; declined → report the entry as installed but inert. Per-project setup stays with the bundle's entry skill, never run here.
 - **Record** the fetched `ref` and every installed name. An entry dropped from the manifest → delete exactly its recorded names, links included.

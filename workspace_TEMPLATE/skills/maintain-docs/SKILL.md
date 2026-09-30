@@ -54,7 +54,7 @@ For each doc ask "does *this* change affect it?" from what you already know, and
 
 ## Audit mode — optional, on request only
 
-**Not part of the normal delta sweep.** Run only when the user explicitly asks to *audit* doc (or `AGENTS.md`/`AGENTS.md`) quality. Where the sweep distils *this run's* delta, the audit judges the *existing* docs against a quality bar.
+**Not part of the normal delta sweep.** Run only when the user explicitly asks to *audit* doc (or `AGENTS.md`) quality. Where the sweep distils *this run's* delta, the audit judges the *existing* docs against a quality bar.
 
 1. **Score each doc** — commands/workflows current · architecture clarity · non-obvious patterns captured · conciseness · currency (matches the code now) · actionability. Grade **A** (comprehensive/current) → **F** (missing/stale).
 2. **Report before touching anything** — a short per-doc table (score, concrete issues, recommended additions), then get the user's OK.

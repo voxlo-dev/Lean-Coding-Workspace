@@ -36,6 +36,7 @@ a half-filled seed writes a wrong runbook, and a domain that builds nothing dele
 - **Dependency audit** {command; only `low` findings pass}
 - **Build** {command producing the shippable artifact · signing requirements}
 - **Publication** {store / registry · its tracks in staging order · what a submission needs}
+- **State** {backup / restore command and migration tooling of the stack — or `stateless`}
 
 ## Skills
 

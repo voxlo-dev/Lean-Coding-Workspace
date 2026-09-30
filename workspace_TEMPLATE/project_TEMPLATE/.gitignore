@@ -25,9 +25,6 @@ Desktop.ini
 # briefs, reports and transcripts. Cleared at close-sprint; safe to delete at any time.
 .temp/
 
-# Headroom
-.tokensave
-
 # Build output / dependencies (uncomment / extend per stack)
 # node_modules/
 # dist/
