@@ -22,7 +22,8 @@ The agent installs everything, asks a few questions about you and your machine, 
 to restart it. You need Git and an agent tool with a folder in [`adapters/`](adapters/). Prefer
 doing it by hand? Follow [`INSTALL.md`](INSTALL.md). Verified on Windows; Linux and macOS reports welcome.
 
-**Read [SECURITY.md](SECURITY.md) first.**
+It replaces your agent's global setup and is not compatible with other workspace frameworks or
+project doc layouts ([details](INSTALL.md#compatibility)). **Read [SECURITY.md](SECURITY.md) first.**
 
 ## Why you want it
 
@@ -42,6 +43,9 @@ doing it by hand? Follow [`INSTALL.md`](INSTALL.md). Verified on Windows; Linux 
   load only in the projects that need them. Build your own with `/domain-init`.
 - **Light on context — made for the small plan.** About 2.3k tokens are always loaded; everything
   else loads only when used, so a small subscription goes a long way.
+- **The right model for each step.** Hand single steps — a build package, an end-to-end test — to
+  another agent tool or a local model, while your main chat keeps the overview. `/dispatch-configurator`
+  finds what your machine can run.
 - **Runs in any agent tool.** New tool? The `harness-onboard` skill lets your agent probe it and
   work out the differences by itself.
 - **Clean split between repo and install.** This repo is the source you fork and edit; the
@@ -75,7 +79,6 @@ doing it by hand? Follow [`INSTALL.md`](INSTALL.md). Verified on Windows; Linux 
 | `maintain-docs` · `maintain-memory` | keep docs and memory current, and prune what's no longer true |
 | `/checkpoint` | ends a chat with a short handout for the next one |
 | `/domain-init` | builds a domain for one kind of work |
-| `/dispatch-configurator` | lets other agents or local models take over single steps |
 
 ## Make it yours
 
