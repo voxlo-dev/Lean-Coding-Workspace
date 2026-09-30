@@ -3,13 +3,14 @@
 **Turn your coding agent into a teammate that follows a process.**
 
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-![Harnesses](https://img.shields.io/badge/works%20with-Claude%20Code%20·%20Codex%20·%20OpenCode-6b46c1)
+![Agent-agnostic](https://img.shields.io/badge/agent-agnostic-6b46c1)
 ![Plain Markdown](https://img.shields.io/badge/plain-Markdown-black)
 
-Lean Coding Workspace is a ready-made setup for **Claude Code, Codex and OpenCode**: one lean
-instruction file plus a set of skills that take every change from idea to shipped code the same
-way — shape, spec, build, test, document, release. It is plain Markdown. Nothing to build, no
-runtime, no lock-in: install it once and every project you open works the same.
+Lean Coding Workspace is a ready-made setup for **your AI coding agent**: one lean instruction file
+plus a set of skills that take every change from idea to shipped code the same way — shape, spec,
+build, test, document, release. It is plain Markdown. Nothing to build, no runtime, no lock-in:
+install it once and every project you open works the same. It runs in every agent tool with an
+[adapter](adapters/), and adding another takes one skill run.
 
 ## Why you want it
 
@@ -25,7 +26,7 @@ to answer a simple question. This workspace fixes exactly that:
   back into the docs — no stale second copy.
 - **Cheap on tokens.** The always-loaded core is about 2.3k tokens; everything else is a skill,
   loaded only when used. A code graph answers structural questions instead of mass file reads.
-- **Your harness, your models.** The same workspace runs in three harnesses, and single steps can
+- **Your tools, your models.** The same workspace runs in every supported coding agent, and single steps can
   be dispatched to other agents or local models.
 
 ## How a session goes
@@ -33,7 +34,7 @@ to answer a simple question. This workspace fixes exactly that:
 <p align="center">
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="assets/session-flow-dark.svg">
-    <img src="assets/session-flow.svg" alt="Install once per machine and run /project-init once per project. Then sprints repeat: /open-sprint plans tickets and opens a branch; every new chat picks a workflow; /minimal-workflow handles small fixes, /dynamic-workflow takes a feature from an approved spec to tested, documented code; /close-sprint updates the docs and merges. When a few sprints make a version, /release ships it, production only after you accept the risks." width="880">
+    <img src="assets/session-flow.svg" alt="Install once per machine and run /project-init once per project. Then sprints repeat: /open-sprint plans tickets and opens a branch; every new chat picks a workflow; /minimal-workflow handles small fixes, /dynamic-workflow takes a feature from an approved spec to tested, documented code; until the sprint scope is done the next run starts in a fresh chat, then /close-sprint updates the docs and merges. When a few sprints make a version, /release ships it, production only after you accept the risks." width="880">
   </picture>
 </p>
 
@@ -108,7 +109,7 @@ backlog only ever holds live work.
 > ([Compatibility](INSTALL.md#compatibility)). Nothing existing is overwritten without asking, and a
 > backup is offered first.
 
-Open Claude Code, Codex or OpenCode anywhere and say:
+Open your coding agent anywhere and say:
 
 > Fetch https://raw.githubusercontent.com/voxlo-dev/Lean-Coding-Workspace/main/INSTALL.md and follow it.
 
@@ -116,7 +117,7 @@ The agent clones this repo, installs the workspace, sets up the required tools a
 questions about you and your machine. **Restart your harness afterwards** — new skills load in a
 fresh session. Prefer doing it by hand? Clone the repo and follow [`INSTALL.md`](INSTALL.md).
 
-**You need:** Git and at least one of the three harnesses. The install adds
+**You need:** Git and a coding agent with a folder in [`adapters/`](adapters/) — that list is what is supported and verified. The install adds
 [codegraph](https://github.com/colbymchenry/codegraph) and [context7](https://github.com/upstash/context7),
 and offers the `gh` CLI for pull requests and releases plus optional third-party
 [skill bundles](.agents/skills/workspace-sync/references/bundles.md). Verified on Windows; Linux
