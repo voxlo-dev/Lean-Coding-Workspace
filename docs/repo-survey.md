@@ -1,6 +1,6 @@
 # Coding-agent repo survey — 2026-09-23
 
-41 repos around coding agents, judged for this workspace: agent-agnostic, plain skill folders,
+44 repos around coding agents, judged for this workspace: agent-agnostic, plain skill folders,
 nothing always-loaded that a skill could carry. Verdicts: **in use** (part of the workspace) ·
 **catalog** (row in `.agents/skills/workspace-sync/references/bundles.md`) · **trial** · **watch** ·
 **skip**. Token savers in depth: [`token-savers.md`](token-savers.md).
@@ -49,9 +49,15 @@ Several repos moved owner, and same-name copies are appearing — check the owne
 | getpaseo/paseo | orchestration | drive several coding agents from desktop and phone | app | unverified | unclear | watch | check license |
 | openchamber/openchamber | orchestration | development environment built on OpenCode | app | unverified | MIT | watch | |
 | morganlinton/Albatross | orchestration | terminal agent routing across local and cloud models | own TUI | unverified | MIT | watch | |
+| DietrichGebert/ponytail | skills | minimal-code ladder: skip → reuse → stdlib → dependency → write | skill + plugins, rule files for ~7 harnesses, hooks | two Node lifecycle hooks (Claude Code, Codex); no daemon or telemetry | MIT | watch | self-reported −54% code on n=4 Haiku runs; overlaps the YAGNI rule |
+| alirezarezvani/claude-skills | skills | 388 skills in 20 domains, 727 stdlib Python tools | skill folders, plugin marketplace, converters for 13 harnesses | none; skills optional | MIT | watch | source for single skills; breadth over curation |
+| pbakaus/impeccable | skills | UI design skill: 24 commands, 61 deterministic anti-pattern detectors | skill folders, hooks, `npx` CLI, binary in `~/.impeccable/` | edit hooks; one downloaded binary | Apache-2.0 | trial | pairs with `ui-design`; compare with hallmark |
 | ComposioHQ/awesome-claude-skills | lists | link list plus 832 Composio skills | — | — | none | skip | useful items come via anthropics/skills |
 | shanraisshan/claude-code-best-practice | lists | guide with a workflow overview | — | — | MIT | skip | source of leads |
 | Shubhamsaboo/awesome-llm-apps | lists | LLM app tutorials | — | — | Apache-2.0 | skip | |
+
+Rows for ponytail, claude-skills and impeccable come from README-level reading only — hooks,
+cost and licenses not yet checked in the repos' files.
 
 Unverified: standing cost of flow-next, gentle-ai, pilot-shell, claude-code-workflows, humanlayer,
 paseo, plannotator · claudemarketplaces.com, unreachable during the survey.
