@@ -73,7 +73,7 @@ AGENTS.md                      ← this file
 ```
 
 `.agents/skills/` holds this repo's **own** skills (`compress`, `workspace-sync`, `harness-onboard`), tracked, with `.claude/skills/{name}`
-junctioned to each — the project-scope form of the same one-home rule. `.claude/settings.json` is
+junctioned to each per clone (untracked — `INSTALL.md` step 3) — the project-scope form of the same one-home rule. `.claude/settings.json` is
 tracked as the one exception: it enables the `plugin-dev` plugin **for this repo only**, since
 authoring skills, agents and hooks is this repo's domain and nowhere else's. Not tracked (see
 `.gitignore`): the rest of the harness dirs `.claude/`, `.codex/`, `.opencode/`, `.serena/`,

@@ -41,7 +41,10 @@ Already in a clone → skip. Everything below runs **from the clone's root**.
 
 > Read `.agents/skills/workspace-sync/SKILL.md` and follow it.
 
-Take the backup it offers on a machine with any existing harness setup. Stop where it stops: `gh auth login` and the harness restart are the user's to do, and skills are
+A harness whose manifest's **Project → Skill roots** row lacks `.agents/skills/` finds the repo's
+own skills only through a link per folder, made once per clone — git cannot track it:
+`ln -s ../../.agents/skills/{name} {project-agent-dir}skills/{name}` (Windows:
+`mklink /J {project-agent-dir}skills\{name} .agents\skills\{name}`). Take the backup it offers on a machine with any existing harness setup. Stop where it stops: `gh auth login` and the harness restart are the user's to do, and skills are
 discovered on session start, so **restart each harness before relying on them.**
 
 ## 4. Personalise `AGENTS.md` — once per machine
@@ -68,7 +71,7 @@ first real use. Then open a project and run `project-init` on it.
 ## If something is off
 
 - A capability that installed but exposes nothing is the usual failure — re-run `workspace-sync` as
-  in step 3 and let its verification name what is broken. It is a repo skill: a harness that reads
-  only its own skills directory finds it by name after you link it there, and by path always.
+  in step 3 and let its verification name what is broken. It is a repo skill: found by name once
+  linked per step 3, by path always.
 - Editing an *installed* file is never the fix: installs are overwritten on every sync. Change
   `workspace_TEMPLATE/` in this clone and sync again.
