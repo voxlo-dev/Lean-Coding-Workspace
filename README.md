@@ -69,16 +69,59 @@ project doc layouts ([details](INSTALL.md#compatibility)). **Read [SECURITY.md](
   </picture>
 </p>
 
-## Also in the box
+## All skills
+
+Alphabetical within each section.
+
+### Set up
 
 | Skill | What it does |
 | --- | --- |
-| `/shape` | turns a fuzzy idea or brainstorm into concrete tickets |
-| `spec-design` · `ui-design` | the spec and test strategy · look and feel, styleguide, mockups |
+| `dispatch-configurator` | records which agent tool and model each dispatched step runs on, per machine |
+| `domain-init` | builds a domain for one kind of work |
+| `project-init` | onboards a new or existing project: scaffold, docs, test framework, gitignore |
+
+### Plan
+
+| Skill | What it does |
+| --- | --- |
+| `open-sprint` | plans the next sprint, pulls tickets onto the board, opens the branch |
+| `shape` | turns a fuzzy idea or brainstorm into concrete tickets |
+| `spec-design` | brainstorms a feature, picks its test strategy, writes the spec |
+| `ui-design` | look and feel: colors, typography, layout, styleguide, mockups |
+
+### Build
+
+| Skill | What it does |
+| --- | --- |
+| `dynamic-workflow` | takes a feature from approved spec to tested, documented code |
 | `e2e` | end-to-end tests that grow into a reusable script |
-| `maintain-docs` · `maintain-memory` | keep docs and memory current, and prune what's no longer true |
-| `/checkpoint` | ends a chat with a short handout for the next one |
-| `/domain-init` | builds a domain for one kind of work |
+| `minimal-workflow` | one small change or bugfix, no spec |
+
+### Close and ship
+
+| Skill | What it does |
+| --- | --- |
+| `close-sprint` | clears the board, distils the sprint into docs, merges to main |
+| `release` | changelog, version bump, security gate, release PR, ship and tag |
+
+### Keep current
+
+| Skill | What it does |
+| --- | --- |
+| `checkpoint` | ends a chat with a short handout for the next one |
+| `maintain-docs` | keeps docs in line with the code |
+| `maintain-memory` | curates memory and prunes what's no longer true |
+
+### Only in this repo
+
+Run from your clone; they work on the workspace itself and are not installed into projects.
+
+| Skill | What it does |
+| --- | --- |
+| `compress` | keeps the Markdown you edit here short |
+| `harness-onboard` | adds an agent tool the workspace has no adapter for |
+| `workspace-sync` | installs or repairs the workspace in your agent tools |
 
 ## Make it yours
 
