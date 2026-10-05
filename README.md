@@ -15,14 +15,14 @@ document, release.
 Open your coding agent anywhere and paste:
 
 ```text
-Fetch https://raw.githubusercontent.com/voxlo-dev/Lean-Coding-Workspace/main/INSTALL.md and follow it.
+Clone https://github.com/voxlo-dev/Lean-Coding-Workspace and follow INSTALL.md in the clone.
 ```
 
 The agent installs everything, asks a few questions about you and your machine, and tells you when
 to restart it. You need Git and an agent tool with a folder in [`adapters/`](adapters/). Prefer
 doing it by hand? Follow [`INSTALL.md`](INSTALL.md). Verified on Windows; Linux and macOS reports welcome.
 
-It replaces your agent's global setup and is not compatible with other workspace frameworks or
+It takes the place of your agent's global setup — nothing is overwritten without asking — and is not compatible with other workspace frameworks or
 project doc layouts ([details](INSTALL.md#compatibility)). **Read [SECURITY.md](SECURITY.md) first.**
 
 ## Why you want it

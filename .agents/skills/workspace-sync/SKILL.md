@@ -8,7 +8,7 @@ disable-model-invocation: true
 
 Sync **only the targets the user selects**. Copy what's missing, merge instructions, never touch user-owned state, **never overwrite what this workspace did not write**. Pause where the user must act or decide (steps 2, 4–6).
 
-Its inputs are `workspace_TEMPLATE/` and `adapters/`, so it runs from the workspace repo and nowhere else. **`{workspace}`** = that clone (usually the cwd). Substitute the real path.
+Its inputs are `workspace_TEMPLATE/` and `adapters/`, so it runs from the workspace repo and nowhere else. **`{workspace}`** = that clone (usually the cwd). Substitute the real path. `~` below is the home of the account the workspace is for; installing for another account → absolute paths and that account's rights (`INSTALL.md` → Prerequisites).
 
 **Fresh vs repair is not a mode** — everything below is idempotent: **skip any step whose result already holds** (file correct, capability working), act on what's missing or broken, and say which steps you skipped. The once-only half of a first install — system info, the user interview, the optional rules — belongs to `{workspace}/INSTALL.md`: a target with unfilled **User Info** or **System Info** gets pointed back there, never interviewed here.
 
@@ -23,8 +23,8 @@ Read each selected target's `adapters/{target}/MANIFEST.md` whole: **every harne
 ## 2. Inventory & copy the shared template
 
 - `diff -r --strip-trailing-cr` `{workspace}/workspace_TEMPLATE` against `{home}` (live copies may carry different line endings). Missing → a fresh copy, differing → a merge candidate; the inventory tells you whether this is a bootstrap or a repair. Report it before changing anything.
-- **Foreign files** — anything at a path this sync writes that this workspace didn't write: on a first install every file already there (another setup's `AGENTS.md` or `CLAUDE.md`, skills, agents, config), on a repair a file the template doesn't know. List them and **offer a backup before the first write** — a dated copy of each affected `{home}` and `~/.agents/` (`{dir}.bak-{YYYYMMDD}`) — then ask per item: keep beside, merge, or replace. Another workspace framework or doc layout among them → say plainly the two are not compatible (`INSTALL.md` → Compatibility) and let the user decide whether to go on.
-- Copy everything missing, leaving existing files untouched (`-n` = no-clobber; run from `{workspace}` or use absolute paths). **Almost everything goes to the shared home once, whatever targets were picked; only the instruction file and the agents are per target** (agents below):
+- **Foreign files** — anything at a path this sync writes that this workspace didn't write: on a first install every file already there (another setup's `AGENTS.md` or `CLAUDE.md`, skills, agents, config), on a repair a file the template doesn't know. Folders the harness writes itself (its manifest's **Gotchas**) are neither foreign nor touched. List them and **offer a backup before the first write** — a dated copy of each affected `{home}` and `~/.agents/` (`{dir}.bak-{YYYYMMDD}`) — then ask per item: keep beside, merge, or replace. Another workspace framework or doc layout among them → say plainly the two are not compatible (`INSTALL.md` → Compatibility) and let the user decide whether to go on.
+- Copy everything missing, leaving existing files untouched (`-n` = no-clobber, `--update=none` on GNU coreutils 9.x, which warns about `-n`; run from `{workspace}` or use absolute paths). **Almost everything goes to the shared home once, whatever targets were picked; only the instruction file and the agents are per target** (agents below):
 
   ```bash
   cp -rn {workspace}/workspace_TEMPLATE/{skills,memory,domains,project_TEMPLATE} ~/.agents/
@@ -73,17 +73,17 @@ An instruction file already where the shim belongs stays: show it, then add the 
 
 Only the ones not already working, and only where the target can host them. Memory is **native Markdown, no plugin** — step 2 seeded `~/.agents/memory/MEMORY.md` and step 3 pointed the target at it or declared it missing. See `maintain-memory`.
 
-- **codegraph** — an MCP server, https://github.com/colbymchenry/codegraph.
+- **codegraph** — an MCP server, https://github.com/colbymchenry/codegraph. The CLI from its standalone bundle (`install.sh` / `install.ps1`: `~/.codegraph/` plus a link in `~/.local/bin`, no shell-profile edits) — not `npx`, which an nvm-managed Node keeps off a non-login `PATH`. Then register `codegraph serve --mcp` per the manifest's **MCP** row; `codegraph install --print-config {target}` shows the entry without writing. **Never `codegraph install` itself:** beside the entry it writes a per-prompt hook and an instruction block — always-loaded context, step 5's rule. Telemetry is on by default → ask; `codegraph telemetry off`.
 - **context7** — a plugin from the `claude-plugins-official` marketplace, else its MCP server.
 
-Each through the mechanism the manifest's **Plugins** and **MCP** rows name, in the shape `overlay/adapter/merge/` carries where it has one; a row still `unknown` → ask rather than guess.
+Each through the mechanism the manifest's **Plugins** and **MCP** rows name, in the shape `overlay/adapter/merge/` carries where it has one; a row still `unknown` → ask rather than guess. A marketplace the row names may not be registered on a fresh install — add it first.
 
 ### GitHub access *(optional — ask, don't assume)*
 
 Needed by `release` and any project on the PR flow; skip for a user working purely locally. Both halves or neither:
 
 - **`gh` CLI** — `winget install --id GitHub.cli` / `brew install gh` / per distro. Then **the user runs `gh auth login`**: interactive and browser-based, so pause here.
-- **`github` plugin** — a wrapper around a remote MCP server authenticating via `GITHUB_PERSONAL_ACCESS_TOKEN`. **Without that variable it silently exposes zero tools.** Default: a **fine-grained PAT**, limited to the repos and permissions the user names (read-only where that suffices), set via `setx` / shell profile. Say plainly it lands in the environment in clear text, readable by every process. `gh auth token` is the fallback only on the user's explicit choice — it carries the login's full scopes.
+- **`github` plugin** — a wrapper around a remote MCP server authenticating via `GITHUB_PERSONAL_ACCESS_TOKEN`. **Without that variable it exposes zero tools** — silently, or as a failed connect (Claude Code: `HTTP 400 … Authorization header is badly formatted`). Default: a **fine-grained PAT**, limited to the repos and permissions the user names (read-only where that suffices), set via `setx` / shell profile. Say plainly it lands in the environment in clear text, readable by every process. `gh auth token` is the fallback only on the user's explicit choice — it carries the login's full scopes.
 
 ## 5. Skill bundles *(optional)*
 

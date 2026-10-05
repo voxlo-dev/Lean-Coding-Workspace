@@ -22,7 +22,7 @@ Assume the user is capable but terse — they type slower than you read.
 
 **Tool calls:** the OS's most capable shell (PowerShell on Windows, bash elsewhere), another if it fails. A **large file** goes through the file tools (`Write`/`Edit`), never a heredoc or redirect — quoting and encoding mangle it.
 
-**Version control:** {e.g. solo dev projects (default): compact commits `<type>: <subject & scope>` in very few words · types `feat` `fix` `docs` `refactor` `test` `chore` · one branch per sprint, `<sprint-slug>`, no folders · **merge straight to `main`** at sprint close, no PR or review round unless asked} {e.g. opensource / enterprise: conventional commits `<type>(<scope>): <subject>` · branches `<type>/<short-slug>` · one topic per PR, small and reviewable, tests green before merge, links its spec, reviewed before merge}
+**Version control:** compact commits `<type>: <subject & scope>` in very few words · types `feat` `fix` `docs` `refactor` `test` `chore` · one branch per sprint, `<sprint-slug>`, no folders · **merge straight to `main`** at sprint close, no PR or review round unless asked.
 
 **Code style:**
 
