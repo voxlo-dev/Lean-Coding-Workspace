@@ -32,6 +32,15 @@ before its first write, and asks per file — keep, merge, or replace.
 - `git`, and at least one harness with a folder in `adapters/` — its `MANIFEST.md` says what is verified.
   Another goes through the repo's `harness-onboard` skill first.
 - Optional, for projects on a PR flow: the `gh` CLI (step 3 installs and authenticates it if asked).
+- **Install as the account that runs the agents** — `~`, file ownership and the harness's sandbox all
+  follow the user running the commands. Installing for another account (an admin setting up a
+  sandboxed `agent` user): run every write as that user (`sudo -u {user}`, absolute paths, never `~`),
+  or first grant the admin write access by ACL with default entries for both, so the target keeps
+  access to what lands. A harness whose own sandbox denies writes to `~/.agents/` or `{home}` cannot
+  install itself — install from an unsandboxed session.
+- **Turn auto-approval classifiers off for the install** (Claude Code's auto mode and the like) and
+  approve each step by hand instead: they block exactly what an install does — cross-account `sudo`,
+  writes to a harness's config, `curl | sh` installers. Switch it back on afterwards.
 
 ## 2. Clone
 
@@ -66,7 +75,9 @@ them. Keep every answer short — this text is paid for in every session, foreve
   freely or decline: preferred spoken language · role · experience level and strong areas · favourite
   languages, frameworks and tools. **"No answer" is always fine** — write only what was given.
 - **RULES** — offer, don't impose: further rules on language, version control (commit, branch and PR
-  style) and code style. Declined → the template defaults stand.
+  style) and code style. Declined → the template defaults stand. For version control, offer the
+  alternative to the solo default: conventional commits `<type>(<scope>): <subject>` · branches
+  `<type>/<short-slug>` · one small topic per PR, tests green and reviewed before merge.
 
 Several harnesses each have their own `AGENTS.md`; write the same content into each.
 
