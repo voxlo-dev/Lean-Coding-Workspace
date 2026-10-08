@@ -1,11 +1,11 @@
 ---
 name: checkpoint
-description: "Use to end a chat at a phase boundary rather than let compaction hit mid-work: writes CHECKPOINT.local.md, an untracked handout the next chat reads and deletes. Runs only at the end of open-sprint, dynamic-workflow and project-init, at sprint-orchestrator's phase boundaries, or on the user's request. Invokable directly or via /checkpoint."
+description: "Use to end a chat at a phase boundary rather than let compaction hit mid-work: writes CHECKPOINT.local.md, an untracked handout the next chat reads and deletes. Runs only at the end of open-sprint, dynamic-workflow and project-init — while a sprint-orchestrator pipeline is active, only at its phase boundaries — or on the user's request. Invokable directly or via /checkpoint."
 ---
 
 # Checkpoint
 
-At a phase boundary a context reset is cheap — the next phase reads other files anyway — while compaction hits mid-work and summarises everything generically. So: hand over a few lines, then start a fresh chat — at the boundaries the description names or on request, never on your own initiative.
+At a phase boundary a context reset is cheap — the next phase reads other files anyway — while compaction hits mid-work and summarises everything generically. So: hand over a few lines, then start a fresh chat — at the boundaries the description names or on request, never on your own initiative. **Sprint file with a Pipeline not yet all `done`?** Then only `sprint-orchestrator` checkpoints; every skill it runs, inline or dispatched, skips its own.
 
 **Write last**, after the phase's final commit: `CHECKPOINT.local.md` in the repo root, overwritten, English. It stays untracked (`project-init` owns the gitignore) and the project's instruction file — the shim `project-init` installs from `{home}/adapter/project/`, where the target needs one — imports it whole into the next session, which is why it stays short.
 

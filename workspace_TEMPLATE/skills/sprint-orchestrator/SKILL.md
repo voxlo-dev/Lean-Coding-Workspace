@@ -1,13 +1,13 @@
 ---
 name: sprint-orchestrator
-description: "Use to run a whole sprint from one conductor chat: plans inline up front (open-sprint, every question settled, sprint-wide UI design, an automation pipeline the user approves), then dispatches each pipeline run as its own headless harness process and relays escalations up to the user. Needs a sprint-orchestrator section in ~/.agents/DISPATCH-GUIDE.md. Invokable directly or via /sprint-orchestrator."
+description: "Use to run a whole sprint from one conductor chat: plans inline up front (open-sprint, every question settled, sprint-wide UI design, an automation pipeline the user approves), then dispatches each pipeline run as its own headless harness process and relays escalations up to the user. Needs a full-run row per dispatched workflow in ~/.agents/DISPATCH-GUIDE.md. Invokable directly or via /sprint-orchestrator."
 ---
 
 # Sprint Orchestrator
 
 A conductor above the sprint. **Plan** talks with the user and front-loads every decision; **Conduct** holds only the sprint file, reports and open questions, while each workflow run builds in a fresh process. The sprint file is the whole state — any chat resumes from it.
 
-**Requires** `~/.agents/DISPATCH-GUIDE.md` with a `sprint-orchestrator` section — a Harness and Model per workflow — and its Rules, Launch and Resume. Missing → say so, offer `/dispatch-configurator`, stop; the plan phase alone is still `open-sprint`.
+**Requires** `~/.agents/DISPATCH-GUIDE.md` with a `full run` row in the section of each workflow the pipeline dispatches, plus its Rules, Launch and Resume. Missing → say so, offer `/dispatch-configurator`, stop; the plan phase alone is still `open-sprint`.
 
 ## 0. Detect the phase
 
@@ -33,7 +33,7 @@ Read `AGENTS.md` → **Current sprint**, then its sprint file.
 Per row, in order, skipping `manual` and rows waiting on an unsettled decision:
 
 1. **Brief** — fill `templates/run-brief.md` into `.temp/dispatch/{sprint}-{n}/brief.md`.
-2. **Launch** per the guide's `sprint-orchestrator` row for that workflow, as a background process with a session id the guide's Resume can address. Set the row to `running {session}` and commit **before** launching — that line is what a fresh chat resumes from.
+2. **Launch** per the `full run` row of that workflow's guide section, as a background process with a session id the guide's Resume can address. Set the row to `running {session}` and commit **before** launching — that line is what a fresh chat resumes from.
 3. **Never wait blind** — the harness notifies on exit; besides, wake every **15 min** and check the transcript still moves. Stalled → stop it and treat as `BLOCKED`.
 4. **Verdict** — the last stdout line; details in `report.md` beside the brief:
    - `DONE` → check the report against the board (its tickets at `to test` or `done`), row `done`, commit, next row.

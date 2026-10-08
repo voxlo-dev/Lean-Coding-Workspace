@@ -76,7 +76,7 @@ Role → what runs it. A role absent here has no dispatch: run it inline.
 
 | Role | Harness | Model | Fallback |
 | --- | --- | --- | --- |
-| worker | {harness} | {model} | {model, else BLOCKED} |
+| full run | {harness} | {model} | {model, else BLOCKED} |
 
 ### dynamic-workflow
 
@@ -84,16 +84,8 @@ Optional per run — asked with the autonomy mode, not decided here.
 
 | Role | Harness | Model | Fallback |
 | --- | --- | --- | --- |
-| orchestrator · spec-design | {harness} | {model} | {model, else BLOCKED} |
+| full run · orchestrator · spec-design | {harness} | {model} | {model, else BLOCKED} |
 | package worker | {harness} | {model} | {model, else BLOCKED} |
 | e2e agent | {harness} | {model} | {model, else BLOCKED} |
 | docs · other | {harness} | {model} | {model, else BLOCKED} |
 
-### sprint-orchestrator
-
-Each row is a whole run of that workflow, launched in background by the conductor.
-
-| Role | Harness | Model | Fallback |
-| --- | --- | --- | --- |
-| dynamic-workflow run | {harness} | {model} | {model, else BLOCKED} |
-| minimal-workflow run | {harness} | {model} | {model, else BLOCKED} |
