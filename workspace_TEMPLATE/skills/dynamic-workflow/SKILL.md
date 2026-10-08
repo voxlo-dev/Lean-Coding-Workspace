@@ -38,7 +38,7 @@ Red between packages is expected; step 3's green gate closes it.
 
 Used when the spec's delegation is **delegated**. The point is **context management**: over many packages an inline thread fills with read files and loses the spec across compactions. The caller stays a pure **coordinator** — its context holds only the spec, the package list and the reports; every read/write/test happens in fresh subagents, discarded after each package.
 
-**Models:** orchestrate on the strongest model available; dispatch the work per the global **Subagent model** rule (e2e can be a browser agent). Under **dispatch mode** the work instead leaves the harness: `~/.agents/DISPATCH-GUIDE.md` — opened only once that mode is chosen, never to decide it — holds the launch command, the model per role and the rules — same handoff, same report, another process. A role the guide does not cover runs inline as above.
+**Models:** orchestrator and `spec-design` on the **top** class, implementer, e2e and docs on **mid** — classes per the global **Subagent model** rule (e2e can be a browser agent). Under **dispatch mode** the work instead leaves the harness: `~/.agents/DISPATCH-GUIDE.md` — opened only once that mode is chosen, never to decide it — holds the launch command, the model per role and the rules — same handoff, same report, another process. A role the guide does not cover runs inline as above.
 
 **The loop — one package at a time, sequentially:**
 

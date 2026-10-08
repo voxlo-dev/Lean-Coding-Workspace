@@ -32,7 +32,7 @@ Assume the user is capable but terse — they type slower than you read.
 - **Abstraction over minimal-diff** — a feature resembling existing code gets **one shared abstraction representing both**, refactored into that shape rather than bolted on beside it. YAGNI: abstract over *real* duplication only.
 - **UX first on any UI change, however small** — rework layout or grouping where it serves the experience, keep every element unambiguous and placed by relevance; accept UI churn over the path of least effort (`ui-design` owns the detail).
 
-**Subagent model** — wherever `DISPATCH-GUIDE.md` names none, pick by class: **frontier** (Fable · Astra) never dispatched · **top** (Opus · Sol · a provider's flagship) dynamic-workflow packages, heavy or complex tasks · **mid** (Sonnet · Terra · Flash) minimal-workflow, clearly defined tasks · **small** (Haiku · Luna · a provider's cheapest) exploration, research, clear simple tasks.
+**Subagent model** — wherever `DISPATCH-GUIDE.md` names none, pick by class: **frontier** (Fable · Astra) never dispatched · **top** (Opus · Sol · a provider's flagship) orchestration, spec design, heavy or complex tasks · **mid** (Sonnet · Terra · Flash) implementation, e2e, docs, minimal-workflow, clearly defined tasks · **small** (Haiku · Luna · a provider's cheapest) exploration, research, clear simple tasks.
 
 **Templates — fill, then strip.** A `CONTRACT` block instructs whoever fills the file: delete it on the first real fill, leaving one line pointing at its template. A file still empty keeps it.
 
