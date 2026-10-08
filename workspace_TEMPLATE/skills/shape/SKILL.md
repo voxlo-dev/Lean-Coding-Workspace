@@ -31,7 +31,7 @@ This is the value over a raw transcript. For each one ask:
 - **Unclear / ambiguous?** — pin it down; the ticket must be unmistakable where the input was fuzzy.
 - **Sensible?** — is it worth doing, or is there a better framing?
 - **Good UX?** — does the flow serve the user, or add friction?
-- **Right size?** — one ticket is one unit of work. Split what needs two specs; merge what can only ship together.
+- **Right size?** — one ticket is one unit of work, effort **S–L**. Split what needs two specs or rates XL+; merge what can only ship together or rates XS. Only a Draft may stay off-range.
 
 Surface concerns and resolve them before writing anything.
 

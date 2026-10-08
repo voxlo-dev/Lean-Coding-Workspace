@@ -26,7 +26,7 @@ Assume the user is capable but terse — they type slower than you read.
 
 **Code style:**
 
-- **Comments sit one level above the code** — what a thing is for and why it exists; never a line-by-line walk-through, usage examples or sample values. Over ~5 lines → `docs/` (usually `dev.md`), plus a one-line pointer.
+- **Comments sit one level above the code** — what a thing is for and why it exists, as terse as that allows; never a line-by-line walk-through, usage examples or sample values. Over ~5 lines → `docs/` (usually `dev.md`), plus a one-line pointer. **Code you change brings its comments along** in the same edit — no maintenance step sweeps for comment drift.
 - **Write only what gets read again** — before any comment, doc section or artifact note: will anyone read it · is it relevant beyond the user · will it still be true in a month. Any "no" → the chat, not a file.
 - **Present state only** — docs and comments describe what *is*: no "no longer", "used to", removal notes or record of what was tried. Exceptions: `docs/decisions.md` (`superseded by`) and `artefacts/`.
 - **Abstraction over minimal-diff** — a feature resembling existing code gets **one shared abstraction representing both**, refactored into that shape rather than bolted on beside it. YAGNI: abstract over *real* duplication only.
@@ -70,7 +70,7 @@ Invoke one when the user names it; the user can also run it as `/name` where sup
 
 **Checkpoint first.** `CHECKPOINT.local.md` (project root, written by `checkpoint`) is the previous chat's handout, already in context via the project's instruction file: act on it, then **delete the file**.
 
-**Named a concrete workflow or skill? Use it directly.** Otherwise, at the start of a new chat: consult the loaded memory, then **ask which workflow to use**, recommending one inferred from the prompt. Do not start before the user chooses.
+**Named a concrete workflow or skill? Use it directly.** Otherwise, at the start of a new chat: consult the loaded memory, then **ask which workflow to use**, recommending one inferred from the prompt — plus any installed bundle skill (`~/.agents/BUNDLES.md`) that fits the task. Do not start before the user chooses.
 
 | Pick | When |
 | --- | --- |

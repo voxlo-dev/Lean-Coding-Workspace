@@ -14,13 +14,15 @@
     graduated: decisions → `artefacts/{sprint}/sprint-decisions.md`, behaviour →
     `docs/behaviour.md`. Its board line stays as the record `release` reads for the
     changelog; git history keeps the rest.
+  - Effort XS · XL · XXL is Draft-only: refining merges an XS into a sibling and splits an XL+
+    into S–L tickets before it reaches Backlog.
   - Writer: `shape`, or any run that spots something worth capturing.
 -->
 
 - **Summary:** {one line — this is what the board and the backlog show}
 - **Category:** {feature | bug | decision | ux | refactor | chore}
 - **Importance:** {critical | high | medium | low}
-- **Effort:** {S | M | L}
+- **Effort:** {S | M | L — XS · XL · XXL only while in Draft}
 - **Depends on:** {`T-NNN`, … — or `none`}
 
 ## Why

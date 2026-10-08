@@ -4,7 +4,8 @@
      pointer line below):
   - Template: `~/.agents/project_TEMPLATE/backlog/backlog.md`.
   - Index of every ticket NOT yet pulled into a sprint. The column IS the status:
-    Draft = captured, not ready · Backlog = refined, ready to pull.
+    Draft = captured, not ready, any effort XS–XXL · Backlog = refined, ready to pull, effort
+    S–L only (split or merge the rest first).
   - A pulled ticket is indexed on the sprint board instead — one board at a time.
   - Index only: the line is the ticket's Summary verbatim, the detail its file, which stays
     put next to this one in `backlog/`.

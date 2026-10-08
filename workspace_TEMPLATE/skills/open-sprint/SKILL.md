@@ -30,7 +30,7 @@ Invoke **`shape` in sprint-file mode** — it owns the planning dialogue, the ar
 
 The sprint scope **is** the board — one list, nowhere else.
 
-- Take from `backlog.md` **Backlog** (Draft first needs refining) plus whatever `shape` just cut, and move those lines onto the sprint board at status `open`. Delete them from `backlog.md` — a ticket is indexed in exactly one place — leaving its `Next ticket` counter alone; numbers only go up. **The ticket files stay in `backlog/`** and the board links them.
+- Take from `backlog.md` **Backlog** (a Draft first needs refining to effort S–L) plus whatever `shape` just cut, and move those lines onto the sprint board at status `open`. Delete them from `backlog.md` — a ticket is indexed in exactly one place — leaving its `Next ticket` counter alone; numbers only go up. **The ticket files stay in `backlog/`** and the board links them.
 - **Respect `Depends on`** — pull a ticket only with its dependencies.
 - Size it against the sprint's theme rather than ambition. Anything not pulled stays in the backlog; that's the point of having one.
 

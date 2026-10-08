@@ -2,11 +2,12 @@
 
 Ticket index · template: `workspace_TEMPLATE/skills/shape/templates/TICKET_TEMPLATE.md`
 
-**Next ticket: `T-012`**
+**Next ticket: `T-013`**
 
 ## Draft
 
 - [`T-010`](T-010-artefacts-naming.md) Settle the `artefacts/` naming — keep, rename+migrate, rename with note, or a new name · decision · low · S–M
+- [`T-012`](T-012-scrum-practices.md) Scrum practices — borrow more Scrum into the sprint loop — story points, a sprint retro, backlog refinement — where it pays for a solo agent-driven project · feature · medium · XL
 
 ## Backlog
 
