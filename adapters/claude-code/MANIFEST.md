@@ -14,7 +14,7 @@ Binary: `claude` · 2.1.286
 | Skills | `~/.claude/skills/` only · link each folder into `~/.agents/skills/{name}` (`mklink /J`, no elevation on Windows 11) — never `skills/` itself, the harness writes its internals there | 2026-09-17 · `grep -a '\.agents'` on the binary finds nothing, junction probe |
 | Agents | `~/.claude/agents/*.md`, scanned recursively · ID from `name:` · convert: none | 2026-09-04 · run |
 | Dispatch | `Agent` tool, `subagent_type` · proof: unknown | 2026-09-27 · run |
-| Headless run | `claude -p "<pointer>" --permission-mode auto --output-format stream-json --verbose` · session id: `--session-id <uuid>` · resume: `claude -p --resume <uuid> "<pointer>"` | 2.1.261 · 2026-10-08 · `--help` |
+| Headless run | `claude -p "<pointer>" --permission-mode auto --permission-prompts none < /dev/null`, every `CLAUDE*`/`ANTHROPIC*` variable unset · session id: `--session-id <uuid>` · resume: `claude -p --resume <uuid> "<pointer>"`, same transcript, context intact | 2.1.294 · 2026-10-08 · probe run + resume |
 | Memory lever | import, in the `CLAUDE.md` shim | 2026-09-27 · global memory in context |
 | Project memory | `~/.claude/projects/<slug>/memory/` | 2026-09-27 · run |
 | MCP | user scope in `~/.claude.json` `mcpServers` · `claude mcp add -s user {name} -- {command}` | 2026-10-05 · run, codegraph connected |
@@ -41,6 +41,7 @@ Binary: `claude` · 2.1.286
 ## Gotchas
 
 - A dropped agent keeps loading until its file is deleted explicitly.
+- A headless child launched from inside a Claude Code session inherits its `CLAUDE*` variables — session id, messaging socket — and hangs after the prompt, no error: unset them in the launch.
 - `skills/synced/` (claude.ai-synced skills) and `skills/.trash/` are harness internals — never foreign files, never touched.
 
 ## Proven
