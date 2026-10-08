@@ -15,8 +15,8 @@ from `~/.agents/skills/dispatch-configurator/templates/DISPATCH-GUIDE.md`.
 
 ## Rules
 
-- **A harness never dispatches itself** — where the target is the one you run in, call the agent
-  natively. A second process buys nothing and pays another system prompt.
+- **Same harness only for a whole run** — a second process pays another system prompt, which only
+  a whole workflow run on a fresh context buys back; a role inside a run is a native subagent.
 - **Dead connector → `BLOCKED`.** Take the fallback this guide names for that role, and if there is
   none, stop. Never fall back to your own model: that puts the strongest context in the run on
   unwalled, untracked work.
@@ -30,8 +30,10 @@ from `~/.agents/skills/dispatch-configurator/templates/DISPATCH-GUIDE.md`.
 - **The brief's shape belongs to the calling workflow**; these four parts are its floor, because the
   agent sees nothing else: absolute working directory · standing constraints from the user and the
   project · the task · paths to its inputs. Pass paths, never inlined content.
-- **The last line of stdout is the verdict, nothing else** — a report, criteria met, concerns go to
-  `report.md` beside the brief, the run's own output to `transcript.md` there too.
+- **The last line of stdout is the verdict, nothing else** — `DONE` · `NEEDS_DECISION` (question in
+  the report; the caller resumes the session with the answer) · `BLOCKED <reason>`. A report,
+  criteria met, concerns go to `report.md` beside the brief, the run's own output to
+  `transcript.md` there too.
 - **Sequential, one dispatch at a time.** A local endpoint serves one inference at a time; a free
   tier measures its queue.
 - **≥64k context on any model listed below** — the target harness's own system prompt costs ~16k
@@ -43,6 +45,8 @@ from `~/.agents/skills/dispatch-configurator/templates/DISPATCH-GUIDE.md`.
 
 - **Launch:** `{environment prefix · shell init the binary needs · command with placeholders for agent, model, absolute dir, pointer}`
 - **Providers:** {which of the entries below this harness resolves}
+- **Resume:** {command continuing a finished session with a new pointer, and how the launch fixes
+  the session id it takes — or "none": a `NEEDS_DECISION` there means a fresh dispatch}
 - **Agents:** {which agent set is registered here — a dispatch to a name it lacks is BLOCKED — or
   "none — one session takes the whole brief"}
 - **Notes:** {"verified on v{x}" — never the version in the heading, or it drifts at the next
@@ -68,12 +72,28 @@ Notes rank fitness for dispatch, not model quality; a paid key reorders every re
 
 Role → what runs it. A role absent here has no dispatch: run it inline.
 
+### minimal-workflow
+
+| Role | Harness | Model | Fallback |
+| --- | --- | --- | --- |
+| worker | {harness} | {model} | {model, else BLOCKED} |
+
 ### dynamic-workflow
 
 Optional per run — asked with the autonomy mode, not decided here.
 
 | Role | Harness | Model | Fallback |
 | --- | --- | --- | --- |
+| orchestrator · spec-design | {harness} | {model} | {model, else BLOCKED} |
 | package worker | {harness} | {model} | {model, else BLOCKED} |
 | e2e agent | {harness} | {model} | {model, else BLOCKED} |
-| other | {harness} | {model} | {model, else BLOCKED} |
+| docs · other | {harness} | {model} | {model, else BLOCKED} |
+
+### sprint-orchestrator
+
+Each row is a whole run of that workflow, launched in background by the conductor.
+
+| Role | Harness | Model | Fallback |
+| --- | --- | --- | --- |
+| dynamic-workflow run | {harness} | {model} | {model, else BLOCKED} |
+| minimal-workflow run | {harness} | {model} | {model, else BLOCKED} |

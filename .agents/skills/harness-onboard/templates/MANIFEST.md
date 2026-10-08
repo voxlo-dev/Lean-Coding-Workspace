@@ -19,6 +19,7 @@ Binary: {how it resolves} · {version}
 | Skills | {reads `~/.agents/skills` natively · else the link mechanism} | |
 | Agents | {dir} · {format} · ID from {…} · convert: {transform · none} | |
 | Dispatch | {tool} · proof: {the child's own record} | |
+| Headless run | {one-shot command} · session id: {launch flag · gap} · resume: {command · gap} | |
 | Memory lever | {import · instructions list · none} | |
 | Project memory | {native path · gap} | |
 | MCP | {config file and entry shape} | |

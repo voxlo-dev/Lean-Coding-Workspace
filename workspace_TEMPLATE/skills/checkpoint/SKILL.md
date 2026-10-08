@@ -1,6 +1,6 @@
 ---
 name: checkpoint
-description: "Use to end a chat at a phase boundary rather than let compaction hit mid-work: writes CHECKPOINT.local.md, an untracked handout the next chat reads and deletes. Runs only at the end of open-sprint, dynamic-workflow and project-init, or on the user's request. Invokable directly or via /checkpoint."
+description: "Use to end a chat at a phase boundary rather than let compaction hit mid-work: writes CHECKPOINT.local.md, an untracked handout the next chat reads and deletes. Runs only at the end of open-sprint, dynamic-workflow and project-init, at sprint-orchestrator's phase boundaries, or on the user's request. Invokable directly or via /checkpoint."
 ---
 
 # Checkpoint

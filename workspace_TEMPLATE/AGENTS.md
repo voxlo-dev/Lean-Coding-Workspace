@@ -78,6 +78,7 @@ Invoke one when the user names it; the user can also run it as `/name` where sup
 | --- | --- |
 | minimal-workflow | one small, well-scoped change or bugfix |
 | dynamic-workflow | feature work needing a spec — the default for real features |
+| sprint-orchestrator | a whole sprint run hands-off: plan up front with the user, then every run dispatched |
 | {bundle workflows} | {one row per workflow bundle in `~/.agents/BUNDLES.md`, written by `workspace-sync`} |
 | no workflow | none of these; relax the rules and work freely |
 | shape | **first**, whenever a fuzzy idea, draft or brainstorm transcript has to become concrete work |

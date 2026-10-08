@@ -21,7 +21,7 @@ Candidates: every harness home the workspace is installed into, any agent CLI th
 
 - **Resolve the binary** in that non-interactive shell. Found interactively but not there → it hangs off shell init (a version manager): put the explicit init into the launch prefix rather than reporting it missing. A shim name that differs by shell (`.cmd` on Windows) — record the one that executes.
 - **A wrapper is its own harness** — a launcher that pins a version or points the binary at another config directory resolves other providers, models and agents. One entry each, stating that they share no config.
-- **Read `--help`**, and the one-shot subcommand's: headless mode · agent selector · model and provider selectors · working-dir flag (else `cd` in the launch) · non-interactive permission flag · option terminator (`--`, mandatory once a flag precedes the prompt). Compose Launch only from flags seen there. `--version` → "verified on v{x}" in Notes.
+- **Read `--help`**, and the one-shot subcommand's: headless mode · agent selector · model and provider selectors · working-dir flag (else `cd` in the launch) · non-interactive permission flag · resume lever (continue a session by id, and a launch flag fixing that id) · option terminator (`--`, mandatory once a flag precedes the prompt). Compose Launch only from flags seen there. `--version` → "verified on v{x}" in Notes.
 - **Agents:** the harness's own list/debug lever, else its agent directory; a name is dispatchable only if primary-capable. No registry → "none — one session takes the whole brief". A mode flag that changes what the session believes it is (a built-in workflow or orchestrator mode) goes into Agents as a warning; Launch stays plain.
 
 ## 3. Providers and models

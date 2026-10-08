@@ -6,7 +6,8 @@ Date: {YYYY-MM-DD} · template: `~/.agents/skills/shape/templates/SPRINT_TEMPLAT
      opened by `open-sprint`, frozen by `close-sprint` with the sprint. Delete both comments
      in this file once it is filled — the template above keeps the protocol.
      - The frame is written once and approved by the user; only a deliberate re-plan touches it.
-     - The board is the one living section — the workflows move lines, and that is all.
+     - The board is the living section — the workflows move lines, and that is all; the
+       Pipeline's Status column is the only other cell that moves.
      - INDEX ONLY: every item is a ticket in `backlog/` and shows here as one line, its Summary
        verbatim. Work detail lives in the ticket, decision rationale in `sprint-decisions.md`
        next to this file. Keep the whole frame under ~a page. -->
@@ -33,6 +34,16 @@ touch, and what shall change. `spec-design` grounds here instead of the full rul
 
 {one line per decision this sprint settled, each linking its section in `sprint-decisions.md`
 — or `none yet`. Anything still open stays a `decision` ticket on the board.}
+
+## Pipeline *(optional)*
+
+<!-- Only under `sprint-orchestrator`, which writes it and gets it approved; drop otherwise.
+     Rows in run order; Status is the one cell that moves:
+     pending · running {session} · done · blocked · manual (never dispatched). -->
+
+| # | Tickets | Workflow | Strategy | Mode | Status |
+| --- | --- | --- | --- | --- | --- |
+| {n} | {`T-NNN`, …} | {dynamic-workflow · minimal-workflow · {bundle workflow} · manual} | {preset · e2e yes/no · delegation — or —} | {auto · review} | {pending} |
 
 ---
 
