@@ -5,7 +5,7 @@ description: "Use to end a chat at a phase boundary rather than let compaction h
 
 # Checkpoint
 
-At a phase boundary a context reset is cheap — the next phase reads other files anyway — while compaction hits mid-work and summarises everything generically. So: hand over a few lines, then start a fresh chat — at the boundaries the description names or on request, never on your own initiative. **Sprint file with a Pipeline not yet all `done`?** Then only `sprint-orchestrator` checkpoints; every skill it runs, inline or dispatched, skips its own.
+At a phase boundary a context reset is cheap — the next phase reads other files anyway — while compaction hits mid-work and summarises everything generically. So: hand over a few lines, then start a fresh chat — at the boundaries the description names or on request, never on your own initiative. **Sprint file with a Pipeline row still `pending` or `running`?** Then only `sprint-orchestrator` checkpoints; every skill it runs, inline or dispatched, skips its own.
 
 **Write last**, after the phase's final commit: `CHECKPOINT.local.md` in the repo root, overwritten, English. It stays untracked (`project-init` owns the gitignore) and the project's instruction file — the shim `project-init` installs from `{home}/adapter/project/`, where the target needs one — imports it whole into the next session, which is why it stays short.
 
