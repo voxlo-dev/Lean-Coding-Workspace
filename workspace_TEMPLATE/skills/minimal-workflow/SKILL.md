@@ -5,7 +5,7 @@ description: "Use for a single, small, well-scoped change — a minor feature or
 
 # Minimal Workflow
 
-Smallest possible ceremony: no spec, no planning, no other workflow skills. Just ship the change. Dispatched by `sprint-orchestrator`, its run brief overrides every user touchpoint below.
+Smallest possible ceremony: no spec, no planning, no other workflow skills. Just ship the change. Dispatched by `sprint-autopilot`, its run brief overrides every user touchpoint below.
 
 1. **Start immediately** — locate and understand the relevant code (codegraph if the repo is indexed, otherwise a targeted search), then implement. If the change leans on a third-party library/framework/API, look up current usage via **context7** instead of trusting recall.
 2. **Test, if the project has a test setup** — prefer automated: find an existing test covering the change, else write one or extend the closest. No test setup at all → skip to step 4 and hand off for manual verification.

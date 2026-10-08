@@ -1,7 +1,7 @@
 # Run brief — pipeline row {n}: {workflow} on {T-NNN, …}
 
 The dispatch brief for one pipeline run (template:
-`~/.agents/skills/sprint-orchestrator/templates/run-brief.md`), written by the conductor to
+`~/.agents/skills/sprint-autopilot/templates/run-brief.md`), written by the conductor to
 `.temp/dispatch/{sprint}-{n}/brief.md`. Paths, never inlined content.
 
 - **Working directory:** {absolute repo path} · branch `{sprint-slug}`

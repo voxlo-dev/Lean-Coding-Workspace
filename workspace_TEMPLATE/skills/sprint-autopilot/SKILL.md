@@ -1,9 +1,9 @@
 ---
-name: sprint-orchestrator
-description: "Use to run a whole sprint from one conductor chat: plans inline up front (open-sprint, every question settled, sprint-wide UI design, an automation pipeline the user approves), then dispatches each pipeline run as its own headless harness process and relays escalations up to the user. Needs a full-run row per dispatched workflow in ~/.agents/DISPATCH-GUIDE.md. Invokable directly or via /sprint-orchestrator."
+name: sprint-autopilot
+description: "Use to run a whole sprint from one conductor chat: plans inline up front (open-sprint, every question settled, sprint-wide UI design, an automation pipeline the user approves), then dispatches each pipeline run as its own headless harness process and relays escalations up to the user. Needs a full-run row per dispatched workflow in ~/.agents/DISPATCH-GUIDE.md. Invokable directly or via /sprint-autopilot."
 ---
 
-# Sprint Orchestrator
+# Sprint Autopilot
 
 A conductor above the sprint. **Plan** talks with the user and front-loads every decision; **Conduct** holds only the sprint file, reports and open questions, while each workflow run builds in a fresh process. The sprint file is the whole state — any chat resumes from it.
 

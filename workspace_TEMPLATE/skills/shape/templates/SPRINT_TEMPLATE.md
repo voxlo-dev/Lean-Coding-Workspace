@@ -37,7 +37,7 @@ touch, and what shall change. `spec-design` grounds here instead of the full rul
 
 ## Pipeline *(optional)*
 
-<!-- Only under `sprint-orchestrator`, which writes it and gets it approved; drop otherwise.
+<!-- Only under `sprint-autopilot`, which writes it and gets it approved; drop otherwise.
      Rows in run order; Status is the one cell that moves:
      pending · running {session} · done · blocked · manual (never dispatched). -->
 

@@ -1,6 +1,6 @@
-# T-001 — Sprint orchestrator beyond Claude Code
+# T-001 — Sprint autopilot beyond Claude Code
 
-- **Summary:** prove `sprint-orchestrator` end to end and carry it past Claude Code → Claude Code — other harnesses as conductor or run target, unattended via the user channel
+- **Summary:** prove `sprint-autopilot` end to end and carry it past Claude Code → Claude Code — other harnesses as conductor or run target, unattended via the user channel
 - **Category:** feature
 - **Importance:** medium
 - **Effort:** M
@@ -8,7 +8,7 @@
 
 ## Why
 
-`workspace_TEMPLATE/skills/sprint-orchestrator/` exists, written for one route: a Claude Code
+`workspace_TEMPLATE/skills/sprint-autopilot/` exists, written for one route: a Claude Code
 desktop conductor dispatching headless `claude -p` runs, escalations relayed through the
 conductor's chat. That route is designed from `--help`, not yet run, and every other harness lacks
 a probed headless-run row in its manifest.
@@ -21,7 +21,7 @@ its own ~16k system prompt. The skill buys context quality, **not** usage saving
 
 - **Prove the Claude route:** one real sprint through Plan and Conduct — a `NEEDS_DECISION` resumed
   on its session, a `review`-mode spec stop, a fresh-chat resume from the Pipeline section. Then
-  `/dispatch-configurator` writes the live guide's `sprint-orchestrator` section from a passing probe.
+  `/dispatch-configurator` writes the live guide's `full run` rows from a passing probe.
 - **Other harnesses:** probe the manifests' **Headless run** row (OpenCode `run --session`, Codex
   resume) and add their routes.
 - **Unattended:** with `T-011` installed, runs ask the user directly instead of through the
