@@ -26,6 +26,13 @@ its own ~16k system prompt. The skill buys context quality, **not** usage saving
   resume) and add their routes.
 - **Unattended:** with `T-011` installed, runs ask the user directly instead of through the
   conductor.
+- **Visible in Claude Desktop** (user feedback 2026-10-09): Claude Code runs dispatched through the
+  desktop app's shared console, not as invisible background processes. Two readings, unprobed:
+  - **integrated terminal pane** — shares the session's environment, runs watchable live; no
+    documented lever for Claude to launch into it
+  - **desktop sessions + cross-session messaging** — each run its own Code-tab session in the
+    sidebar, `NEEDS_DECISION` as a message instead of a resume; not deliverable into a session
+    nobody watches, terminal-CLI sessions invisible to that surface
 
 Capability probes, 2026-08-27, for the in-harness variant (Claude Code subagents):
 

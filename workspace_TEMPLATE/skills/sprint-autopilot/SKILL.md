@@ -23,7 +23,7 @@ Read `AGENTS.md` → **Current sprint**, then its sprint file.
 3. **Design the sprint's UI in one pass** — invoke `ui-design`: the styleguide if missing, then a mockup per UI ticket against it, all in one review. Link each mockup in its ticket's **Links**; runs build against it and design nothing new.
 4. **Write the pipeline** — the sprint file's **Pipeline** section (`shape`'s `SPRINT_TEMPLATE.md`): rows in run order, `Depends on` respected.
    - **Workflow** per row: `dynamic-workflow` for spec-worthy work · `minimal-workflow` for small, well-scoped changes · an installed bundle workflow where it fits better · `manual` for what the user does or verifies by hand — never dispatched.
-   - **Fill each row** — every dispatch pays a cold start, so related tickets share one up to a budget in ticket effort (S = 1 · M = 2 · L = 4): **minimal row ≤ L**, **dynamic row ≤ XL = 8** (2 L · 4 M · 8 S). A ticket over budget runs alone.
+   - **Fill each row** — every dispatch pays a cold start, so related tickets share one, aiming at a size in ticket effort (S = 1 · M = 2 · L = 4): **minimal row ~L**, **dynamic row ~XL = 8** (2 L · 4 M · 8 S).
    - **Strategy** per dynamic row: testing preset, e2e yes/no, delegation — decided as `spec-design` steps 3–4 would, here once for the whole sprint.
    - **Mode**: `auto` — the run writes a lean spec nobody reviews · `review` — the run stops at its spec for the user. Default `auto`, `review` where the user wants to see the *how*.
    - Present it, revise until the user approves, commit sprint file, tickets and mockups, continue with Conduct.
