@@ -44,7 +44,7 @@ Record the transcript's location as the live-view lever. On a fail, find the lay
 
 ## 5. Workflow defaults — interview
 
-Roles: every installed skill that reads the guide (`grep -l DISPATCH-GUIDE ~/.agents/skills/*/SKILL.md`), using its section in the existing guide, else the template's. Per role propose harness, model and fallback from the passing routes; the user decides. A workflow handed over whole gets one `whole run` row. A role left out runs inline.
+Roles: every installed skill that reads the guide (`grep -l DISPATCH-GUIDE ~/.agents/skills/*/SKILL.md`), using its section in the existing guide, else the template's. Per role propose harness, model and fallback from the passing routes; the user decides. A workflow handed over whole gets one `full run` row. A role left out runs inline.
 
 ## 6. Write
 

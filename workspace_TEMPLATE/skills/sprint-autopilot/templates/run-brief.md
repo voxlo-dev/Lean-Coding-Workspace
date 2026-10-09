@@ -12,6 +12,10 @@ The dispatch brief for one pipeline run (template:
 
 ## Standing rules
 
+- **You run headless.** No user reads this session — no closing summary, recap or chat report;
+  everything goes into `report.md`, stdout ends with the verdict.
+- **Several tickets** → `minimal-workflow` once per ticket, in order · `dynamic-workflow` once per
+  spec `spec-design` cuts from them — all in this process.
 - **Nobody to ask but the conductor.** Wherever the workflow would ask, confirm or pause for the
   user — a question, a review, a verification, the ~5-attempt escalation — instead commit what
   holds, write the question to `report.md` (question · options · your recommendation · state so
