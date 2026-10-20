@@ -54,7 +54,8 @@ and the rollback path — or `none` for a stateless release.}
 
 ## Security gate
 
-{the dependency-audit command. Only `low` findings pass.}
+{the dependency-audit command — only `low` findings pass · the secret scanner over a tag range
+(e.g. `gitleaks git --log-opts=<tag>..main`).}
 
 ### Waivers
 
