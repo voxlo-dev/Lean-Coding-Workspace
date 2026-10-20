@@ -36,8 +36,8 @@ acceptance criteria below are its testable form. Keep it wherever the project ha
 
 ## UI / mockups
 
-{only for a feature with a UI — invoke `ui-design`. Self-contained HTML mockup inline, or
-linked from `docs/design/mockups/`, designed against `docs/design/Styleguide.html`.}
+{only for a feature with a UI — invoke `ui-design`. Link the area mockups in `docs/design/mockups/`
+it extended or added, and name what this feature changes on them; never inline.}
 
 ## Strategy
 
@@ -51,17 +51,10 @@ Decided by `spec-design`; the pipeline follows it without re-deciding.
 
 ## Implement packages
 
-One or more, numbered in run order, commit after each. This is the only work-package axis to size —
-cut by coherent unit of work, never by what happens to be independently testable. Where the
-spec covers several tickets, name the ticket each package serves: that is what tells the
-workflow when a ticket may go to `to test`.
+Numbered in run order, commit after each; cut and criteria per `spec-design` step 5. Each entry is
+its implementer's brief — the handoff points here.
 
-**Each package carries its own acceptance criteria** — the observable outcome that makes it
-done. Tests are one criterion; the suite goes green once, at the end of the run. With
-`light-tdd`, package 1 is the contract & tests package (signatures + tests, confirmed red) and
-every later package names the tests it turns green.
-
-1. **{package name}** — {what it builds} · ticket: {`T-NNN` or —} · files: {paths to read/touch}
+1. **{package name}** — {what it builds} · ticket: {`T-NNN` or —} · files: {paths & symbols to read/touch}
    - [ ] {observable outcome that makes this package done}
    - [ ] {…}
 

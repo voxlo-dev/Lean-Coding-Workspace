@@ -19,7 +19,7 @@ procedure — invoke it and follow it.
 - The brief: sprint, feature, the test case path, what the caller's inline run already produced.
 - `artefacts/{sprint}/e2e_{feature}.md` — the case. Missing → `BLOCKED case missing`.
 - `docs/dev.md` (driver invocation) and the flow index it points at.
-- The feature's mockup (spec UI section · `docs/design/mockups/`), where the run designed one — the
+- The mockups the spec's UI section links (`docs/design/mockups/`), where the run designed UI — the
   skill's UI pass needs it.
 
 ## Non-negotiables

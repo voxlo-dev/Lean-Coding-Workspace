@@ -1,6 +1,6 @@
 ---
 name: maintain-docs
-description: "Use at the docs step of the minimal and dynamic workflows (per-run mode: the decision pair, spec status, pointers), and at sprint close from close-sprint (sprint-close mode: behaviour.md plus the batched low-churn docs). Triggers: code, assets, architecture, or user-facing behaviour changed and docs may have drifted."
+description: "Use at the docs step of the minimal and dynamic workflows (per-run mode: the decision pair, spec status, pointers), and at sprint close from close-sprint (sprint-close mode: behaviour.md plus the batched low-churn docs, mockups and styleguide included). Triggers: code, assets, architecture, or user-facing behaviour changed and docs may have drifted."
 ---
 
 # Maintain Docs
@@ -10,7 +10,7 @@ description: "Use at the docs step of the minimal and dynamic workflows (per-run
 **Two modes — the caller sets it:**
 
 - **Per-run** (minimal/dynamic-workflow) — only what is an **input to the next run**: the decision pair, the spec's Status/ACs, the pointers in `AGENTS.md`. Small, hot, cheap. The run's behaviour delta stays in its spec, which is what `spec-design` reads.
-- **Sprint-close** (`close-sprint`) — the rest, `behaviour.md` first, then `architecture.md`, `dev.md`, `product/`, `ASSETS.md`. Nobody reads them *during* a sprint, and they come out better written from the whole sprint at once than from five separate deltas.
+- **Sprint-close** (`close-sprint`) — the rest, `behaviour.md` first, then `architecture.md`, `dev.md`, `product/`, `design/`, `ASSETS.md`. Nobody reads them *during* a sprint, and they come out better written from the whole sprint at once than from five separate deltas.
 
 **Four rules that override everything below:**
 
@@ -41,7 +41,7 @@ For each doc ask "does *this* change affect it?" from what you already know, and
 | `docs/dev.md` | sprint-close | setup, env, build/debug workflow, or a dependency quirk changed | record it **only if system-independent** — machine-specific setup goes to memory instead. Link codegraph/generated docs for API signatures, and file bugs/todos as tickets |
 | `docs/architecture.md` | sprint-close | a drafted subsystem was implemented, or core structure changed | fill the subsystem from the real code, flip its **Status** `planned → implemented`, bump the doc's top **Status** `draft → partial → current` |
 | `docs/product/` | sprint-close | user-facing interaction changed | read the relevant page first, then edit very targeted |
-| `docs/design/` | never | design system changed | **`ui-design` owns the styleguide and mockups** — leave them to it |
+| `docs/design/` | sprint-close | the sprint changed UI — screens, tokens, components, by any workflow | **reconcile with what shipped**, from the sprint diff on UI code and the e2e UI-pass notes: each touched area's mockup shows the built screen, `Styleguide.html` every token and component in use, a UI added without `ui-design` gets its area mockup. Edit in place; designing anew is `ui-design`'s |
 
 **Not maintained here:** everything else under `artefacts/` — plans, e2e cases, reports, `release-{version}/` — belongs to the workflow that wrote it, which corrects it while the sprint runs. `docs/release.md` is the one durable doc owned elsewhere: the user writes it, `release` appends its waivers.
 

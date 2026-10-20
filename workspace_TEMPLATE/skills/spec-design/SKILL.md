@@ -19,9 +19,9 @@ Turn an idea or plan into a spec that **fixes every downstream decision** — th
    - Present the design in sections sized to their complexity and get the user's nod before writing the spec.
 2. **UI** — if the feature has a sophisticated UI, its design is a primary step of the spec. Invoke `ui-design`:
    - **No design system yet?** It establishes the styleguide first — brand & tone, palette, type, spacing, theming, components as atoms + patterns → `docs/design/Styleguide.html`. Every later feature designs against it, so it comes before any feature mockup.
-   - **Then** lay out *this* feature's mockup against that styleguide — UX-first: rework the layout or regroup elements where that serves the experience.
-   - **Pause on the finished design** — show mockup and styleguide, get the user's nod, revise until it holds; revising a UI after the spec fixes it is expensive.
-   - Capture the mockup (and a link to the styleguide) in the spec's UI section.
+   - **Then** work *this* feature into the mockups of the areas it touches (`docs/design/mockups/`), against that styleguide — extend in place, a new file only for a new area; UX-first: rework the layout or regroup elements where that serves the experience.
+   - **Pause on the finished design** — show mockups and styleguide, get the user's nod, revise until it holds; revising a UI after the spec fixes it is expensive.
+   - Link the mockups in the spec's UI section, naming what this feature changes on them.
 3. **Decide the testing** — one preset (coverage *and* when the tests are written), plus whether e2e is needed:
 
    | Preset | What the implement packages do |
@@ -41,7 +41,7 @@ Turn an idea or plan into a spec that **fixes every downstream decision** — th
    - **Delegated from ≥3 packages**, whenever context pressure is likely, and **always under `light-tdd` or `strict-tdd`** — inline, test and code come from one context and confirm each other's assumptions.
    - **Confirm with the user via `AskUserQuestion`** — lead with your recommendation and its rationale.
 5. **Write the spec** — copy `templates/SPEC_TEMPLATE.md` to `artefacts/{sprint}/spec_{feature}.md` (ask for the current sprint if unclear), fill it, and size the **implement packages** — a numbered list in run order (≥1; one is allowed, large independent work takes more — and ≥3 is the signal for **delegated**).
-   - **Every package carries its own acceptance criteria** — the observable outcome that makes it done, and the bar a subagent is judged against. Cut packages by coherent unit of work.
+   - **Every package carries its own acceptance criteria** — the observable outcome that makes it done, and the bar a subagent is judged against. Cut packages by coherent unit of work. **An entry plus Strategy and Components is its implementer's whole brief** — the handoff points at it, never restates it — so name the files and symbols it touches.
    - **With `light-tdd`, package 1 is the contract & tests package**: the signatures, types and stubs the **Components** section fixes, plus the tests for the recorded modules, no logic. Its criterion is a red suite failing on missing implementation; every later package names the tests it turns green — so settle the Components interfaces *here*, don't leave them to the implementation.
    - Delete the template's guidance comments as you fill it, keeping the pointer line.
 

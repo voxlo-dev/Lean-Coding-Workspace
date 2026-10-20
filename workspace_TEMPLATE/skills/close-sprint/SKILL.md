@@ -51,7 +51,7 @@ The board is now all **done**. Each ticket left durable truth behind — graduat
 
 ## 4. Batched docs pass
 
-Invoke **`maintain-docs` in sprint-close mode**: `docs/behaviour.md` first — fold every spec's Behaviour delta into the rulebook in one pass — then the low-churn docs nobody reads *during* a sprint (`architecture.md`, `dev.md`, `product/`, `ASSETS.md`), written from the whole sprint at once, which reads better than five separate deltas.
+Invoke **`maintain-docs` in sprint-close mode**: `docs/behaviour.md` first — fold every spec's Behaviour delta into the rulebook in one pass — then the low-churn docs nobody reads *during* a sprint (`architecture.md`, `dev.md`, `product/`, the mockups and styleguide in `design/`, `ASSETS.md`), written from the whole sprint at once, which reads better than five separate deltas.
 
 ## 5. Integrate
 
