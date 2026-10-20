@@ -42,6 +42,8 @@ Binary: `claude` · 2.1.286
 
 - A dropped agent keeps loading until its file is deleted explicitly.
 - A headless child launched from inside a Claude Code session inherits its `CLAUDE*` variables — session id, messaging socket — and hangs after the prompt, no error: unset them in the launch.
+- Under the Bash sandbox the OS keyring is unreachable: `gh` reports its keyring token invalid → `gh auth login --insecure-storage` — 2026-10-20 · run.
+- Node's `fetch` ignores the sandbox proxy (`npx ctx7 …` → `fetch failed`) → `"NODE_USE_ENV_PROXY": "1"` in `settings.json` `env` — 2026-10-20 · run.
 - `skills/synced/` (claude.ai-synced skills) and `skills/.trash/` are harness internals — never foreign files, never touched.
 
 ## Proven

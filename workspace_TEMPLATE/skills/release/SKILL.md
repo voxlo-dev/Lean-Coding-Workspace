@@ -15,14 +15,14 @@ One run = one **published version**: everything on `main` since the last release
 
 **Irreversible from the tag onward.** Tick each step in the release artefact and re-read it on re-entry — a resumed run never repeats a push, a tag or a submission.
 
-**Tooling split, neither covers the other:** PRs, reviews, tag reads and `run_secret_scanning` → the **github** MCP · CI runs, release creation, tagging, auth → **`gh`**.
+**All GitHub work goes through `gh`** — PRs, reviews, tags, alerts (`gh api`), CI runs, release creation.
 
 ## 0. Preflight — all of it, before anything is written
 
 - **Runbook** `docs/release.md` — the authority, whatever domains are installed; theirs only seeded it at init. Missing → **STOP**, offer to write it, pulling the stack's defaults from each recipe's engineering section.
-- **Auth** — `gh auth status` *and* one MCP call (`get_me`). Here, not at step 4.
+- **Auth** — `gh auth status` *and* `gh api user --jq .login`. Here, not at step 4.
 - **Tree** — on `main`, clean, level with the remote, no unmerged sprint branch.
-- **Scope** — last tag (`get_latest_release`, else `list_tags`) → `git log <tag>..main`. No tag → first release, whole history.
+- **Scope** — last tag (`gh release view --json tagName`, else `git describe --tags --abbrev=0`) → `git log <tag>..main`. No tag → first release, whole history.
 - **Sprints in scope** — every `artefacts/{sprint}/` closed since that tag, each board all-`done`. Anything still open → a sprint never closed → **STOP**.
 - **State & environments** — from the runbook: does the release touch persistent state (database schema, stored data, container volumes, running services), and which target is **production** (live users or real data)? The runbook silent on either → ask, then record the answer there.
 - **Resume** — an `artefacts/release-{version}/` with unticked steps → continue there.
@@ -43,8 +43,8 @@ Then seed `artefacts/release-{version}/release.md` from `templates/RELEASE_TEMPL
 
 ## 3. Security & data gate
 
-- **Dependencies** — the audit command from `docs/release.md`. **Only `low` passes.** On GitHub read the Dependabot alerts too, via `gh api` — the MCP exposes none.
-- **Secrets** — `run_secret_scanning` over the diff hunks of `<tag>..main`. It takes raw content, not paths: batch the hunks, skip gitignored files.
+- **Dependencies** — the audit command from `docs/release.md`. **Only `low` passes.** On GitHub read the open Dependabot alerts too: `gh api repos/{owner}/{repo}/dependabot/alerts`.
+- **Secrets** — the runbook's scanner over `<tag>..main` (e.g. `gitleaks git --log-opts=<tag>..main`), plus on GitHub the open alerts: `gh api repos/{owner}/{repo}/secret-scanning/alerts?state=open` (404 = scanning off → say so). No scanner in the runbook → ask, then record it there.
 - **Backup** — persistent state in scope → the runbook's backup command (database dump, volume or container snapshot) run against every environment the release changes, stored off that environment, and **a restore proven** on a scratch copy. An unrestored backup does not count.
 - **Migrations** — schema or data migrations in scope → the runbook's migration test: forward on a production-like copy, then rollback where the stack supports one, then the suite against the migrated copy. Red, or no rollback and no restore path → blocking.
 - **Waivers** — an advisory with no upstream fix passes only via a dated, reasoned entry in `docs/release.md`, re-checked each release. Never for a secret finding: rotate the credential first.
@@ -53,11 +53,11 @@ Anything blocking → **STOP**, report, hand the fix to `minimal-`/`dynamic-work
 
 ## 4. Release PR
 
-`create_pull_request`, `main` → `release` (no `release` branch yet → `create_branch` from `main`). Title `Release {version}`, body = the changelog. Honour `.github/PULL_REQUEST_TEMPLATE` if present.
+`gh pr create --base release --head main` (no `release` branch yet → `git push origin main:release` first). Title `Release {version}`, body = the changelog. Honour `.github/PULL_REQUEST_TEMPLATE` if present.
 
 ## 5. CI — green before anyone reads it
 
-`gh run watch` / `gh run list --branch main`; the MCP has no Actions surface. Red → **STOP**, fix on `main`, the PR updates itself.
+`gh run watch` / `gh run list --branch main`. Red → **STOP**, fix on `main`, the PR updates itself.
 
 ## 6. Release audit
 

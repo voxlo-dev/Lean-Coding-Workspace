@@ -30,7 +30,7 @@ Several repos moved owner, and same-name copies are appearing — check the owne
 | msitarzewski/agency-agents | agents | ~295 persona agents | agent files + per-harness converter | none | MIT | catalog | `engineering/`, `testing/` |
 | headroomlabs-ai/headroom | tokens | compression proxy for tool output, logs, history | proxy, wrap, MCP, SDK | proxy rewrites all traffic; telemetry on | Apache-2.0 | skip | [token-savers](token-savers.md) |
 | colbymchenry/codegraph | tokens | code knowledge graph replacing grep/read loops | MCP | one tool schema; more context resident late in long sessions | MIT | in use | required capability |
-| upstash/context7 | tokens | current library docs | MCP/plugin | tool schemas | MIT | in use | required capability |
+| upstash/context7 | tokens | current library docs | CLI (`ctx7`) + skill, or MCP/plugin | none via the CLI | MIT | in use | required capability, as CLI |
 | Graphify-Labs/graphify | tokens | graph over code plus docs, PDFs, media | skill/MCP | non-code ingest calls an LLM | Apache-2.0 | watch | code half duplicates codegraph |
 | rtk-ai/rtk | tokens | filters shell output via PreToolUse hook | hook + Rust binary | hook on every Bash call | Apache-2.0 | skip | independently +7.6% cost |
 | JuliusBrussee/caveman | tokens | terse-output skill; tool-output proxy | skill (MIT) + proxy (BSL-1.1) | skill none; proxy rewrites traffic | MIT / BSL-1.1 | trial | skill only |
@@ -39,7 +39,7 @@ Several repos moved owner, and same-name copies are appearing — check the owne
 | thedotmack/claude-mem | memory | automatic session capture with vector search | plugin: 5 hooks, daemon, SQLite + Chroma | high; optional paid cloud | Apache-2.0 | skip | inverts curated Markdown memory |
 | vercel-labs/agent-browser | browser | drives Chrome via CDP and accessibility refs; own MCP | Rust CLI + MCP | small (`core` profile); native Windows | Apache-2.0 | trial | e2e driver for web projects |
 | ChromeDevTools/chrome-devtools-mcp | browser | official Chrome DevTools as MCP tools | MCP | tool schemas | Apache-2.0 | trial | alternative to agent-browser |
-| github/github-mcp-server | review | official GitHub MCP: issues, PRs, reviews, code search | MCP | tool schemas; needs a token | MIT | in use | inside the optional `github` plugin |
+| github/github-mcp-server | review | official GitHub MCP: issues, PRs, reviews, code search | MCP | tool schemas; needs a token | MIT | skip | `gh` covers it, incl. Actions and releases |
 | Nikita-Filonov/ai-review | review | CI code review, local Ollama supported | CLI/CI | none in the harness | Apache-2.0 | watch | |
 | backnotprop/plannotator | review | visual annotation of plans and diffs | plugin/app | unverified | Apache-2.0 | watch | |
 | ruvnet/ruflo | orchestration | swarm orchestration: 98 agents, 323 MCP tools | plugin/CLI | writes into `CLAUDE.md`, 27 hooks, daemons | MIT | skip | |

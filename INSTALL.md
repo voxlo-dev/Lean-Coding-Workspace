@@ -8,6 +8,10 @@ summary drops the steps.
 **Agent: go ahead without asking** through steps 1–2 and the sync's inventory — they only read and
 clone. Every write that touches an existing setup is asked first, with a backup offered.
 
+**CLI over MCP.** Where a capability ships a CLI — docs via `ctx7`, GitHub via `gh` — the workspace
+uses it, not an MCP server: no tool schemas resident in every session, the shell's auth and sandbox
+apply, failures surface as plain errors. MCP only where no CLI does the job (codegraph).
+
 Everything mechanical belongs to the `workspace-sync` skill (step 3); this guide holds the clone and
 the once-only personalisation. Re-syncing later is that skill alone — come back here only for a
 machine that has never had the workspace.

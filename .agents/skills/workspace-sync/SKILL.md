@@ -74,16 +74,13 @@ An instruction file already where the shim belongs stays: show it, then add the 
 Only the ones not already working, and only where the target can host them. Memory is **native Markdown, no plugin** — step 2 seeded `~/.agents/memory/MEMORY.md` and step 3 pointed the target at it or declared it missing. See `maintain-memory`.
 
 - **codegraph** — an MCP server, https://github.com/colbymchenry/codegraph. The CLI from its standalone bundle (`install.sh` / `install.ps1`: `~/.codegraph/` plus a link in `~/.local/bin`, no shell-profile edits) — not `npx`, which an nvm-managed Node keeps off a non-login `PATH`. Then register `codegraph serve --mcp` per the manifest's **MCP** row; `codegraph install --print-config {target}` shows the entry without writing. **Never `codegraph install` itself:** beside the entry it writes a per-prompt hook and an instruction block — always-loaded context, step 5's rule. Telemetry is on by default → ask; `codegraph telemetry off`.
-- **context7** — a plugin from the `claude-plugins-official` marketplace, else its MCP server.
+- **context7** — the `ctx7` CLI with its skill, never the plugin or MCP server: `npx ctx7 setup --cli -y` plus the target's flag (`npx ctx7 setup --help` lists them). A rule file it writes beside the skill (always loaded) → delete it, the `AGENTS.md` row already says when. Leftover context7 plugin or MCP entry → disable it. Behind a sandbox proxy see the manifest's **Gotchas**.
 
-Each through the mechanism the manifest's **Plugins** and **MCP** rows name, in the shape `overlay/adapter/merge/` carries where it has one; a row still `unknown` → ask rather than guess. A marketplace the row names may not be registered on a fresh install — add it first.
+**CLI over MCP:** a capability with a CLI installs as that CLI; an MCP server only where none exists (codegraph). Each through the mechanism the manifest's **Plugins** and **MCP** rows name, in the shape `overlay/adapter/merge/` carries where it has one; a row still `unknown` → ask rather than guess. A marketplace the row names may not be registered on a fresh install — add it first.
 
 ### GitHub access *(optional — ask, don't assume)*
 
-Needed by `release` and any project on the PR flow; skip for a user working purely locally. Both halves or neither:
-
-- **`gh` CLI** — `winget install --id GitHub.cli` / `brew install gh` / per distro. Then **the user runs `gh auth login`**: interactive and browser-based, so pause here.
-- **`github` plugin** — a wrapper around a remote MCP server authenticating via `GITHUB_PERSONAL_ACCESS_TOKEN`. **Without that variable it exposes zero tools** — silently, or as a failed connect (Claude Code: `HTTP 400 … Authorization header is badly formatted`). Default: a **fine-grained PAT**, limited to the repos and permissions the user names (read-only where that suffices), set via `setx` / shell profile. Say plainly it lands in the environment in clear text, readable by every process. `gh auth token` is the fallback only on the user's explicit choice — it carries the login's full scopes.
+Needed by `release` and any project on the PR flow; skip for a user working purely locally. The `gh` CLI only — `winget install --id GitHub.cli` / `brew install gh` / per distro, never the `github` plugin or MCP server (a leftover one → disable it). Then **the user runs `gh auth login`**: interactive and browser-based, so pause here. A target whose sandbox cannot reach the OS keyring (manifest **Gotchas**) needs `gh auth login --insecure-storage` — say plainly the token then sits in `gh`'s `hosts.yml` in clear text.
 
 ## 5. Skill bundles *(optional)*
 
@@ -98,7 +95,7 @@ Third-party skill sets, peers of the workspace: **no workspace skill ever invoke
 
 ## 6. Restart — pause
 
-**Only if step 4 or 5 changed anything.** Ask the user to restart each affected harness (and the terminal), then resume; **stop here** until they confirm. A new environment variable needs the restart too, or the MCP server starts unauthenticated. Nothing changed → say so and skip.
+**Only if step 4 or 5 changed anything.** Ask the user to restart each affected harness (and the terminal), then resume; **stop here** until they confirm. A new environment variable needs the restart too. Nothing changed → say so and skip.
 
 ## 7. Verify each target independently
 
@@ -106,7 +103,7 @@ Per selected target, confirm each capability is actually **working**, not merely
 
 Reach for the manifest's **Verification levers** before spending a run — they answer this without a model call. Only **agent dispatch** still needs a real run, proven by the child's own record per the manifest's **Dispatch** row, never the parent's report.
 
-Report each target as **passed · skipped · failed**. For any failure propose a brief troubleshooting plan and **get the user's OK before any tool calls**. Two traps behind a capability that is "installed" yet silently exposes nothing: an orphaned or dependency-incomplete cache directory shadowing the working one, and a remote MCP server whose credential is missing — an enabled flag in the config says nothing about either. For **github** specifically, `get_me` returning your account is the proof; `gh auth status` is the separate one.
+Report each target as **passed · skipped · failed**. For any failure propose a brief troubleshooting plan and **get the user's OK before any tool calls**. Two traps behind a capability that is "installed" yet silently exposes nothing: an orphaned or dependency-incomplete cache directory shadowing the working one, and a remote MCP server whose credential is missing — an enabled flag in the config says nothing about either. Proof for the CLIs, run through the target's own shell so its sandbox applies: `gh api user --jq .login` returns the account, `npx ctx7 library react "hooks"` returns library IDs.
 
 ## 8. Done — pause for review
 

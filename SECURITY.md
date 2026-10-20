@@ -7,8 +7,8 @@ agents that run shell commands, install third-party skills, plugins and MCP serv
 your environment, change files and git history and — through `release` — publish software and touch
 live environments. Review what an agent proposes before approving it, and keep backups.
 
-Third-party content it can install (skill bundles, plugins, MCP servers such as codegraph and
-context7) is not reviewed by this project and carries its own license and risks.
+Third-party content it can install (skill bundles, plugins, MCP servers and CLIs such as codegraph and
+`ctx7`) is not reviewed by this project and carries its own license and risks.
 
 ## What the workspace does to limit risk
 

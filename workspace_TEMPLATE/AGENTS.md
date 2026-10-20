@@ -40,13 +40,13 @@ Assume the user is capable but terse — they type slower than you read.
 
 ## Required capabilities
 
-`workspace-sync` installs these per target; one it cannot provide stays **visible as missing**, never silently becomes an instruction.
+`workspace-sync` installs these per target; one it cannot provide stays **visible as missing**, never silently becomes an instruction. A capability with a CLI is reached **through the CLI**, never an MCP server.
 
 | Capability | Reach for it |
 | --- | --- |
 | codegraph | every structural / "how does X work" / impact question in an **indexed** project — it *replaces* file-reading exploration, so never spawn an Explore subagent for what the graph knows |
-| context7 | the default source for **upstream** docs (libraries, frameworks, SDKs, APIs) at implementation time — over recall, over web search |
-| github *(optional)* | PRs, reviews, issues, repo search, secret scanning; dead without its token. **No Actions, no release creation** — those, tagging and local git are `gh` |
+| context7 (`ctx7` CLI) | the default source for **upstream** docs (libraries, frameworks, SDKs, APIs) at implementation time — over recall, over web search: `npx ctx7 library <name> "<topic>"` → `npx ctx7 docs <id> "<topic>"` |
+| `gh` *(optional)* | everything GitHub — PRs, reviews, issues, Actions, releases, tags, alerts via `gh api`; dead until `gh auth login` |
 
 ## Domains
 
