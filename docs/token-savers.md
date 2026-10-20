@@ -2,7 +2,8 @@
 
 The token-saver slice of [`repo-survey.md`](repo-survey.md), in depth. Settles headroom:
 **not reinstated.** No compression layer is worth wiring in on vendor numbers; the one cheap,
-independently backed win is output-side, and anything heavier waits for a measurement.
+independently backed win is output-side. context-mode alone is offered unmeasured, as an opt-in
+catalog row: it never mutates the prompt, so a pick risks its overhead, not the result.
 
 ## Evidence
 
@@ -24,7 +25,7 @@ ratio (1–5% is normal). Only three independent measurements exist:
 | rtk | Bash tool output, via PreToolUse hook | no | independently negative | Apache-2.0 | skip |
 | caveman skill | the agent's own prose | no | independently positive | MIT | skip — terse register unwanted |
 | caveman proxy | tool output | yes | own benchmark only | BSL-1.1 | skip |
-| context-mode | tool calls: runs them sandboxed, indexes output in SQLite FTS5, returns the relevant slice | no | vendor only | ELv2 | first candidate if a layer is needed |
+| context-mode | tool calls: runs them sandboxed, indexes output in SQLite FTS5, returns the relevant slice | no | vendor only | ELv2 | catalog, opt-in and unmeasured — picked 2026-10-20 without a trial |
 | codegraph | code exploration | no | transparent own benchmark: −62% tokens, −44% cost | MIT | required already |
 | graphify | code + docs/PDF/media graph | no | own benchmark | Apache-2.0 | watch — code half duplicates codegraph |
 | hindsight | cross-session memory (Postgres/pgvector service) | no | claims external reproduction, unverified | MIT | skip — competes with Markdown memory |

@@ -34,7 +34,7 @@ Several repos moved owner, and same-name copies are appearing — check the owne
 | Graphify-Labs/graphify | tokens | graph over code plus docs, PDFs, media | skill/MCP | non-code ingest calls an LLM | Apache-2.0 | watch | code half duplicates codegraph |
 | rtk-ai/rtk | tokens | filters shell output via PreToolUse hook | hook + Rust binary | hook on every Bash call | Apache-2.0 | skip | independently +7.6% cost |
 | JuliusBrussee/caveman | tokens | terse-output skill; tool-output proxy | skill (MIT) + proxy (BSL-1.1) | skill none; proxy rewrites traffic | MIT / BSL-1.1 | trial | skill only |
-| mksglu/context-mode | tokens | sandboxes big tool output, returns the relevant slice | MCP + hooks | 6 hook types; no telemetry | ELv2 | watch | first candidate if a layer is needed |
+| mksglu/context-mode | tokens | sandboxes big tool output, returns the relevant slice | MCP + hooks | 6 hook types; no telemetry | ELv2 | catalog | opt-in, unmeasured |
 | vectorize-io/hindsight | memory | agent memory on Postgres/pgvector | server + SDKs | standing database service | MIT | skip | competes with Markdown memory |
 | thedotmack/claude-mem | memory | automatic session capture with vector search | plugin: 5 hooks, daemon, SQLite + Chroma | high; optional paid cloud | Apache-2.0 | skip | inverts curated Markdown memory |
 | vercel-labs/agent-browser | browser | drives Chrome via CDP and accessibility refs; own MCP | Rust CLI + MCP | small (`core` profile); native Windows | Apache-2.0 | trial | e2e driver for web projects |

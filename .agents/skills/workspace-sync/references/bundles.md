@@ -21,6 +21,7 @@ adding a row.
 | frontend-design | https://github.com/anthropics/claude-plugins-official | skills | `plugins/frontend-design/skills/frontend-design` | — | — | distinctive UI craft; `ui-design` uses it where installed |
 | hallmark | https://github.com/Nutlope/hallmark | skills | `skills/hallmark` | — | — | UI generation off the template look; pairs with `ui-design` |
 | karpathy | https://github.com/multica-ai/andrej-karpathy-skills | skills | `skills/karpathy-guidelines` | — | — | four behaviour rules against common LLM coding mistakes |
+| context-mode | https://github.com/mksglu/context-mode | plugin | plugin `context-mode@context-mode` from marketplace `mksglu/context-mode`, its hooks enabled where the target gates plugin hooks · npm `context-mode` where the target's plugins are JS modules · never its routing `AGENTS.md` copy, which replaces the project's · **the one entry carrying always-loaded context**: its hooks inject routing every session and intercept tool calls | Node ≥ 22.5 · never `ctx insight` — a hosted dashboard, its data flow undocumented | — | long sessions heavy on tool output (logs, test runs, browser snapshots) — sandboxes it, returns the relevant slice; hooks in every session, vendor numbers only, ELv2 |
 | agency-agents | https://github.com/msitarzewski/agency-agents | agents | `engineering/*`, `testing/*`, converted by its `scripts/install.sh --tool {target}` | — | — | specialist persona subagents for review and testing |
 
 Why each entry is here, and what was rejected: `{workspace}/docs/repo-survey.md` — re-check it

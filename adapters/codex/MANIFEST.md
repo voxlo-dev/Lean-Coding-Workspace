@@ -44,6 +44,7 @@ Binary: not on `PATH` — `%LOCALAPPDATA%\OpenAI\Codex\bin\<hash>\codex.exe` · 
 - Agent tools ship as one `type: namespace` tool (`multi_agent_v1`, or `collaboration` under `multi_agent_v2`); `features.multi_agent_v2.tool_namespace` renames it, never removes it. An endpoint without namespace support (Unsloth Studio) hides every agent tool — a proxy flattening them upward and tagging returned `function_call`s with their `namespace` restores dispatch.
 - The `github` plugin authenticates against `api.githubcopilot.com` and emits `AuthRequired` — separate from `gh`.
 - Double quotes inside a prompt argument break parsing; pass the prompt after `--`.
+- Plugin hooks run only with `[features] plugin_hooks = true` and `hooks = true`, and `PreToolUse` can deny a call but never rewrite its input — 2026-10-20 · context-mode README, unprobed.
 
 ## Proven
 
