@@ -1,14 +1,10 @@
 # Handoff — package {n}: {name}
 
-The dispatch prompt for one implement package (template:
-`~/.agents/skills/dynamic-workflow/templates/handoff.md`). **The spec is the brief; this carries
-only what it lacks** — never restate a spec line. Written from the spec and the reports, never from
-reading the code. **In-harness it is the prompt itself — never a file**; written to the brief file
-the dispatch names only out of process. Same content either way.
+Template: `~/.agents/skills/dynamic-workflow/templates/handoff.md` — filled per `dynamic-workflow`'s loop.
 
 - **Spec:** `artefacts/{sprint}/spec_{feature}.md` → **package {n}** — read **Strategy**,
-  **Components** and your package entry (goal, ticket, files, acceptance criteria — you are judged
-  against these); the rest only where those point. Your anchor if you compact.
+  **Components** and your package entry, whose acceptance criteria you are judged against; the rest
+  only where those point. Your anchor if you compact.
 - **From earlier reports:** {what this package depends on that the spec doesn't say — a moved
   signature, a deviation, a helper to reuse — else none}
 - **Failing tests to turn green:** {light-tdd only — your slice of package 1's red list; else drop}

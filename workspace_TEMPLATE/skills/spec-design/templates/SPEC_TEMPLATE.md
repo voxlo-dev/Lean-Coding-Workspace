@@ -51,9 +51,6 @@ Decided by `spec-design`; the pipeline follows it without re-deciding.
 
 ## Implement packages
 
-Numbered in run order, commit after each; cut and criteria per `spec-design` step 5. Each entry is
-its implementer's brief — the handoff points here.
-
 1. **{package name}** — {what it builds} · ticket: {`T-NNN` or —} · files: {paths & symbols to read/touch}
    - [ ] {observable outcome that makes this package done}
    - [ ] {…}

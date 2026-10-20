@@ -1,6 +1,6 @@
 ---
 name: maintain-docs
-description: "Use at the docs step of the minimal and dynamic workflows (per-run mode: the decision pair, spec status, pointers), and at sprint close from close-sprint (sprint-close mode: behaviour.md plus the batched low-churn docs, mockups and styleguide included). Triggers: code, assets, architecture, or user-facing behaviour changed and docs may have drifted."
+description: "Use at the docs step of the minimal and dynamic workflows (per-run mode: the decision pair, spec status, pointers), and at sprint close from close-sprint (sprint-close mode: behaviour.md plus the batched low-churn docs). Triggers: code, assets, architecture, or user-facing behaviour changed and docs may have drifted."
 ---
 
 # Maintain Docs

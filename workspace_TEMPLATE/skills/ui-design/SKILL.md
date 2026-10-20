@@ -5,7 +5,7 @@ description: "Use when designing the look and feel of a UI — colors, themes, t
 
 # UI Design
 
-Design a UI's look and feel, capture it as a durable **design system** (the styleguide) and durable **mockups**, one per product area, that each feature extends. Invoked from `shape` (styleguide only, new UI project), `spec-design` (one feature's changes to the mockups) or `sprint-autopilot` (every UI ticket of a sprint in one pass). This skill is for designing; a one-off styling tweak is just done.
+Design a UI's look and feel, capture it as a durable **design system** (the styleguide) and per-area **mockups** each feature extends. Invoked from `shape` (styleguide only, new UI project), `spec-design` (one feature's changes to the mockups) or `sprint-autopilot` (every UI ticket of a sprint in one pass). This skill is for designing; a one-off styling tweak is just done.
 
 > **UX first — even for a small feature.** Each time, before wiring anything in: does this hurt the UX, should the layout or grouping be reworked, is every element unambiguous and placed by its relevance, can something be simplified? Prefer the layout change that keeps the experience clean over the minimal one.
 
@@ -36,15 +36,13 @@ When the frontend is written in the project's real stack (Svelte, React, plain H
 
 ## 3b. Everything else → build mockups directly
 
-Once step 2's option screens have settled a direction, change the durable mockups here — the options explore, the mockups are what the spec links.
+Once step 2's option screens have settled a direction, change the durable mockups here — the options explore; the spec links the mockups, never inlines them, since it is discarded at sprint close.
 
-- **One file per product area** — `docs/design/mockups/{area}.html`, named like the e2e drivers, never for a feature. An area that has one → edit it in place; a fresh copy or a per-feature file is the drift this prevents. A genuinely new area → seed from `templates/layout.html`: self-contained HTML, no build step, phone and desktop frames (delete the one you don't need), viewable in any browser regardless of the real stack.
-- Never inline in the spec — it is thrown away at sprint close; the spec links the files and names what this feature changes on them.
+- **One file per product area** — `docs/design/mockups/{area}.html`, named like the e2e drivers, never for a feature: an area that has one → edit it in place; a genuinely new area → seed from `templates/layout.html`: self-contained HTML, no build step, phone and desktop frames (delete the one you don't need), viewable in any browser regardless of the real stack.
 - Keep them faithful to the styleguide — paste its tokens into the mockup's `:root`.
 
 ## 4. Persist & integrate
 
 - **Styleguide** — `docs/design/Styleguide.html` is the durable, project-wide system; seed it from `templates/styleguide.html` the first time, then edit in place. Built-in light/dark toggle — fill the dark tokens or drop them. Every feature designs against it.
-- **Mockups** — `docs/design/mockups/` is the current UI per area, built up feature by feature; the implement packages build against it, the styleguide stays free of concrete layouts.
-- **Both are durable docs:** this skill designs into them, `maintain-docs` reconciles them with the shipped UI at sprint close.
+- **Mockups** — `docs/design/mockups/`, the current UI per area: the implement packages build against them, the styleguide holds no concrete layouts. Durable docs both — this skill designs into them, `maintain-docs` reconciles them with the shipped UI at sprint close.
 - **Pause for user review**, then **commit** the styleguide and any mockups.
