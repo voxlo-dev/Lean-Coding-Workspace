@@ -70,7 +70,7 @@ Invoke one when the user names it; the user can also run it as `/name` where sup
 
 **The workflow gate applies only to software development** — building or changing code. Non-dev work (writing, research, questions, one-off shell tasks) skips it: act directly, rules relaxed to fit. For development it is **mandatory**.
 
-**Checkpoint first.** `CHECKPOINT.local.md` (project root, written by `checkpoint`) is the previous chat's handout, already in context via the project's instruction file: act on it, then **delete the file**.
+**Checkpoint first.** `CHECKPOINT.local.md` (project root, written by `checkpoint`) is the previous chat's handout, already in context via the project's instruction file: act on it, strike what got settled, **delete the file** once nothing is left.
 
 **Named a concrete workflow or skill? Use it directly.** Otherwise, at the start of a new chat: consult the loaded memory, then **ask which workflow to use**, recommending one inferred from the prompt — plus any installed bundle skill (`~/.agents/BUNDLES.md`) that fits the task. Do not start before the user chooses.
 
