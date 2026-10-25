@@ -2,6 +2,6 @@
   "$schema": "https://opencode.ai/config.json",
   "instructions": ["~/.config/opencode/AGENTS.md", "~/.agents/memory/MEMORY.md"],
   "mcp": {
-    "codegraph": { "type": "local", "command": ["{codegraph binary}", "mcp"] }
+    "codegraph": { "type": "local", "command": ["{codegraph binary}", "serve", "--mcp"] }
   }
 }

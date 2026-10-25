@@ -11,7 +11,7 @@ Binary: `opencode` · 1.18.23
 | Home | `~/.config/opencode` | 1.18.23 · 2026-09-04 · `debug config` |
 | Global instructions | `AGENTS.md`, listed in `opencode.json` `instructions` (array of paths, expands `~`) · imports: unknown, the list makes them unnecessary | 1.18.23 · 2026-09-04 · `debug config` |
 | Instruction budget | unknown | — |
-| Skills | reads `~/.agents/skills` natively · `skills.paths` exists, redundant | 1.18.23 · 2026-09-04 · `debug skill` |
+| Skills | reads `~/.agents/skills` natively · `skills.paths` exists, redundant · also scans `~/.claude/skills/` recursively, Claude's `synced/` and `.trash/` included — `OPENCODE_DISABLE_CLAUDE_CODE_SKILLS=1` drops that root | 1.19.4 · 2026-10-25 · `debug skill` |
 | Agents | `~/.config/opencode/agent/*.md` — singular, flat: a subfolder folds into the ID · ID from path · `mode: subagent` · convert: none | 1.18.23 · 2026-09-04 · `debug agent` |
 | Dispatch | `task` tool · proof: `opencode export <session>` names the child's `agent` | 1.18.23 · 2026-09-27 · run |
 | Headless run | `opencode run` · session id: unknown · resume: `opencode run --session <id>`, unprobed | 1.18.29 · 2026-09 · dispatch guide |
@@ -46,6 +46,7 @@ Binary: `opencode` · 1.18.23
 - A dispatch answered by the built-in `general` subagent instead of the named one is indistinguishable to the caller: restart fully first; if it persists, suspect a per-agent `permission` block (removing one fixed it once; [#29616](https://github.com/anomalyco/opencode/issues/29616) blames the `task` enum).
 - In `opencode run`, a permission resolving to `ask` is auto-rejected and **ends the run**; reads outside the project are the `external_directory` permission.
 - On PowerShell the banner goes to stderr and surfaces as `NativeCommandError` around successful runs.
+- npm-installed under nvm, `opencode` is off a non-interactive `PATH` (`/usr/bin/node` may be too old as well) → `source ~/.nvm/nvm.sh` in the launch — 1.19.4 · 2026-10-25 · run.
 
 ## Proven
 
