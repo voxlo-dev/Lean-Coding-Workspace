@@ -59,7 +59,7 @@ Invoke **`maintain-docs` in sprint-close mode**: `docs/behaviour.md` first — f
 
 The frozen sprint folder *is* the record of what shipped — no separate summary doc. `release` composes the changelog from it when the version is cut.
 
-**Then empty `.temp/`**, all of it, no age rule — anything still mattering at a sprint boundary is misfiled: a report belongs in `artefacts/{sprint}/`, a flow worth keeping in the test tree.
+**Then empty `.temp/`** and delete `CHECKPOINT.local.md`, all of it, no age rule — anything still mattering at a sprint boundary is misfiled: a report belongs in `artefacts/{sprint}/`, a flow worth keeping in the test tree, an open point in a ticket.
 
 ## 6. Release? *(optional, and usually not now)*
 
