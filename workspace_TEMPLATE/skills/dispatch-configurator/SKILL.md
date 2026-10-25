@@ -33,11 +33,12 @@ Candidates: every harness home the workspace is installed into, any agent CLI th
 
 ## 4. Probe dispatch
 
-For each harness × provider route that is new, changed, or failed its liveness check — all of them on request. In a scratch git repo outside any project: fill `templates/probe-brief.md` into `.temp/dispatch/probe/brief.md` with fresh random tokens, create its fixtures, run exactly the composed Launch with stdout and stderr captured apart. **Pass needs every check, made yourself — never read off the verdict:**
+For each harness × provider route that is new, changed, or failed its liveness check — all of them on request. In a scratch git repo outside any project: fill `templates/probe-brief.md` into `.temp/dispatch/probe/brief.md` with fresh random tokens, create its fixtures, run exactly the composed Launch with stdout and stderr captured apart — from where dispatches start: inside the caller's sandbox where it has one (a headless session of it running the line), never a plain shell, which passes what the sandbox blocks. **Pass needs every check, made yourself — never read off the verdict:**
 
 - exit 0, and stdout's last line is the verdict;
 - the side effect exists: the file with the right token, committed — `DONE` over a skipped constraint is a fail, and goes into that model's note;
 - the transcript names the intended agent and model; anything else is a silent substitution;
+- a local model ran on its GPU — server log or VRAM during the run; a server started inside a sandbox falls back to CPU silently;
 - where the harness enforces path denies: the denied token appears nowhere in stdout, files or transcript. A catch-all allow after the deny globs voids them under last-match-wins and still looks green.
 
 Record the transcript's location as the live-view lever. On a fail, find the layer — connector, harness config, pointer wording, model — fix what is config, retry once. Models read their role from the pointer's words and paths: a wording that fixed a run becomes Launch's wording. Delete the scratch repo.
