@@ -32,9 +32,9 @@ from `~/.agents/skills/dispatch-configurator/templates/DISPATCH-GUIDE.md`.
   project · the task · paths to its inputs. Pass paths, never inlined content.
 - **The verdict stands alone** — stdout's last line, unless the harness entry's **Verdict** puts it
   elsewhere: `DONE` · `NEEDS_DECISION` (question in the report; the caller resumes the session with
-  the answer) · `BLOCKED <reason>`. A report,
-  criteria met, concerns go to `report.md` beside the brief, the run's own output to
-  `transcript.md` there too.
+  the answer) · `BLOCKED <reason>`. A report, criteria met, concerns go to `report.md` beside the
+  brief, the run's own output to `transcript.md` there too — unless **Verdict** names the report's
+  place.
 - **Sequential, one dispatch at a time.** A local endpoint serves one inference at a time; a free
   tier measures its queue.
 - **≥64k context on any model listed below** — the target harness's own system prompt costs ~16k
@@ -46,8 +46,8 @@ from `~/.agents/skills/dispatch-configurator/templates/DISPATCH-GUIDE.md`.
 
 - **Launch:** `{environment prefix · shell init the binary needs · command with placeholders for agent, model, absolute dir, pointer}`
   — or, for a harness whose runs are sessions its app starts from the caller's own, `{session-start tool call with its arguments, pointer as the prompt}`
-- **Verdict:** {only where not stdout's last line: where it lands, and any notice that arrives
-  without one — never a verdict}
+- **Verdict:** {only where not stdout's last line: where it and the report land, how the caller
+  reads the report whole, and any notice that arrives without a verdict — never one}
 - **Providers:** {which of the entries below this harness resolves}
 - **Resume:** {command continuing a finished session with a new pointer, and how the launch fixes
   the session id it takes — or "none": a `NEEDS_DECISION` there means a fresh dispatch}

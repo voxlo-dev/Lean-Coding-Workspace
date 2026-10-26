@@ -12,13 +12,14 @@ The dispatch brief for one pipeline run (template:
 
 ## Standing rules
 
-- **You run headless.** No user reads this session — no closing summary, recap or chat report;
-  everything goes into `report.md`, the verdict per Return.
+- **You run unattended** — the conductor reads your report, one report per Return, never two.
+- **The workflow runs whole** — every step through docs, memory and board; only its checkpoint is
+  dropped.
 - **Several tickets** → `minimal-workflow` once per ticket, in order · `dynamic-workflow` once per
   spec `spec-design` cuts from them — all in this run.
 - **Nobody to ask but the conductor.** Wherever the workflow would ask, confirm or pause for the
   user — a question, a review, a verification, the ~5-attempt escalation — instead commit what
-  holds, write the question to `report.md` (question · options · your recommendation · state so
+  holds, put the question in the report (question · options · your recommendation · state so
   far) and end with `NEEDS_DECISION`. The conductor resumes this session with the answer in
   `answer-{k}.md` beside this brief. Never guess past a question the sprint left open.
 - **Already decided:** the pipeline row is the spec's testing preset, e2e and delegation; the run is
@@ -31,6 +32,7 @@ The dispatch brief for one pipeline run (template:
 
 ## Return
 
-`report.md` beside this brief: what was done · commits · tickets moved on the board · what the user
-must verify by hand · concerns. {Verdict place — the guide's Verdict, else: Last stdout line}, alone:
-`DONE` · `NEEDS_DECISION` · `BLOCKED <reason>`.
+The report: what was done · commits · tickets moved on the board · docs and memory updated · what
+the user must verify by hand · concerns. {One of — headless process: `report.md` beside this brief,
+no closing summary or recap; the verdict alone on stdout's last line · app session: your closing
+message, no `report.md`; its first word the verdict}: `DONE` · `NEEDS_DECISION` · `BLOCKED <reason>`.

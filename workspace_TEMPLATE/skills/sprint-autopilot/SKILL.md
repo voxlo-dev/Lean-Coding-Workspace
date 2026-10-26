@@ -33,10 +33,10 @@ Read `AGENTS.md` → **Current sprint**, then its sprint file.
 Per row, in order, skipping `manual` and rows waiting on an unsettled decision:
 
 1. **Brief** — fill `templates/run-brief.md` into `.temp/dispatch/{sprint}-{n}/brief.md`.
-2. **Launch** per the `full run` row of that workflow's guide section, in the background with a session id the guide's Resume can address. Pointer: `Headless dispatched run, no user reads your output — follow {brief path}.` Set the row to `running {session}` and commit **before** launching — that line is what a fresh chat resumes from.
+2. **Launch** per the `full run` row of that workflow's guide section, in the background with a session id the guide's Resume can address. Pointer: `Dispatched run, unattended — follow {brief path}.` Set the row to `running {session}` and commit **before** launching — that line is what a fresh chat resumes from.
 3. **Never wait blind** — the harness notifies on exit or turn end; besides, wake every **15 min** and check the transcript still moves. Stalled → stop it and treat as `BLOCKED`.
-4. **Verdict** — where the guide's Verdict puts it, else the last stdout line; a notice without one is no verdict, back to step 3. Details in `report.md` beside the brief:
-   - `DONE` → check the report against the board (its tickets at `to test` or `done`), row `done`, commit, next row.
+4. **Verdict** — where the guide's Verdict puts it, else the last stdout line; a notice without one is no verdict, back to step 3. Details in the report — `report.md` beside the brief, or where the guide's Verdict puts it:
+   - `DONE` → check the report against the board (its tickets at `to test` or `done`) and its docs and memory line — missing → resume the run for them; then row `done`, commit, next row.
    - `NEEDS_DECISION` → the escalation chain's top: answer from what the plan settled — sprint file, decisions, tickets — else ask the user, with the run's options and recommendation. A spec review under `review` mode goes to the user with its path. Write the answer to `answer-{k}.md` beside the brief; a settled decision also gets its two homes and sharpens its ticket. Resume the session per the guide's Resume, back to step 3.
    - `BLOCKED` or no verdict → read the report and `git log`; then resume with guidance, re-dispatch with a narrowed brief, or set the row `blocked` and capture a ticket, holding back its dependents. **Never take the work over yourself** — reaching for a source file is the signal to re-dispatch or ask.
 5. **No checkpoint** — never on your own initiative; the sprint file is the state, so a fresh chat resumes at step 0. Only the user's request runs `checkpoint`.
