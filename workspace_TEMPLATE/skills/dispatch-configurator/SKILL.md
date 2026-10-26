@@ -17,7 +17,7 @@ Modes: **configure** (default; a fresh run and a repair are the same run) · **c
 
 ## 2. Harnesses
 
-Candidates: every harness home the workspace is installed into, any agent CLI the user names, and wrappers around either. Per candidate and environment:
+Candidates: every harness home the workspace is installed into, any agent CLI the user names, wrappers around either, and the calling harness's own session-start tool where its app starts sibling sessions that report back — an entry of its own, Launch the tool call, no binary or `--help` to resolve. Per candidate and environment:
 
 - **Resolve the binary** in that non-interactive shell. Found interactively but not there → it hangs off shell init (a version manager): put the explicit init into the launch prefix rather than reporting it missing. A shim name that differs by shell (`.cmd` on Windows) — record the one that executes.
 - **A wrapper is its own harness** — a launcher that pins a version or points the binary at another config directory resolves other providers, models and agents. One entry each, stating that they share no config.
@@ -33,9 +33,9 @@ Candidates: every harness home the workspace is installed into, any agent CLI th
 
 ## 4. Probe dispatch
 
-For each harness × provider route that is new, changed, or failed its liveness check — all of them on request. In a scratch git repo outside any project: fill `templates/probe-brief.md` into `.temp/dispatch/probe/brief.md` with fresh random tokens, create its fixtures, run exactly the composed Launch with stdout and stderr captured apart — from where dispatches start: inside the caller's sandbox where it has one (a headless session of it running the line), never a plain shell, which passes what the sandbox blocks. **Pass needs every check, made yourself — never read off the verdict:**
+For each harness × provider route that is new, changed, or failed its liveness check — all of them on request. In a scratch git repo outside any project: fill `templates/probe-brief.md` into `.temp/dispatch/probe/brief.md` with fresh random tokens, create its fixtures, run exactly the composed Launch with stdout and stderr captured apart — from where dispatches start: inside the caller's sandbox where it has one (a headless session of it running the line), never a plain shell, which passes what the sandbox blocks; a session entry from this session, resumed once by its Resume. **Pass needs every check, made yourself — never read off the verdict:**
 
-- exit 0, and stdout's last line is the verdict;
+- exit 0, and stdout's last line is the verdict — a session: the verdict where its **Verdict** says, a notice without one noted there;
 - the side effect exists: the file with the right token, committed — `DONE` over a skipped constraint is a fail, and goes into that model's note;
 - the transcript names the intended agent and model; anything else is a silent substitution;
 - a local model ran on its GPU — server log or VRAM during the run; a server started inside a sandbox falls back to CPU silently;

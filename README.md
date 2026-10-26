@@ -97,7 +97,7 @@ Alphabetical within each section.
 | `dynamic-workflow` | takes a feature from approved spec to tested, documented code |
 | `e2e` | end-to-end tests that grow into a reusable script |
 | `minimal-workflow` | one small change or bugfix: a short interview and a plan in the chat, no spec |
-| `sprint-autopilot` | plans a sprint up front, then runs every workflow in its own process and relays questions |
+| `sprint-autopilot` | plans a sprint up front, then runs every workflow in its own process or app session and relays questions |
 
 ### Close and ship
 

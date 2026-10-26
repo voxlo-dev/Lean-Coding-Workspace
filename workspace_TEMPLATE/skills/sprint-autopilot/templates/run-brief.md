@@ -13,9 +13,9 @@ The dispatch brief for one pipeline run (template:
 ## Standing rules
 
 - **You run headless.** No user reads this session — no closing summary, recap or chat report;
-  everything goes into `report.md`, stdout ends with the verdict.
+  everything goes into `report.md`, the verdict per Return.
 - **Several tickets** → `minimal-workflow` once per ticket, in order · `dynamic-workflow` once per
-  spec `spec-design` cuts from them — all in this process.
+  spec `spec-design` cuts from them — all in this run.
 - **Nobody to ask but the conductor.** Wherever the workflow would ask, confirm or pause for the
   user — a question, a review, a verification, the ~5-attempt escalation — instead commit what
   holds, write the question to `report.md` (question · options · your recommendation · state so
@@ -27,9 +27,10 @@ The dispatch brief for one pipeline run (template:
 - **Mode `auto`:** `spec-design` in pipeline mode, lean spec, no review. **Mode `review`:** commit the
   spec, then `NEEDS_DECISION` with its path as the question.
 - Your subagents escalate to you per the workflow; only what you cannot decide goes up.
-- Stay on the branch — never switch, merge or push. No checkpoint: the run ends with this process.
+- Stay on the branch — never switch, merge or push. No checkpoint: the run ends with this session.
 
 ## Return
 
 `report.md` beside this brief: what was done · commits · tickets moved on the board · what the user
-must verify by hand · concerns. Last stdout line, alone: `DONE` · `NEEDS_DECISION` · `BLOCKED <reason>`.
+must verify by hand · concerns. {Verdict place — the guide's Verdict, else: Last stdout line}, alone:
+`DONE` · `NEEDS_DECISION` · `BLOCKED <reason>`.
