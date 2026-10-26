@@ -52,13 +52,14 @@ cp -r  {workspace}/adapters/{target}/overlay/adapter {home}/   # workspace-owned
 cp -rn {workspace}/adapters/{target}/overlay/. {home}/         # the rest never lands over an existing file
 ```
 
-That leaves `{home}/adapter/` holding whatever the target needs later, in three folders named by what happens to them:
+That leaves `{home}/adapter/` holding whatever the target needs later, in three folders named by what happens to them, plus files read in place:
 
 | Folder | Fate | Used by |
 | --- | --- | --- |
 | `project/` | copied into a repo root as-is | `project-init` |
 | `project-merge/` | merged into the repo's **Project config** from the manifest | `project-init` |
 | `merge/` | merged into `{home}`'s own config | this skill, below |
+| `threads.md` | read in place | `open-sprint` |
 
 A folder absent from a target's overlay means that target lacks that capability; report it as
 missing rather than working around it. A merge keeps keys already present and substitutes any `{x}`. Then finish the two things a copy cannot do:

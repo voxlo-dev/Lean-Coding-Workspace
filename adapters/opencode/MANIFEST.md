@@ -15,6 +15,7 @@ Binary: `opencode` · 1.18.23
 | Agents | `~/.config/opencode/agent/*.md` — singular, flat: a subfolder folds into the ID · ID from path · `mode: subagent` · convert: none | 1.18.23 · 2026-09-04 · `debug agent` |
 | Dispatch | `task` tool · proof: `opencode export <session>` names the child's `agent` | 1.18.23 · 2026-09-27 · run |
 | Headless run | `opencode run` · session id: unknown · resume: `opencode run --session <id>`, unprobed | 1.18.29 · 2026-09 · dispatch guide |
+| Threads | unknown | — |
 | Memory lever | instructions list | 1.18.23 · 2026-09-27 · global memory in context |
 | Project memory | gap | 2026-09-27 · run |
 | MCP | `opencode.json` `mcp` — `{type: "local", command: [...]}` or `{type: "remote", url}` | 1.18.23 · 2026-09-04 · `mcp list` |

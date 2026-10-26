@@ -1,6 +1,6 @@
 ---
 name: open-sprint
-description: "Use to plan and open the next sprint via the `shape` skill in sprint-file mode: architecture-aware, optional web research, possible domain switch — then pull tickets from the backlog onto the sprint board, branch, set Current sprint, record decisions. Also the entry point for a brand-new project (nothing to close). Hands off to dynamic-workflow. Invokable directly or via /open-sprint."
+description: "Use to plan and open the next sprint via the `shape` skill in sprint-file mode: architecture-aware, optional web research, possible domain switch — then pull tickets from the backlog onto the sprint board, branch, set Current sprint, record decisions. Also the entry point for a brand-new project (nothing to close). Hands off to the build workflows — by checkpoint, autopilot or threads. Invokable directly or via /open-sprint."
 ---
 
 # Open Sprint
@@ -42,7 +42,13 @@ Get the user's approval on plan **and** pulled scope before moving on.
 - **`AGENTS.md`** — set **Current sprint** to the new slug, the only living pointer here; goals live in the sprint file.
 - **Record what the planning settled** (if the project has `docs/decisions.md`) — per decision: a `##` section with the reasoning in `artefacts/{sprint}/sprint-decisions.md`, a one-liner in the sprint file's **Decisions** section, and one `accepted` line in `docs/decisions.md`, taking **`Next decision` from the top of that file and incrementing it**. Index lines stay rationale-free. Anything still open is a `decision` ticket on the board.
 
-Then invoke `checkpoint` and hand off **in a fresh chat** to `dynamic-workflow` (spec each ticket on the board) — or `minimal-workflow` for the small stuff; `spec-design` reads the ticket as its requirements basis.
+## 4. Continue — ask
+
+Each board ticket group runs `dynamic-workflow` (spec-worthy) or `minimal-workflow` (the small stuff), in board order, `Depends on` respected; `spec-design` reads the ticket as its requirements basis. Ask how:
+
+- **Checkpoint** (default) — invoke `checkpoint`, hand off **in a fresh chat** to the first workflow.
+- **Autopilot** — invoke `sprint-autopilot`; it plans every run up front and conducts them unattended.
+- **Threads** — only where `{home}/adapter/threads.md` exists and names a tool this session has. This chat stays the sprint's main session: per group, start a thread per that file with the pointer `Run {workflow} on {T-NNN, …} — the user works with you here. No checkpoint; your closing message starts with DONE or BLOCKED <reason>.` and give the user its link. On its verdict check the board line moved, then propose the next group.
 
 ## Handoff & boundaries
 

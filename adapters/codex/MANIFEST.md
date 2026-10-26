@@ -15,6 +15,7 @@ Binary: not on `PATH` — `%LOCALAPPDATA%\OpenAI\Codex\bin\<hash>\codex.exe` · 
 | Agents | `~/.codex/agents/{name}.toml` · keys `name`, `description`, `developer_instructions` · ID from `name` · convert: frontmatter to keys, Markdown body into a `'''` literal string, read and write UTF-8 explicitly, parse-check with `tomllib` | 0.155.0-alpha · 2026-09-27 · capture server shows every file as a `spawn_agent` role |
 | Dispatch | `spawn_agent`, `agent_type` · proof: the child's `~/.codex/sessions/**/rollout-*.jsonl` carries `agent_role` and the injected instructions | 0.155.0-alpha · 2026-09-27 · run |
 | Headless run | unknown | — |
+| Threads | unknown | — |
 | Memory lever | none — global memory is read on demand | 0.153.0 · 2026-09-04 · `debug prompt-input` |
 | Project memory | gap | 2026-09-27 · run |
 | MCP | `[mcp_servers.{name}]` in `config.toml` | 0.153.0 · 2026-09-04 · run |

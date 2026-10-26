@@ -85,7 +85,7 @@ Alphabetical within each section.
 
 | Skill | What it does |
 | --- | --- |
-| `open-sprint` | plans the next sprint, pulls tickets onto the board, opens the branch |
+| `open-sprint` | plans the next sprint, pulls tickets onto the board, opens the branch, then hands off by checkpoint, autopilot or threads |
 | `shape` | turns a fuzzy idea or brainstorm into concrete tickets |
 | `spec-design` | brainstorms a feature, picks its test strategy, writes the spec |
 | `ui-design` | look and feel: colors, typography, layout, styleguide, mockups |

@@ -36,12 +36,13 @@ Strongest evidence first; stop at the first that answers:
 
 ## 4. Derive the overlay
 
-Files sit at the exact paths they land on in `{home}`; `overlay/adapter/` holds the three folders `workspace-sync` step 3 defines. From the manifest:
+Files sit at the exact paths they land on in `{home}`; `overlay/adapter/` holds the folders and files `workspace-sync` step 3 defines. From the manifest:
 
 - **Instruction shim** `overlay/{global instruction file}` — only where that file isn't `AGENTS.md`: it imports `AGENTS.md` and, given an import lever, `~/.agents/memory/MEMORY.md`.
 - **`adapter/merge/`** — the home config's instructions list where that is the memory lever, and capability entries (MCP, plugins) in the harness's own shape.
 - **`adapter/project-merge/`** — the project config's MCP block and pre-approval, plus the domain-memory entry where the lever is a list.
 - **`adapter/project/`** — the project shim, where **Project → Instruction shim** says needed.
+- **`adapter/threads.md`** — where **Threads** names a session-start tool: how to start one, what reports back, the limits.
 - `gap` → no file; nothing invented to paper over it.
 - The workspace invariants are inputs, not probe results: shared content lives once in `~/.agents/`, harnesses are pointed at it, a non-native skills root is linked per folder, agents install flat in the manifest's format with frontmatter per the repo's `AGENTS.md`.
 
