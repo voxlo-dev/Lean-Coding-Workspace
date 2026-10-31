@@ -18,8 +18,8 @@ Binary: `opencode` · 1.18.23
 | Threads | unknown | — |
 | Memory lever | instructions list | 1.18.23 · 2026-09-27 · global memory in context |
 | Project memory | gap | 2026-09-27 · run |
-| MCP | `opencode.json` `mcp` — `{type: "local", command: [...]}` or `{type: "remote", url}` | 1.18.23 · 2026-09-04 · `mcp list` |
-| Plugins | `plugin` takes JS modules only — capabilities arrive through `mcp` | 1.18.23 · 2026-09-04 · schema |
+| MCP | `opencode.json` `mcp.servers` — `{type: "local", command: [...]}` or `{type: "remote", url}`, `disabled` to switch one off · flat `mcp.{name}` is deprecated | 1.18.29 · 2026-10-31 · schema, `mcp list` |
+| Plugins | `plugin` takes npm JS modules only, `{package}@{version}`, fetched on start into the cache's `packages/` — capabilities arrive through `mcp` | 1.18.29 · 2026-10-31 · schema, `debug config` |
 | Config reload | restart — `/new` is not enough | 1.18.23 · 2026-09-04 · run |
 | Custom provider | an `OPENCODE_CONFIG` overlay file | 1.18.23 · 2026-09-27 · run |
 
@@ -30,7 +30,7 @@ Binary: `opencode` · 1.18.23
 | Project config | `opencode.json` in the repo root · trust: unknown | — |
 | Skill roots | `.agents/skills/`, `.claude/skills/`, `.opencode/skills/`, cwd upwards · junctions resolve, listed under the link path · `skills.paths` adds a root without a link | 2026-09-17 · `debug skill`, string dump |
 | Agents | `.opencode/agent/*.md` | 2026-09-17 · string dump |
-| MCP | `opencode.json` `mcp` | 2026-09-17 · docs |
+| MCP | `opencode.json` `mcp.servers` | 2026-10-31 · schema |
 | Instruction shim | none — domain memory joins `instructions` via `adapter/project-merge/` | 2026-09-17 · docs |
 
 ## Verification levers
