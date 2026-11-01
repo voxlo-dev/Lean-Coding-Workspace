@@ -44,7 +44,7 @@ Get the user's approval on plan **and** pulled scope before moving on.
 
 ## 4. Continue — ask
 
-Each board ticket group runs `dynamic-workflow` (spec-worthy) or `minimal-workflow` (the small stuff), in board order, `Depends on` respected; `spec-design` reads the ticket as its requirements basis. Ask how:
+Each board ticket group runs `dynamic-workflow` (spec-worthy), `minimal-workflow` (the small stuff) or `cowork-workflow` (the user builds along), in board order, `Depends on` respected; `spec-design` reads the ticket as its requirements basis. Ask how:
 
 - **Checkpoint** (default) — invoke `checkpoint`, hand off **in a fresh chat** to the first workflow.
 - **Autopilot** — invoke `sprint-autopilot`; it plans every run up front and conducts them unattended.

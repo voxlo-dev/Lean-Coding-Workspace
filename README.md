@@ -94,6 +94,7 @@ Alphabetical within each section.
 
 | Skill | What it does |
 | --- | --- |
+| `cowork-workflow` | builds a change together with you: plan in the chat, then step by step, each one reviewed in the diff |
 | `dynamic-workflow` | takes a feature from approved spec to tested, documented code |
 | `e2e` | end-to-end tests that grow into a reusable script |
 | `minimal-workflow` | one small change or bugfix: a short interview and a plan in the chat, no spec |

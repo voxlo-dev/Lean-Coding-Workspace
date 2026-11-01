@@ -78,6 +78,7 @@ Invoke one when the user names it; the user can also run it as `/name` where sup
 | --- | --- |
 | minimal-workflow | one small, well-scoped change or bugfix, ≳20 LOC |
 | dynamic-workflow | feature work needing a spec — the default for real features |
+| cowork-workflow | the user wants to build it together, reviewing every step in the diff — no spec |
 | sprint-autopilot | a whole sprint run hands-off: plan up front with the user, then every run dispatched |
 | {bundle workflows} | {one row per workflow bundle in `~/.agents/BUNDLES.md`, written by `workspace-sync`} |
 | a bundle skill | an installed one (`~/.agents/BUNDLES.md`) fits the task better than any workflow here |
