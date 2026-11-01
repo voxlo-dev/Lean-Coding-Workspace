@@ -1,17 +1,17 @@
 ---
 name: project-init
-description: "Use to onboard a new or existing project: explore, detect the domain, scaffold the template, set up docs (re-homing any that came from an older or different workspace), install frameworks and the test framework, fix the gitignore, and commit."
+description: "Use to onboard a new or existing project: explore, detect the domain, scaffold the template, set up docs (re-homing any that came from an older or different workspace), settle code style and file format in a short interview and configure the formatter, install frameworks and the test framework, fix the gitignore, and commit."
 ---
 
 # Project Init
 
-Onboard a repo end-to-end. Owns the **initial** doc creation (it does the deep exploration); `maintain-docs` only updates them afterwards. Small projects need light docs — the user opts in per doc (step 4). **Act only once the user approves the plan (step 5).**
+Onboard a repo end-to-end. Owns the **initial** doc creation (it does the deep exploration); `maintain-docs` only updates them afterwards. Small projects need light docs — the user opts in per doc (step 4). **Act only once the user approves the plan (step 6).**
 
-**Already initialised, just on an older layout?** Then this is a **migration**: run steps 1–2, go straight to the docs migration in step 7, scaffold only what is genuinely missing.
+**Already initialised, just on an older layout?** Then this is a **migration**: run steps 1–2 (and 5 where no formatter is configured), go straight to the docs migration in step 8, scaffold only what is genuinely missing.
 
 1. **Explore & gather context** — existing code → **run `codegraph init -i` now**, required setup rather than optional exploration: index *before* any structural question, then query the graph instead of spawning Explore subagents. New / empty repo → skip it, and note that the user can run `codegraph init` once code exists.
 
-2. **Inventory what exists** — code, tests, docs, template files, an already-present domain bundle. This decides what to scaffold vs. merge; flag docs on a different or older layout for step 7. Another workspace framework's files (its own `CLAUDE.md` rules, `.specify/`, `openspec/`, `_bmad/` …) → name them in the plan as **not compatible** — never delete or rewrite them unasked; the tree must be committed first, so git is the backup.
+2. **Inventory what exists** — code, tests, docs, template files, an already-present domain bundle. This decides what to scaffold vs. merge; flag docs on a different or older layout for step 8. Another workspace framework's files (its own `CLAUDE.md` rules, `.specify/`, `openspec/`, `_bmad/` …) → name them in the plan as **not compatible** — never delete or rewrite them unasked; the tree must be committed first, so git is the backup.
 
 3. **Detect the domains** — **several may apply** (a frontend and a backend in one tree), and a project with none is valid. Per candidate, check `~/.agents/domains/{x}/`: a usable master contains skills plus a complete recipe, not only `Domain-Recipe.md`. Missing or incomplete → ask whether to run `domain-init` first.
 
@@ -26,9 +26,14 @@ Onboard a repo end-to-end. Owns the **initial** doc creation (it does the deep e
 
    `ASSETS.md` is created **only if** the project has (or will have) a frontend using assets — decide it from the inventory. Record all decisions: they gate scaffolding, the AGENTS.md doc map and `maintain-docs` later — a "no" means `maintain-docs` ignores that doc too.
 
-5. **Plan & pause** — present the plan (domain, scaffold vs. merge, optional docs, test framework), get feedback, proceed only after approval.
+5. **Code style & file format** — settled once, so no later diff fights over it.
+   - **Detect first**: the dominant line endings, indent (tabs/spaces, width), charset and final newline in the existing code; any `.editorconfig`, `.gitattributes`, formatter or linter config; naming, import order, error handling and comment density in a few representative files. New repo → each recipe's **Format** and **Conventions**.
+   - **Interview, small** — ≤4 questions, one at a time, multiple-choice, the detected or domain form as the recommended option. Ask only where code, configs and recipes leave it open or the code contradicts itself; an existing formatter config is an answer, not a question.
+   - Settles: file format, formatter (the recipe's, else the stack's standard), the conventions for `AGENTS.md` → **Code style**, and whether to reformat the existing tree.
 
-6. **Project the domains, install frameworks & test framework**
+6. **Plan & pause** — present the plan (domain, scaffold vs. merge, optional docs, code style & formatter, test framework), get feedback, proceed only after approval.
+
+7. **Project the domains, install frameworks & test framework**
 
    A master is **never copied whole** — that nests its skills a level too deep to be discovered. Each part goes onto the path the target already scans:
 
@@ -46,9 +51,10 @@ Onboard a repo end-to-end. Owns the **initial** doc creation (it does the deep e
    - **Record it in `AGENTS.md` → Domains**: one row per domain with its mode — master plus mode is the whole projection, so that table is all another machine needs to rebuild it.
    - **Seed the docs from each recipe's engineering section, then let go**: test and build knowledge into `docs/dev.md`, shipping rules into `docs/release.md` where the project publishes. Those docs are the authority from then on.
    - Install the project's frameworks and runtime packages, then the unit + UI test framework each recipe names.
+   - **File format & formatter** per step 5 — `.editorconfig` (charset, eol, indent, final newline, trailing whitespace; per-language sections where they differ) and `.gitattributes` (`* text=auto eol={lf|crlf}`, binaries `-text`), merged into existing ones; the formatter installed as a dev dependency with its config committed. A reformat or `git add --renormalize .` is **its own commit**, its hash in `.git-blame-ignore-revs`.
    - **Audit the git tree before anything is staged** — `git status`, and make `.gitignore` exclude installed packages (`node_modules/`, `.venv/`, `vendor/`), build output (`dist/`, `build/`, `target/`), logs, caches, local env files. Untrack anything already tracked (`git rm --cached`).
 
-7. **Scaffold docs** — copy all of `~/.agents/project_TEMPLATE/*` in one pass (`cp -rn`, no-clobber), then **delete the optional docs the user didn't choose**; copy-then-prune costs fewer tool calls than selective copying. `behaviour.md`, `decisions.md`, `architecture.md`, `dev.md` and `product/index.md` are filled in place — **each one you fill loses its `CONTRACT` comment**, keeping the pointer line to its template; an unfilled seed keeps it. **`backlog/backlog.md` always stays**, empty, with its `Next ticket` counter at `T-001`. **On-demand artifacts stay unscaffolded**: tickets (`shape/templates/TICKET_TEMPLATE.md`), the styleguide (step 11) and every run artifact under `artefacts/{sprint}/` are seeded from their own skill's `templates/` when first produced, so `backlog/` holds only its index while `docs/design/` and `artefacts/` start absent. Fill `AGENTS.md` (domain, outline, code style — single source) and **trim its Doc map to the docs that remain**.
+8. **Scaffold docs** — copy all of `~/.agents/project_TEMPLATE/*` in one pass (`cp -rn`, no-clobber), then **delete the optional docs the user didn't choose**; copy-then-prune costs fewer tool calls than selective copying. `behaviour.md`, `decisions.md`, `architecture.md`, `dev.md` and `product/index.md` are filled in place — **each one you fill loses its `CONTRACT` comment**, keeping the pointer line to its template; an unfilled seed keeps it. **`backlog/backlog.md` always stays**, empty, with its `Next ticket` counter at `T-001`. **On-demand artifacts stay unscaffolded**: tickets (`shape/templates/TICKET_TEMPLATE.md`), the styleguide (step 12) and every run artifact under `artefacts/{sprint}/` are seeded from their own skill's `templates/` when first produced, so `backlog/` holds only its index while `docs/design/` and `artefacts/` start absent. Fill `AGENTS.md` (domain, outline, code style per step 5 with the format command — single source) and **trim its Doc map to the docs that remain**.
 
    **Then install the instruction shim**, or on some targets none of the above is loaded: `cp -n {home}/adapter/project/. {repo}/` and fill what lands. It is what imports `AGENTS.md`, `CHECKPOINT.local.md` and (domain projects only) `DOMAIN-MEMORY.md`. **No `{home}/adapter/project/` means the target reads `AGENTS.md` itself and needs no shim** — but check whether it resolves imports at all, and where it doesn't, say plainly that domain memory and the checkpoint are manual rather than assuming they load.
 
@@ -69,14 +75,14 @@ Onboard a repo end-to-end. Owns the **initial** doc creation (it does the deep e
    - **Decisions split by settled vs open** — open ones become `decision` tickets; settled ones become numbered `accepted` index lines in `docs/decisions.md`, their reasoning collected in one `artefacts/pre-init/sprint-decisions.md` (standing in for the sprints the project never had). Leave both counters (`Next ticket`, `Next decision`) pointing past whatever you just wrote.
    - **`behaviour.md` is written, not moved.** Default: leave the seeded template, it fills as features ship. **Exception, the user's choice:** where substantial behaviour is buried in checked-off specs or a behaviour-like doc, offer a one-time distillation pass. This is the only place init writes durable behaviour content, and it exists to free truth trapped in frozen specs.
 
-8. **ASSETS.md** (only if step 4's frontend condition holds) — dispatch a subagent to explore the **asset tree and the references into it** (codegraph doesn't cover assets) and fill it per its scope rule — real assets only, each with where it is used.
+9. **ASSETS.md** (only if step 4's frontend condition holds) — dispatch a subagent to explore the **asset tree and the references into it** (codegraph doesn't cover assets) and fill it per its scope rule — real assets only, each with where it is used.
 
-9. **Architecture draft** (only if chosen) — a **draft skeleton, not a finished doc**: derive the section structure from the domain recipe and the macro picture (existing code → core files for the big picture only; new project → the intended shape). Mark the doc **`Status: draft`** and each subsystem **`planned`**, keeping the internals for `maintain-docs` to fill from real code as they get built. Architecture *decisions* belong to `open-sprint`'s planning; recommend it as the next step. Leave `behaviour.md` and `decisions.md` as seeded templates.
+10. **Architecture draft** (only if chosen) — a **draft skeleton, not a finished doc**: derive the section structure from the domain recipe and the macro picture (existing code → core files for the big picture only; new project → the intended shape). Mark the doc **`Status: draft`** and each subsystem **`planned`**, keeping the internals for `maintain-docs` to fill from real code as they get built. Architecture *decisions* belong to `open-sprint`'s planning; recommend it as the next step. Leave `behaviour.md` and `decisions.md` as seeded templates.
 
-10. **Product docs** (only if chosen) — fill `docs/product/index.md` and add the pages it lists, scaled to the project.
+11. **Product docs** (only if chosen) — fill `docs/product/index.md` and add the pages it lists, scaled to the project.
 
-11. **Styleguide** (only if chosen) — invoke `ui-design` at the styleguide level; it seeds and fills `docs/design/Styleguide.html`.
+12. **Styleguide** (only if chosen) — invoke `ui-design` at the styleguide level; it seeds and fills `docs/design/Styleguide.html`.
 
-12. **Commit** — `git init` first if the directory isn't a repo yet. (PR instead, if the repo uses that flow.)
+13. **Commit** — `git init` first if the directory isn't a repo yet. (PR instead, if the repo uses that flow.)
 
-13. **Checkpoint** — invoke `checkpoint`; `open-sprint` starts in a fresh chat.
+14. **Checkpoint** — invoke `checkpoint`; `open-sprint` starts in a fresh chat.

@@ -79,7 +79,7 @@ Alphabetical within each section.
 | --- | --- |
 | `dispatch-configurator` | records which agent tool and model each dispatched step runs on, per machine |
 | `domain-init` | builds a domain for one kind of work |
-| `project-init` | onboards a new or existing project: scaffold, docs, test framework, gitignore |
+| `project-init` | onboards a new or existing project: scaffold, docs, code style and formatter, test framework, gitignore |
 
 ### Plan
 
