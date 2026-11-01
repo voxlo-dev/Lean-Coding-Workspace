@@ -1,6 +1,6 @@
 ---
 name: minimal-workflow
-description: "Use for a single, small, well-scoped change — a minor feature or a bugfix that needs no spec: a short interview and a plan in the chat, then ship."
+description: "Use for a single, small, well-scoped change above ~20 LOC (below it, no workflow) — a minor feature or a bugfix that needs no spec: a short interview and a plan in the chat, then ship."
 ---
 
 # Minimal Workflow

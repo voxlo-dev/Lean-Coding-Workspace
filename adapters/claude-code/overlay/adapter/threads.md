@@ -7,7 +7,9 @@ Read by `open-sprint` step 4. Only the desktop app has the tool — absent from 
   `context: fresh` · `use_worktree: false` · `wake_when_done: true` · `title` · `prompt` = the
   pointer · `background` ≥80 chars: sprint, branch, tickets. Same host and folder as this session.
 - **Only a session the user drives starts one**; a thread cannot start another.
-- **Back here:** a note per thread turn, quoting its closing message's first 400 chars. A verdict
-  as its first word ends the thread; a note without one is the thread waiting on the user — ignore it.
-- **Follow-up:** `SendMessage` to the thread's `local_…` id. Link it to the user as `[title](#local_…)`.
+- **Back here:** a note per thread turn, quoting its closing message's first 400 chars. Act when
+  the thread's board line moved or the note asks this session something; any other note is the
+  thread working with the user — ignore it.
+- **Follow-up:** `SendMessage` to the thread's `local_…` id — answers, guidance, never a file. Link
+  it to the user as `[title](#local_…)`.
 - **One thread at a time** — they share this checkout and its branch.

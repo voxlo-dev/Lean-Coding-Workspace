@@ -22,6 +22,6 @@ At a phase boundary a context reset is cheap — the next phase reads other file
 
 Applied honestly the last block is often empty, the summary rarely. Nothing left at all → write nothing and say so; a handout restating files is pure cost.
 
-Finally, set the chat title where the selected harness exposes that capability; otherwise skip it. Then tell the user to continue in a **new chat**; the handout only pays off if the context resets.
+Finally, set the chat title per `{home}/adapter/chat-title.md` where it exists. Then tell the user to continue in a **new chat**; the handout only pays off if the context resets.
 
 **Reading it:** act on it, strike what got settled, and delete the file only once nothing is left — important points ride along until sprint end, where `close-sprint` deletes it regardless.
