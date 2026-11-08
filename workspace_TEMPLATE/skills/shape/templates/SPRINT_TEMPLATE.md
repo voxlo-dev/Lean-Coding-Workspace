@@ -43,7 +43,7 @@ touch, and what shall change. `spec-design` grounds here instead of the full rul
 
 | # | Tickets | Workflow | Strategy | Mode | Status |
 | --- | --- | --- | --- | --- | --- |
-| {n} | {`T-NNN`, …} | {dynamic-workflow · minimal-workflow · {bundle workflow} · manual} | {preset · e2e yes/no · delegation — or —} | {auto · review} | {pending} |
+| {n} | {`T-NNN`, …} | {dynamic-workflow · minimal-workflow · {bundle workflow} · manual} | {preset · e2e no/automation/agent · delegation — or —} | {auto · review} | {pending} |
 
 ---
 

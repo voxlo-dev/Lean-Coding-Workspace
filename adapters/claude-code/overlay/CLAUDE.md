@@ -8,5 +8,4 @@ exists only because Claude Code loads `CLAUDE.md` and resolves `@` imports.
 
 ## Claude-Code-specific overrides
 
-{only what is specific to Claude Code across all projects — hooks, permissions, MCP notes.
-Leave empty if there is nothing.}
+**Plan approval:** before any plan-approval prompt, explain the plan in a visible message — what changes, where, why, in which order. A bare "implement this plan?" without that context is never enough.

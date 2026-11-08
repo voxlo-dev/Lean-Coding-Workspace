@@ -1,11 +1,11 @@
 ---
 name: e2e
-description: "Optional e2e stage of dynamic-workflow: validate a UI feature end-to-end. Runs existing automation, else grows a driver script step by step — agentic driving only for steps a script can't do. Consumes the e2e test-case file spec-design produced."
+description: "Optional e2e stage of dynamic-workflow: validate a UI feature end-to-end. Runs existing automation, else grows a driver script step by step — agentic driving only for steps a script can't do, or for the whole case under the spec's `agent` mode. Consumes the e2e test-case file spec-design produced."
 ---
 
 # E2E
 
-Validate a UI feature end-to-end as cheaply as possible: **the script is the tester, the agent is the exception.** Input is the test case `spec-design` wrote (`artefacts/{sprint}/e2e_{feature}.md`) — missing → ask the user (write one now / skip e2e / verify manually).
+Validate a UI feature end-to-end as cheaply as possible: **the script is the tester, the agent is the exception.** Input is the test case `spec-design` wrote (`artefacts/{sprint}/e2e_{feature}.md`) — missing → ask the user (write one now / skip e2e / verify manually). The spec's e2e mode `agent` → no flow gets built, the agent tests the feature directly: only steps 5, 6, 8 run, every case step an agent step, screenshots by the agent; `automation` or a run without a spec → all steps.
 
 **Never end a turn on a run you didn't watch.** Foreground every build, test and driver invocation and wait it out; where a tool forces the background, poll to exit and read the output before reporting — a pending run handed back is a verdict nobody saw.
 

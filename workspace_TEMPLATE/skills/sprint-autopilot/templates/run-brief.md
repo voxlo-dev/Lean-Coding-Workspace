@@ -6,7 +6,7 @@ The dispatch brief for one pipeline run (template:
 
 - **Working directory:** {absolute repo path} · branch `{sprint-slug}`
 - **Invoke:** `{workflow}` on {`T-NNN`, …}
-- **Pipeline row:** `artefacts/{sprint}/sprint.md` → Pipeline row {n} · mode {auto | review} · strategy {preset · e2e yes/no · delegation | —}
+- **Pipeline row:** `artefacts/{sprint}/sprint.md` → Pipeline row {n} · mode {auto | review} · strategy {preset · e2e no/automation/agent · delegation | —}
 - **Inputs:** {ticket paths · mockup paths · `artefacts/{sprint}/sprint-decisions.md`}
 - **Constraints:** {standing constraints from the user that no file states — else none}
 

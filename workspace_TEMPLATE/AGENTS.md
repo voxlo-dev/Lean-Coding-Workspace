@@ -26,7 +26,7 @@ Assume the user is capable but terse — they type slower than you read.
 
 **Code style:**
 
-- **Comments sit one level above the code** — what a thing is for and why it exists, as terse as that allows; never a line-by-line walk-through, usage examples or sample values. Over ~5 lines → `docs/` (usually `dev.md`), plus a one-line pointer. **Code you change brings its comments along** in the same edit — no maintenance step sweeps for comment drift.
+- **Comments sit one level above the code** — one per function, evenly across a file: what it is for and why it exists, as terse as that allows; a small insert gets none of its own; never a line-by-line walk-through, usage examples or sample values. Over ~5 lines → `docs/` (usually `dev.md`), plus a one-line pointer. **Code you change brings its comments along** in the same edit — no maintenance step sweeps for comment drift.
 - **Write only what gets read again** — before any comment, doc section or artifact note: will anyone read it · is it relevant beyond the user · will it still be true in a month. Any "no" → the chat, not a file.
 - **Present state only** — docs and comments describe what *is*: no "no longer", "used to", removal notes or record of what was tried. Exceptions: `docs/decisions.md` (`superseded by`) and `artefacts/`.
 - **Abstraction over minimal-diff** — a feature resembling existing code gets **one shared abstraction representing both**, refactored into that shape rather than bolted on beside it. YAGNI: abstract over *real* duplication only.

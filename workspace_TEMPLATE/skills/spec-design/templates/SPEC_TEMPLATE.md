@@ -43,7 +43,7 @@ it extended or added, and name what this feature changes on them; never inline.}
 
 Decided by `spec-design`; the pipeline follows it without re-deciding.
 
-- **Testing:** {none | smoke | core | light-tdd | strict-tdd} · **e2e:** {yes | no}
+- **Testing:** {none | smoke | core | light-tdd | strict-tdd} · **e2e:** {no | automation | agent}
 - **Test scope:** {which modules / components the tests must cover — not concrete tests}
 - **Smoke script:** {if smoke — path of the committed smoke script the package writes & the happy path it covers, e.g. `test/smoke/{feature}.*`; else —}
 - **Delegation:** {inline | delegated}
