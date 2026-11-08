@@ -28,7 +28,7 @@ Delete the section for a project with none.}
 
 ### Code style
 
-{conventions — default to those of the domains above}
+{format: `{command}` — run on the changed files before every commit · conventions from `project-init`'s interview, defaulting to those of the domains above}
 
 ## Workflow settings
 

@@ -79,7 +79,7 @@ Alphabetical within each section.
 | --- | --- |
 | `dispatch-configurator` | records which agent tool and model each dispatched step runs on, per machine |
 | `domain-init` | builds a domain for one kind of work |
-| `project-init` | onboards a new or existing project: scaffold, docs, test framework, gitignore |
+| `project-init` | onboards a new or existing project: scaffold, docs, code style and formatter, test framework, gitignore |
 
 ### Plan
 
@@ -94,6 +94,7 @@ Alphabetical within each section.
 
 | Skill | What it does |
 | --- | --- |
+| `cowork-workflow` | builds a change together with you: plan in the chat, then step by step, each one reviewed in the diff |
 | `dynamic-workflow` | takes a feature from approved spec to tested, documented code |
 | `e2e` | end-to-end tests that grow into a reusable script |
 | `minimal-workflow` | one small change or bugfix: a short interview and a plan in the chat, no spec |

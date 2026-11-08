@@ -38,17 +38,17 @@ Get the user's approval on plan **and** pulled scope before moving on.
 
 ## 3. Open the branch & update living context
 
-- **New sprint branch** `<sprint-slug>` (one branch per sprint). Ask for the slug if unclear.
+- **New sprint branch** `<sprint-slug>` (one branch per sprint). Ask for the slug if unclear. Title the chat `{sprint-slug}` per `{home}/adapter/chat-title.md` where it exists.
 - **`AGENTS.md`** — set **Current sprint** to the new slug, the only living pointer here; goals live in the sprint file.
 - **Record what the planning settled** (if the project has `docs/decisions.md`) — per decision: a `##` section with the reasoning in `artefacts/{sprint}/sprint-decisions.md`, a one-liner in the sprint file's **Decisions** section, and one `accepted` line in `docs/decisions.md`, taking **`Next decision` from the top of that file and incrementing it**. Index lines stay rationale-free. Anything still open is a `decision` ticket on the board.
 
 ## 4. Continue — ask
 
-Each board ticket group runs `dynamic-workflow` (spec-worthy) or `minimal-workflow` (the small stuff), in board order, `Depends on` respected; `spec-design` reads the ticket as its requirements basis. Ask how:
+Each board ticket group runs `dynamic-workflow` (spec-worthy), `minimal-workflow` (the small stuff) or `cowork-workflow` (the user builds along), in board order, `Depends on` respected; `spec-design` reads the ticket as its requirements basis. Ask how:
 
 - **Checkpoint** (default) — invoke `checkpoint`, hand off **in a fresh chat** to the first workflow.
 - **Autopilot** — invoke `sprint-autopilot`; it plans every run up front and conducts them unattended.
-- **Threads** — only where `{home}/adapter/threads.md` exists and names a tool this session has. This chat stays the sprint's main session: per group, start a thread per that file with the pointer `Run {workflow} on {T-NNN, …} — the user works with you here. No checkpoint; your closing message starts with DONE or BLOCKED <reason>.` and give the user its link. On its verdict check the board line moved, then propose the next group.
+- **Threads** — only where `{home}/adapter/threads.md` exists and names a tool this session has. This chat stays the sprint's main session: per group, start a thread per that file with the pointer `Run {workflow} on {T-NNN, …} — the user works with you here. No checkpoint.` and give the user its link. The two sessions talk only through that file's tools — no verdict words, no report files. Its board line moved → propose the next group.
 
 ## Handoff & boundaries
 

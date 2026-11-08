@@ -1,6 +1,6 @@
 ---
 name: dynamic-workflow
-description: "Use for feature work or any change that warrants a spec. spec-design picks a testing preset (none · smoke · core · light-tdd · strict-tdd) and a delegation mode once; this pipeline then executes them in a fixed order — implement, green suite, optional e2e, docs, memory, board. From ≥3 packages it delegates work to sequential subagents to keep context clean. Trivial one-liners use minimal-workflow."
+description: "Use for feature work or any change that warrants a spec. spec-design picks a testing preset (none · smoke · core · light-tdd · strict-tdd) and a delegation mode once; this pipeline then executes them in a fixed order — implement, green suite, optional e2e, docs, memory, board. From ≥3 packages it delegates work to sequential subagents to keep context clean. Simple changes (≲150 LOC) use minimal-workflow."
 ---
 
 # Dynamic Workflow
@@ -20,9 +20,9 @@ description: "Use for feature work or any change that warrants a spec. spec-desi
 7. **Board** — flip **every ticket the spec implemented** to `to test` (straight to `done` if the e2e step already verified it). A ticket whose packages aren't all done keeps its status. Flip the word, leave every other file alone. Something worth doing but out of scope → capture it as a ticket in `backlog/`.
 8. **Checkpoint** — invoke `checkpoint`, then continue in a fresh chat.
 
-**Weigh every dispatch right before it fires.** A subagent costs a context spin-up plus a handoff, so it pays only where the work is token-hungry, self-contained, or would flood the orchestrator's context; below that bar it runs in the main thread even under `delegated` — a per-run docs pass, a small fix after e2e, a one-file change. Holds for a dispatch a nested skill triggers (`e2e`) too.
+**Weigh every dispatch right before it fires.** A subagent costs a context spin-up plus a handoff, so it pays only where the work is token-hungry, self-contained, or would flood the orchestrator's context; below that bar it runs in the main thread even under `delegated` — a per-run docs pass, a small fix after e2e, a one-file change, a package ≲50 LOC. Holds for a dispatch a nested skill triggers (`e2e`) too.
 
-**Never wait blind on a dispatch.** While a subagent runs, wake every **30 min**; while a background process runs (an out-of-process dispatch, a long build), every **15 min** — the harness's wakeup or timer, else a poll — so a lost completion notice can't freeze the run. A package worker past the handoff's **escalation limits** without a `limit` report gets stopped and decided per the loop's step 3.
+**Never wait blind on a dispatch.** While a subagent runs, wake every **30 min**; while a background process runs (an out-of-process dispatch, a long build), every **15 min** — the harness's wakeup or timer, else a poll — so a lost completion notice can't freeze the run. A `package-worker` past its **escalation limits** without a `limit` report gets stopped and decided per the loop's step 3.
 
 **Stuck? Escalate.** On a technical problem, pause and ask the user after ~5 solution attempts (an attempt = a new approach via a tool call).
 
@@ -40,13 +40,13 @@ Red between packages is expected; step 3's green gate closes it.
 
 Used when the spec's delegation is **delegated**. The point is **context management**: over many packages an inline thread fills with read files and loses the spec across compactions. The caller stays a pure **coordinator** — its context holds only the spec, the package list and the reports; every read/write/test happens in fresh subagents, discarded after each package.
 
-**Models:** orchestrator and `spec-design` on the **top** class, implementer, e2e and docs on **mid** — classes per the global **Subagent model** rule (e2e can be a browser agent). Under **dispatch mode** the work instead leaves the harness: `~/.agents/DISPATCH-GUIDE.md` — opened only once that mode is chosen, never to decide it — holds the launch command, the model per role and the rules — same handoff, same report, another process. A role the guide does not cover runs inline as above.
+**Models:** orchestrator and `spec-design` on the **top** class, implementer, e2e and docs on **mid** — classes per the global **Subagent model** rule (e2e can be a browser agent). Under **dispatch mode** the work instead leaves the harness: `~/.agents/DISPATCH-GUIDE.md` — opened only once that mode is chosen, never to decide it — holds the launch command, the model per role and the rules — same handoff, same report, another process, launched as agent `package-worker`. A role the guide does not cover runs inline as above.
 
 **The loop — one package at a time, sequentially:**
 
-1. **Handoff** — fill `templates/handoff.md`: a pointer to the spec's package plus only what the reports added since — never a restated spec line, never from reading the code; the standing rules ride in the template. Dispatch one implementer subagent — **in-harness the handoff is the prompt, never a file**. With `light-tdd` the contract package gets its own subagent — that separation is what makes the tests independent; carry its failing-test list into every later handoff, and never widen an implementer's brief to the tests.
+1. **Handoff** — fill `templates/handoff.md`: a pointer to the spec's package plus only what the reports added since — never a restated spec line, never from reading the code; the standing rules ride in the agent. Dispatch one **`package-worker` agent** — **in-harness the handoff is the prompt, never a file**. With `light-tdd` the contract package gets its own worker — that separation is what makes the tests independent; carry its failing-test list into every later handoff, and never widen an implementer's brief to the tests.
 2. **Report** — the subagent implements, checks its acceptance criteria, commits, and returns a short report (what it did, criteria met, test state, concerns). You read the **report, not the diff** — under dispatch mode from the file the handoff named, the loop otherwise unchanged.
-3. **Advance or decide** — criteria met → mark the package done, next package. A **blocked** or **limit** report is yours to resolve, never the subagent's: let it continue (resume the same agent where the harness can, else re-dispatch with its report as context), re-dispatch with a narrowed brief, capture it as a ticket, or escalate to the user — but do not take the implementation over yourself.
+3. **Advance or decide** — criteria met → mark the package done, next package. An **advice** report is the worker consulting you as its advisor: answer from the spec and the reports — never by reading the code — and resume the same agent with it where the harness can, else re-dispatch with question and answer; beyond you → the user. A **blocked** or **limit** report is yours to resolve, never the subagent's: let it continue (resume the same agent where the harness can, else re-dispatch with its report as context), re-dispatch with a narrowed brief, capture it as a ticket, or escalate to the user — but do not take the implementation over yourself.
 
 Repeat until every package is done, then the green gate (step 3) delegated the same way, so the orchestrator never loads its context either; docs stay inline per step 5.
 

@@ -21,6 +21,7 @@ Binary: {how it resolves} · {version}
 | Dispatch | {tool} · proof: {the child's own record} | |
 | Headless run | {one-shot command} · session id: {launch flag · gap} · resume: {command · gap} | |
 | Threads | {session-start tool a user-driven session has, and where it exists · gap} | |
+| Chat title | {tool that titles the current chat, and where it exists · gap} | |
 | Memory lever | {import · instructions list · none} | |
 | Project memory | {native path · gap} | |
 | MCP | {config file and entry shape} | |

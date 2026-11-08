@@ -51,5 +51,5 @@ Vendor everything **into the master's folder** so it is self-contained, keeping 
 ## 4. Verify
 
 - `mcp.json` parses; every `SKILL.md` has valid frontmatter; no agent file carries `model:` or `tools:`; skill folder names are unique enough to share a root with another domain's.
-- The engineering seed is complete — test-framework install command, version carriers, audit, build, publication — or absent as a whole; a half-filled one seeds a wrong runbook.
+- The engineering seed is complete — formatter, test-framework install command, version carriers, audit, build, publication — or absent as a whole; a half-filled one seeds a wrong runbook.
 - **Activation is not checkable here** — the master is inert by design, and `project-init` is where it first loads.

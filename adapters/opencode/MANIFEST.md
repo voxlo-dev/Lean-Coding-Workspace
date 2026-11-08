@@ -16,6 +16,7 @@ Binary: `opencode` · 1.18.23
 | Dispatch | `task` tool · proof: `opencode export <session>` names the child's `agent` | 1.18.23 · 2026-09-27 · run |
 | Headless run | `opencode run` · session id: unknown · resume: `opencode run --session <id>`, unprobed | 1.18.29 · 2026-09 · dispatch guide |
 | Threads | unknown | — |
+| Chat title | unknown | — |
 | Memory lever | instructions list | 1.18.23 · 2026-09-27 · global memory in context |
 | Project memory | gap | 2026-09-27 · run |
 | MCP | `opencode.json` `mcp.servers` — `{type: "local", command: [...]}` or `{type: "remote", url}`, `disabled` to switch one off · flat `mcp.{name}` is deprecated | 1.18.29 · 2026-10-31 · schema, `mcp list` |

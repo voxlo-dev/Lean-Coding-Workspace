@@ -68,18 +68,20 @@ A **settled decision** is written in one move: its reasoning as a section in `ar
 
 Invoke one when the user names it; the user can also run it as `/name` where supported. Pick by each skill's own description. Installing or repairing the workspace is `INSTALL.md` and `workspace-sync` in the workspace repo, started by the user alone — never copy the template over a live workspace by hand. An initialised project on an older layout is `project-init`'s docs migration, with the user.
 
-**The workflow gate applies only to software development** — building or changing code. Non-dev work (writing, research, questions, one-off shell tasks) skips it: act directly, rules relaxed to fit. For development it is **mandatory**.
+**The workflow gate applies only to software development** — building or changing code. Non-dev work (writing, research, questions, one-off shell tasks) and a code change ≲20 LOC skip it: act directly, rules relaxed to fit — no `minimal-workflow`. For any other development it is **mandatory**.
 
 **Checkpoint first.** `CHECKPOINT.local.md` (project root, written by `checkpoint`) is the previous chat's handout, already in context via the project's instruction file: act on it, strike what got settled, **delete the file** once nothing is left.
 
-**Named a concrete workflow or skill? Use it directly.** Otherwise, at the start of a new chat: consult the loaded memory, then **ask which workflow to use**, recommending one inferred from the prompt — plus any installed bundle skill (`~/.agents/BUNDLES.md`) that fits the task. Do not start before the user chooses.
+**Named a concrete workflow or skill? Use it directly.** Otherwise, at the start of a new chat: consult the loaded memory, then **ask which workflow to use**, recommending one inferred from the prompt. Do not start before the user chooses.
 
 | Pick | When |
 | --- | --- |
-| minimal-workflow | one small, well-scoped change or bugfix |
+| minimal-workflow | one small, well-scoped change or bugfix, ≳20 LOC |
 | dynamic-workflow | feature work needing a spec — the default for real features |
+| cowork-workflow | the user wants to build it together, reviewing every step in the diff — no spec |
 | sprint-autopilot | a whole sprint run hands-off: plan up front with the user, then every run dispatched |
 | {bundle workflows} | {one row per workflow bundle in `~/.agents/BUNDLES.md`, written by `workspace-sync`} |
+| a bundle skill | an installed one (`~/.agents/BUNDLES.md`) fits the task better than any workflow here |
 | no workflow | none of these; relax the rules and work freely |
 | shape | **first**, whenever a fuzzy idea, draft or brainstorm transcript has to become concrete work |
 | close-sprint → open-sprint | at a sprint boundary, in that order |
