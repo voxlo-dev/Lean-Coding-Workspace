@@ -47,6 +47,7 @@ Vendor everything **into the master's folder** so it is self-contained, keeping 
    Keep the recipe's folder names — `project-init` projects several domains into one root.
 2. **MCP servers** — one entry each in `mcp.json`, and install the package it needs. `project-init` translates that neutral shape per target and owns approval.
 3. **Agents** — `agents/{name}.md`, flat, no `model:` or `tools:`.
+4. **Register** — add `{x}` to **Available masters** in every installed `{home}/AGENTS.md`, comma-separated, replacing the `{}` placeholder.
 
 ## 4. Verify
 
