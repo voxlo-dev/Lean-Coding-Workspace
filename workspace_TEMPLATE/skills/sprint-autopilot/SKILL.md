@@ -13,7 +13,7 @@ A conductor above the sprint. **Plan** talks with the user and front-loads every
 
 Read `AGENTS.md` → **Current sprint**, then its sprint file.
 
-- No active sprint, or one without a **Pipeline** section → **Plan** (an opened sprint resumes at step 3).
+- No active sprint, or one whose **Pipeline** has no Mode yet → **Plan** (an opened sprint resumes at step 3).
 - Pipeline approved → **Conduct** at its first row not `done`.
 
 ## Plan — inline, with the user
@@ -21,8 +21,8 @@ Read `AGENTS.md` → **Current sprint**, then its sprint file.
 1. **Open the sprint** — run `open-sprint` (and with it `shape`), minus its step 4: this skill continues.
 2. **Settle everything up front** — no run may need the user for what could be asked now. Per pulled ticket, walk what `spec-design` would ask — scope in/out, success criteria, the approach where a real choice exists, constraints — and write the answers into the ticket. Every open decision on the board gets settled now (`sprint-decisions.md` + `docs/decisions.md`, per `open-sprint` step 3); one that cannot be stays a `decision` ticket, and the rows depending on it wait behind it.
 3. **Design the sprint's UI in one pass** — invoke `ui-design`: the styleguide if missing, then every UI ticket worked into the area mockups it touches, all in one review. Link those mockups in each ticket's **Links**; runs build against it and design nothing new.
-4. **Write the pipeline** — the sprint file's **Pipeline** section (`shape`'s `SPRINT_TEMPLATE.md`): rows in run order, `Depends on` respected.
-   - **Workflow** per row: `dynamic-workflow` for spec-worthy work · `minimal-workflow` for small, well-scoped changes · an installed bundle workflow where it fits better · `manual` for what the user does or verifies by hand, `cowork-workflow` work included — never dispatched.
+4. **Refine the pipeline** — `open-sprint`'s rough **Pipeline** (`shape`'s `SPRINT_TEMPLATE.md`), rows in run order, `Depends on` respected.
+   - **Workflow** per row as planned; `manual` for what the user does or verifies by hand, `cowork-workflow` rows included — never dispatched.
    - **Fill each row** — every dispatch pays a cold start, so related tickets share one, aiming at a size in ticket effort (S = 1 · M = 2 · L = 4): **minimal row ~L**, **dynamic row ~XL = 8** (2 L · 4 M · 8 S).
    - **Strategy** per dynamic row: testing preset, e2e no/automation/agent, delegation — decided as `spec-design` steps 3–4 would, here once for the whole sprint.
    - **Mode**: `auto` — the run writes a lean spec nobody reviews · `review` — the run stops at its spec for the user. Default `auto`, `review` where the user wants to see the *how*.

@@ -35,15 +35,16 @@ touch, and what shall change. `spec-design` grounds here instead of the full rul
 {one line per decision this sprint settled, each linking its section in `sprint-decisions.md`
 — or `none yet`. Anything still open stays a `decision` ticket on the board.}
 
-## Pipeline *(optional)*
+## Pipeline
 
-<!-- Only under `sprint-autopilot`, which writes it and gets it approved; drop otherwise.
-     Rows in run order; Status is the one cell that moves:
+<!-- The workflow plan, rows in run order. `open-sprint` writes it rough — Tickets and Workflow,
+     the rest `—`; `sprint-autopilot` refines it and fills Strategy, Mode and Status.
+     Status is the one cell that moves, and only under the autopilot:
      pending · running {session} · done · blocked · manual (never dispatched). -->
 
 | # | Tickets | Workflow | Strategy | Mode | Status |
 | --- | --- | --- | --- | --- | --- |
-| {n} | {`T-NNN`, …} | {dynamic-workflow · minimal-workflow · {bundle workflow} · manual} | {preset · e2e no/automation/agent · delegation — or —} | {auto · review} | {pending} |
+| {n} | {`T-NNN`, …} | {dynamic-workflow · minimal-workflow · cowork-workflow · {bundle workflow} · manual} | {preset · e2e no/automation/agent · delegation — or —} | {auto · review — or —} | {pending — or —} |
 
 ---
 

@@ -1,6 +1,6 @@
 ---
 name: open-sprint
-description: "Use to plan and open the next sprint via the `shape` skill in sprint-file mode: architecture-aware, optional web research, possible domain switch — then pull tickets from the backlog onto the sprint board, branch, set Current sprint, record decisions. Also the entry point for a brand-new project (nothing to close). Hands off to the build workflows — by checkpoint, autopilot or threads. Invokable directly or via /open-sprint."
+description: "Use to plan and open the next sprint via the `shape` skill in sprint-file mode: architecture-aware, optional web research, possible domain switch — then pull tickets from the backlog onto the sprint board with a rough workflow plan, branch, set Current sprint, record decisions. Also the entry point for a brand-new project (nothing to close). Hands off to the build workflows — by checkpoint, autopilot or threads. Invokable directly or via /open-sprint."
 ---
 
 # Open Sprint
@@ -33,8 +33,9 @@ The sprint scope **is** the board — one list, nowhere else.
 - Take from `backlog.md` **Backlog** (a Draft first needs refining to effort S–L) plus whatever `shape` just cut, and move those lines onto the sprint board at status `open`. Delete them from `backlog.md` — a ticket is indexed in exactly one place — leaving its `Next ticket` counter alone; numbers only go up. **The ticket files stay in `backlog/`** and the board links them.
 - **Respect `Depends on`** — pull a ticket only with its dependencies.
 - Size it against the sprint's theme rather than ambition. Anything not pulled stays in the backlog; that's the point of having one.
+- **Rough workflow plan** — the sprint file's **Pipeline**, whatever the handoff: ticket groups in run order, `Depends on` respected, one workflow each — `dynamic-workflow` (spec-worthy), `minimal-workflow` (the small stuff), `cowork-workflow` (the user builds along) or an installed bundle workflow where it fits better. Strategy, Mode and Status stay `—`.
 
-Get the user's approval on plan **and** pulled scope before moving on.
+Get the user's approval on plan, pulled scope **and** workflow plan before moving on.
 
 ## 3. Open the branch & update living context
 
@@ -44,13 +45,13 @@ Get the user's approval on plan **and** pulled scope before moving on.
 
 ## 4. Continue — ask
 
-Each board ticket group runs `dynamic-workflow` (spec-worthy), `minimal-workflow` (the small stuff) or `cowork-workflow` (the user builds along), in board order, `Depends on` respected; `spec-design` reads the ticket as its requirements basis. Ask how:
+The Pipeline rows run in order, each its workflow; `spec-design` reads the ticket as its requirements basis. Next row = the first with a ticket still `open`. Ask how:
 
-- **Checkpoint** (default) — invoke `checkpoint`, hand off **in a fresh chat** to the first workflow.
-- **Autopilot** — invoke `sprint-autopilot`; it plans every run up front and conducts them unattended.
-- **Threads** — only where `{home}/adapter/threads.md` exists and names a tool this session has. This chat stays the sprint's main session: per group, start a thread per that file with the pointer `Run {workflow} on {T-NNN, …} — the user works with you here. No checkpoint.` and give the user its link. The two sessions talk only through that file's tools — no verdict words, no report files. Its board line moved → propose the next group.
+- **Checkpoint** (default) — invoke `checkpoint`, hand off **in a fresh chat** to the first row.
+- **Autopilot** — invoke `sprint-autopilot`; it refines the plan, settles every run up front and conducts them unattended.
+- **Threads** — only where `{home}/adapter/threads.md` exists and names a tool this session has. This chat stays the sprint's main session: per row, start a thread per that file with the pointer `Run {workflow} on {T-NNN, …} — the user works with you here. No checkpoint.` and give the user its link. The two sessions talk only through that file's tools — no verdict words, no report files. Its board lines moved → propose the next row.
 
 ## Handoff & boundaries
 
-- Produces: the sprint file with its board (via `shape`), the tickets in `backlog/`, `sprint-decisions.md` plus its index lines in `docs/decisions.md`, the branch, the `Current sprint` update.
+- Produces: the sprint file with its board (via `shape`) and workflow plan, the tickets in `backlog/`, `sprint-decisions.md` plus its index lines in `docs/decisions.md`, the branch, the `Current sprint` update.
 - The architecture/behaviour docs, specs and product code belong to `maintain-docs`, `spec-design` and the build workflows; `maintain-memory` runs at the workflows' memory step.
