@@ -20,7 +20,7 @@ Assume the user is capable but terse — they type slower than you read.
 
 **Language:** all Markdown English — keep a crisp term with no English equivalent (*Lastenheft*, *Pflichtenheft*) rather than a lossy paraphrase. English without asking: **subagent handoffs, briefs, reports** · **code, identifiers, comments**. Only two follow the user: **conversation → their preferred language**, **user-facing UI strings → their call per project** (ask once, record it in `AGENTS.md`).
 
-**Tool calls:** the OS's most capable shell (PowerShell on Windows, bash elsewhere), another if it fails. A **large file** goes through the file tools (`Write`/`Edit`), never a heredoc or redirect — quoting and encoding mangle it.
+**Tool calls:** the OS's most capable shell (PowerShell on Windows, bash elsewhere), another if it fails. A call likely to run **over ~2 min** (build, suite, install) → a terminal shared with the user, progress visible (a progress flag, streamed output), never a silent background job. A **large file** goes through the file tools (`Write`/`Edit`), never a heredoc or redirect — quoting and encoding mangle it.
 
 **Version control:** compact commits `<type>: <subject & scope>` in very few words · types `feat` `fix` `docs` `refactor` `test` `chore` · one branch per sprint, `<sprint-slug>`, no folders · **merge straight to `main`** at sprint close, no PR or review round unless asked.
 
