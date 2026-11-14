@@ -32,7 +32,8 @@ project doc layouts ([details](INSTALL.md#compatibility)). **Read [SECURITY.md](
 - **A curated toolkit, not a zoo.** Two helpers, picked for the job: [codegraph](https://github.com/colbymchenry/codegraph)
   answers "how does this work" from a code graph instead of reading half the repo, and
   [context7](https://github.com/upstash/context7) brings current library docs instead of stale recall.
-- **Your workflow, your choice.** Use the built-in workflows, or add others from a curated
+- **Your workflow, your choice.** A quick fix, a specced feature, a change built together step by
+  step in the diff, or a whole sprint on autopilot — use the built-in workflows, or add others from a curated
   [skill catalog](.agents/skills/workspace-sync/references/bundles.md) — superpowers, OpenSpec,
   BMAD and more install straight into the workspace. Every skill is yours to change.
 - **Agile, the way you know it from work.** Backlog, sprints, a board, reviews and releases — the
@@ -56,7 +57,7 @@ project doc layouts ([details](INSTALL.md#compatibility)). **Read [SECURITY.md](
 <p align="center">
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="assets/session-flow-dark.svg">
-    <img src="assets/session-flow.svg" alt="Install once per machine and run /project-init once per project. Then sprints repeat: /open-sprint plans tickets and opens a branch; every new chat picks a workflow; /minimal-workflow handles small fixes, /dynamic-workflow takes a feature from an approved spec to tested, documented code; until the sprint scope is done the next run starts in a fresh chat, then /close-sprint updates the docs and merges. When a few sprints make a version, /release ships it, production only after you accept the risks." width="880">
+    <img src="assets/session-flow.svg" alt="Install once per machine and run /project-init once per project. Then sprints repeat: /open-sprint puts tickets on the board with a rough workflow plan and opens a branch, then hands off to the next chat or to /sprint-autopilot; every new chat picks a workflow: /minimal-workflow for small fixes, /cowork-workflow to build a change together step by step, /dynamic-workflow to take a feature from an approved spec to tested, documented code; until the sprint scope is done the next run starts in a fresh chat, then /close-sprint updates the docs and merges. When a few sprints make a version, /release ships it, production only after you accept the risks." width="880">
   </picture>
 </p>
 
@@ -65,7 +66,7 @@ project doc layouts ([details](INSTALL.md#compatibility)). **Read [SECURITY.md](
 <p align="center">
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="assets/skills-and-docs-dark.svg">
-    <img src="assets/skills-and-docs.svg" alt="A ticket's journey from idea through Draft and Backlog onto the sprint board (open, active, to test, done), until its outcome moves into the docs and the file is deleted. Below, the four places everything lives: open work in backlog/, the sprint folder, the lasting docs in docs/, and memory, each file labelled with the skill that writes it." width="1000">
+    <img src="assets/skills-and-docs.svg" alt="A ticket's journey from idea through Draft and Backlog onto the sprint board (open, active, to test, done), until its outcome moves into the docs and the file is deleted. Below, the four places everything lives: open work in backlog/ plus the handout to the next chat, the sprint folder, the lasting docs in docs/ including the design styleguide and mockups, and memory, each file labelled with the skill that writes it." width="1000">
   </picture>
 </p>
 
